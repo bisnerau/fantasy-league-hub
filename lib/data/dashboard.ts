@@ -1,5 +1,6 @@
 import { leagueConfig } from '@/lib/config/league.config';
 import {
+  getDrafts,
   getLeague,
   getLeagueRosters,
   getLeagueUsers,
@@ -73,6 +74,25 @@ export type DashboardData = {
   activities: ActivityItem[];
   trending: TrendingItem[];
   narratives: string[];
+  draft: {
+    id: string;
+    startTime: number;
+    status: string;
+    type: string;
+    rounds: number;
+    pickTimer: number;
+    orderSet: boolean;
+    maxKeepers: number;
+    rosterSize: number;
+  } | null;
+  reigningChampion: {
+    teamName: string;
+    ownerName: string;
+    avatar: string | null;
+    wins: number;
+    losses: number;
+    season: string;
+  } | null;
 };
 
 const DEMO_NAMES = [
@@ -145,6 +165,8 @@ function demoData(): DashboardData {
       'Only 0.5 points separated Sunday Scaries and Goal Line Stand—the closest finish this season.',
       'Gridiron Ghosts moved into the No. 2 seed after a league-high 146.8 points last week.',
     ],
+    draft: null,
+    reigningChampion: null,
   };
 }
 
@@ -173,7 +195,11 @@ function createStandings(rosters: SleeperRoster[], users: SleeperUser[]) {
         ownerId: roster.owner_id ?? '',
         teamName: teamNameFor(user, roster),
         ownerName: user?.display_name ?? 'Unassigned',
-        avatar: leagueConfig.teamAvatarOverrides[roster.owner_id ?? ''] ?? user?.avatar ?? null,
+        avatar:
+          leagueConfig.teamAvatarOverrides[roster.owner_id ?? ''] ??
+          user?.metadata?.avatar ??
+          user?.avatar ??
+          null,
         wins: roster.settings.wins,
         losses: roster.settings.losses,
         ties: roster.settings.ties,
@@ -285,6 +311,31 @@ function createActivities(
     });
 }
 
+async function getReigningChampion(previousLeagueId: string | null) {
+  if (!previousLeagueId) return null;
+  try {
+    const [league, users, rosters] = await Promise.all([
+      getLeague(previousLeagueId),
+      getLeagueUsers(previousLeagueId),
+      getLeagueRosters(previousLeagueId),
+    ]);
+    const winningRosterId = Number(league.metadata?.latest_league_winner_roster_id ?? 0);
+    const roster = rosters.find((candidate) => candidate.roster_id === winningRosterId);
+    if (!roster) return null;
+    const user = users.find((candidate) => candidate.user_id === roster.owner_id);
+    return {
+      teamName: teamNameFor(user, roster),
+      ownerName: user?.display_name ?? 'League champion',
+      avatar: user?.metadata?.avatar ?? user?.avatar ?? null,
+      wins: roster.settings.wins,
+      losses: roster.settings.losses,
+      season: league.season,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export async function getDashboardData(): Promise<DashboardData> {
   const leagueId = leagueConfig.sleeperLeagueId;
   if (!leagueId) return demoData();
@@ -294,7 +345,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     const league = await getLeague(leagueId);
     const week = league.status === 'complete' ? Number(league.settings.last_scored_leg ?? state.week) : state.week;
     const completedWeekCount = league.status === 'complete' ? week : Math.max(0, week - 1);
-    const [users, rosters, matchups, transactions, trending, players, completedWeeks] = await Promise.all([
+    const [users, rosters, matchups, transactions, trending, players, completedWeeks, drafts, reigningChampion] = await Promise.all([
       getLeagueUsers(leagueId),
       getLeagueRosters(leagueId),
       getMatchups(leagueId, week),
@@ -302,6 +353,8 @@ export async function getDashboardData(): Promise<DashboardData> {
       getTrendingPlayers('add', 5),
       getPlayers(),
       Promise.all(Array.from({ length: completedWeekCount }, (_, index) => getMatchups(leagueId, index + 1))),
+      getDrafts(leagueId),
+      getReigningChampion(league.previous_league_id),
     ]);
     const standings = addWeeklyPerformance(createStandings(rosters, users), completedWeeks);
     const rostered = new Map(rosters.flatMap((roster) => (roster.players ?? []).map((id) => [id, roster.roster_id] as const)));
@@ -309,6 +362,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     const matchupCards = createMatchups(matchups, standings, league.status === 'in_season');
     const high = [...matchupCards].flatMap((m) => [[m.home.teamName, m.homeScore] as const, [m.away.teamName, m.awayScore] as const]).sort((a, b) => b[1] - a[1])[0];
 
+    const draft = drafts[0];
     return {
       mode: 'live',
       leagueName: league.name,
@@ -337,6 +391,20 @@ export async function getDashboardData(): Promise<DashboardData> {
         `${standings[0]?.teamName ?? 'The leader'} holds the top seed at ${standings[0]?.wins ?? 0}-${standings[0]?.losses ?? 0}.`,
         `${standings.filter((team) => team.wins >= (standings[5]?.wins ?? 0)).length} teams are currently at or above the playoff line.`,
       ],
+      draft: draft
+        ? {
+            id: draft.draft_id,
+            startTime: draft.start_time,
+            status: draft.status,
+            type: draft.type,
+            rounds: draft.settings.rounds ?? draft.rounds,
+            pickTimer: draft.settings.pick_timer ?? 0,
+            orderSet: Boolean(draft.draft_order && Object.keys(draft.draft_order).length),
+            maxKeepers: Number(league.settings.max_keepers ?? 0),
+            rosterSize: league.roster_positions.length,
+          }
+        : null,
+      reigningChampion,
     };
   } catch {
     return demoData();

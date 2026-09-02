@@ -4,6 +4,7 @@ import './globals.css';
 import { LeagueShell } from '@/components/shared/league-shell';
 import { QueryProvider } from '@/components/shared/query-provider';
 import { leagueConfig } from '@/lib/config/league.config';
+import { getLeague } from '@/lib/sleeper/client';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,11 +37,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const league = leagueConfig.sleeperLeagueId
+    ? await getLeague(leagueConfig.sleeperLeagueId).catch(() => null)
+    : null;
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
@@ -59,7 +64,7 @@ export default function RootLayout({
         } as React.CSSProperties}
       >
         <QueryProvider>
-          <LeagueShell>{children}</LeagueShell>
+          <LeagueShell leagueAvatar={league?.avatar ?? null}>{children}</LeagueShell>
         </QueryProvider>
       </body>
     </html>

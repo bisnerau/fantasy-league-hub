@@ -1,142 +1,256 @@
-import { ArrowUpRight, CircleDollarSign, Flame, Radio, Repeat2, Sparkles, UserPlus } from 'lucide-react';
+import Link from 'next/link';
+import {
+  AlertCircle,
+  ArrowRight,
+  CalendarDays,
+  Check,
+  ChevronRight,
+  Clock3,
+  Crown,
+  Flame,
+  History,
+  ListOrdered,
+  Repeat2,
+  ShieldCheck,
+  Trophy,
+  UserPlus,
+  UsersRound,
+} from 'lucide-react';
+
+import { DraftCountdown } from '@/components/draft/draft-countdown';
+import { TeamAvatar } from '@/components/shared/team-avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { MatchupCard } from '@/components/cards/matchup-card';
-import { StandingsSnapshot } from '@/components/cards/standings-snapshot';
 import { getDashboardData } from '@/lib/data/dashboard';
-
-export const revalidate = 300;
 
 const activityIcons = {
   trade: Repeat2,
-  waiver: CircleDollarSign,
+  waiver: ShieldCheck,
   free_agent: UserPlus,
 };
 
-export default async function Home() {
+function formatDraftDate(startTime: number) {
+  return new Intl.DateTimeFormat('en-IE', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Dublin',
+  }).format(new Date(startTime));
+}
+
+export default async function DashboardPage() {
   const data = await getDashboardData();
-  const highScorer = data.matchups
-    .flatMap((matchup) => [
-      { team: matchup.home, score: matchup.homeScore },
-      { team: matchup.away, score: matchup.awayScore },
-    ])
-    .sort((a, b) => b.score - a.score)[0];
+  const draft = data.draft;
+  const champion = data.reigningChampion;
 
   return (
-    <div className="space-y-6">
-      {data.mode === 'demo' && (
-        <output className="setup-banner">
-          <span className="flex items-center gap-2 font-bold text-foreground"><Radio className="size-4 text-primary" /> Demo league on the field</span>
-          <span>Add your Sleeper ID to <code>NEXT_PUBLIC_SLEEPER_LEAGUE_ID</code> and this board switches to live data automatically.</span>
-        </output>
-      )}
-
-      <section className="dashboard-hero">
+    <div className="space-y-4 sm:space-y-5">
+      <section className="draft-page-heading">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="live-dot" />
-            <p className="section-kicker">{data.statusLabel}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="ui-kicker">2026 draft room</span>
+            <span className="status-pill status-pill-live"><span className="live-dot" /> League connected</span>
           </div>
-          <h1 className="mt-3 max-w-3xl font-heading text-3xl font-black leading-[0.98] tracking-[-0.045em] sm:text-5xl lg:text-[54px]">
-            The league moves<br /><span className="text-primary">on Sundays.</span>
+          <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-[-0.045em] text-foreground sm:text-4xl lg:text-[46px]">
+            Draft day is almost here.
           </h1>
-          <p className="mt-4 max-w-xl text-sm leading-6 text-muted-foreground">Scores, playoff pressure and every move that changes the week—one live board for the whole league.</p>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+            Everything MAC 12 needs before the clock starts—league status, managers, settings and players moving up draft boards.
+          </p>
         </div>
-        <div className="hero-record">
-          <p className="section-kicker">Week’s pace setter</p>
-          <div className="mt-3 flex items-end justify-between gap-5">
-            <div>
-              <p className="max-w-[180px] font-heading text-lg font-black leading-tight">{highScorer?.team.teamName ?? 'Kickoff pending'}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{highScorer?.team.ownerName ?? 'Scores arrive here'}</p>
-            </div>
-            <span className="score-number text-4xl text-primary sm:text-5xl">{highScorer?.score.toFixed(1) ?? '—'}</span>
-          </div>
-          <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/8"><div className="h-full w-[82%] rounded-full bg-primary shadow-[0_0_14px_var(--league-primary)]" /></div>
+        <div className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
+          <CalendarDays className="size-4 text-primary" />
+          {draft ? formatDraftDate(draft.startTime) : 'Draft date pending'}
         </div>
       </section>
 
-      <section>
-        <div className="mb-3 flex items-end justify-between">
-          <div>
-            <p className="section-kicker">Scoreboard</p>
-            <h2 className="mt-1 font-heading text-xl font-black tracking-tight">This week’s matchups</h2>
-          </div>
-          <span className="text-[10px] font-medium text-muted-foreground">{data.updatedAt}</span>
-        </div>
-        {data.matchups.length ? (
-          <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
-            {data.matchups.map((matchup) => <MatchupCard key={matchup.matchupId} matchup={matchup} />)}
-          </div>
+      <section className="grid gap-3 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,.72fr)]">
+        {draft ? (
+          <DraftCountdown startTime={draft.startTime} />
         ) : (
-          <Card className="items-center gap-2 border-dashed border-primary/20 bg-primary/[0.035] px-5 py-10 text-center">
-            <Radio className="size-5 text-primary" />
-            <p className="font-heading text-base font-black">The 2026 schedule lands after the draft.</p>
-            <p className="max-w-md text-xs leading-5 text-muted-foreground">League rosters are connected. Week 1 matchups will appear here automatically when Sleeper publishes them.</p>
-          </Card>
+          <div className="draft-countdown-card flex min-h-52 flex-col justify-between">
+            <span className="ui-kicker">Draft countdown</span>
+            <div>
+              <p className="text-2xl font-semibold tracking-tight">Waiting for Sleeper</p>
+              <p className="mt-2 text-sm text-muted-foreground">The countdown will appear when the draft is scheduled.</p>
+            </div>
+          </div>
         )}
+
+        <Card className="champion-spotlight gap-0 p-5 sm:p-6">
+          <div className="flex items-center justify-between gap-3">
+            <span className="ui-kicker">Defending champion</span>
+            <Crown className="size-4 text-amber-300" />
+          </div>
+          {champion ? (
+            <div className="mt-auto pt-8">
+              <TeamAvatar avatar={champion.avatar} name={champion.teamName} className="size-14 ring-4 ring-amber-300/10" />
+              <p className="mt-4 text-xl font-semibold tracking-[-0.025em]">{champion.teamName}</p>
+              <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+                <span>{champion.ownerName}</span>
+                <span className="text-white/15">•</span>
+                <span>{champion.wins}–{champion.losses} in {champion.season}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-auto pt-8 text-sm text-muted-foreground">Champion history is syncing.</div>
+          )}
+        </Card>
       </section>
 
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(300px,.8fr)]">
-        <div className="grid gap-4 md:grid-cols-2">
-          <StandingsSnapshot standings={data.standings} />
-
-          <Card className="gap-0 p-0">
-            <div className="border-b border-white/8 px-4 py-4 sm:px-5">
-              <p className="section-kicker">League wire</p>
-              <h2 className="mt-1 font-heading text-lg font-black tracking-tight">Latest moves</h2>
+      <Card className="linear-panel gap-0 py-0">
+        <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
+          <div className="flex items-center gap-2.5">
+            <UsersRound className="size-4 text-primary" />
+            <h2 className="text-sm font-medium">The league</h2>
+          </div>
+          <span className="text-[11px] text-muted-foreground">{data.standings.length}/12 managers connected</span>
+        </div>
+        <div className="team-rail">
+          {data.standings.map((team) => (
+            <div key={team.rosterId} className="team-chip">
+              <TeamAvatar avatar={team.avatar} name={team.teamName} className="size-10" />
+              <div className="min-w-0">
+                <p className="truncate text-xs font-medium text-foreground">{team.teamName}</p>
+                <p className="mt-0.5 truncate text-[10px] text-muted-foreground">{team.ownerName}</p>
+              </div>
             </div>
-            <div className="divide-y divide-white/[0.055]">
-              {data.activities.map((activity) => {
-                const Icon = activityIcons[activity.type];
-                return (
-                  <div key={activity.id} className="group flex gap-3 px-4 py-3.5 sm:px-5">
-                    <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-white/8 bg-white/[0.035] text-primary"><Icon className="size-4" /></span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-start justify-between gap-2"><p className="text-xs font-bold">{activity.title}</p><span className="shrink-0 font-mono text-[9px] text-muted-foreground">{activity.time}</span></div>
-                      <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-muted-foreground">{activity.detail}</p>
-                    </div>
+          ))}
+        </div>
+      </Card>
+
+      <section className="grid gap-3 lg:grid-cols-[minmax(0,1.5fr)_minmax(280px,.72fr)]">
+        <Card className="linear-panel gap-0 py-0">
+          <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
+            <div>
+              <span className="ui-kicker">League setup</span>
+              <h2 className="mt-1 text-base font-medium">Draft settings</h2>
+            </div>
+            <Badge variant="outline" className="border-white/10 bg-white/[0.025] text-[10px] text-muted-foreground">Sleeper verified</Badge>
+          </div>
+
+          <div className="grid sm:grid-cols-2">
+            <div className="draft-setting-row">
+              <CalendarDays />
+              <div><span>Date & time</span><strong>{draft ? formatDraftDate(draft.startTime) : 'Pending'}</strong></div>
+            </div>
+            <div className="draft-setting-row sm:border-l">
+              <Repeat2 />
+              <div><span>Draft format</span><strong className="capitalize">{draft?.type ?? 'Snake'}</strong></div>
+            </div>
+            <div className="draft-setting-row border-t">
+              <ListOrdered />
+              <div><span>Rounds</span><strong>{draft?.rounds ?? 15} rounds</strong></div>
+            </div>
+            <div className="draft-setting-row border-t sm:border-l">
+              <Clock3 />
+              <div><span>Pick timer</span><strong>{draft?.pickTimer ?? 60} seconds</strong></div>
+            </div>
+            <div className="draft-setting-row border-t">
+              <Trophy />
+              <div><span>Keepers</span><strong>{draft?.maxKeepers ?? 1} maximum</strong></div>
+            </div>
+            <div className="draft-setting-row border-t sm:border-l">
+              <UsersRound />
+              <div><span>Roster</span><strong>{draft?.rosterSize ?? 15} total slots</strong></div>
+            </div>
+          </div>
+
+          <div className="m-3 mt-0 flex items-start gap-3 rounded-lg border border-amber-300/15 bg-amber-300/[0.045] p-3.5 sm:m-4 sm:mt-0">
+            <AlertCircle className="mt-0.5 size-4 shrink-0 text-amber-300" />
+            <div>
+              <p className="text-xs font-medium text-amber-100">Draft order is not set yet</p>
+              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">Sleeper has all 12 managers, but no pick order has been published. Set it before Sunday so everyone can mock from the right slot.</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="linear-panel gap-0 py-0">
+          <div className="border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
+            <span className="ui-kicker">Commissioner check</span>
+            <h2 className="mt-1 text-base font-medium">Draft readiness</h2>
+          </div>
+          <div className="p-3 sm:p-4">
+            {[
+              ['League filled', `${data.standings.length} of 12 managers`, true],
+              ['Draft scheduled', draft ? formatDraftDate(draft.startTime) : 'Not scheduled', Boolean(draft)],
+              ['Format confirmed', `${draft?.rounds ?? 15}-round ${draft?.type ?? 'snake'}`, true],
+              ['Pick order', draft?.orderSet ? 'Published' : 'Still required', Boolean(draft?.orderSet)],
+            ].map(([label, detail, done]) => (
+              <div key={String(label)} className="readiness-row">
+                <span className={done ? 'readiness-check readiness-check-done' : 'readiness-check readiness-check-open'}>
+                  {done ? <Check /> : <span />}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-medium">{label}</p>
+                  <p className="mt-0.5 truncate text-[10px] text-muted-foreground capitalize">{detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </section>
+
+      <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <Card className="linear-panel min-h-64 gap-0 py-0">
+          <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3.5">
+            <div className="flex items-center gap-2"><History className="size-4 text-primary" /><h2 className="text-sm font-medium">Latest moves</h2></div>
+            <span className="text-[10px] text-muted-foreground">League wire</span>
+          </div>
+          <div className="divide-y divide-white/[0.06]">
+            {data.activities.length ? data.activities.slice(0, 3).map((activity) => {
+              const Icon = activityIcons[activity.type];
+              return (
+                <div key={activity.id} className="flex gap-3 px-4 py-3.5">
+                  <span className="activity-icon"><Icon /></span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2"><p className="truncate text-xs font-medium">{activity.title}</p><span className="text-[9px] text-muted-foreground">{activity.time}</span></div>
+                    <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-muted-foreground">{activity.detail}</p>
                   </div>
-                );
-              })}
-            </div>
-          </Card>
-        </div>
-
-        <div className="space-y-4">
-          <Card className="overflow-hidden border-primary/15 bg-gradient-to-br from-primary/[0.09] via-card to-card p-5">
-            <div className="flex items-center justify-between"><span className="flex items-center gap-2"><Sparkles className="size-4 text-primary" /><span className="section-kicker text-primary">Season pulse</span></span><span className="font-mono text-[9px] text-muted-foreground">AUTO-DETECTED</span></div>
-            <div className="mt-5 space-y-4">
-              {data.narratives.map((narrative, index) => (
-                <div key={narrative} className="grid grid-cols-[22px_1fr] gap-3">
-                  <span className="font-mono text-xs font-black text-primary/50">0{index + 1}</span>
-                  <p className="text-xs font-semibold leading-5">{narrative}</p>
                 </div>
-              ))}
-            </div>
-          </Card>
+              );
+            }) : (
+              <div className="flex min-h-48 flex-col items-center justify-center px-6 text-center">
+                <span className="activity-icon"><History /></span>
+                <p className="mt-3 text-xs font-medium">The wire is quiet</p>
+                <p className="mt-1 max-w-56 text-[10px] leading-4 text-muted-foreground">Moves will appear here as managers start shaping their post-draft rosters.</p>
+              </div>
+            )}
+          </div>
+        </Card>
 
-          <Card className="gap-0 p-0">
-            <div className="flex items-center justify-between border-b border-white/8 px-4 py-4 sm:px-5">
-              <div><p className="section-kicker">Sleeper trends</p><h2 className="mt-1 font-heading text-lg font-black">Hot on the wire</h2></div>
-              <Flame className="size-5 text-accent" />
-            </div>
-            <div className="divide-y divide-white/[0.055]">
-              {data.trending.map((player, index) => (
-                <div key={player.id} className="grid grid-cols-[24px_minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-5">
-                  <span className="font-mono text-xs font-black text-muted-foreground">{index + 1}</span>
-                  <div className="min-w-0"><p className="truncate text-xs font-bold">{player.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{player.position} · {player.team} · {player.count.toLocaleString()} adds</p></div>
-                  {player.available ? <Badge className="bg-primary/10 text-[9px] font-bold text-primary">AVAILABLE</Badge> : <span className="max-w-24 truncate text-[9px] text-muted-foreground">{player.rosteredBy}</span>}
-                </div>
-              ))}
-            </div>
-          </Card>
-        </div>
-      </div>
+        <Card className="linear-panel min-h-64 gap-0 py-0">
+          <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3.5">
+            <div className="flex items-center gap-2"><Flame className="size-4 text-orange-300" /><h2 className="text-sm font-medium">Rising on Sleeper</h2></div>
+            <Link href="/" className="text-[10px] text-primary">Live trends</Link>
+          </div>
+          <div className="divide-y divide-white/[0.06]">
+            {data.trending.map((player, index) => (
+              <div key={player.id} className="flex items-center gap-3 px-4 py-3.5">
+                <span className="font-mono text-[10px] text-white/25">0{index + 1}</span>
+                <span className="flex size-8 items-center justify-center rounded-md bg-white/[0.045] text-[10px] font-semibold text-muted-foreground">{player.position}</span>
+                <div className="min-w-0 flex-1"><p className="truncate text-xs font-medium">{player.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{player.team} · {player.count.toLocaleString()} adds</p></div>
+                <Badge variant="outline" className={player.available ? 'border-emerald-300/15 bg-emerald-300/[0.05] text-[9px] text-emerald-300' : 'border-white/10 text-[9px] text-muted-foreground'}>{player.available ? 'Available' : 'Rostered'}</Badge>
+              </div>
+            ))}
+          </div>
+        </Card>
 
-      <footer className="flex flex-col justify-between gap-3 border-t border-white/8 pt-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground sm:flex-row">
-        <span>{data.leagueName} · {data.season}</span>
-        <span className="flex items-center gap-1.5">Powered by Sleeper data <ArrowUpRight className="size-3" /></span>
-      </footer>
+        <Link href="/records" className="record-cta group min-h-64">
+          <div className="flex items-center justify-between">
+            <span className="ui-kicker text-white/45">Seven seasons of MAC 12</span>
+            <ChevronRight className="size-4 text-white/30 transition-transform group-hover:translate-x-1" />
+          </div>
+          <div className="mt-auto">
+            <span className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05]"><Trophy className="size-5 text-amber-300" /></span>
+            <h2 className="mt-4 text-2xl font-semibold tracking-[-0.035em]">Know the history.</h2>
+            <p className="mt-2 text-xs leading-5 text-white/45">Champions, podiums and every final table from 2020 through today.</p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-medium text-white">Open record book <ArrowRight className="size-3.5" /></span>
+          </div>
+        </Link>
+      </section>
     </div>
   );
 }

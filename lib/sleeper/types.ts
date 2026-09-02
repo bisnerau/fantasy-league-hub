@@ -5,6 +5,7 @@ export type SleeperLeague = {
   status: 'pre_draft' | 'drafting' | 'in_season' | 'complete';
   total_rosters: number;
   previous_league_id: string | null;
+  avatar?: string | null;
   roster_positions: string[];
   settings: Record<string, number | null>;
   scoring_settings: Record<string, number>;
@@ -68,9 +69,12 @@ export type SleeperDraft = {
   season: string;
   type: string;
   status: string;
+  start_time: number;
   rounds: number;
   settings: Record<string, number>;
   slot_to_roster_id: Record<string, number>;
+  draft_order?: Record<string, number> | null;
+  metadata?: Record<string, string> | null;
 };
 
 export type SleeperDraftPick = {

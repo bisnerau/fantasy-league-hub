@@ -49,72 +49,72 @@
 }
 
 :root {
-  --background: #f4f5ef;
-  --foreground: #161a13;
+  --background: #f7f7f9;
+  --foreground: #18181b;
   --card: #ffffff;
-  --card-foreground: #161a13;
+  --card-foreground: #18181b;
   --popover: #ffffff;
-  --popover-foreground: #161a13;
-  --primary: #6f9f00;
+  --popover-foreground: #18181b;
+  --primary: #6755d9;
   --primary-foreground: #ffffff;
-  --secondary: #7c5cff;
+  --secondary: #8172e8;
   --secondary-foreground: #ffffff;
-  --muted: #e9ebe3;
-  --muted-foreground: #6c7467;
-  --accent: #d94b18;
+  --muted: #ededf1;
+  --muted-foreground: #71717a;
+  --accent: #20a56b;
   --accent-foreground: #ffffff;
   --destructive: #dc2626;
-  --border: #dfe3d8;
-  --input: #dfe3d8;
-  --ring: #6f9f00;
-  --chart-1: #6f9f00;
-  --chart-2: #7c5cff;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #6755d9;
+  --chart-1: #6755d9;
+  --chart-2: #8172e8;
   --chart-3: #d94b18;
   --chart-4: #13a4a4;
   --chart-5: #e6a117;
-  --radius: 0.75rem;
-  --sidebar: #eceee7;
-  --sidebar-foreground: #161a13;
-  --sidebar-primary: #6f9f00;
+  --radius: 0.625rem;
+  --sidebar: #f1f1f4;
+  --sidebar-foreground: #18181b;
+  --sidebar-primary: #6755d9;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #dfe3d8;
-  --sidebar-accent-foreground: #161a13;
-  --sidebar-border: #dfe3d8;
-  --sidebar-ring: #6f9f00;
+  --sidebar-accent: #e8e8ed;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e0e0e5;
+  --sidebar-ring: #6755d9;
 }
 
 .dark {
-  --background: #0b0e0a;
-  --foreground: #f4f6ef;
-  --card: #141812;
-  --card-foreground: #f4f6ef;
-  --popover: #141812;
-  --popover-foreground: #f4f6ef;
-  --primary: #c8ff3d;
-  --primary-foreground: #10150a;
-  --secondary: #8c73ff;
+  --background: #0a0a0c;
+  --foreground: #f4f4f5;
+  --card: #111114;
+  --card-foreground: #f4f4f5;
+  --popover: #111114;
+  --popover-foreground: #f4f4f5;
+  --primary: #8b7cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #7668dc;
   --secondary-foreground: #ffffff;
-  --muted: #20251d;
-  --muted-foreground: #8f998a;
-  --accent: #ff7a45;
-  --accent-foreground: #160b05;
+  --muted: #1a1a1f;
+  --muted-foreground: #8b8b95;
+  --accent: #5bd6a0;
+  --accent-foreground: #06150e;
   --destructive: #ff5c5c;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #c8ff3d;
-  --chart-1: #c8ff3d;
-  --chart-2: #8c73ff;
+  --border: rgba(255, 255, 255, 0.085);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #8b7cf6;
+  --chart-1: #8b7cf6;
+  --chart-2: #5bd6a0;
   --chart-3: #ff7a45;
   --chart-4: #42d6d0;
   --chart-5: #ffd05a;
-  --sidebar: #0e110d;
-  --sidebar-foreground: #f4f6ef;
-  --sidebar-primary: #c8ff3d;
-  --sidebar-primary-foreground: #10150a;
-  --sidebar-accent: #1a1f17;
-  --sidebar-accent-foreground: #f4f6ef;
+  --sidebar: #0d0d10;
+  --sidebar-foreground: #f4f4f5;
+  --sidebar-primary: #8b7cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #19191e;
+  --sidebar-accent-foreground: #f4f4f5;
   --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #c8ff3d;
+  --sidebar-ring: #8b7cf6;
 }
 
 @layer base {
@@ -123,48 +123,75 @@
   body {
     @apply bg-background text-foreground;
     min-width: 320px;
-    background-image: radial-gradient(circle at 78% 0%, color-mix(in srgb, var(--secondary) 8%, transparent), transparent 28rem);
+    font-family: var(--font-geist-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+    background-image: radial-gradient(circle at 76% -10%, color-mix(in srgb, var(--secondary) 10%, transparent), transparent 30rem);
   }
+  button, input, textarea, select { font: inherit; }
   button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 @layer components {
   .brand-mark {
-    @apply flex size-10 shrink-0 -skew-x-6 items-center justify-center rounded-lg bg-primary font-heading text-xs font-black text-primary-foreground shadow-[0_0_24px_color-mix(in_srgb,var(--primary)_20%,transparent)];
+    @apply flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-[9px] border border-white/10 bg-primary font-heading text-[11px] font-black text-primary-foreground shadow-[0_6px_22px_color-mix(in_srgb,var(--primary)_18%,transparent)];
   }
   .brand-mark-sm { @apply size-8 text-[10px]; }
-  .nav-eyebrow, .section-kicker, .metric-label {
-    @apply text-[9px] font-black uppercase tracking-[0.18em] text-muted-foreground;
+  .nav-eyebrow, .section-kicker, .metric-label, .ui-kicker {
+    @apply text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground;
   }
   .nav-eyebrow { @apply px-3; }
   .nav-item {
-    @apply flex h-10 items-center gap-3 rounded-lg px-3 text-xs font-semibold text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground;
+    @apply flex h-9 items-center gap-2.5 rounded-lg px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-white/[0.045] hover:text-foreground;
   }
-  .nav-item-active { @apply bg-white/[0.065] text-foreground shadow-[inset_3px_0_0_var(--primary)]; }
+  .nav-item-active { @apply bg-white/[0.065] text-foreground ring-1 ring-inset ring-white/[0.055]; }
   .mobile-nav-item {
     @apply flex h-12 items-center justify-center gap-2 rounded-xl text-[10px] font-bold uppercase tracking-wider text-white/45;
   }
-  .mobile-nav-item-active { @apply bg-primary text-primary-foreground; }
+  .mobile-nav-item-active { @apply bg-primary/15 text-primary ring-1 ring-inset ring-primary/15; }
   .live-dot {
-    @apply inline-block size-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_10px_var(--primary)];
+    @apply inline-block size-1.5 shrink-0 rounded-full bg-emerald-300 shadow-[0_0_10px_color-mix(in_srgb,var(--accent)_70%,transparent)];
     animation: pulse-live 1.8s ease-in-out infinite;
   }
   .setup-banner {
     @apply flex flex-col gap-1 rounded-xl border border-primary/20 bg-primary/[0.065] px-4 py-3 text-[11px] leading-5 text-muted-foreground sm:flex-row sm:items-center sm:justify-between;
   }
-  .dashboard-hero {
-    @apply relative grid min-h-[280px] overflow-hidden rounded-2xl border border-white/10 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end lg:gap-10 lg:p-10;
+  .draft-page-heading { @apply flex items-end justify-between gap-6 py-2 sm:py-4; }
+  .linear-panel { @apply border border-white/[0.075] bg-card/90 shadow-[0_1px_0_rgba(255,255,255,0.025)_inset,0_18px_50px_rgba(0,0,0,0.10)]; }
+  .draft-countdown-card {
+    @apply relative overflow-hidden rounded-xl border border-primary/20 p-5 shadow-[0_1px_0_rgba(255,255,255,0.04)_inset,0_24px_80px_rgba(0,0,0,0.16)] sm:p-6;
     background:
-      linear-gradient(90deg, color-mix(in srgb, var(--background) 94%, transparent), color-mix(in srgb, var(--background) 74%, transparent)),
-      repeating-linear-gradient(90deg, transparent 0, transparent 59px, color-mix(in srgb, var(--foreground) 4%, transparent) 60px),
-      repeating-linear-gradient(0deg, transparent 0, transparent 59px, color-mix(in srgb, var(--foreground) 4%, transparent) 60px),
-      linear-gradient(135deg, color-mix(in srgb, var(--secondary) 18%, transparent), transparent 45%);
+      radial-gradient(circle at 88% 15%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 20rem),
+      linear-gradient(135deg, color-mix(in srgb, var(--card) 96%, var(--primary)), var(--card));
   }
-  .dashboard-hero::after {
+  .draft-countdown-card::after {
     content: '';
-    @apply pointer-events-none absolute -right-12 -top-28 size-80 rounded-full border-[64px] border-primary/[0.035];
+    @apply pointer-events-none absolute -right-16 -top-28 size-60 rounded-full border-[44px] border-primary/[0.045];
   }
-  .hero-record { @apply relative z-10 mt-8 rounded-xl border border-white/10 bg-black/20 p-4 backdrop-blur-sm lg:mt-0; }
+  .champion-spotlight {
+    @apply relative min-h-52 border border-amber-200/10 shadow-[0_1px_0_rgba(255,255,255,0.025)_inset];
+    background: radial-gradient(circle at 90% 4%, rgba(251,191,36,.12), transparent 13rem), var(--card);
+  }
+  .status-pill { @apply inline-flex h-5 items-center gap-1.5 rounded-full border px-2 text-[9px] font-medium; }
+  .status-pill-live { @apply border-emerald-300/15 bg-emerald-300/[0.055] text-emerald-300; }
+  .status-pill-warning { @apply border-amber-300/15 bg-amber-300/[0.055] text-amber-200; }
+  .team-rail { @apply grid grid-flow-col auto-cols-[minmax(160px,1fr)] gap-2 overflow-x-auto p-3 sm:auto-cols-[minmax(175px,1fr)] sm:p-4 lg:grid-flow-row lg:grid-cols-4 xl:grid-cols-6; scrollbar-width: thin; }
+  .team-chip { @apply flex min-w-0 items-center gap-2.5 rounded-lg border border-white/[0.065] bg-white/[0.022] p-2.5 transition-colors hover:bg-white/[0.045]; }
+  .draft-setting-row { @apply flex min-h-[74px] items-center gap-3 border-white/[0.07] px-4 py-3.5 sm:px-5; }
+  .draft-setting-row > svg { @apply size-4 shrink-0 text-primary; }
+  .draft-setting-row span { @apply block text-[9px] text-muted-foreground; }
+  .draft-setting-row strong { @apply mt-1 block text-xs font-medium text-foreground; }
+  .readiness-row { @apply flex items-center gap-3 border-b border-white/[0.06] px-1 py-3 last:border-0; }
+  .readiness-check { @apply flex size-6 shrink-0 items-center justify-center rounded-full border; }
+  .readiness-check svg { @apply size-3.5; }
+  .readiness-check-done { @apply border-emerald-300/15 bg-emerald-300/[0.07] text-emerald-300; }
+  .readiness-check-open { @apply border-amber-300/20 bg-amber-300/[0.04]; }
+  .readiness-check-open span { @apply size-1.5 rounded-full bg-amber-300; }
+  .activity-icon { @apply flex size-8 shrink-0 items-center justify-center rounded-md border border-white/[0.065] bg-white/[0.03] text-muted-foreground; }
+  .activity-icon svg { @apply size-3.5; }
+  .record-cta {
+    @apply relative flex overflow-hidden rounded-xl border border-white/[0.085] p-5 text-white shadow-[0_1px_0_rgba(255,255,255,.05)_inset,0_22px_60px_rgba(0,0,0,.16)];
+    background: radial-gradient(circle at 88% 8%, rgba(139,124,246,.42), transparent 18rem), linear-gradient(145deg, #242134, #111116 70%);
+  }
+  .record-cta::after { content: ''; @apply pointer-events-none absolute -right-16 -top-20 size-48 rounded-full border-[36px] border-white/[0.025]; }
   .score-number { @apply font-mono font-black tracking-[-0.08em]; }
   .matchup-card { @apply transition duration-200 hover:-translate-y-0.5 hover:ring-primary/25; }
   .records-hero {
