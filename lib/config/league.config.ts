@@ -15,9 +15,9 @@ export type LeagueBranding = {
 
 export const leagueConfig: LeagueBranding = {
   sleeperLeagueId: process.env.NEXT_PUBLIC_SLEEPER_LEAGUE_ID ?? '',
-  name: 'Sunday Syndicate',
-  shortName: 'SS',
-  tagline: 'Twelve teams. One trophy. No quiet Sundays.',
+  name: 'MAC 12',
+  shortName: 'M12',
+  tagline: 'Twelve managers. One champion. Est. 2020.',
   season: undefined,
   colors: {
     primary: '#c8ff3d',

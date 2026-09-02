@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart3, Home, Radio, Settings2, Trophy } from 'lucide-react';
+import { BarChart3, BookOpen, Home, Radio, Settings2, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './theme-toggle';
@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 const mainNavigation = [
   { label: 'Clubhouse', href: '/', icon: Home },
   { label: 'Standings', href: '/standings', icon: BarChart3 },
+  { label: 'Record book', href: '/records', icon: BookOpen },
 ];
 
 const upcoming = ['Power rankings', 'Matchup center', 'Draft room', 'Trade center', 'Wall of shame'];
@@ -87,7 +88,7 @@ export function LeagueShell({ children }: { children: React.ReactNode }) {
         <main className="mx-auto w-full max-w-[1460px] px-4 pb-28 pt-5 sm:px-6 sm:pt-7 lg:px-8 lg:pb-12">{children}</main>
       </div>
 
-      <nav className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-2 rounded-2xl border border-white/10 bg-[#11140f]/95 p-1.5 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+      <nav className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-3 rounded-2xl border border-white/10 bg-[#11140f]/95 p-1.5 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
         {mainNavigation.map((item) => {
           const active = pathname === item.href;
           const Icon = item.icon;

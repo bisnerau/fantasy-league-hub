@@ -167,6 +167,16 @@
   .hero-record { @apply relative z-10 mt-8 rounded-xl border border-white/10 bg-black/20 p-4 backdrop-blur-sm lg:mt-0; }
   .score-number { @apply font-mono font-black tracking-[-0.08em]; }
   .matchup-card { @apply transition duration-200 hover:-translate-y-0.5 hover:ring-primary/25; }
+  .records-hero {
+    @apply relative grid overflow-hidden rounded-2xl border border-white/10 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-end lg:gap-10 lg:p-10;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--secondary) 15%, transparent), transparent 42%), repeating-linear-gradient(90deg, transparent 0, transparent 59px, color-mix(in srgb, var(--foreground) 4%, transparent) 60px);
+  }
+  .records-hero::after { content: ''; @apply pointer-events-none absolute -right-20 -top-44 size-[28rem] rounded-full border-[80px] border-primary/[0.035]; }
+  .record-stat { @apply flex min-h-24 flex-col justify-end rounded-xl border border-white/10 bg-black/20 p-3 backdrop-blur-sm; }
+  .record-stat span { @apply font-mono text-2xl font-black tracking-[-0.08em] text-primary sm:text-3xl; }
+  .record-stat small { @apply mt-1 text-[8px] font-black uppercase tracking-[0.12em] text-muted-foreground; }
+  .champion-card { @apply transition duration-200 hover:-translate-y-0.5 hover:ring-primary/25; }
+  .champion-medal { @apply flex size-16 items-center justify-center rounded-full border border-primary/25 bg-primary/10 text-primary ring-8 ring-white/[0.025]; box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--franchise) 55%, transparent); }
 }
 
 @keyframes pulse-live {

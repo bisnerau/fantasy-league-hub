@@ -63,9 +63,17 @@ export default async function Home() {
           </div>
           <span className="text-[10px] font-medium text-muted-foreground">{data.updatedAt}</span>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
-          {data.matchups.map((matchup) => <MatchupCard key={matchup.matchupId} matchup={matchup} />)}
-        </div>
+        {data.matchups.length ? (
+          <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
+            {data.matchups.map((matchup) => <MatchupCard key={matchup.matchupId} matchup={matchup} />)}
+          </div>
+        ) : (
+          <Card className="items-center gap-2 border-dashed border-primary/20 bg-primary/[0.035] px-5 py-10 text-center">
+            <Radio className="size-5 text-primary" />
+            <p className="font-heading text-base font-black">The 2026 schedule lands after the draft.</p>
+            <p className="max-w-md text-xs leading-5 text-muted-foreground">League rosters are connected. Week 1 matchups will appear here automatically when Sleeper publishes them.</p>
+          </Card>
+        )}
       </section>
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(300px,.8fr)]">

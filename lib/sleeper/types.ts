@@ -86,6 +86,7 @@ export type SleeperDraftPick = {
 export type SleeperBracketMatch = {
   r: number;
   m: number;
+  p?: number;
   t1: number | null;
   t2: number | null;
   w?: number | null;
