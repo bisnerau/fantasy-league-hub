@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://sunday-syndicate-hub.emmet793061.chatgpt.site'),
   title: {
     default: `${leagueConfig.name} · League Hub`,
     template: `%s · ${leagueConfig.name}`,
