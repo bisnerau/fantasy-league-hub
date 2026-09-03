@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart3, BookOpen, Home, Radio, Settings2, Trophy } from 'lucide-react';
+import { BarChart3, BookOpen, Home, Radio, Settings2, Skull, Trophy } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './theme-toggle';
@@ -11,9 +11,10 @@ const mainNavigation = [
   { label: 'Clubhouse', href: '/', icon: Home },
   { label: 'Standings', href: '/standings', icon: BarChart3 },
   { label: 'Record book', href: '/records', icon: BookOpen },
+  { label: 'Wall of shame', href: '/wall-of-shame', icon: Skull },
 ];
 
-const upcoming = ['Power rankings', 'Matchup center', 'Draft room', 'Trade center', 'Wall of shame'];
+const upcoming = ['Power rankings', 'Matchup center', 'Draft room', 'Trade center'];
 
 export function LeagueShell({ children, leagueAvatar }: { children: React.ReactNode; leagueAvatar: string | null }) {
   const pathname = usePathname();
@@ -90,7 +91,7 @@ export function LeagueShell({ children, leagueAvatar }: { children: React.ReactN
         <main className="mx-auto w-full max-w-[1320px] px-4 pb-28 pt-5 sm:px-6 sm:pt-7 lg:px-7 lg:pb-12">{children}</main>
       </div>
 
-      <nav className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-3 rounded-2xl border border-white/10 bg-[#11140f]/95 p-1.5 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+      <nav className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-4 rounded-2xl border border-white/10 bg-[#11140f]/95 p-1.5 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
         {mainNavigation.map((item) => {
           const active = pathname === item.href;
           const Icon = item.icon;
