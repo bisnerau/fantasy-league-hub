@@ -122,16 +122,18 @@ export default async function WallOfShamePage() {
                       name={forfeit.teamName}
                       className="size-8"
                     />
-                    <span className="font-heading text-lg font-black">
-                      {forfeit.managerName || forfeit.teamName}
-                    </span>
+                    <div>
+                      <span className="font-heading text-lg font-black">
+                        {forfeit.teamName}
+                      </span>
+                      {forfeit.managerName && (
+                        <p className="mt-0.5 text-xs text-muted-foreground">
+                          {forfeit.managerName.split(' ')[0]}
+                          {forfeit.record ? ` · ${forfeit.record}` : ''}
+                        </p>
+                      )}
+                    </div>
                   </div>
-
-                  {forfeit.managerName && (
-                    <p className="mt-0.5 text-xs text-muted-foreground">
-                      {forfeit.teamName} · {forfeit.record}
-                    </p>
-                  )}
 
                   {forfeit.forfeit ? (
                     <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground">
