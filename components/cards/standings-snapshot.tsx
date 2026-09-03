@@ -43,7 +43,7 @@ export function StandingsSnapshot({
             <div className="min-w-0">
               <p className="truncate text-xs font-bold">{team.teamName}</p>
               <p className="truncate text-[10px] text-muted-foreground">
-                {team.ownerName}
+                <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="hover:text-primary">{team.ownerName}</a>
               </p>
             </div>
             <div className="text-right">

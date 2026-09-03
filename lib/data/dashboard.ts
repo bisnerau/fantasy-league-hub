@@ -1,4 +1,5 @@
 import { leagueConfig } from '@/lib/config/league.config';
+import { ownerFranchiseMap } from '@/lib/data/verified-history';
 import {
   getDrafts,
   getLeague,
@@ -21,6 +22,7 @@ import type {
 export type TeamStanding = {
   rosterId: number;
   ownerId: string;
+  franchiseId: string | null;
   teamName: string;
   ownerName: string;
   avatar: string | null;
@@ -89,6 +91,7 @@ export type DashboardData = {
   reigningChampion: {
     teamName: string;
     ownerName: string;
+    franchiseId: string | null;
     avatar: string | null;
     wins: number;
     losses: number;
@@ -124,6 +127,7 @@ function demoData(): DashboardData {
   const standings = DEMO_NAMES.map(([teamName, ownerName], index) => ({
     rosterId: index + 1,
     ownerId: `demo-${index + 1}`,
+    franchiseId: null,
     teamName,
     ownerName,
     avatar: null,
@@ -260,9 +264,11 @@ function createStandings(rosters: SleeperRoster[], users: SleeperUser[]) {
   return rosters
     .map((roster) => {
       const user = roster.owner_id ? userById.get(roster.owner_id) : undefined;
+      const ownerId = roster.owner_id ?? '';
       return {
         rosterId: roster.roster_id,
-        ownerId: roster.owner_id ?? '',
+        ownerId,
+        franchiseId: ownerFranchiseMap[ownerId] ?? null,
         teamName: teamNameFor(user, roster),
         ownerName: user?.display_name ?? 'Unassigned',
         avatar:
@@ -462,6 +468,7 @@ async function getReigningChampion(previousLeagueId: string | null) {
     return {
       teamName: teamNameFor(user, roster),
       ownerName: user?.display_name ?? 'League champion',
+      franchiseId: ownerFranchiseMap[roster.owner_id ?? ''] ?? null,
       avatar: user?.metadata?.avatar ?? user?.avatar ?? null,
       wins: roster.settings.wins,
       losses: roster.settings.losses,

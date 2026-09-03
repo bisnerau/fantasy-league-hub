@@ -143,7 +143,7 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
                     <div>
                       <p className="text-sm font-bold">{team.teamName}</p>
                       <p className="mt-0.5 text-[10px] text-muted-foreground">
-                        {team.ownerName}
+                        <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="hover:text-primary">{team.ownerName}</a>
                       </p>
                     </div>
                     {team.rank === 1 && (
@@ -230,7 +230,7 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-bold">{team.teamName}</p>
                 <p className="text-[10px] text-muted-foreground">
-                  {team.ownerName}
+                  <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="hover:text-primary">{team.ownerName}</a>
                 </p>
               </div>
               <span className="score-number text-lg">

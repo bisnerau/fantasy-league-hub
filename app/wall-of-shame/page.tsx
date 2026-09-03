@@ -128,7 +128,7 @@ export default async function WallOfShamePage() {
                       </span>
                       {forfeit.managerName && (
                         <p className="mt-0.5 text-xs text-muted-foreground">
-                          {forfeit.managerName.split(' ')[0]}
+                          <a href={`/managers#${forfeit.franchiseId}`} className="hover:text-primary">{forfeit.managerName.split(' ')[0]}</a>
                           {forfeit.record ? ` · ${forfeit.record}` : ''}
                         </p>
                       )}

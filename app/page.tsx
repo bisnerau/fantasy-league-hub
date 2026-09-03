@@ -105,7 +105,7 @@ export default async function DashboardPage() {
                 {champion.teamName}
               </p>
               <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-                <span>{champion.ownerName}</span>
+                <a href={champion.franchiseId ? `/managers#${champion.franchiseId}` : '/managers'} className="hover:text-primary">{champion.ownerName}</a>
                 <span className="text-white/15">•</span>
                 <span>
                   {champion.wins}–{champion.losses} in {champion.season}
@@ -143,7 +143,7 @@ export default async function DashboardPage() {
                   {team.teamName}
                 </p>
                 <p className="mt-0.5 truncate text-[10px] text-muted-foreground">
-                  {team.ownerName}
+                  <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="hover:text-primary">{team.ownerName}</a>
                 </p>
               </div>
             </div>
