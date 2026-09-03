@@ -1,77 +1,36 @@
 import { execSync } from 'node:child_process';
-import { cpSync, mkdirSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 
-// 1. Run vinext build (produces dist/)
 execSync('npx vinext build', { stdio: 'inherit' });
 
 const out = '.vercel/output';
+const func = `${out}/functions/index.func`;
 
-// 2. Create Build Output API structure
 mkdirSync(`${out}/static`, { recursive: true });
-mkdirSync(`${out}/functions/index.func`, { recursive: true });
+mkdirSync(func, { recursive: true });
 
-// 3. Copy client assets to static/
-cpSync('dist/client', `${out}/static`, { recursive: true });
-
-// 4. Copy public assets to static/
-try {
+// Static assets served from the CDN edge
+cpSync('dist/standalone/dist/client', `${out}/static`, { recursive: true });
+if (existsSync('public')) {
   cpSync('public', `${out}/static`, { recursive: true });
-} catch {}
-
-// 5. Copy server bundle into the function
-cpSync('dist/server', `${out}/functions/index.func/dist/server`, {
-  recursive: true,
-});
-cpSync('dist/client', `${out}/functions/index.func/dist/client`, {
-  recursive: true,
-});
-
-// Copy other dist files needed by the server
-for (const name of [
-  'BUILD_ID',
-  '__vite_rsc_assets_manifest.js',
-  'vinext-client-assets.js',
-  'vinext-externals.json',
-  'vinext-server.json',
-]) {
-  try {
-    cpSync(`dist/${name}`, `${out}/functions/index.func/dist/${name}`, {
-      recursive: true,
-    });
-  } catch {}
 }
 
-// Copy the SSR bundle
-try {
-  cpSync('dist/ssr', `${out}/functions/index.func/dist/ssr`, {
-    recursive: true,
-  });
-} catch {}
+// Copy the entire standalone build into the function (includes node_modules)
+cpSync('dist/standalone', func, { recursive: true });
 
-// Copy _next directory if it exists at dist root
-try {
-  cpSync('dist/_next', `${out}/functions/index.func/dist/_next`, {
-    recursive: true,
-  });
-} catch {}
-
-// 6. Mark function directory as ESM so .js imports work
+// Vercel function entry — adapts Node.js (req, res) to the vinext fetch handler
 writeFileSync(
-  `${out}/functions/index.func/package.json`,
-  JSON.stringify({ type: 'module' })
-);
+  `${func}/index.mjs`,
+  `import { join } from 'node:path';
 
-// 7. Create the function entry point that adapts fetch() to Node.js
-writeFileSync(
-  `${out}/functions/index.func/index.mjs`,
-  `
-import { createServer } from 'node:http';
+const __dir = import.meta.dirname;
+const serverEntry = join(__dir, 'dist', 'server', 'index.js');
 
 let handler;
 
 async function getHandler() {
   if (handler) return handler;
-  const mod = await import('./dist/server/index.js');
+  const mod = await import(serverEntry);
   handler = mod.default;
   return handler;
 }
@@ -79,12 +38,10 @@ async function getHandler() {
 export default async function (req, res) {
   const h = await getHandler();
 
-  // Build the URL from the request
   const proto = req.headers['x-forwarded-proto'] || 'https';
   const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost';
   const url = new URL(req.url, proto + '://' + host);
 
-  // Read request body
   let body = null;
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     const chunks = [];
@@ -92,7 +49,6 @@ export default async function (req, res) {
     if (chunks.length) body = Buffer.concat(chunks);
   }
 
-  // Convert to Web Request
   const headers = new Headers();
   for (const [key, value] of Object.entries(req.headers)) {
     if (value == null) continue;
@@ -110,10 +66,8 @@ export default async function (req, res) {
     duplex: body ? 'half' : undefined,
   });
 
-  // Call the vinext fetch handler
   const webRes = await h.fetch(webReq);
 
-  // Send the Web Response back through Node.js
   const resHeaders = {};
   for (const [key, value] of webRes.headers.entries()) {
     if (key === 'set-cookie') {
@@ -143,9 +97,8 @@ export default async function (req, res) {
 `
 );
 
-// 8. Function config
 writeFileSync(
-  `${out}/functions/index.func/.vc-config.json`,
+  `${func}/.vc-config.json`,
   JSON.stringify(
     {
       runtime: 'nodejs22.x',
@@ -159,8 +112,6 @@ writeFileSync(
   )
 );
 
-// 9. Build Output API config — static assets served from CDN, everything else
-//    falls through to the serverless function
 writeFileSync(
   `${out}/config.json`,
   JSON.stringify(

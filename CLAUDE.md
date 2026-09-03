@@ -52,7 +52,20 @@ Requires `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` in `.env.local` to connect to a real Sl
 
 ## Deployment
 
-Builds target Cloudflare Workers via `@cloudflare/vite-plugin`. The `.openai/hosting.json` contains the OpenAI Sites project ID (this was originally scaffolded as an OpenAI Site). D1/R2 bindings are configured but currently null/unused.
+**Production target is Vercel**, not Cloudflare Workers. Despite `@cloudflare/vite-plugin` in the dev stack (used for local dev bindings), production builds use vinext's standalone Node.js output and deploy via the Vercel Build Output API.
+
+**How it works**: `vercel.json` runs `node scripts/vercel-build.mjs` which:
+1. Runs `vinext build` → produces `dist/standalone/` (self-contained Node.js server with bundled `node_modules`)
+2. Copies `dist/standalone/dist/client/` to `.vercel/output/static/` (CDN-served assets)
+3. Copies the full standalone output into `.vercel/output/functions/index.func/`
+4. Creates `index.mjs` — a Vercel function entry that adapts Node.js `(req, res)` to the vinext fetch handler (`mod.default.fetch(webRequest)`)
+5. Writes `.vc-config.json` (Node.js 22, streaming enabled) and `config.json` (routes: static assets from CDN, everything else to the function)
+
+**Do NOT** set `outputDirectory` in `vercel.json` — it breaks Build Output API detection. The build script writes directly to `.vercel/output/` which Vercel picks up automatically when `framework` is `null`.
+
+**Do NOT** replace the fetch-handler adapter in `index.mjs` with `startProdServer()` — Vercel Functions are serverless request handlers, not long-running HTTP servers.
+
+The `.openai/hosting.json` contains a legacy OpenAI Sites project ID (this was originally scaffolded as an OpenAI Site). D1/R2 bindings are configured in the Cloudflare plugin but currently null/unused.
 
 ## Formatting & linting conventions
 
