@@ -1,4 +1,4 @@
-import { leagueConfig } from '@/lib/config/league.config';
+import { LoadingLogo } from './loading-logo';
 
 function Shimmer({
   className,
@@ -10,10 +10,8 @@ function Shimmer({
 export function DashboardSkeleton() {
   return (
     <div className="space-y-4 sm:space-y-5">
-      <div className="flex flex-col items-center justify-center py-8 sm:py-12">
-        <div className="loading-mark size-16 text-lg sm:size-20 sm:text-xl">
-          {leagueConfig.shortName}
-        </div>
+      <div className="flex flex-col items-center justify-center py-10 sm:py-14">
+        <LoadingLogo />
         <Shimmer className="mt-5 h-3 w-28" />
       </div>
 
