@@ -1,6 +1,7 @@
 import {
   AlertCircle,
   ArrowRight,
+  BarChart3,
   CalendarDays,
   Check,
   ChevronRight,
@@ -11,9 +12,12 @@ import {
   ListOrdered,
   Repeat2,
   ShieldCheck,
+  Sparkles,
+  Swords,
   Trophy,
   UserPlus,
   UsersRound,
+  Vote,
 } from 'lucide-react';
 
 import { DraftCountdown } from '@/components/draft/draft-countdown';
@@ -405,6 +409,68 @@ export default async function DashboardPage() {
           </div>
         </a>
       </section>
+
+      <Card className="linear-panel gap-0 py-0">
+        <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
+          <div className="flex items-center gap-2.5">
+            <Sparkles className="size-4 text-primary" />
+            <h2 className="text-sm font-medium">Coming next</h2>
+          </div>
+          <span className="text-[10px] text-muted-foreground">In the works</span>
+        </div>
+        <div className="grid gap-px sm:grid-cols-2">
+          {[
+            {
+              icon: BarChart3,
+              title: 'Power rankings',
+              detail: 'Weekly algorithmic rankings based on scoring, roster strength and schedule.',
+            },
+            {
+              icon: Swords,
+              title: 'Matchup centre',
+              detail: 'Head-to-head breakdowns with league-wide voting on who wins each week.',
+              tag: 'Vote',
+              tagIcon: Vote,
+            },
+            {
+              icon: Repeat2,
+              title: 'Trade centre',
+              detail: 'Trade history, analysis and league reaction to every deal.',
+            },
+            {
+              icon: ListOrdered,
+              title: 'Draft recap',
+              detail: 'Pick-by-pick breakdown, best values and biggest reaches.',
+            },
+          ].map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.title}
+                className="flex gap-3 border-b border-white/[0.06] px-4 py-3.5 last:border-0 sm:px-5 sm:[&:nth-child(even)]:border-l"
+              >
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-md border border-white/[0.065] bg-white/[0.03] text-muted-foreground">
+                  <Icon className="size-3.5" />
+                </span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs font-medium">{item.title}</p>
+                    {item.tag && (
+                      <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/[0.07] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-[0.1em] text-primary">
+                        {item.tagIcon && <item.tagIcon className="size-2.5" />}
+                        {item.tag}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-0.5 text-[10px] leading-4 text-muted-foreground">
+                    {item.detail}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Card>
     </div>
   );
 }
