@@ -131,16 +131,17 @@ export default async function RecordsPage() {
                   <Star className="size-4 fill-primary text-primary" />
                 </div>
                 <div className="my-6 flex justify-center">
-                  <span
-                    className="champion-medal"
+                  <TeamAvatar
+                    avatar={avatars[champion.franchiseId] ?? null}
+                    name={season.champion}
+                    className="size-14 ring-2"
                     style={
                       {
-                        '--franchise': franchiseColors[champion.franchiseId],
+                        '--tw-ring-color':
+                          franchiseColors[champion.franchiseId],
                       } as React.CSSProperties
                     }
-                  >
-                    <Star className="size-7" />
-                  </span>
+                  />
                 </div>
                 <p className="text-center text-xs font-black leading-5">
                   {season.champion}
