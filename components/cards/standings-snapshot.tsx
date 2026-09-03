@@ -26,8 +26,9 @@ export function StandingsSnapshot({
       </div>
       <div>
         {standings.slice(0, 6).map((team, index) => (
-          <div
+          <a
             key={team.rosterId}
+            href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'}
             className={`grid grid-cols-[24px_auto_minmax(0,1fr)_auto] items-center gap-2.5 px-4 py-2.5 sm:px-5 ${index === 5 ? 'relative border-b-2 border-dashed border-primary/30' : 'border-b border-white/[0.055]'}`}
           >
             <span
@@ -43,7 +44,7 @@ export function StandingsSnapshot({
             <div className="min-w-0">
               <p className="truncate text-xs font-bold">{team.teamName}</p>
               <p className="truncate text-[10px] text-muted-foreground">
-                <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="hover:text-primary">{team.ownerName}</a>
+                {team.ownerName}
               </p>
             </div>
             <div className="text-right">
@@ -54,7 +55,7 @@ export function StandingsSnapshot({
                 {team.pointsFor.toFixed(1)} PF
               </p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </Card>

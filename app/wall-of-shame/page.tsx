@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Skull } from 'lucide-react';
 import Image from 'next/image';
 import { TeamAvatar } from '@/components/shared/team-avatar';
-import { Card } from '@/components/ui/card';
 import { leagueConfig } from '@/lib/config/league.config';
 import { forfeits } from '@/lib/data/wall-of-shame';
 import { ownerFranchiseMap } from '@/lib/data/verified-history';
@@ -88,7 +87,7 @@ export default async function WallOfShamePage() {
 
         <div className="space-y-4">
           {forfeits.map((forfeit) => (
-            <Card key={forfeit.year} className="overflow-hidden p-0">
+            <a key={forfeit.year} href={`/managers#${forfeit.franchiseId}`} className="block overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm">
               <div className="flex flex-col md:flex-row">
                 {forfeit.image ? (
                   <div className="relative aspect-[4/3] w-full shrink-0 md:aspect-square md:w-72">
@@ -128,7 +127,7 @@ export default async function WallOfShamePage() {
                       </span>
                       {forfeit.managerName && (
                         <p className="mt-0.5 text-xs text-muted-foreground">
-                          <a href={`/managers#${forfeit.franchiseId}`} className="hover:text-primary">{forfeit.managerName.split(' ')[0]}</a>
+                          {forfeit.managerName.split(' ')[0]}
                           {forfeit.record ? ` · ${forfeit.record}` : ''}
                         </p>
                       )}
@@ -146,7 +145,7 @@ export default async function WallOfShamePage() {
                   )}
                 </div>
               </div>
-            </Card>
+            </a>
           ))}
         </div>
       </section>

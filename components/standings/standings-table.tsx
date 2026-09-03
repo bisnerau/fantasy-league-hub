@@ -138,12 +138,12 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
                   </span>
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-3">
+                  <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="flex items-center gap-3">
                     <TeamAvatar avatar={team.avatar} name={team.teamName} />
                     <div>
                       <p className="text-sm font-bold">{team.teamName}</p>
                       <p className="mt-0.5 text-[10px] text-muted-foreground">
-                        <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="hover:text-primary">{team.ownerName}</a>
+                        {team.ownerName}
                       </p>
                     </div>
                     {team.rank === 1 && (
@@ -151,7 +151,7 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
                         #1 SEED
                       </Badge>
                     )}
-                  </div>
+                  </a>
                 </TableCell>
                 <TableCell>
                   <span className="score-number text-base">
@@ -216,9 +216,10 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
 
       <div className="space-y-2 md:hidden">
         {sorted.map((team) => (
-          <Card
+          <a
             key={team.rosterId}
-            className={`gap-0 p-4 ${team.rank === 6 ? 'border-b-2 border-b-primary/30' : ''}`}
+            href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'}
+            className={`block rounded-xl border bg-card p-4 text-card-foreground shadow-sm ${team.rank === 6 ? 'border-b-2 border-b-primary/30' : ''}`}
           >
             <div className="flex items-center gap-3">
               <span
@@ -230,7 +231,7 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-bold">{team.teamName}</p>
                 <p className="text-[10px] text-muted-foreground">
-                  <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="hover:text-primary">{team.ownerName}</a>
+                  {team.ownerName}
                 </p>
               </div>
               <span className="score-number text-lg">
@@ -259,7 +260,7 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
                 </p>
               </div>
             </div>
-          </Card>
+          </a>
         ))}
       </div>
     </>
