@@ -84,6 +84,7 @@ export type DashboardData = {
     orderSet: boolean;
     maxKeepers: number;
     rosterSize: number;
+    pickOrder: { slot: number; teamName: string; avatar: string | null }[];
   } | null;
   reigningChampion: {
     teamName: string;
@@ -402,6 +403,16 @@ export async function getDashboardData(): Promise<DashboardData> {
             orderSet: Boolean(draft.draft_order && Object.keys(draft.draft_order).length),
             maxKeepers: Number(league.settings.max_keepers ?? 0),
             rosterSize: league.roster_positions.length,
+            pickOrder: draft.draft_order
+              ? Object.entries(draft.draft_order)
+                  .map(([userId, slot]) => {
+                    const user = users.find((u) => u.user_id === userId);
+                    const roster = rosters.find((r) => r.owner_id === userId);
+                    const teamName = roster && user ? (roster.metadata?.team_name ?? user.metadata?.team_name?.trim() ?? user.display_name ?? `Team ${slot}`) : `Team ${slot}`;
+                    return { slot, teamName, avatar: user?.avatar ?? null };
+                  })
+                  .sort((a, b) => a.slot - b.slot)
+              : [],
           }
         : null,
       reigningChampion,

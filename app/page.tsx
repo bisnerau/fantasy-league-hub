@@ -153,13 +153,27 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <div className="m-3 mt-0 flex items-start gap-3 rounded-lg border border-amber-300/15 bg-amber-300/[0.045] p-3.5 sm:m-4 sm:mt-0">
-            <AlertCircle className="mt-0.5 size-4 shrink-0 text-amber-300" />
-            <div>
-              <p className="text-xs font-medium text-amber-100">Draft order is not set yet</p>
-              <p className="mt-1 text-[11px] leading-5 text-muted-foreground">Sleeper has all 12 managers, but no pick order has been published. Set it before Sunday so everyone can mock from the right slot.</p>
+          {draft?.orderSet && draft.pickOrder.length > 0 ? (
+            <div className="m-3 mt-0 sm:m-4 sm:mt-0">
+              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Draft order</p>
+              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-4">
+                {draft.pickOrder.map((pick) => (
+                  <div key={pick.slot} className="flex items-center gap-2.5 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2">
+                    <span className="font-mono text-sm font-black text-primary">{pick.slot}</span>
+                    <span className="truncate text-xs">{pick.teamName}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="m-3 mt-0 flex items-start gap-3 rounded-lg border border-amber-300/15 bg-amber-300/[0.045] p-3.5 sm:m-4 sm:mt-0">
+              <AlertCircle className="mt-0.5 size-4 shrink-0 text-amber-300" />
+              <div>
+                <p className="text-xs font-medium text-amber-100">Draft order is not set yet</p>
+                <p className="mt-1 text-[11px] leading-5 text-muted-foreground">Sleeper has all 12 managers, but no pick order has been published. Set it before Sunday so everyone can mock from the right slot.</p>
+              </div>
+            </div>
+          )}
         </Card>
 
         <Card className="linear-panel gap-0 py-0">
