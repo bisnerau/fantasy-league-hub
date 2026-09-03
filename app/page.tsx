@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   AlertCircle,
   ArrowRight,
@@ -146,13 +145,9 @@ export default async function DashboardPage() {
             </div>
             <div className="draft-setting-row border-t sm:border-l">
               <Clock3 />
-              <div><span>Pick timer</span><strong>{draft?.pickTimer ?? 60} seconds</strong></div>
+              <div><span>Pick timer</span><strong>2 minutes</strong></div>
             </div>
             <div className="draft-setting-row border-t">
-              <Trophy />
-              <div><span>Keepers</span><strong>{draft?.maxKeepers ?? 1} maximum</strong></div>
-            </div>
-            <div className="draft-setting-row border-t sm:border-l">
               <UsersRound />
               <div><span>Roster</span><strong>{draft?.rosterSize ?? 15} total slots</strong></div>
             </div>
@@ -176,7 +171,7 @@ export default async function DashboardPage() {
             {[
               ['League filled', `${data.standings.length} of 12 managers`, true],
               ['Draft scheduled', draft ? formatDraftDate(draft.startTime) : 'Not scheduled', Boolean(draft)],
-              ['Format confirmed', `${draft?.rounds ?? 15}-round ${draft?.type ?? 'snake'}`, true],
+              ['Format confirmed', `${draft?.rounds ?? 15}-round ${draft?.type ?? 'snake'}, 2 min timer`, true],
               ['Pick order', draft?.orderSet ? 'Published' : 'Still required', Boolean(draft?.orderSet)],
             ].map(([label, detail, done]) => (
               <div key={String(label)} className="readiness-row">
@@ -224,7 +219,7 @@ export default async function DashboardPage() {
         <Card className="linear-panel min-h-64 gap-0 py-0">
           <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3.5">
             <div className="flex items-center gap-2"><Flame className="size-4 text-orange-300" /><h2 className="text-sm font-medium">Rising on Sleeper</h2></div>
-            <Link href="/" className="text-[10px] text-primary">Live trends</Link>
+            <a href="/" className="text-[10px] text-primary">Live trends</a>
           </div>
           <div className="divide-y divide-white/[0.06]">
             {data.trending.map((player, index) => (
@@ -238,7 +233,7 @@ export default async function DashboardPage() {
           </div>
         </Card>
 
-        <Link href="/records" className="record-cta group min-h-64">
+        <a href="/records" className="record-cta group min-h-64">
           <div className="flex items-center justify-between">
             <span className="ui-kicker text-white/45">Seven seasons of MAC 12</span>
             <ChevronRight className="size-4 text-white/30 transition-transform group-hover:translate-x-1" />
@@ -249,7 +244,7 @@ export default async function DashboardPage() {
             <p className="mt-2 text-xs leading-5 text-white/45">Champions, podiums and every final table from 2020 through today.</p>
             <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-medium text-white">Open record book <ArrowRight className="size-3.5" /></span>
           </div>
-        </Link>
+        </a>
       </section>
     </div>
   );

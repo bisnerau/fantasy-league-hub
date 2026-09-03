@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import type { TeamStanding } from '@/lib/data/dashboard';
@@ -12,7 +11,7 @@ export function StandingsSnapshot({ standings }: { standings: TeamStanding[] }) 
           <p className="section-kicker">Playoff picture</p>
           <h2 className="mt-1 font-heading text-lg font-black tracking-tight">Standings</h2>
         </div>
-        <Link href="/standings" className="flex items-center gap-1 text-xs font-bold text-primary hover:underline">Full table <ArrowRight className="size-3.5" /></Link>
+        <a href="/standings" className="flex items-center gap-1 text-xs font-bold text-primary hover:underline">Full table <ArrowRight className="size-3.5" /></a>
       </div>
       <div>
         {standings.slice(0, 6).map((team, index) => (

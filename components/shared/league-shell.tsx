@@ -2,7 +2,6 @@
 
 import { BarChart3, BookOpen, Home, Radio, Settings2, Trophy } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './theme-toggle';
 import { leagueConfig } from '@/lib/config/league.config';
@@ -23,13 +22,13 @@ export function LeagueShell({ children, leagueAvatar }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-background text-foreground">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[224px] border-r border-white/8 bg-sidebar/95 px-3 py-4 backdrop-blur-xl lg:flex lg:flex-col">
-        <Link href="/" className="flex items-center gap-2.5 px-2" aria-label={`${leagueConfig.name} home`}>
+        <a href="/" className="flex items-center gap-2.5 px-2" aria-label={`${leagueConfig.name} home`}>
           <span className="brand-mark">{avatarUrl ? <Image src={avatarUrl} alt="" width={36} height={36} unoptimized className="size-full rounded-[9px] object-cover" /> : leagueConfig.shortName}</span>
           <span className="min-w-0">
             <span className="block truncate font-heading text-sm font-black uppercase tracking-[0.12em]">{leagueConfig.name}</span>
             <span className="mt-0.5 block text-[10px] text-muted-foreground">Fantasy league</span>
           </span>
-        </Link>
+        </a>
 
         <nav className="mt-8" aria-label="Primary navigation">
           <p className="nav-eyebrow">Workspace</p>
@@ -38,7 +37,7 @@ export function LeagueShell({ children, leagueAvatar }: { children: React.ReactN
               const active = pathname === item.href;
               const Icon = item.icon;
               return (
-                <Link
+                <a
                   key={item.href}
                   href={item.href}
                   className={cn('nav-item', active && 'nav-item-active')}
@@ -47,7 +46,7 @@ export function LeagueShell({ children, leagueAvatar }: { children: React.ReactN
                   <Icon className="size-[18px]" />
                   {item.label}
                   {active && <Radio className="ml-auto size-3.5 text-primary" />}
-                </Link>
+                </a>
               );
             })}
           </div>
@@ -73,10 +72,10 @@ export function LeagueShell({ children, leagueAvatar }: { children: React.ReactN
 
       <div className="lg:pl-[224px]">
         <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-white/8 bg-background/85 px-4 backdrop-blur-xl sm:px-6 lg:px-7">
-          <Link href="/" className="flex items-center gap-2.5 lg:hidden">
+          <a href="/" className="flex items-center gap-2.5 lg:hidden">
             <span className="brand-mark brand-mark-sm">{avatarUrl ? <Image src={avatarUrl} alt="" width={32} height={32} unoptimized className="size-full rounded-lg object-cover" /> : leagueConfig.shortName}</span>
             <span className="font-heading text-xs font-black uppercase tracking-[0.1em]">{leagueConfig.name}</span>
-          </Link>
+          </a>
           <div className="hidden items-center gap-2 text-xs text-muted-foreground lg:flex">
             <span className="text-muted-foreground/60">MAC 12</span>
             <span className="text-muted-foreground/30">/</span>
@@ -96,10 +95,10 @@ export function LeagueShell({ children, leagueAvatar }: { children: React.ReactN
           const active = pathname === item.href;
           const Icon = item.icon;
           return (
-            <Link key={item.href} href={item.href} className={cn('mobile-nav-item', active && 'mobile-nav-item-active')} aria-current={active ? 'page' : undefined}>
+            <a key={item.href} href={item.href} className={cn('mobile-nav-item', active && 'mobile-nav-item-active')} aria-current={active ? 'page' : undefined}>
               <Icon className="size-[18px]" />
               <span>{item.label}</span>
-            </Link>
+            </a>
           );
         })}
       </nav>
