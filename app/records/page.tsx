@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Archive, Crown, Medal, Trophy } from 'lucide-react';
+import { Archive, Crown, Medal, Star, Trophy } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import {
@@ -25,6 +25,8 @@ export default async function RecordsPage() {
   const records = getFranchiseRecords(seasons);
   const leader = records[0];
   const totalGames = records.reduce((sum, record) => sum + record.wins + record.losses + record.ties, 0) / 2;
+  const latestSeason = seasons.at(-1);
+  const reigningChampFranchise = latestSeason?.standings.find((s) => s.finish === 1)?.franchiseId;
 
   return (
     <div className="space-y-7">
@@ -64,16 +66,42 @@ export default async function RecordsPage() {
           <div className="mb-3"><p className="section-kicker">All-time table</p><h2 className="mt-1 font-heading text-xl font-black">Franchise records</h2></div>
           <Card className="gap-0 overflow-hidden p-0">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[650px] text-left text-xs">
-                <thead><tr className="border-b border-white/8 text-[9px] uppercase tracking-[0.14em] text-muted-foreground"><th className="px-4 py-3">Rank</th><th className="px-3 py-3">Franchise</th><th className="px-3 py-3">Record</th><th className="px-3 py-3">Win %</th><th className="px-3 py-3">Titles</th><th className="px-4 py-3 text-right">Seasons</th></tr></thead>
+              <table className="w-full min-w-[720px] text-left text-xs">
+                <thead><tr className="border-b border-white/8 text-[9px] uppercase tracking-[0.14em] text-muted-foreground"><th className="px-4 py-3">Rank</th><th className="px-3 py-3">Franchise</th><th className="px-3 py-3">Record</th><th className="px-3 py-3">Win %</th><th className="px-3 py-3">Titles</th><th className="px-3 py-3">Playoffs</th><th className="px-4 py-3 text-right">Seasons</th></tr></thead>
                 <tbody>
                   {records.map((record, index) => (
                     <tr key={record.franchiseId} className="border-b border-white/[0.055] last:border-0">
                       <td className="px-4 py-3 font-mono font-black text-muted-foreground">{String(index + 1).padStart(2, '0')}</td>
-                      <td aria-label={`${record.currentName} franchise`} className="px-3 py-3"><div className="flex items-center gap-3"><span aria-hidden="true" className="size-3 rounded-full ring-4 ring-white/[0.04]" style={{ background: franchiseColors[record.franchiseId] }} /><div><p className="font-bold">{record.currentName}</p>{record.aliases.length > 1 && <p className="mt-0.5 max-w-56 truncate text-[9px] text-muted-foreground">Formerly: {record.aliases.slice(0, -1).join(' · ')}</p>}</div></div></td>
+                      <td aria-label={`${record.currentName} franchise`} className="px-3 py-3">
+                        <div className="flex items-center gap-3">
+                          <span aria-hidden="true" className="size-3 rounded-full ring-4 ring-white/[0.04]" style={{ background: franchiseColors[record.franchiseId] }} />
+                          <div>
+                            <p className="flex items-center gap-1.5 font-bold">
+                              {record.currentName}
+                              {record.championships > 0 && (
+                                <span className="inline-flex items-center gap-0.5">
+                                  {record.franchiseId === reigningChampFranchise ? (
+                                    <span className="relative inline-flex items-center justify-center">
+                                      <Star className="size-3.5 fill-primary text-primary" />
+                                      <Crown className="absolute size-2 text-background" />
+                                    </span>
+                                  ) : (
+                                    <Star className="size-3.5 fill-primary text-primary" />
+                                  )}
+                                  {record.championships > 1 && (
+                                    <span className="text-[9px] font-black text-primary">×{record.championships}</span>
+                                  )}
+                                </span>
+                              )}
+                            </p>
+                            {record.aliases.length > 1 && <p className="mt-0.5 max-w-56 truncate text-[9px] text-muted-foreground">Formerly: {record.aliases.filter((a) => a !== record.currentName).join(' · ')}</p>}
+                          </div>
+                        </div>
+                      </td>
                       <td className="px-3 py-3 font-mono font-bold">{record.wins}-{record.losses}{record.ties ? `-${record.ties}` : ''}</td>
                       <td className="px-3 py-3 font-mono text-muted-foreground">{(winPercentage(record.wins, record.losses, record.ties) * 100).toFixed(1)}%</td>
                       <td className="px-3 py-3"><span className={record.championships ? 'font-mono font-black text-primary' : 'text-muted-foreground'}>{record.championships}</span></td>
+                      <td className="px-3 py-3"><span className={record.playoffAppearances ? 'font-mono font-bold' : 'text-muted-foreground'}>{record.playoffAppearances}</span></td>
                       <td className="px-4 py-3 text-right font-mono text-muted-foreground">{record.seasons}</td>
                     </tr>
                   ))}
@@ -102,7 +130,7 @@ export default async function RecordsPage() {
         </div>
       </section>
 
-      <p className="text-center text-[10px] leading-5 text-muted-foreground">Manager/franchise continuity for 2020–2024 is inferred from the helmet colors in the supplied screenshots; 2025 onward is mapped by Sleeper owner ID.</p>
+      <p className="text-center text-[10px] leading-5 text-muted-foreground">Franchise continuity for 2020–2024 is confirmed by league members; 2025 onward is mapped by Sleeper owner ID.</p>
     </div>
   );
 }
