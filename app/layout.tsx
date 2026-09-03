@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    'https://sunday-syndicate-hub.emmet793061.chatgpt.site',
+    'https://fantasy-league-hub-plum.vercel.app',
   ),
   title: {
     default: `${leagueConfig.name} · League Hub`,
