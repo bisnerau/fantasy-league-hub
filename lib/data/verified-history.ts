@@ -8,7 +8,7 @@ import {
 import type { SleeperBracketMatch, SleeperRoster, SleeperUser } from '@/lib/sleeper/types';
 import { historicalSeasons, type HistoricalSeason } from './historical';
 
-const ownerFranchiseMap: Record<string, string> = {
+export const ownerFranchiseMap: Record<string, string> = {
   '718453786330365952': 'burns',
   '737758275193470976': 'red',
   '738061436835819520': 'mint',

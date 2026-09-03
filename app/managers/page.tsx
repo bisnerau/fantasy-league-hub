@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
-import { Crown, Medal, Star, Trophy, Users } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import { Users } from 'lucide-react';
+import {
+  ManagersList,
+  type ManagerEntry,
+} from '@/components/managers/managers-list';
+import { leagueConfig } from '@/lib/config/league.config';
 import {
   franchiseColors,
   getFranchiseRecords,
@@ -9,40 +12,102 @@ import {
 } from '@/lib/data/historical';
 import { managers } from '@/lib/data/managers';
 import { forfeits } from '@/lib/data/wall-of-shame';
-import { getHistoricalArchive } from '@/lib/data/verified-history';
+import {
+  getHistoricalArchive,
+  ownerFranchiseMap,
+} from '@/lib/data/verified-history';
+import { getLeagueUsers } from '@/lib/sleeper/client';
 
 export const metadata: Metadata = {
   title: 'Managers',
-  description: 'Every MAC 12 franchise — all-time records, season history, and manager profiles.',
+  description:
+    'Every MAC 12 franchise — all-time records, season history, and manager profiles.',
 };
 
 export const revalidate = 3600;
 
-function winPct(wins: number, losses: number, ties: number) {
-  const games = wins + losses + ties;
-  return games ? (wins + ties * 0.5) / games : 0;
-}
-
 function getSeasonHistory(franchiseId: string, seasons: HistoricalSeason[]) {
-  return seasons
-    .map((season) => {
-      const standing = season.standings.find((s) => s.franchiseId === franchiseId);
-      if (!standing) return null;
-      return { year: season.year, ...standing, leagueSize: season.standings.length };
-    })
-    .filter(Boolean);
+  const results: {
+    year: number;
+    wins: number;
+    losses: number;
+    finish: number;
+  }[] = [];
+  for (const season of seasons) {
+    const standing = season.standings.find(
+      (s) => s.franchiseId === franchiseId,
+    );
+    if (standing) {
+      results.push({
+        year: season.year,
+        wins: standing.wins,
+        losses: standing.losses,
+        finish: standing.finish,
+      });
+    }
+  }
+  return results;
 }
 
-function finishLabel(finish: number) {
-  if (finish === 1) return '1st';
-  if (finish === 2) return '2nd';
-  if (finish === 3) return '3rd';
-  return `${finish}th`;
+async function getFranchiseAvatars(): Promise<Record<string, string | null>> {
+  if (!leagueConfig.sleeperLeagueId) return {};
+  try {
+    const users = await getLeagueUsers(leagueConfig.sleeperLeagueId);
+    const avatars: Record<string, string | null> = {};
+    for (const user of users) {
+      const franchiseId = ownerFranchiseMap[user.user_id];
+      if (franchiseId) {
+        avatars[franchiseId] =
+          leagueConfig.teamAvatarOverrides[user.user_id] ??
+          user.metadata?.avatar ??
+          user.avatar ??
+          null;
+      }
+    }
+    return avatars;
+  } catch {
+    return {};
+  }
 }
 
 export default async function ManagersPage() {
-  const seasons = await getHistoricalArchive();
+  const [seasons, avatars] = await Promise.all([
+    getHistoricalArchive(),
+    getFranchiseAvatars(),
+  ]);
   const records = getFranchiseRecords(seasons);
+
+  const entries: ManagerEntry[] = records.map((record, index) => {
+    const manager = managers.find((m) => m.franchiseId === record.franchiseId);
+    const seasonHistory = getSeasonHistory(record.franchiseId, seasons);
+    const franchiseForfeits = forfeits.filter(
+      (f) => f.franchiseId === record.franchiseId,
+    );
+
+    return {
+      franchiseId: record.franchiseId,
+      rank: index + 1,
+      managerName: manager?.name ?? record.currentName,
+      teamName: record.currentName,
+      joined: manager?.joined ?? 2020,
+      bio: manager?.bio ?? null,
+      avatar: avatars[record.franchiseId] ?? null,
+      color: franchiseColors[record.franchiseId] ?? '#888',
+      wins: record.wins,
+      losses: record.losses,
+      ties: record.ties,
+      championships: record.championships,
+      playoffAppearances: record.playoffAppearances,
+      bestFinish: Math.min(...seasonHistory.map((s) => s.finish)),
+      worstFinish: Math.max(...seasonHistory.map((s) => s.finish)),
+      aliases: record.aliases,
+      seasonHistory,
+      forfeits: franchiseForfeits.map((f) => ({
+        year: f.year,
+        forfeit: f.forfeit,
+      })),
+    };
+  });
 
   return (
     <div className="space-y-7">
@@ -80,138 +145,7 @@ export default async function ManagersPage() {
         </div>
       </section>
 
-      <section className="space-y-4">
-        {records.map((record, rank) => {
-          const manager = managers.find((m) => m.franchiseId === record.franchiseId);
-          const seasonHistory = getSeasonHistory(record.franchiseId, seasons);
-          const franchiseForfeits = forfeits.filter((f) => f.franchiseId === record.franchiseId);
-          const bestFinish = Math.min(...seasonHistory.map((s) => s.finish));
-          const worstFinish = Math.max(...seasonHistory.map((s) => s.finish));
-          const color = franchiseColors[record.franchiseId];
-
-          return (
-            <Card key={record.franchiseId} className="overflow-hidden p-0">
-              <div className="border-b border-white/[0.055] p-5 sm:p-6">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    <span className="font-mono text-xl font-black text-muted-foreground">
-                      {String(rank + 1).padStart(2, '0')}
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="size-4 rounded-full ring-4 ring-white/[0.04]"
-                      style={{ background: color }}
-                    />
-                    <div>
-                      <h2 className="flex items-center gap-2 font-heading text-xl font-black">
-                        {manager?.name ?? record.currentName}
-                        {record.championships > 0 && (
-                          <span className="inline-flex items-center gap-1">
-                            {Array.from({ length: record.championships }).map((_, i) => (
-                              <Trophy key={i} className="size-4 fill-primary text-primary" />
-                            ))}
-                          </span>
-                        )}
-                      </h2>
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {record.currentName}
-                        {manager ? ` · Since ${manager.joined}` : ''}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 text-right">
-                    <div>
-                      <p className="font-mono text-lg font-black">
-                        {record.wins}-{record.losses}
-                        {record.ties ? `-${record.ties}` : ''}
-                      </p>
-                      <p className="text-[10px] text-muted-foreground">
-                        {(winPct(record.wins, record.losses, record.ties) * 100).toFixed(1)}% win rate
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                  <div className="rounded-lg bg-white/[0.03] px-3 py-2">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Titles</p>
-                    <p className="mt-0.5 font-mono text-sm font-black">{record.championships}</p>
-                  </div>
-                  <div className="rounded-lg bg-white/[0.03] px-3 py-2">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Playoffs</p>
-                    <p className="mt-0.5 font-mono text-sm font-black">{record.playoffAppearances}</p>
-                  </div>
-                  <div className="rounded-lg bg-white/[0.03] px-3 py-2">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Best</p>
-                    <p className="mt-0.5 font-mono text-sm font-black">{finishLabel(bestFinish)}</p>
-                  </div>
-                  <div className="rounded-lg bg-white/[0.03] px-3 py-2">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Worst</p>
-                    <p className="mt-0.5 font-mono text-sm font-black">{finishLabel(worstFinish)}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-5 sm:p-6">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Season by season</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {seasonHistory.map((season) => (
-                    <div
-                      key={season.year}
-                      className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5 text-xs"
-                    >
-                      <span className="font-mono font-bold text-muted-foreground">{season.year}</span>
-                      <span className="font-mono">
-                        {season.wins}-{season.losses}
-                      </span>
-                      <Badge
-                        variant="outline"
-                        className={
-                          season.finish === 1
-                            ? 'border-primary/30 bg-primary/10 text-primary'
-                            : season.finish <= 3
-                              ? 'border-white/10 bg-white/5 text-foreground'
-                              : 'border-white/8 text-muted-foreground'
-                        }
-                      >
-                        {season.finish === 1 && <Crown className="mr-1 size-3" />}
-                        {season.finish > 1 && season.finish <= 3 && <Medal className="mr-1 size-3" />}
-                        {finishLabel(season.finish)}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-
-                {record.aliases.length > 1 && (
-                  <div className="mt-4">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Previously known as</p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {record.aliases.filter((a) => a !== record.currentName).join(' → ')}
-                    </p>
-                  </div>
-                )}
-
-                {franchiseForfeits.length > 0 && (
-                  <div className="mt-4">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                      <Star className="mr-1 inline size-3 text-primary" />
-                      Wall of shame
-                    </p>
-                    <div className="mt-1.5 space-y-1">
-                      {franchiseForfeits.map((f) => (
-                        <p key={f.year} className="text-xs text-muted-foreground">
-                          <span className="font-mono font-bold">{f.year}</span> — {f.forfeit}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </Card>
-          );
-        })}
-      </section>
+      <ManagersList entries={entries} />
     </div>
   );
 }
