@@ -132,7 +132,7 @@
 
 @layer components {
   .brand-mark {
-    @apply flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-[9px] border border-white/10 bg-primary font-heading text-[11px] font-black text-primary-foreground shadow-[0_6px_22px_color-mix(in_srgb,var(--primary)_18%,transparent)];
+    @apply flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-primary font-heading text-xs font-black text-primary-foreground shadow-[0_8px_28px_color-mix(in_srgb,var(--primary)_22%,transparent)];
   }
   .brand-mark-sm { @apply size-8 text-[10px]; }
   .nav-eyebrow, .section-kicker, .metric-label, .ui-kicker {
