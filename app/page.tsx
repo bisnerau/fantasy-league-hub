@@ -57,7 +57,7 @@ export default async function DashboardPage() {
           <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-[-0.045em] text-foreground sm:text-4xl lg:text-[46px]">
             Draft day is almost here.
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+          <p className="mt-2 hidden max-w-2xl text-sm leading-6 text-muted-foreground sm:block">
             Everything MAC 12 needs before the clock starts. League status,
             managers, settings and players moving up draft boards.
           </p>

@@ -17,11 +17,11 @@ import { leagueConfig } from '@/lib/config/league.config';
 import { cn } from '@/lib/utils';
 
 const mainNavigation = [
-  { label: 'Clubhouse', href: '/', icon: Home },
-  { label: 'Standings', href: '/standings', icon: BarChart3 },
-  { label: 'Record book', href: '/records', icon: BookOpen },
-  { label: 'Managers', href: '/managers', icon: Users },
-  { label: 'Wall of shame', href: '/wall-of-shame', icon: Skull },
+  { label: 'Clubhouse', shortLabel: 'Home', href: '/', icon: Home },
+  { label: 'Standings', shortLabel: 'Standings', href: '/standings', icon: BarChart3 },
+  { label: 'Record book', shortLabel: 'Records', href: '/records', icon: BookOpen },
+  { label: 'Managers', shortLabel: 'Managers', href: '/managers', icon: Users },
+  { label: 'Wall of shame', shortLabel: 'Shame', href: '/wall-of-shame', icon: Skull },
 ];
 
 const upcoming = [
@@ -187,8 +187,8 @@ export function LeagueShell({
               )}
               aria-current={active ? 'page' : undefined}
             >
-              <Icon className="size-[18px]" />
-              <span>{item.label}</span>
+              <Icon className="size-5" />
+              <span>{item.shortLabel}</span>
             </a>
           );
         })}
