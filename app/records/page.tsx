@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Archive, Crown, Medal, Star, Trophy } from 'lucide-react';
+import { Archive, Crown, Medal, Star } from 'lucide-react';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -128,7 +128,7 @@ export default async function RecordsPage() {
                   <span className="font-mono text-xs font-black text-primary">
                     {season.year}
                   </span>
-                  <Crown className="size-4 text-primary" />
+                  <Star className="size-4 fill-primary text-primary" />
                 </div>
                 <div className="my-6 flex justify-center">
                   <span
@@ -139,7 +139,7 @@ export default async function RecordsPage() {
                       } as React.CSSProperties
                     }
                   >
-                    <Trophy className="size-7" />
+                    <Star className="size-7" />
                   </span>
                 </div>
                 <p className="text-center text-xs font-black leading-5">
@@ -296,7 +296,7 @@ export default async function RecordsPage() {
                   </span>
                   <div className="min-w-0 flex-1 space-y-1.5">
                     <p className="flex items-center gap-2 truncate text-xs font-bold">
-                      <Crown className="size-3 text-primary" />{' '}
+                      <Star className="size-3 fill-primary text-primary" />{' '}
                       {season.champion}
                     </p>
                     <p className="flex items-center gap-2 truncate text-[10px] text-muted-foreground">
