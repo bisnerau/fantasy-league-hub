@@ -21,7 +21,7 @@ import { getLeagueUsers } from '@/lib/sleeper/client';
 export const metadata: Metadata = {
   title: 'Managers',
   description:
-    'Every MAC 12 franchise — all-time records, season history, and manager profiles.',
+    'Every MAC 12 franchise - all-time records, season history, and manager profiles.',
 };
 
 export const revalidate = 3600;

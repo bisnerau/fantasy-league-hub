@@ -56,21 +56,31 @@ export async function crawlLeagueHistory(
         getLosersBracket(seasonLeagueId).catch(() => []),
       ]);
 
-    const weeks = Array.from({ length: Math.min(18, regularWeeks + 4) }, (_, i) => i + 1);
-    const [weeklyMatchups, weeklyTransactions, draftsWithPicks] = await Promise.all([
-      Promise.all(
-        weeks.map(async (week) => [week, await getMatchups(seasonLeagueId, week)] as const),
-      ),
-      Promise.all(
-        weeks.map(async (week) => [week, await getTransactions(seasonLeagueId, week)] as const),
-      ),
-      Promise.all(
-        drafts.map(async (draft) => ({
-          ...draft,
-          picks: await getDraftPicks(draft.draft_id),
-        })),
-      ),
-    ]);
+    const weeks = Array.from(
+      { length: Math.min(18, regularWeeks + 4) },
+      (_, i) => i + 1,
+    );
+    const [weeklyMatchups, weeklyTransactions, draftsWithPicks] =
+      await Promise.all([
+        Promise.all(
+          weeks.map(
+            async (week) =>
+              [week, await getMatchups(seasonLeagueId, week)] as const,
+          ),
+        ),
+        Promise.all(
+          weeks.map(
+            async (week) =>
+              [week, await getTransactions(seasonLeagueId, week)] as const,
+          ),
+        ),
+        Promise.all(
+          drafts.map(async (draft) => ({
+            ...draft,
+            picks: await getDraftPicks(draft.draft_id),
+          })),
+        ),
+      ]);
 
     seasons.push({
       league,

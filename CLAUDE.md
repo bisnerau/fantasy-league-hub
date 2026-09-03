@@ -21,6 +21,7 @@ No test runner is configured.
 **Framework stack**: Vite 8 + vinext (React 19 RSC framework) + Cloudflare Workers runtime. Despite leftover Next.js types in tsconfig and `next.config.ts`, the app builds and runs through vinext/Vite — not Next.js. Imports like `next/font/google`, `next/image`, `next/link`, `next/navigation` and the `next/` metadata types are shimmed by vinext.
 
 **Routing**: File-based App Router convention under `app/`. Three routes:
+
 - `/` — draft-week dashboard (draft countdown, champion spotlight, league roster, settings, trending players, activity feed)
 - `/standings` — live standings table with median record
 - `/records` — historical record book (2020–present), franchise all-time records
@@ -28,6 +29,7 @@ No test runner is configured.
 **Data flow**: All pages are async RSCs. Data is fetched server-side in `lib/data/` modules which call into `lib/sleeper/client.ts`. The Sleeper client uses `fetch` with `next.revalidate` caching hints (300s–86400s depending on endpoint volatility). No database — all state comes from the Sleeper API or hardcoded historical data.
 
 **Key data modules**:
+
 - `lib/sleeper/client.ts` — typed wrappers around every Sleeper API endpoint used
 - `lib/sleeper/types.ts` — TypeScript types for Sleeper API responses
 - `lib/sleeper/history.ts` — `crawlLeagueHistory()` walks `previous_league_id` chain to archive full seasons
@@ -55,6 +57,7 @@ Requires `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` in `.env.local` to connect to a real Sl
 **Production target is Vercel**, not Cloudflare Workers. Despite `@cloudflare/vite-plugin` in the dev stack (used for local dev bindings), production builds use vinext's standalone Node.js output and deploy via the Vercel Build Output API.
 
 **How it works**: `vercel.json` runs `node scripts/vercel-build.mjs` which:
+
 1. Runs `vinext build` → produces `dist/standalone/` (self-contained Node.js server with bundled `node_modules`)
 2. Copies `dist/standalone/dist/client/` to `.vercel/output/static/` (CDN-served assets)
 3. Copies the full standalone output into `.vercel/output/functions/index.func/`

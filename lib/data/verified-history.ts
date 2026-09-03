@@ -5,7 +5,11 @@ import {
   getLeagueUsers,
   getWinnersBracket,
 } from '@/lib/sleeper/client';
-import type { SleeperBracketMatch, SleeperRoster, SleeperUser } from '@/lib/sleeper/types';
+import type {
+  SleeperBracketMatch,
+  SleeperRoster,
+  SleeperUser,
+} from '@/lib/sleeper/types';
 import { historicalSeasons, type HistoricalSeason } from './historical';
 
 export const ownerFranchiseMap: Record<string, string> = {
@@ -46,7 +50,9 @@ function getTeamName(user: SleeperUser | undefined, roster: SleeperRoster) {
   );
 }
 
-async function getSeasonSummary(leagueId: string): Promise<HistoricalSeason | null> {
+async function getSeasonSummary(
+  leagueId: string,
+): Promise<HistoricalSeason | null> {
   const league = await getLeague(leagueId);
   if (league.status !== 'complete') return null;
   const [users, rosters, bracket] = await Promise.all([
@@ -65,12 +71,16 @@ async function getSeasonSummary(leagueId: string): Promise<HistoricalSeason | nu
     const aPodium = podiumFinish.get(a.roster_id);
     const bPodium = podiumFinish.get(b.roster_id);
     if (aPodium || bPodium) return (aPodium ?? 99) - (bPodium ?? 99);
-    return b.settings.wins - a.settings.wins || rosterPoints(b) - rosterPoints(a);
+    return (
+      b.settings.wins - a.settings.wins || rosterPoints(b) - rosterPoints(a)
+    );
   });
   const standings = ordered.map((roster, index) => {
     const user = roster.owner_id ? userById.get(roster.owner_id) : undefined;
     return {
-      franchiseId: ownerFranchiseMap[roster.owner_id ?? ''] ?? `sleeper-${roster.owner_id ?? roster.roster_id}`,
+      franchiseId:
+        ownerFranchiseMap[roster.owner_id ?? ''] ??
+        `sleeper-${roster.owner_id ?? roster.roster_id}`,
       teamName: getTeamName(user, roster),
       finish: index + 1,
       wins: roster.settings.wins,
@@ -78,7 +88,15 @@ async function getSeasonSummary(leagueId: string): Promise<HistoricalSeason | nu
       ties: roster.settings.ties,
     };
   });
-  const byRoster = new Map(ordered.map((roster) => [roster.roster_id, getTeamName(roster.owner_id ? userById.get(roster.owner_id) : undefined, roster)]));
+  const byRoster = new Map(
+    ordered.map((roster) => [
+      roster.roster_id,
+      getTeamName(
+        roster.owner_id ? userById.get(roster.owner_id) : undefined,
+        roster,
+      ),
+    ]),
+  );
   return {
     year: Number(league.season),
     source: 'sleeper',
@@ -104,7 +122,10 @@ export async function getHistoricalArchive(): Promise<HistoricalSeason[]> {
       leagueId = league.previous_league_id;
     }
     const verifiedYears = new Set(verified.map((season) => season.year));
-    return [...historicalSeasons.filter((season) => !verifiedYears.has(season.year)), ...verified].sort((a, b) => a.year - b.year);
+    return [
+      ...historicalSeasons.filter((season) => !verifiedYears.has(season.year)),
+      ...verified,
+    ].sort((a, b) => a.year - b.year);
   } catch {
     return historicalSeasons;
   }

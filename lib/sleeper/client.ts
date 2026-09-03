@@ -31,7 +31,10 @@ async function sleeperFetch<T>(path: string, revalidate = 3600): Promise<T> {
   });
 
   if (!response.ok) {
-    throw new SleeperAPIError(`Sleeper request failed: ${path}`, response.status);
+    throw new SleeperAPIError(
+      `Sleeper request failed: ${path}`,
+      response.status,
+    );
   }
 
   return (await response.json()) as T;
@@ -49,7 +52,8 @@ export const getLeagueRosters = (leagueId: string) =>
 export const getMatchups = (leagueId: string, week: number) =>
   sleeperFetch<SleeperMatchup[]>(`/league/${leagueId}/matchups/${week}`, 300);
 
-export const getNFLState = () => sleeperFetch<SleeperNFLState>('/state/nfl', 3600);
+export const getNFLState = () =>
+  sleeperFetch<SleeperNFLState>('/state/nfl', 3600);
 
 export const getTransactions = (leagueId: string, round: number) =>
   sleeperFetch<SleeperTransaction[]>(

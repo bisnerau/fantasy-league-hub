@@ -1,6 +1,6 @@
 'use client';
 
-import { Crown, Medal, Star, Trophy } from 'lucide-react';
+import { Crown, Medal, Star } from 'lucide-react';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import {
   Accordion,
@@ -60,18 +60,11 @@ export function ManagersList({ entries }: { entries: ManagerEntry[] }) {
                 <span className="shrink-0 font-mono text-lg font-black text-muted-foreground">
                   {String(entry.rank).padStart(2, '0')}
                 </span>
-                <div className="relative shrink-0">
-                  <TeamAvatar
-                    avatar={entry.avatar}
-                    name={entry.teamName}
-                    className="size-10"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full ring-2 ring-card"
-                    style={{ background: entry.color }}
-                  />
-                </div>
+                <TeamAvatar
+                  avatar={entry.avatar}
+                  name={entry.teamName}
+                  className="size-10 shrink-0"
+                />
                 <div className="min-w-0 text-left">
                   <h2 className="flex items-center gap-2 font-heading text-base font-black leading-tight sm:text-lg">
                     <span className="truncate">{entry.teamName}</span>
@@ -79,7 +72,7 @@ export function ManagersList({ entries }: { entries: ManagerEntry[] }) {
                       <span className="inline-flex shrink-0 items-center gap-0.5">
                         {Array.from({ length: entry.championships }).map(
                           (_, i) => (
-                            <Trophy
+                            <Star
                               key={i}
                               className="size-3.5 fill-primary text-primary"
                             />
@@ -217,7 +210,7 @@ export function ManagersList({ entries }: { entries: ManagerEntry[] }) {
                           className="text-xs text-muted-foreground"
                         >
                           <span className="font-mono font-bold">{f.year}</span>{' '}
-                          — {f.forfeit}
+                          - {f.forfeit}
                         </p>
                       ))}
                     </div>

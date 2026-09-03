@@ -23,7 +23,14 @@ const row = (
   finish: number,
   wins: number,
   losses: number,
-): HistoricalStanding => ({ franchiseId, teamName, finish, wins, losses, ties: 0 });
+): HistoricalStanding => ({
+  franchiseId,
+  teamName,
+  finish,
+  wins,
+  losses,
+  ties: 0,
+});
 
 export const historicalSeasons: HistoricalSeason[] = [
   {

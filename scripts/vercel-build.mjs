@@ -94,7 +94,7 @@ export default async function (req, res) {
 
   res.end();
 }
-`
+`,
 );
 
 writeFileSync(
@@ -108,8 +108,8 @@ writeFileSync(
       supportsResponseStreaming: true,
     },
     null,
-    2
-  )
+    2,
+  ),
 );
 
 writeFileSync(
@@ -133,8 +133,8 @@ writeFileSync(
       ],
     },
     null,
-    2
-  )
+    2,
+  ),
 );
 
 console.log('Vercel Build Output API structure created.');

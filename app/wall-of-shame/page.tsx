@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import { Skull } from 'lucide-react';
 import Image from 'next/image';
+import { TeamAvatar } from '@/components/shared/team-avatar';
 import { Card } from '@/components/ui/card';
-import { franchiseColors } from '@/lib/data/historical';
+import { leagueConfig } from '@/lib/config/league.config';
 import { forfeits } from '@/lib/data/wall-of-shame';
+import { ownerFranchiseMap } from '@/lib/data/verified-history';
+import { getLeagueUsers } from '@/lib/sleeper/client';
 
 export const metadata: Metadata = {
   title: 'Wall of Shame',
@@ -13,10 +16,30 @@ export const metadata: Metadata = {
 
 export const revalidate = 86400;
 
+async function getFranchiseAvatars(): Promise<Record<string, string | null>> {
+  if (!leagueConfig.sleeperLeagueId) return {};
+  try {
+    const users = await getLeagueUsers(leagueConfig.sleeperLeagueId);
+    const avatars: Record<string, string | null> = {};
+    for (const user of users) {
+      const franchiseId = ownerFranchiseMap[user.user_id];
+      if (franchiseId) {
+        avatars[franchiseId] =
+          leagueConfig.teamAvatarOverrides[user.user_id] ??
+          user.metadata?.avatar ??
+          user.avatar ??
+          null;
+      }
+    }
+    return avatars;
+  } catch {
+    return {};
+  }
+}
+
 export default async function WallOfShamePage() {
-  const completedForfeits = forfeits.filter(
-    (f) => f.forfeit && f.managerName,
-  );
+  const avatars = await getFranchiseAvatars();
+  const completedForfeits = forfeits.filter((f) => f.forfeit && f.managerName);
   const totalVictims = new Set(forfeits.map((f) => f.franchiseId)).size;
 
   return (
@@ -71,7 +94,7 @@ export default async function WallOfShamePage() {
                   <div className="relative aspect-[4/3] w-full shrink-0 md:aspect-square md:w-72">
                     <Image
                       src={forfeit.image}
-                      alt={`${forfeit.managerName || forfeit.teamName} — ${forfeit.year} forfeit`}
+                      alt={`${forfeit.managerName || forfeit.teamName} - ${forfeit.year} forfeit`}
                       fill
                       unoptimized
                       className="object-cover"
@@ -94,13 +117,10 @@ export default async function WallOfShamePage() {
                   </div>
 
                   <div className="mt-3 flex items-center gap-2.5">
-                    <span
-                      aria-hidden="true"
-                      className="size-3 rounded-full ring-4 ring-white/[0.04]"
-                      style={{
-                        background:
-                          franchiseColors[forfeit.franchiseId],
-                      }}
+                    <TeamAvatar
+                      avatar={avatars[forfeit.franchiseId] ?? null}
+                      name={forfeit.teamName}
+                      className="size-8"
                     />
                     <span className="font-heading text-lg font-black">
                       {forfeit.managerName || forfeit.teamName}

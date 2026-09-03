@@ -17,7 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://sunday-syndicate-hub.emmet793061.chatgpt.site'),
+  metadataBase: new URL(
+    'https://sunday-syndicate-hub.emmet793061.chatgpt.site',
+  ),
   title: {
     default: `${leagueConfig.name} · League Hub`,
     template: `%s · ${leagueConfig.name}`,
@@ -25,14 +27,23 @@ export const metadata: Metadata = {
   description: leagueConfig.tagline,
   openGraph: {
     title: `${leagueConfig.name} · Fantasy League Hub`,
-    description: 'Twelve teams. One trophy. Live matchups, standings, and league pulse.',
+    description:
+      'Twelve teams. One trophy. Live matchups, standings, and league pulse.',
     type: 'website',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${leagueConfig.name} league hub` }],
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: `${leagueConfig.name} league hub`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${leagueConfig.name} · Fantasy League Hub`,
-    description: 'Twelve teams. One trophy. Live matchups, standings, and league pulse.',
+    description:
+      'Twelve teams. One trophy. Live matchups, standings, and league pulse.',
     images: ['/og.png'],
   },
 };
@@ -57,14 +68,18 @@ export default async function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{
-          '--league-primary': leagueConfig.colors.primary,
-          '--league-secondary': leagueConfig.colors.secondary,
-          '--league-accent': leagueConfig.colors.accent,
-        } as React.CSSProperties}
+        style={
+          {
+            '--league-primary': leagueConfig.colors.primary,
+            '--league-secondary': leagueConfig.colors.secondary,
+            '--league-accent': leagueConfig.colors.accent,
+          } as React.CSSProperties
+        }
       >
         <QueryProvider>
-          <LeagueShell leagueAvatar={league?.avatar ?? null}>{children}</LeagueShell>
+          <LeagueShell leagueAvatar={league?.avatar ?? null}>
+            {children}
+          </LeagueShell>
         </QueryProvider>
       </body>
     </html>

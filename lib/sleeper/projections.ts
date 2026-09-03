@@ -8,7 +8,9 @@ async function getUnofficialFeed(
   week: number,
 ): Promise<SleeperProjection[]> {
   try {
-    const query = POSITIONS.map((position) => `position[]=${position}`).join('&');
+    const query = POSITIONS.map((position) => `position[]=${position}`).join(
+      '&',
+    );
     const response = await fetch(
       `https://api.sleeper.app/${kind}/nfl/${year}/${week}?season_type=regular&${query}`,
       { next: { revalidate: 900 } },

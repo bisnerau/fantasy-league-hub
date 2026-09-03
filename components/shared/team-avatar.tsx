@@ -15,12 +15,18 @@ export function TeamAvatar({
       ? avatar
       : `https://sleepercdn.com/avatars/thumbs/${avatar}`
     : undefined;
-  const initials = name.split(/\s+/).map((word) => word[0]).join('').slice(0, 2);
+  const initials = name
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 2);
 
   return (
     <Avatar className={cn('size-9 border border-white/10 bg-muted', className)}>
       {source && <AvatarImage src={source} alt="" />}
-      <AvatarFallback className="bg-gradient-to-br from-primary/25 to-secondary/25 font-heading text-[10px] font-black text-foreground">{initials}</AvatarFallback>
+      <AvatarFallback className="bg-gradient-to-br from-primary/25 to-secondary/25 font-heading text-[10px] font-black text-foreground">
+        {initials}
+      </AvatarFallback>
     </Avatar>
   );
 }
