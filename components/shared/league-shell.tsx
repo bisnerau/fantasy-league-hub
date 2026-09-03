@@ -22,11 +22,11 @@ export function LeagueShell({ children, leagueAvatar }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-background text-foreground">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[224px] border-r border-white/8 bg-sidebar/95 px-3 py-4 backdrop-blur-xl lg:flex lg:flex-col">
-        <a href="/" className="flex items-center gap-3 px-2" aria-label={`${leagueConfig.name} home`}>
-          <span className="brand-mark">{avatarUrl ? <Image src={avatarUrl} alt="" width={44} height={44} unoptimized className="size-full rounded-xl object-cover" /> : leagueConfig.shortName}</span>
+        <a href="/" className="flex items-center gap-3.5 px-2" aria-label={`${leagueConfig.name} home`}>
+          <span className="brand-mark">{avatarUrl ? <Image src={avatarUrl} alt="" width={56} height={56} unoptimized className="size-full rounded-2xl object-cover" /> : leagueConfig.shortName}</span>
           <span className="min-w-0">
-            <span className="block truncate font-heading text-[15px] font-black uppercase tracking-[0.12em]">{leagueConfig.name}</span>
-            <span className="mt-0.5 block text-[10px] text-muted-foreground">Fantasy league</span>
+            <span className="block truncate font-heading text-base font-black uppercase tracking-[0.12em]">{leagueConfig.name}</span>
+            <span className="mt-1 block text-[11px] text-muted-foreground">Fantasy league</span>
           </span>
         </a>
 
