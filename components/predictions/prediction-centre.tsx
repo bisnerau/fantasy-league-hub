@@ -177,31 +177,31 @@ function TeamChoice({
   return (
     <div
       className={cn(
-        'min-w-0 rounded-xl border p-3 transition-colors sm:p-3.5',
+        'min-w-0 rounded-xl border p-2.5 transition-colors sm:p-3.5',
         selected
           ? 'border-primary/25 bg-primary/[0.035]'
           : 'border-white/[0.065] bg-white/[0.018]',
       )}
     >
-      <div className="flex min-w-0 items-center gap-2.5">
+      <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 sm:flex sm:gap-2.5">
         <TeamAvatar
           avatar={team.avatar}
           name={team.teamName}
-          className="size-9 sm:size-10"
+          className="size-8 sm:size-10"
         />
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-bold leading-tight sm:text-[15px]">
+        <div className="col-span-2 mt-2 min-w-0 sm:order-none sm:col-span-1 sm:mt-0 sm:flex-1">
+          <p className="truncate text-xs font-bold leading-tight sm:text-[15px]">
             {team.teamName}
           </p>
-          <p className="mt-1 truncate text-[10px] text-muted-foreground sm:text-[11px]">
+          <p className="mt-1 truncate text-[9px] text-muted-foreground sm:text-[11px]">
             {team.ownerName} · {recordFor(team)}
           </p>
         </div>
-        <div className="shrink-0 text-right">
-          <p className="font-mono text-2xl font-black tracking-[-0.055em] sm:text-[28px]">
+        <div className="col-start-2 row-start-1 shrink-0 text-right sm:order-none sm:col-auto sm:row-auto">
+          <p className="font-mono text-xl font-black tracking-[-0.055em] sm:text-[28px]">
             {team.projectedScore.toFixed(1)}
           </p>
-          <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+          <p className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.1em] text-muted-foreground sm:text-[10px] sm:tracking-[0.12em]">
             Projected
           </p>
         </div>
@@ -352,7 +352,7 @@ function MatchupPanel({
               : 'Voting open'}
         </span>
       </div>
-      <div className="grid gap-2.5 px-3.5 py-3 sm:grid-cols-[minmax(0,1fr)_20px_minmax(0,1fr)] sm:items-stretch sm:gap-3 sm:px-4">
+      <div className="grid grid-cols-[minmax(0,1fr)_12px_minmax(0,1fr)] items-stretch gap-1.5 px-2.5 py-3 sm:grid-cols-[minmax(0,1fr)_20px_minmax(0,1fr)] sm:gap-3 sm:px-4">
         <TeamChoice
           team={matchup.home}
           matchup={matchup}
