@@ -42,8 +42,8 @@ export default async function MatchupsPage({
   const nextWeek = Math.min(latestWeek, data.week + 1);
 
   return (
-    <div className="space-y-4 sm:space-y-5">
-      <section className="draft-page-heading">
+    <div className="space-y-3.5 sm:space-y-4">
+      <section className="draft-page-heading !items-center !py-1">
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="ui-kicker">Matchup predictor</span>
@@ -60,25 +60,25 @@ export default async function MatchupsPage({
               {isTestWeek ? 'Temporary test' : 'New for 2026'}
             </Badge>
           </div>
-          <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-[-0.045em] text-foreground sm:text-4xl lg:text-[46px]">
+          <h1 className="mt-2 max-w-3xl text-2xl font-semibold tracking-[-0.04em] text-foreground sm:text-3xl lg:text-[38px]">
             {isTestWeek
               ? 'Try the complete voting flow.'
               : 'Call every game before kickoff.'}
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+          <p className="mt-1.5 max-w-2xl text-[13px] leading-5 text-muted-foreground">
             {isTestWeek
               ? 'These six practice matchups are separate from the season and will be deleted after testing.'
               : 'Six weekly picks. Hidden until Sunday. Every correct winner counts toward the season prediction title.'}
           </p>
         </div>
-        <div className="hidden size-14 items-center justify-center rounded-2xl border border-primary/15 bg-primary/[0.065] text-primary sm:flex">
-          <Swords className="size-6" />
+        <div className="hidden size-12 items-center justify-center rounded-xl border border-primary/15 bg-primary/[0.065] text-primary sm:flex">
+          <Swords className="size-5" />
         </div>
       </section>
 
       {isTestWeek ? (
         <div className="flex items-center justify-between rounded-xl border border-amber-300/10 bg-amber-300/[0.025] p-2 pl-3">
-          <p className="text-[10px] text-amber-100/75">
+          <p className="text-[11px] text-amber-100/75">
             Practice only · votes do not count toward the season table
           </p>
           <a
@@ -112,7 +112,7 @@ export default async function MatchupsPage({
             <p className="font-heading text-sm font-semibold">
               Week {data.week}
             </p>
-            <p className="text-[9px] text-muted-foreground">
+            <p className="text-[10px] text-muted-foreground">
               {data.season} season
             </p>
           </div>

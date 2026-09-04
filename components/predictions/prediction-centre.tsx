@@ -27,7 +27,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -60,6 +59,12 @@ type VoteRecord = {
   selected_roster_id: number;
 };
 
+type VoterDisplay = {
+  id: string;
+  name: string;
+  isCurrentUser: boolean;
+};
+
 type LeaderboardRow = {
   voter_id: string;
   display_name: string;
@@ -85,19 +90,19 @@ function recordFor(team: PredictionTeam) {
 
 function PlayerRow({ player }: { player: PredictionPlayer }) {
   return (
-    <div className="grid grid-cols-[32px_minmax(0,1fr)_auto] items-center gap-2 border-b border-white/[0.055] py-2 last:border-0">
-      <span className="font-mono text-[9px] font-bold text-primary">
+    <div className="grid grid-cols-[38px_minmax(0,1fr)_auto] items-center gap-2.5 border-b border-white/[0.055] py-2.5 last:border-0">
+      <span className="font-mono text-[10px] font-bold text-primary">
         {player.slot.replace('_FLEX', '')}
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-[11px] font-medium">
+        <span className="block truncate text-xs font-medium">
           {player.name}
         </span>
-        <span className="block text-[9px] text-muted-foreground">
+        <span className="mt-0.5 block text-[10px] text-muted-foreground">
           {player.position} · {player.nflTeam}
         </span>
       </span>
-      <span className="font-mono text-[10px] text-muted-foreground">
+      <span className="font-mono text-[11px] text-muted-foreground">
         {player.projectedPoints.toFixed(1)}
       </span>
     </div>
@@ -114,8 +119,8 @@ function LineupColumn({ team }: { team: PredictionTeam }) {
           className="size-7"
         />
         <div className="min-w-0">
-          <p className="truncate text-xs font-semibold">{team.teamName}</p>
-          <p className="text-[9px] text-muted-foreground">Starting lineup</p>
+          <p className="truncate text-sm font-semibold">{team.teamName}</p>
+          <p className="text-[10px] text-muted-foreground">Starting lineup</p>
         </div>
       </div>
       <div>
@@ -124,7 +129,7 @@ function LineupColumn({ team }: { team: PredictionTeam }) {
         ))}
       </div>
       <details className="group mt-2">
-        <summary className="flex cursor-pointer list-none items-center justify-between rounded-md px-1 py-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground hover:text-foreground">
+        <summary className="flex cursor-pointer list-none items-center justify-between rounded-md px-1 py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground hover:text-foreground">
           Bench · {team.bench.length}
           <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" />
         </summary>
@@ -134,7 +139,7 @@ function LineupColumn({ team }: { team: PredictionTeam }) {
               <PlayerRow key={player.id} player={player} />
             ))
           ) : (
-            <p className="py-3 text-[10px] text-muted-foreground">
+            <p className="py-3 text-[11px] text-muted-foreground">
               No bench players yet.
             </p>
           )}
@@ -149,6 +154,7 @@ function TeamChoice({
   matchup,
   selected,
   voters,
+  votePercentage,
   locked,
   finalized,
   signedIn,
@@ -159,7 +165,8 @@ function TeamChoice({
   team: PredictionTeam;
   matchup: PredictionMatchup;
   selected: boolean;
-  voters: string[];
+  voters: VoterDisplay[];
+  votePercentage: number;
   locked: boolean;
   finalized: boolean;
   signedIn: boolean;
@@ -168,38 +175,47 @@ function TeamChoice({
   onPick: (matchup: PredictionMatchup, rosterId: number) => void;
 }) {
   return (
-    <div className="min-w-0">
-      <div className="flex items-center gap-3">
+    <div
+      className={cn(
+        'min-w-0 rounded-xl border p-3 transition-colors sm:p-3.5',
+        selected
+          ? 'border-primary/25 bg-primary/[0.035]'
+          : 'border-white/[0.065] bg-white/[0.018]',
+      )}
+    >
+      <div className="flex min-w-0 items-center gap-2.5">
         <TeamAvatar
           avatar={team.avatar}
           name={team.teamName}
-          className="size-11 sm:size-12"
+          className="size-9 sm:size-10"
         />
-        <div className="min-w-0">
-          <p className="truncate text-sm font-bold sm:text-base">
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-bold leading-tight sm:text-[15px]">
             {team.teamName}
           </p>
-          <p className="mt-0.5 truncate text-[10px] text-muted-foreground sm:text-[11px]">
+          <p className="mt-1 truncate text-[10px] text-muted-foreground sm:text-[11px]">
             {team.ownerName} · {recordFor(team)}
           </p>
         </div>
+        <div className="shrink-0 text-right">
+          <p className="font-mono text-2xl font-black tracking-[-0.055em] sm:text-[28px]">
+            {team.projectedScore.toFixed(1)}
+          </p>
+          <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            Projected
+          </p>
+        </div>
       </div>
-      <p className="mt-4 font-mono text-3xl font-black tracking-[-0.06em] sm:text-4xl">
-        {team.projectedScore.toFixed(1)}
-      </p>
-      <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.13em] text-muted-foreground">
-        Projected points
-      </p>
       {finalized && (
-        <p className="mt-2 font-mono text-[10px] font-semibold text-foreground/80">
+        <p className="mt-2 text-right font-mono text-[11px] font-semibold text-foreground/80">
           Final · {team.actualScore.toFixed(1)}
         </p>
       )}
       {!locked ? (
         <Button
           variant={selected ? 'default' : 'outline'}
-          size="lg"
-          className="mt-4 w-full"
+          size="sm"
+          className="mt-3 w-full"
           disabled={disabled || pending}
           onClick={() => onPick(matchup, team.rosterId)}
         >
@@ -220,26 +236,45 @@ function TeamChoice({
           )}
         </Button>
       ) : !signedIn ? (
-        <div className="mt-4 min-h-9 rounded-lg border border-white/[0.065] bg-white/[0.025] p-2.5">
-          <p className="text-[10px] text-muted-foreground">
-            Sign in to reveal picks
-          </p>
-        </div>
+        <p className="mt-3 border-t border-white/[0.06] pt-3 text-[11px] text-muted-foreground">
+          Sign in to reveal voters
+        </p>
       ) : (
-        <div className="mt-4 min-h-9 rounded-lg border border-white/[0.065] bg-white/[0.025] p-2.5">
+        <div className="mt-3 border-t border-white/[0.06] pt-3">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-[11px] font-semibold text-foreground/80">
+              {voters.length} {voters.length === 1 ? 'vote' : 'votes'} ·{' '}
+              {Math.round(votePercentage)}%
+            </p>
+            {selected && (
+              <span className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-1.5 py-1 text-[10px] font-semibold text-primary">
+                <Check className="size-3" /> Your pick
+              </span>
+            )}
+          </div>
           {voters.length ? (
-            <div className="flex flex-wrap gap-1.5">
-              {voters.map((name) => (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {voters.map((voter) => (
                 <span
-                  key={name}
-                  className="rounded-md bg-primary/10 px-2 py-1 text-[9px] font-medium text-primary"
+                  key={voter.id}
+                  className={cn(
+                    'inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[10px] font-medium',
+                    voter.isCurrentUser
+                      ? 'bg-primary/[0.12] text-primary'
+                      : 'bg-white/[0.055] text-foreground/75',
+                  )}
                 >
-                  {name}
+                  {voter.name}
+                  {voter.isCurrentUser && (
+                    <span className="text-[9px] font-bold uppercase tracking-wide">
+                      You
+                    </span>
+                  )}
                 </span>
               ))}
             </div>
           ) : (
-            <p className="text-[10px] text-muted-foreground">No picks</p>
+            <p className="mt-2 text-[11px] text-muted-foreground">No picks</p>
           )}
         </div>
       )}
@@ -272,6 +307,7 @@ function MatchupPanel({
   onPick: (matchup: PredictionMatchup, rosterId: number) => void;
   onRequireLogin: () => void;
 }) {
+  const [lineupsOpen, setLineupsOpen] = useState(false);
   const matchupVotes = votes.filter(
     (vote) => vote.matchup_id === matchup.databaseId,
   );
@@ -279,8 +315,19 @@ function MatchupPanel({
   const votersFor = (rosterId: number) =>
     matchupVotes
       .filter((vote) => vote.selected_roster_id === rosterId)
-      .map((vote) => profileNames.get(vote.voter_id) ?? 'League member')
-      .sort();
+      .map((vote) => ({
+        id: vote.voter_id,
+        name: profileNames.get(vote.voter_id) ?? 'League member',
+        isCurrentUser: vote.voter_id === user?.id,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  const homeVoters = votersFor(matchup.home.rosterId);
+  const awayVoters = votersFor(matchup.away.rosterId);
+  const totalVotes = homeVoters.length + awayVoters.length;
+  const homeVotePercentage = totalVotes
+    ? (homeVoters.length / totalVotes) * 100
+    : 0;
+  const awayVotePercentage = totalVotes ? 100 - homeVotePercentage : 0;
   const pick = (selectedMatchup: PredictionMatchup, rosterId: number) => {
     if (!user) {
       onRequireLogin();
@@ -291,29 +338,27 @@ function MatchupPanel({
 
   return (
     <Card className="linear-panel gap-0 py-0">
-      <div className="flex items-center justify-between border-b border-white/[0.065] px-4 py-3 sm:px-5">
-        <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-muted-foreground">
+      <div className="flex items-center justify-between border-b border-white/[0.065] px-3.5 py-2.5 sm:px-4">
+        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
           Matchup {index + 1}
         </span>
-        <Badge
-          variant="outline"
-          className={cn(
-            'text-[8px] uppercase tracking-widest',
-            locked
-              ? 'border-amber-300/15 bg-amber-300/[0.055] text-amber-200'
-              : 'border-primary/15 bg-primary/[0.055] text-primary',
-          )}
-        >
-          {locked ? <LockKeyhole /> : <Vote />}
-          {finalized ? 'Final' : locked ? 'Picks revealed' : 'Voting open'}
-        </Badge>
+        <span className="text-[10px] font-medium text-muted-foreground">
+          {finalized
+            ? 'Final'
+            : locked
+              ? user
+                ? `${totalVotes} ${totalVotes === 1 ? 'vote' : 'votes'}`
+                : 'Locked'
+              : 'Voting open'}
+        </span>
       </div>
-      <div className="grid gap-4 px-4 py-5 sm:grid-cols-[minmax(0,1fr)_28px_minmax(0,1fr)] sm:gap-6 sm:px-5">
+      <div className="grid gap-2.5 px-3.5 py-3 sm:grid-cols-[minmax(0,1fr)_20px_minmax(0,1fr)] sm:items-stretch sm:gap-3 sm:px-4">
         <TeamChoice
           team={matchup.home}
           matchup={matchup}
           selected={ownVote?.selected_roster_id === matchup.home.rosterId}
-          voters={votersFor(matchup.home.rosterId)}
+          voters={homeVoters}
+          votePercentage={homeVotePercentage}
           locked={locked}
           finalized={finalized}
           signedIn={Boolean(user)}
@@ -322,7 +367,7 @@ function MatchupPanel({
           onPick={pick}
         />
         <div className="flex items-center justify-center">
-          <span className="font-mono text-[10px] font-black uppercase text-muted-foreground/60">
+          <span className="font-mono text-[10px] font-black uppercase text-muted-foreground/50">
             vs
           </span>
         </div>
@@ -330,7 +375,8 @@ function MatchupPanel({
           team={matchup.away}
           matchup={matchup}
           selected={ownVote?.selected_roster_id === matchup.away.rosterId}
-          voters={votersFor(matchup.away.rosterId)}
+          voters={awayVoters}
+          votePercentage={awayVotePercentage}
           locked={locked}
           finalized={finalized}
           signedIn={Boolean(user)}
@@ -339,10 +385,37 @@ function MatchupPanel({
           onPick={pick}
         />
       </div>
-      <Accordion className="border-t border-white/[0.065] px-4 sm:px-5">
-        <AccordionItem value={`matchup-${matchup.sleeperMatchupId}`}>
-          <AccordionTrigger className="w-full py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground hover:no-underline hover:text-foreground">
-            View both lineups
+      {locked && user && totalVotes > 0 && (
+        <div className="px-3.5 pb-3 sm:px-4">
+          <div className="mb-1.5 flex items-center justify-between text-[10px] font-medium text-muted-foreground">
+            <span>Community split</span>
+            <span>
+              {Math.round(homeVotePercentage)}% ·{' '}
+              {Math.round(awayVotePercentage)}%
+            </span>
+          </div>
+          <div
+            className="flex h-1.5 overflow-hidden rounded-full bg-white/[0.055]"
+            aria-hidden="true"
+          >
+            <span
+              className="h-full bg-primary transition-[width]"
+              style={{ width: `${homeVotePercentage}%` }}
+            />
+            <span
+              className="h-full flex-1 bg-amber-300/60"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+      )}
+      <Accordion className="border-t border-white/[0.065] px-3.5 sm:px-4">
+        <AccordionItem
+          value={`matchup-${matchup.sleeperMatchupId}`}
+          onOpenChange={setLineupsOpen}
+        >
+          <AccordionTrigger className="my-1 w-full px-2 py-2.5 text-[11px] font-semibold uppercase tracking-[0.11em] text-muted-foreground hover:bg-white/[0.03] hover:no-underline hover:text-foreground">
+            {lineupsOpen ? 'Hide lineups' : 'View both lineups'}
           </AccordionTrigger>
           <AccordionContent className="pb-4">
             <div className="grid gap-3 md:grid-cols-2">
@@ -438,7 +511,10 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
     if (remaining <= 0) return;
 
     const timer = window.setTimeout(
-      () => setLocked(true),
+      () => {
+        setLocked(true);
+        setMessage(null);
+      },
       Math.min(remaining, 2_147_483_647),
     );
     return () => window.clearTimeout(timer);
@@ -487,7 +563,11 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
     }
     setPassword('');
     setLoginOpen(false);
-    setMessage('Signed in. Your picks will now be saved.');
+    setMessage(
+      locked
+        ? 'Signed in. Locked picks and voter names are now revealed.'
+        : 'Signed in. Your picks will now be saved.',
+    );
   };
 
   const signOut = async () => {
@@ -538,8 +618,8 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
 
   return (
     <div className="space-y-4 sm:space-y-5">
-      <Card className="linear-panel gap-0 p-4 sm:p-5">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <Card className="linear-panel gap-0 p-3.5 sm:p-4">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-start gap-3">
             <span
               className={cn(
@@ -567,7 +647,9 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
               </p>
               <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
                 {locked
-                  ? 'Every pick is frozen. Sign in to see the names behind each choice.'
+                  ? user
+                    ? 'All picks are frozen. Vote totals and manager names are visible below.'
+                    : 'All picks are frozen. Sign in to reveal the manager names behind each choice.'
                   : data.isTestWeek
                     ? 'Make or change all six practice picks. Nobody else can see your choices while the test is open.'
                     : `All six picks close ${formatLockTime(data.lockAt)}. Nobody else can see your choices before then.`}
@@ -585,11 +667,21 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
                   <p className="truncate text-xs font-medium">
                     {profile.display_name}
                   </p>
-                  <p className="text-[9px] text-muted-foreground">
+                  <p className="text-[10px] text-muted-foreground">
                     {locked
                       ? 'Picks revealed'
                       : `${picksMade} of ${data.matchups.length} picks saved`}
                   </p>
+                  {!locked && data.matchups.length > 0 && (
+                    <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.07]">
+                      <span
+                        className="block h-full bg-primary transition-[width]"
+                        style={{
+                          width: `${(picksMade / data.matchups.length) * 100}%`,
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
               <Button
@@ -656,13 +748,13 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
         )}
 
         {!supabase && (
-          <p className="mt-3 text-[10px] text-amber-200">
+          <p className="mt-3 text-[11px] text-amber-200">
             Voting is being connected. Matchups and projections still update
             from Sleeper.
           </p>
         )}
         {message && (
-          <output className="mt-3 block text-[10px] text-muted-foreground">
+          <output className="mt-3 block text-[11px] text-muted-foreground">
             {message}
           </output>
         )}
