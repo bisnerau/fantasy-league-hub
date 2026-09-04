@@ -11,10 +11,12 @@ import {
   Sparkles,
   Trophy,
 } from 'lucide-react';
+import { SeasonForecastBallot } from '@/components/draft/season-forecast-ballot';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { draftRecapContent } from '@/lib/data/draft-recap-content';
+import { getSeasonForecastSettings } from '@/lib/data/season-forecasts';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -22,6 +24,8 @@ export const metadata: Metadata = {
   description:
     'MAC 12 draft grades, team analysis, season outlooks and Leinster comparisons.',
 };
+
+export const dynamic = 'force-dynamic';
 
 function gradeClass(grade: string) {
   if (grade.startsWith('A')) {
@@ -141,7 +145,7 @@ function WaitingForDraft() {
   );
 }
 
-export default function DraftRecapPage() {
+export default async function DraftRecapPage() {
   if (!draftRecapContent.published) return <WaitingForDraft />;
 
   const entries = [...draftRecapContent.entries].sort(
@@ -149,6 +153,10 @@ export default function DraftRecapPage() {
   );
   const projectedTable = [...entries].sort(
     (a, b) => a.predictedFinish - b.predictedFinish,
+  );
+  const forecastSettings = await getSeasonForecastSettings(
+    draftRecapContent.season,
+    entries.length,
   );
 
   return (
@@ -250,13 +258,13 @@ export default function DraftRecapPage() {
             <ListOrdered className="size-4" />
           </span>
           <div>
-            <p className="ui-kicker">Pre-season prediction</p>
+            <p className="ui-kicker">AI prediction</p>
             <h2 className="mt-1 text-base font-semibold sm:text-lg">
-              The projected final table
+              My projected final table
             </h2>
             <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
-              Locked when this recap was published. We will bring the receipts
-              back at the end of the season.
+              My evidence-led call after grading all 12 drafts. It is locked on
+              publication so we can bring the receipts back after the season.
             </p>
           </div>
         </div>
@@ -299,6 +307,16 @@ export default function DraftRecapPage() {
           ))}
         </div>
       </Card>
+
+      <SeasonForecastBallot
+        settings={forecastSettings}
+        teams={entries.map((entry) => ({
+          rosterId: entry.rosterId,
+          teamName: entry.teamName,
+          managerName: entry.managerName,
+          avatar: entry.avatar,
+        }))}
+      />
 
       <div className="space-y-4">
         {entries.map((entry) => (

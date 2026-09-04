@@ -151,6 +151,8 @@ const report = {
     finalStandingsPredictionRequired: true,
     uniqueProjectedPositions: Number(league.total_rosters),
     predictionMustBeFrozenAtPublication: true,
+    managerForecasts:
+      'Managers submit private 1st-to-12th ballots that reveal at the Week 1 lock',
     researchMinimums: {
       currentFantasyExpertSources: 3,
       consensusAdpRequired: true,

@@ -51,7 +51,11 @@ The user should only need to say that the Sleeper draft is complete.
 16. Treat the projected final table as a frozen pre-season record. Once it is
     published, do not revise a prediction except to correct a factual typo. At
     the end of the season, compare each projected place with the actual finish.
-17. Set `published` to `true`, update the homepage/sidebar links, build, lint
+17. Confirm the manager forecast window is open and locks with the Week 1 Sunday
+    picks. Managers submit their own private 1st-to-12th tables using the same
+    accounts as the matchup predictor. After the lock, reveal the league
+    consensus and every named ballot.
+18. Set `published` to `true`, update the homepage/sidebar links, build, lint
     and deploy to Vercel.
 
 ## Required entry structure
