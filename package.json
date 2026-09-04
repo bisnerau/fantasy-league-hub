@@ -11,6 +11,7 @@
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt",
+    "draft:prepare": "node --env-file=.env.local scripts/prepare-draft-recap.mjs",
     "members:create": "node --env-file=.env.local --experimental-strip-types scripts/create-supabase-members.mjs"
   },
   "dependencies": {
