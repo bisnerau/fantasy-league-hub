@@ -55,7 +55,7 @@ No test runner is configured.
 
 Requires `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` in `.env.local` to connect to a real Sleeper league. Matchup voting also uses `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, and the server-only `SUPABASE_SECRET_KEY`. Never expose or commit the secret key. See `.env.example` for all vars.
 
-Supabase schema changes live in `supabase/migrations/`. Pushes to `main` deploy them through `.github/workflows/deploy-supabase.yml`. Manager Auth accounts are provisioned with `npm run members:create`; the generated password sheet is written outside the repository to `/private/tmp`.
+Supabase schema changes live in `supabase/migrations/` and are applied with the linked Supabase CLI before production deployment. Manager Auth accounts are provisioned with `npm run members:create`; the generated password sheet is written outside the repository to `/private/tmp`.
 
 ## Deployment
 
