@@ -24,6 +24,7 @@ No test runner is configured.
 
 - `/` — draft-week dashboard (draft countdown, champion spotlight, league roster, settings, trending players, activity feed)
 - `/standings` — live standings table with median record
+- `/matchups` — weekly matchup predictions, expandable lineups, authenticated voting, and the season prediction table
 - `/records` — historical record book (2020–present), franchise all-time records
 
 **Data flow**: All pages are async RSCs. Data is fetched server-side in `lib/data/` modules which call into `lib/sleeper/client.ts`. The Sleeper client uses `fetch` with `next.revalidate` caching hints (300s–86400s depending on endpoint volatility). No database — all state comes from the Sleeper API or hardcoded historical data.
@@ -37,6 +38,8 @@ No test runner is configured.
 - `lib/data/dashboard.ts` — assembles `DashboardData` (standings, matchups, activities, trending, draft info, reigning champion); returns demo data when no league ID is set
 - `lib/data/historical.ts` — hardcoded 2020–2024 season results with franchise color mapping
 - `lib/data/verified-history.ts` — merges hardcoded history with Sleeper-verified seasons by walking the league chain
+- `lib/data/predictions.ts` — assembles weekly Sleeper lineups/projections and synchronizes prediction metadata/results to Supabase
+- `lib/supabase/` — browser and server-only Supabase clients; the server client requires the secret key and must never be imported by client components
 
 **League config**: `lib/config/league.config.ts` — league name, branding colors (exposed as CSS custom properties `--league-primary/secondary/accent`), owner name/avatar overrides. League ID comes from `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` env var.
 
@@ -50,7 +53,9 @@ No test runner is configured.
 
 ## Environment
 
-Requires `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` in `.env.local` to connect to a real Sleeper league. Without it, the dashboard renders demo data. See `.env.example` for all vars.
+Requires `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` in `.env.local` to connect to a real Sleeper league. Matchup voting also uses `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, and the server-only `SUPABASE_SECRET_KEY`. Never expose or commit the secret key. See `.env.example` for all vars.
+
+Supabase schema changes live in `supabase/migrations/`. Pushes to `main` deploy them through `.github/workflows/deploy-supabase.yml`. Manager Auth accounts are provisioned with `npm run members:create`; the generated password sheet is written outside the repository to `/private/tmp`.
 
 ## Deployment
 
@@ -69,6 +74,8 @@ Requires `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` in `.env.local` to connect to a real Sl
 **Do NOT** replace the fetch-handler adapter in `index.mjs` with `startProdServer()` — Vercel Functions are serverless request handlers, not long-running HTTP servers.
 
 The `.openai/hosting.json` contains a legacy OpenAI Sites project ID (this was originally scaffolded as an OpenAI Site). D1/R2 bindings are configured in the Cloudflare plugin but currently null/unused.
+
+Vercel calls `/api/cron/predictions` every Tuesday to finalize the prior week's results. The endpoint requires the server-only `CRON_SECRET` configured in Vercel.
 
 ## Formatting & linting conventions
 

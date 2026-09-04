@@ -89,7 +89,14 @@ export default async function DashboardPage() {
           </div>
         )}
 
-        <a href={champion?.franchiseId ? `/managers#${champion.franchiseId}` : '/managers'} className="champion-spotlight flex flex-col gap-0 rounded-xl p-5 sm:p-6">
+        <a
+          href={
+            champion?.franchiseId
+              ? `/managers#${champion.franchiseId}`
+              : '/managers'
+          }
+          className="champion-spotlight flex flex-col gap-0 rounded-xl p-5 sm:p-6"
+        >
           <div className="flex items-center justify-between gap-3">
             <span className="ui-kicker">Defending champion</span>
             <Crown className="size-4 text-amber-300" />
@@ -132,7 +139,13 @@ export default async function DashboardPage() {
         </div>
         <div className="team-rail">
           {data.standings.map((team) => (
-            <a key={team.rosterId} href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="team-chip">
+            <a
+              key={team.rosterId}
+              href={
+                team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'
+              }
+              className="team-chip"
+            >
               <TeamAvatar
                 avatar={team.avatar}
                 name={team.teamName}
@@ -414,33 +427,43 @@ export default async function DashboardPage() {
         <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
           <div className="flex items-center gap-2.5">
             <Sparkles className="size-4 text-primary" />
-            <h2 className="text-sm font-medium">Coming next</h2>
+            <h2 className="text-sm font-medium">League roadmap</h2>
           </div>
-          <span className="text-[10px] text-muted-foreground">In the works</span>
+          <span className="text-[10px] text-muted-foreground">
+            In the works
+          </span>
         </div>
         <div className="grid gap-px sm:grid-cols-2">
           {[
             {
               icon: BarChart3,
               title: 'Power rankings',
-              detail: 'Weekly algorithmic rankings based on scoring, roster strength and schedule.',
+              detail:
+                'Weekly algorithmic rankings based on scoring, roster strength and schedule.',
+              href: null,
             },
             {
               icon: Swords,
-              title: 'Matchup centre',
-              detail: 'Head-to-head breakdowns with league-wide voting on who wins each week.',
-              tag: 'Vote',
+              title: 'Matchup predictor',
+              detail:
+                'Head-to-head breakdowns with league-wide voting on who wins each week.',
+              tag: 'Live now',
               tagIcon: Vote,
+              href: '/matchups',
             },
             {
               icon: Repeat2,
               title: 'Trade centre',
-              detail: 'Trade history, analysis and league reaction to every deal.',
+              detail:
+                'Trade history, analysis and league reaction to every deal.',
+              href: null,
             },
             {
               icon: ListOrdered,
               title: 'Draft recap',
-              detail: 'Pick-by-pick breakdown, best values and biggest reaches.',
+              detail:
+                'Pick-by-pick breakdown, best values and biggest reaches.',
+              href: null,
             },
           ].map((item) => {
             const Icon = item.icon;
@@ -454,7 +477,15 @@ export default async function DashboardPage() {
                 </span>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="text-xs font-medium">{item.title}</p>
+                    <p className="text-xs font-medium">
+                      {item.href ? (
+                        <a href={item.href} className="hover:text-primary">
+                          {item.title}
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </p>
                     {item.tag && (
                       <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/[0.07] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-[0.1em] text-primary">
                         {item.tagIcon && <item.tagIcon className="size-2.5" />}

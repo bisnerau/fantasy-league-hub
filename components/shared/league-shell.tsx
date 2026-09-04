@@ -9,6 +9,7 @@ import {
   Skull,
   Trophy,
   Users,
+  Vote,
 } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -18,18 +19,29 @@ import { cn } from '@/lib/utils';
 
 const mainNavigation = [
   { label: 'Clubhouse', shortLabel: 'Home', href: '/', icon: Home },
-  { label: 'Standings', shortLabel: 'Standings', href: '/standings', icon: BarChart3 },
-  { label: 'Record book', shortLabel: 'Records', href: '/records', icon: BookOpen },
+  {
+    label: 'Standings',
+    shortLabel: 'Standings',
+    href: '/standings',
+    icon: BarChart3,
+  },
+  { label: 'Matchups', shortLabel: 'Picks', href: '/matchups', icon: Vote },
+  {
+    label: 'Record book',
+    shortLabel: 'Records',
+    href: '/records',
+    icon: BookOpen,
+  },
   { label: 'Managers', shortLabel: 'Managers', href: '/managers', icon: Users },
-  { label: 'Wall of shame', shortLabel: 'Shame', href: '/wall-of-shame', icon: Skull },
+  {
+    label: 'Wall of shame',
+    shortLabel: 'Shame',
+    href: '/wall-of-shame',
+    icon: Skull,
+  },
 ];
 
-const upcoming = [
-  'Power rankings',
-  'Matchup center',
-  'Trade center',
-  'Draft recap',
-];
+const upcoming = ['Power rankings', 'Trade center', 'Draft recap'];
 
 export function LeagueShell({
   children,
@@ -171,7 +183,7 @@ export function LeagueShell({
       </div>
 
       <nav
-        className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 rounded-2xl border border-white/10 bg-[#11140f]/95 p-1.5 shadow-2xl backdrop-blur-xl lg:hidden"
+        className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-6 rounded-2xl border border-white/10 bg-[#11140f]/95 p-1.5 shadow-2xl backdrop-blur-xl lg:hidden"
         aria-label="Mobile navigation"
       >
         {mainNavigation.map((item) => {

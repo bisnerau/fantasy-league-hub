@@ -10,11 +10,13 @@
     "build": "vinext build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "members:create": "node --env-file=.env.local --experimental-strip-types scripts/create-supabase-members.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
     "@shadcn/react": "0.3.0",
+    "@supabase/supabase-js": "^2.115.0",
     "@tanstack/react-query": "^5.102.8",
     "@tanstack/react-table": "^9.2.4",
     "class-variance-authority": "0.7.1",
