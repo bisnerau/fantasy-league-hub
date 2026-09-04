@@ -19,6 +19,7 @@ export type DraftRecapEntry = {
   draftSlot: number;
   grade: string;
   gradeScore: number;
+  predictedFinish: number;
   headline: string;
   summary: string;
   bestPick: DraftRecapSpotlight;

@@ -148,6 +148,9 @@ const report = {
     leinsterPool: 'Current players and former Leinster favourites',
     freshness:
       'Research current NFL and Leinster information immediately before writing',
+    finalStandingsPredictionRequired: true,
+    uniqueProjectedPositions: Number(league.total_rosters),
+    predictionMustBeFrozenAtPublication: true,
     researchMinimums: {
       currentFantasyExpertSources: 3,
       consensusAdpRequired: true,

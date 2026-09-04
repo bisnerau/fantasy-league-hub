@@ -37,14 +37,21 @@ The user should only need to say that the Sleeper draft is complete.
 
 11. Review the grades across all 12 teams as one cohort. Avoid grade inflation
     and make sure the prose supports the score.
-12. Write sharp, funny and fair copy for every entry in
+12. Predict one complete final table from 1st through 12th with no ties. Base it
+    on roster quality, the manager's history and habits, and any relevant league
+    context. The draft grade remains roster-only. If the projected order differs
+    materially from the grade order, explain why in that manager's outlook.
+13. Write sharp, funny and fair copy for every entry in
     `lib/data/draft-recap-content.ts`. Manager history shapes the outlook and
     jokes, but the roster itself determines the grade.
-13. Use a current or former Leinster player for each comparison and explain the
+14. Use a current or former Leinster player for each comparison and explain the
     connection. Prefer distinct comparisons across the 12 teams.
-14. Add the research methodology, timestamp and source links to the published
+15. Add the research methodology, timestamp and source links to the published
     recap so the evidence behind the grades is transparent.
-15. Set `published` to `true`, update the homepage/sidebar links, build, lint
+16. Treat the projected final table as a frozen pre-season record. Once it is
+    published, do not revise a prediction except to correct a factual typo. At
+    the end of the season, compare each projected place with the actual finish.
+17. Set `published` to `true`, update the homepage/sidebar links, build, lint
     and deploy to Vercel.
 
 ## Required entry structure
@@ -52,6 +59,7 @@ The user should only need to say that the Sleeper draft is complete.
 Each manager receives:
 
 - Letter grade and numerical score
+- Predicted final position from 1st to 12th
 - Headline and team summary
 - Best pick
 - Biggest concern
@@ -70,3 +78,7 @@ Each manager receives:
 - Check news again immediately before publishing in case a player's status
   changes after the final pick.
 - Treat jokes as commentary, never as evidence for moving a grade.
+- Give every team a unique projected position and confirm the full table covers
+  1st through 12th exactly once.
+- Preserve the prediction and publication timestamp for the end-of-season
+  accuracy review.

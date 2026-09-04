@@ -5,6 +5,7 @@ import {
   CalendarClock,
   ChevronDown,
   ClipboardCheck,
+  ListOrdered,
   SearchCheck,
   Shield,
   Sparkles,
@@ -33,6 +34,23 @@ function gradeClass(grade: string) {
     return 'border-amber-300/25 bg-amber-300/[0.08] text-amber-200';
   }
   return 'border-orange-400/25 bg-orange-400/[0.08] text-orange-200';
+}
+
+function ordinal(value: number) {
+  const lastTwoDigits = value % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) return `${value}th`;
+
+  const suffix =
+    value % 10 === 1
+      ? 'st'
+      : value % 10 === 2
+        ? 'nd'
+        : value % 10 === 3
+          ? 'rd'
+          : 'th';
+
+  return `${value}${suffix}`;
 }
 
 function WaitingForDraft() {
@@ -129,6 +147,9 @@ export default function DraftRecapPage() {
   const entries = [...draftRecapContent.entries].sort(
     (a, b) => a.draftSlot - b.draftSlot,
   );
+  const projectedTable = [...entries].sort(
+    (a, b) => a.predictedFinish - b.predictedFinish,
+  );
 
   return (
     <div className="space-y-5 sm:space-y-6">
@@ -223,6 +244,62 @@ export default function DraftRecapPage() {
         </div>
       </Card>
 
+      <Card className="linear-panel gap-0 py-0">
+        <div className="flex items-start gap-3 border-b border-white/[0.065] p-4 sm:p-5">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-secondary/20 bg-secondary/[0.055] text-secondary-foreground">
+            <ListOrdered className="size-4" />
+          </span>
+          <div>
+            <p className="ui-kicker">Pre-season prediction</p>
+            <h2 className="mt-1 text-base font-semibold sm:text-lg">
+              The projected final table
+            </h2>
+            <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
+              Locked when this recap was published. We will bring the receipts
+              back at the end of the season.
+            </p>
+          </div>
+        </div>
+
+        <div className="divide-y divide-white/[0.055]">
+          {projectedTable.map((entry) => (
+            <a
+              key={entry.rosterId}
+              href={`#roster-${entry.rosterId}`}
+              className="group flex items-center gap-3 px-4 py-3 transition-colors hover:bg-white/[0.025] sm:px-5"
+            >
+              <span className="w-8 shrink-0 font-mono text-lg font-black tracking-[-0.05em] text-primary sm:w-10">
+                {entry.predictedFinish}
+              </span>
+              <TeamAvatar
+                avatar={entry.avatar}
+                name={entry.teamName}
+                className="size-9 shrink-0"
+              />
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-xs font-semibold group-hover:text-primary sm:text-sm">
+                  {entry.teamName}
+                </span>
+                <span className="mt-0.5 block truncate text-[9px] text-muted-foreground sm:text-[10px]">
+                  {entry.managerName}
+                </span>
+              </span>
+              <span className="hidden text-[9px] uppercase tracking-[0.1em] text-muted-foreground sm:block">
+                Draft grade
+              </span>
+              <span
+                className={cn(
+                  'flex size-8 shrink-0 items-center justify-center rounded-lg border font-mono text-xs font-black',
+                  gradeClass(entry.grade),
+                )}
+              >
+                {entry.grade}
+              </span>
+            </a>
+          ))}
+        </div>
+      </Card>
+
       <div className="space-y-4">
         {entries.map((entry) => (
           <article
@@ -298,7 +375,15 @@ export default function DraftRecapPage() {
 
                 <div className="grid gap-3 lg:grid-cols-2">
                   <div className="rounded-xl border border-white/[0.065] bg-white/[0.018] p-4">
-                    <p className="ui-kicker">Season outlook</p>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="ui-kicker">Season outlook</p>
+                      <Badge
+                        variant="outline"
+                        className="shrink-0 border-primary/20 bg-primary/[0.055] text-[9px] text-primary"
+                      >
+                        Predicted {ordinal(entry.predictedFinish)}
+                      </Badge>
+                    </div>
                     <p className="mt-2 text-xs leading-6 text-muted-foreground">
                       {entry.seasonOutlook}
                     </p>
