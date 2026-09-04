@@ -39,8 +39,9 @@ function WaitingForDraft() {
   const checks = [
     {
       icon: ClipboardCheck,
-      title: 'Consistent grades',
-      detail: 'Every roster will be judged against the same five-part rubric.',
+      title: 'Consensus-led grades',
+      detail:
+        'Current expert rankings, projections and multi-source ADP will anchor every score.',
     },
     {
       icon: SearchCheck,
@@ -183,6 +184,44 @@ export default function DraftRecapPage() {
           </a>
         ))}
       </nav>
+
+      <Card className="linear-panel gap-0 p-4 sm:p-5">
+        <div className="flex items-start gap-3">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-primary/[0.055] text-primary">
+            <SearchCheck className="size-4" />
+          </span>
+          <div>
+            <p className="ui-kicker">How the grades were calculated</p>
+            {draftRecapContent.generatedAt && (
+              <p className="mt-1 text-[9px] text-muted-foreground">
+                Research updated{' '}
+                {new Intl.DateTimeFormat('en-IE', {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                }).format(new Date(draftRecapContent.generatedAt))}
+              </p>
+            )}
+            <p className="mt-2 text-xs leading-6 text-muted-foreground">
+              {draftRecapContent.methodology}
+            </p>
+            {draftRecapContent.sources.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {draftRecapContent.sources.map((source) => (
+                  <a
+                    key={`${source.category}-${source.url}`}
+                    href={source.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 text-[9px] font-medium text-muted-foreground transition-colors hover:border-primary/20 hover:text-primary"
+                  >
+                    {source.label} · {source.category}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </Card>
 
       <div className="space-y-4">
         {entries.map((entry) => (

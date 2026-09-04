@@ -148,6 +148,15 @@ const report = {
     leinsterPool: 'Current players and former Leinster favourites',
     freshness:
       'Research current NFL and Leinster information immediately before writing',
+    researchMinimums: {
+      currentFantasyExpertSources: 3,
+      consensusAdpRequired: true,
+      expertConsensusRankingsRequired: true,
+      seasonProjectionsRequired: true,
+      officialNflStatusChecksRequired: true,
+      leagueScoringAdjustmentRequired: true,
+      publishedSourceLinksRequired: true,
+    },
   },
   teams,
 };

@@ -36,6 +36,12 @@ export type DraftRecapContent = {
   season: number;
   generatedAt: string | null;
   overview: string;
+  methodology: string;
+  sources: Array<{
+    label: string;
+    url: string;
+    category: 'ADP' | 'Expert rankings' | 'NFL news' | 'Leinster';
+  }>;
   entries: DraftRecapEntry[];
 };
 
@@ -46,5 +52,7 @@ export const draftRecapContent: DraftRecapContent = {
   season: 2026,
   generatedAt: null,
   overview: '',
+  methodology: '',
+  sources: [],
   entries: [],
 };
