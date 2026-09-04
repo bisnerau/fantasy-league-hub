@@ -1,6 +1,4 @@
 import { leagueConfig } from '@/lib/config/league.config';
-import { getFranchiseRecords } from '@/lib/data/historical';
-import { leagueMembers, type LeagueMember } from '@/lib/data/member-directory';
 import { getSupabaseAdminClient } from '@/lib/supabase/admin';
 import {
   getLeague,
@@ -56,7 +54,6 @@ export type PredictionWeekData = {
   season: string;
   week: number;
   currentWeek: number;
-  isTestWeek: boolean;
   lockAt: string;
   locked: boolean;
   finalized: boolean;
@@ -70,34 +67,6 @@ type StoredMatchup = {
   home_projected: number | string;
   away_projected: number | string;
 };
-
-export const predictionTestLeagueId = 'mac12-prediction-test';
-
-const testProjectedScores = [
-  118.7, 116.4, 123.1, 121.8, 109.6, 111.3, 127.2, 124.9, 114.5, 112.8, 119.3,
-  120.1,
-];
-
-const testStarterBlueprint = [
-  { slot: 'QB', position: 'QB', points: 22.4 },
-  { slot: 'RB', position: 'RB', points: 15.8 },
-  { slot: 'RB', position: 'RB', points: 12.6 },
-  { slot: 'WR', position: 'WR', points: 16.3 },
-  { slot: 'WR', position: 'WR', points: 13.9 },
-  { slot: 'TE', position: 'TE', points: 9.1 },
-  { slot: 'FLEX', position: 'FLEX', points: 12.2 },
-  { slot: 'K', position: 'K', points: 8.4 },
-  { slot: 'DEF', position: 'DEF', points: 8 },
-];
-
-const testPairings = [
-  [0, 11],
-  [1, 10],
-  [2, 9],
-  [3, 8],
-  [4, 7],
-  [5, 6],
-] as const;
 
 function teamNameFor(user: SleeperUser | undefined, roster: SleeperRoster) {
   const ownerId = roster.owner_id ?? '';
@@ -303,86 +272,6 @@ function buildMatchups(
     });
 }
 
-function createTestTeam(
-  member: LeagueMember,
-  projectedScore: number,
-): PredictionTeam {
-  const currentName =
-    getFranchiseRecords().find(
-      (record) => record.franchiseId === member.franchiseId,
-    )?.currentName ?? member.displayName;
-  const baseTotal = testStarterBlueprint.reduce(
-    (total, player) => total + player.points,
-    0,
-  );
-  const adjustment = projectedScore - baseTotal;
-  const starters = testStarterBlueprint.map((player, index) => ({
-    id: `test-${member.rosterId}-starter-${index}`,
-    name: `Practice ${player.position}${index > 0 ? ` ${index + 1}` : ''}`,
-    position: player.position,
-    nflTeam: 'TST',
-    slot: player.slot,
-    projectedPoints: Number(
-      (player.points + (index === 0 ? adjustment : 0)).toFixed(1),
-    ),
-    starter: true,
-  }));
-  const bench = [10.2, 8.4, 5.6].map((projectedPoints, index) => ({
-    id: `test-${member.rosterId}-bench-${index}`,
-    name: `Practice bench ${index + 1}`,
-    position: ['RB', 'WR', 'TE'][index],
-    nflTeam: 'TST',
-    slot: 'BN',
-    projectedPoints,
-    starter: false,
-  }));
-
-  return {
-    rosterId: member.rosterId,
-    teamName: currentName,
-    ownerName: member.displayName,
-    avatar: null,
-    wins: 0,
-    losses: 0,
-    ties: 0,
-    projectedScore,
-    actualScore: 0,
-    starters,
-    bench,
-  };
-}
-
-function buildTestMatchups(): PredictionMatchup[] {
-  return testPairings.map(([homeIndex, awayIndex], index) => ({
-    databaseId: null,
-    sleeperMatchupId: index + 1,
-    home: createTestTeam(
-      leagueMembers[homeIndex],
-      testProjectedScores[homeIndex],
-    ),
-    away: createTestTeam(
-      leagueMembers[awayIndex],
-      testProjectedScores[awayIndex],
-    ),
-  }));
-}
-
-async function getTestLockAt(season: string) {
-  const fallback = '2099-01-01T18:00:00.000Z';
-  const admin = getSupabaseAdminClient();
-  if (!admin) return fallback;
-
-  const { data } = await admin
-    .from('prediction_weeks')
-    .select('locks_at')
-    .eq('league_id', predictionTestLeagueId)
-    .eq('season', Number(season))
-    .eq('week', 1)
-    .maybeSingle();
-
-  return data?.locks_at ?? fallback;
-}
-
 async function syncPredictionWeek(
   data: Omit<PredictionWeekData, 'databaseReady'>,
 ) {
@@ -519,7 +408,6 @@ export async function getPredictionWeekData(
       season,
       week,
       currentWeek,
-      isTestWeek: false,
       lockAt: lockAt.toISOString(),
       locked,
       finalized: false,
@@ -553,29 +441,10 @@ export async function getPredictionWeekData(
     season,
     week,
     currentWeek,
-    isTestWeek: false,
     lockAt: lockAt.toISOString(),
     locked,
     finalized,
     matchups,
-  });
-}
-
-export async function getPredictionTestWeekData(): Promise<PredictionWeekData> {
-  const season = String(new Date().getUTCFullYear());
-  const lockAt = await getTestLockAt(season);
-  const locked = Date.now() >= new Date(lockAt).getTime();
-
-  return syncPredictionWeek({
-    leagueId: predictionTestLeagueId,
-    season,
-    week: 1,
-    currentWeek: 1,
-    isTestWeek: true,
-    lockAt,
-    locked,
-    finalized: false,
-    matchups: buildTestMatchups(),
   });
 }
 

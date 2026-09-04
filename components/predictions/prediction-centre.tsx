@@ -27,7 +27,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
@@ -637,22 +637,14 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
             </span>
             <div>
               <p className="text-xs font-semibold">
-                {locked
-                  ? data.isTestWeek
-                    ? 'Test week locked'
-                    : 'Week locked'
-                  : data.isTestWeek
-                    ? 'Test voting is open'
-                    : 'Anonymous voting is open'}
+                {locked ? 'Week locked' : 'Anonymous voting is open'}
               </p>
               <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
                 {locked
                   ? user
                     ? 'All picks are frozen. Vote totals and manager names are visible below.'
                     : 'All picks are frozen. Sign in to reveal the manager names behind each choice.'
-                  : data.isTestWeek
-                    ? 'Make or change all six practice picks. Nobody else can see your choices while the test is open.'
-                    : `All six picks close ${formatLockTime(data.lockAt)}. Nobody else can see your choices before then.`}
+                  : `All six picks close ${formatLockTime(data.lockAt)}. Nobody else can see your choices before then.`}
               </p>
             </div>
           </div>
@@ -790,51 +782,41 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
             appear here automatically with projected scores, voting and full
             lineups.
           </p>
-          <a
-            href="/matchups?test=1"
-            className={buttonVariants({ variant: 'outline', size: 'lg' })}
-          >
-            Try the test week
-          </a>
         </Card>
       )}
 
-      {!data.isTestWeek &&
-        user &&
-        leaderboard.some((row) => row.completed_picks > 0) && (
-          <Card className="linear-panel gap-0 py-0">
-            <div className="flex items-center gap-2 border-b border-white/[0.065] px-4 py-3.5 sm:px-5">
-              <Trophy className="size-4 text-primary" />
-              <div>
-                <p className="text-xs font-semibold">Season prediction table</p>
-                <p className="mt-0.5 text-[9px] text-muted-foreground">
-                  One point for every correct matchup winner
-                </p>
+      {user && leaderboard.some((row) => row.completed_picks > 0) && (
+        <Card className="linear-panel gap-0 py-0">
+          <div className="flex items-center gap-2 border-b border-white/[0.065] px-4 py-3.5 sm:px-5">
+            <Trophy className="size-4 text-primary" />
+            <div>
+              <p className="text-xs font-semibold">Season prediction table</p>
+              <p className="mt-0.5 text-[9px] text-muted-foreground">
+                One point for every correct matchup winner
+              </p>
+            </div>
+          </div>
+          <div className="divide-y divide-white/[0.055] px-4 sm:px-5">
+            {leaderboard.map((row, index) => (
+              <div
+                key={row.voter_id}
+                className="grid grid-cols-[28px_minmax(0,1fr)_auto_auto] items-center gap-3 py-3 text-xs"
+              >
+                <span className="font-mono text-[10px] text-muted-foreground">
+                  {index + 1}
+                </span>
+                <span className="truncate font-medium">{row.display_name}</span>
+                <span className="font-mono font-bold text-primary">
+                  {row.correct_picks}
+                </span>
+                <span className="w-12 text-right font-mono text-[10px] text-muted-foreground">
+                  {Number(row.accuracy).toFixed(1)}%
+                </span>
               </div>
-            </div>
-            <div className="divide-y divide-white/[0.055] px-4 sm:px-5">
-              {leaderboard.map((row, index) => (
-                <div
-                  key={row.voter_id}
-                  className="grid grid-cols-[28px_minmax(0,1fr)_auto_auto] items-center gap-3 py-3 text-xs"
-                >
-                  <span className="font-mono text-[10px] text-muted-foreground">
-                    {index + 1}
-                  </span>
-                  <span className="truncate font-medium">
-                    {row.display_name}
-                  </span>
-                  <span className="font-mono font-bold text-primary">
-                    {row.correct_picks}
-                  </span>
-                  <span className="w-12 text-right font-mono text-[10px] text-muted-foreground">
-                    {Number(row.accuracy).toFixed(1)}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Card>
-        )}
+            ))}
+          </div>
+        </Card>
+      )}
     </div>
   );
 }
