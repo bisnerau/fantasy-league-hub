@@ -8,6 +8,59 @@ export type Forfeit = {
   image: string | null;
 };
 
+export const activeForfeit = {
+  year: 2026,
+  title: 'The Away Day',
+  status: 'Locked in',
+  loser: 'To be determined',
+  summary:
+    'Last place is leaving town, taking the champion along for the ride and documenting every glorious detail.',
+  requirements: [
+    {
+      title: 'Travel the hard way',
+      description:
+        'Use public transport only—no flying or driving. Dublin and London must include a ferry; Sydney must complete an equivalent four-to-seven-hour journey by train, coach or ferry.',
+    },
+    {
+      title: 'Dress for the occasion',
+      description:
+        'Wear the visiting team’s jersey and bring a life-size cardboard cutout of the league winner for the entire day.',
+    },
+    {
+      title: 'Take the winner to the pub',
+      description:
+        'Order the cardboard cutout a non-alcoholic beer and a burger, then eat its burger on its behalf.',
+    },
+    {
+      title: 'Make the confession',
+      description:
+        'Outside the stadium, get someone else to record a video explaining where you are, why you are there and who the cutout represents.',
+    },
+    {
+      title: 'See it through',
+      description:
+        'Attend the entire game and share the video and photographs from the journey, pub and match with the league.',
+    },
+  ],
+  destinations: [
+    {
+      city: 'Dublin',
+      route: 'Holyhead or Douglas',
+      detail: 'Ferry required · Isle of Man option',
+    },
+    {
+      city: 'London',
+      route: 'Dunkirk or Isle of Wight',
+      detail: 'Ferry required',
+    },
+    {
+      city: 'Sydney',
+      route: 'Newcastle via Manly & Palm Beach',
+      detail: 'Scenic ferry route',
+    },
+  ],
+} as const;
+
 export const forfeits: Forfeit[] = [
   {
     year: 2025,

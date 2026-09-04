@@ -1,9 +1,20 @@
 import type { Metadata } from 'next';
-import { Skull } from 'lucide-react';
+import {
+  Beer,
+  Camera,
+  CheckCircle2,
+  MapPin,
+  Ship,
+  Shirt,
+  Skull,
+  UtensilsCrossed,
+} from 'lucide-react';
 import Image from 'next/image';
 import { TeamAvatar } from '@/components/shared/team-avatar';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 import { leagueConfig } from '@/lib/config/league.config';
-import { forfeits } from '@/lib/data/wall-of-shame';
+import { activeForfeit, forfeits } from '@/lib/data/wall-of-shame';
 import { ownerFranchiseMap } from '@/lib/data/verified-history';
 import { getLeagueUsers } from '@/lib/sleeper/client';
 
@@ -14,6 +25,8 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 86400;
+
+const requirementIcons = [Ship, Shirt, Beer, Camera, CheckCircle2];
 
 async function getFranchiseAvatars(): Promise<Record<string, string | null>> {
   if (!leagueConfig.sleeperLeagueId) return {};
@@ -40,6 +53,7 @@ export default async function WallOfShamePage() {
   const avatars = await getFranchiseAvatars();
   const completedForfeits = forfeits.filter((f) => f.forfeit && f.managerName);
   const totalVictims = new Set(forfeits.map((f) => f.franchiseId)).size;
+  const totalForfeits = forfeits.length + 1;
 
   return (
     <div className="space-y-7">
@@ -63,7 +77,7 @@ export default async function WallOfShamePage() {
         </div>
         <div className="relative z-10 grid grid-cols-3 gap-2 sm:max-w-md lg:ml-auto lg:w-full">
           <div className="record-stat">
-            <span>{forfeits.length}</span>
+            <span>{totalForfeits}</span>
             <small>Forfeits</small>
           </div>
           <div className="record-stat">
@@ -77,6 +91,127 @@ export default async function WallOfShamePage() {
         </div>
       </section>
 
+      <section aria-labelledby="active-forfeit-title">
+        <Card className="relative gap-0 overflow-hidden border-primary/25 bg-card/95 py-0 shadow-[0_24px_80px_rgba(0,0,0,0.18)]">
+          <div className="pointer-events-none absolute -right-28 -top-36 size-80 rounded-full border-[60px] border-primary/[0.045]" />
+
+          <div className="relative grid lg:grid-cols-[minmax(0,1.4fr)_minmax(300px,.75fr)]">
+            <div className="p-5 sm:p-7 lg:p-8">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge className="h-6 bg-primary px-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-primary-foreground">
+                  {activeForfeit.year} forfeit
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="h-6 border-emerald-300/20 bg-emerald-300/[0.06] px-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-300"
+                >
+                  <span className="live-dot" />
+                  {activeForfeit.status}
+                </Badge>
+              </div>
+
+              <h2
+                id="active-forfeit-title"
+                className="mt-5 font-heading text-3xl font-black tracking-[-0.045em] sm:text-4xl"
+              >
+                {activeForfeit.title}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+                {activeForfeit.summary}
+              </p>
+
+              <ol className="mt-7 space-y-1">
+                {activeForfeit.requirements.map((requirement, index) => {
+                  const Icon = requirementIcons[index];
+                  return (
+                    <li
+                      key={requirement.title}
+                      className="grid grid-cols-[36px_1fr] gap-3 rounded-xl border border-transparent px-1 py-3 sm:grid-cols-[40px_1fr] sm:gap-4 sm:px-2"
+                    >
+                      <span className="flex size-9 items-center justify-center rounded-lg border border-primary/20 bg-primary/[0.08] text-primary sm:size-10">
+                        <Icon className="size-4" />
+                      </span>
+                      <div>
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-mono text-[9px] font-black text-primary/70">
+                            0{index + 1}
+                          </span>
+                          <h3 className="text-sm font-semibold text-foreground">
+                            {requirement.title}
+                          </h3>
+                        </div>
+                        <p className="mt-1 text-xs leading-5 text-muted-foreground sm:text-[13px]">
+                          {requirement.description}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+
+            <aside className="border-t border-white/[0.07] bg-black/[0.12] p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
+              <div className="flex items-center gap-2">
+                <MapPin className="size-4 text-primary" />
+                <p className="section-kicker text-primary">
+                  Approved departures
+                </p>
+              </div>
+              <h3 className="mt-2 font-heading text-xl font-black">
+                Pick your punishment
+              </h3>
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                Comparable journeys, wherever the loser calls home.
+              </p>
+
+              <div className="mt-6 space-y-2.5">
+                {activeForfeit.destinations.map((destination) => (
+                  <div
+                    key={destination.city}
+                    className="rounded-xl border border-white/[0.075] bg-white/[0.025] p-4"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-xs font-semibold text-foreground">
+                        {destination.city}
+                      </span>
+                      <Ship className="size-3.5 text-primary" />
+                    </div>
+                    <p className="mt-2 text-sm font-medium">
+                      {destination.route}
+                    </p>
+                    <p className="mt-1 text-[10px] uppercase tracking-[0.1em] text-muted-foreground">
+                      {destination.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 rounded-xl border border-dashed border-white/10 bg-white/[0.018] p-4">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                  Last-place finisher
+                </p>
+                <p className="mt-2 font-heading text-lg font-black text-foreground">
+                  {activeForfeit.loser}
+                </p>
+                <p className="mt-1 text-[11px] text-muted-foreground">
+                  The standings will decide their fate.
+                </p>
+              </div>
+            </aside>
+          </div>
+
+          <div className="relative flex flex-col gap-2 border-t border-primary/15 bg-primary/[0.045] px-5 py-3 text-[11px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-7 lg:px-8">
+            <span className="flex items-center gap-2">
+              <UtensilsCrossed className="size-3.5 text-primary" />
+              Burger, alcohol-free beer and cardboard company included.
+            </span>
+            <strong className="text-[9px] uppercase tracking-[0.14em] text-primary">
+              No shortcuts · Full game required
+            </strong>
+          </div>
+        </Card>
+      </section>
+
       <section>
         <div className="mb-5">
           <p className="section-kicker">Season by season</p>
@@ -87,7 +222,11 @@ export default async function WallOfShamePage() {
 
         <div className="space-y-4">
           {forfeits.map((forfeit) => (
-            <a key={forfeit.year} href={`/managers#${forfeit.franchiseId}`} className="block overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm">
+            <a
+              key={forfeit.year}
+              href={`/managers#${forfeit.franchiseId}`}
+              className="block overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm"
+            >
               <div className="flex flex-col md:flex-row">
                 {forfeit.image ? (
                   <div className="relative aspect-[4/3] w-full shrink-0 md:aspect-square md:w-72">
