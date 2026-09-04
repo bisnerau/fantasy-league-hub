@@ -73,6 +73,8 @@ type LeaderboardRow = {
   accuracy: number | string;
 };
 
+type PredictionView = 'weekly' | 'standings';
+
 function formatLockTime(value: string) {
   return new Intl.DateTimeFormat(undefined, {
     weekday: 'long',
@@ -86,6 +88,86 @@ function formatLockTime(value: string) {
 
 function recordFor(team: PredictionTeam) {
   return `${team.wins}-${team.losses}${team.ties ? `-${team.ties}` : ''}`;
+}
+
+function PredictionTable({
+  title,
+  subtitle,
+  rows,
+  currentUserId,
+  emptyMessage,
+}: {
+  title: string;
+  subtitle: string;
+  rows: LeaderboardRow[];
+  currentUserId?: string;
+  emptyMessage?: string;
+}) {
+  return (
+    <Card className="linear-panel gap-0 py-0">
+      <div className="flex items-center gap-2 border-b border-white/[0.065] px-4 py-3.5 sm:px-5">
+        <Trophy className="size-4 text-primary" />
+        <div>
+          <p className="text-xs font-semibold">{title}</p>
+          <p className="mt-0.5 text-[9px] text-muted-foreground">{subtitle}</p>
+        </div>
+      </div>
+      {emptyMessage ? (
+        <div className="px-5 py-10 text-center">
+          <p className="text-xs text-muted-foreground">{emptyMessage}</p>
+        </div>
+      ) : (
+        <div className="px-3 pb-1 sm:px-5">
+          <div className="grid grid-cols-[28px_minmax(0,1fr)_62px_48px] items-center gap-2 border-b border-white/[0.055] px-1 py-2.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-muted-foreground sm:grid-cols-[34px_minmax(0,1fr)_76px_58px] sm:gap-3">
+            <span>Rank</span>
+            <span>Manager</span>
+            <span className="text-right">Correct</span>
+            <span className="text-right">Accuracy</span>
+          </div>
+          <div className="divide-y divide-white/[0.055]">
+            {rows.map((row) => {
+              const accuracy = Number(row.accuracy);
+              const rank =
+                rows.findIndex(
+                  (candidate) =>
+                    candidate.correct_picks === row.correct_picks &&
+                    Number(candidate.accuracy) === accuracy,
+                ) + 1;
+              const isCurrentUser = row.voter_id === currentUserId;
+
+              return (
+                <div
+                  key={row.voter_id}
+                  className={cn(
+                    'grid grid-cols-[28px_minmax(0,1fr)_62px_48px] items-center gap-2 rounded-lg px-1 py-3 text-[11px] sm:grid-cols-[34px_minmax(0,1fr)_76px_58px] sm:gap-3 sm:text-xs',
+                    isCurrentUser && 'bg-primary/[0.055]',
+                  )}
+                >
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    {rank}
+                  </span>
+                  <span className="min-w-0 truncate font-medium">
+                    {row.display_name}
+                    {isCurrentUser && (
+                      <span className="ml-1.5 text-[8px] font-bold uppercase tracking-wide text-primary">
+                        You
+                      </span>
+                    )}
+                  </span>
+                  <span className="text-right font-mono font-bold text-primary">
+                    {row.correct_picks}/{row.completed_picks}
+                  </span>
+                  <span className="text-right font-mono text-[10px] text-muted-foreground">
+                    {accuracy.toFixed(1)}%
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </Card>
+  );
 }
 
 function PlayerRow({ player }: { player: PredictionPlayer }) {
@@ -429,7 +511,13 @@ function MatchupPanel({
   );
 }
 
-export function PredictionCentre({ data }: { data: PredictionWeekData }) {
+export function PredictionCentre({
+  data,
+  mode = 'weekly',
+}: {
+  data: PredictionWeekData;
+  mode?: PredictionView;
+}) {
   const supabase = useMemo(() => getBrowserSupabaseClient(), []);
   const matchupIds = useMemo(
     () =>
@@ -445,7 +533,12 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
   const [profileNames, setProfileNames] = useState<Map<string, string>>(
     new Map(),
   );
-  const [leaderboard, setLeaderboard] = useState<LeaderboardRow[]>([]);
+  const [weeklyLeaderboard, setWeeklyLeaderboard] = useState<LeaderboardRow[]>(
+    [],
+  );
+  const [seasonLeaderboard, setSeasonLeaderboard] = useState<LeaderboardRow[]>(
+    [],
+  );
   const [authLoading, setAuthLoading] = useState(Boolean(supabase));
   const [loginOpen, setLoginOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState('');
@@ -459,7 +552,8 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
         setProfile(null);
         setVotes([]);
         setProfileNames(new Map());
-        setLeaderboard([]);
+        setWeeklyLeaderboard([]);
+        setSeasonLeaderboard([]);
         return;
       }
 
@@ -477,19 +571,37 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
       const namesRequest = locked
         ? supabase.from('profiles').select('id,display_name')
         : Promise.resolve({ data: [], error: null });
-      const leaderboardRequest = supabase
-        .from('prediction_leaderboard')
+      const weeklyLeaderboardRequest = supabase
+        .from('prediction_weekly_leaderboard')
         .select('voter_id,display_name,completed_picks,correct_picks,accuracy')
+        .eq('league_id', data.leagueId)
+        .eq('season', Number(data.season))
+        .eq('week', data.week)
         .order('correct_picks', { ascending: false })
-        .order('accuracy', { ascending: false });
+        .order('accuracy', { ascending: false })
+        .order('display_name');
+      const seasonLeaderboardRequest = supabase
+        .from('prediction_season_leaderboard')
+        .select('voter_id,display_name,completed_picks,correct_picks,accuracy')
+        .eq('league_id', data.leagueId)
+        .eq('season', Number(data.season))
+        .order('correct_picks', { ascending: false })
+        .order('accuracy', { ascending: false })
+        .order('display_name');
 
-      const [profileResult, votesResult, namesResult, leaderboardResult] =
-        await Promise.all([
-          profileRequest,
-          votesRequest,
-          namesRequest,
-          leaderboardRequest,
-        ]);
+      const [
+        profileResult,
+        votesResult,
+        namesResult,
+        weeklyLeaderboardResult,
+        seasonLeaderboardResult,
+      ] = await Promise.all([
+        profileRequest,
+        votesRequest,
+        namesRequest,
+        weeklyLeaderboardRequest,
+        seasonLeaderboardRequest,
+      ]);
 
       setProfile((profileResult.data as Profile | null) ?? null);
       setVotes((votesResult.data as VoteRecord[] | null) ?? []);
@@ -501,9 +613,14 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
           ).map((item) => [item.id, item.display_name]),
         ),
       );
-      setLeaderboard((leaderboardResult.data as LeaderboardRow[] | null) ?? []);
+      setWeeklyLeaderboard(
+        (weeklyLeaderboardResult.data as LeaderboardRow[] | null) ?? [],
+      );
+      setSeasonLeaderboard(
+        (seasonLeaderboardResult.data as LeaderboardRow[] | null) ?? [],
+      );
     },
-    [locked, matchupIds, supabase],
+    [data.leagueId, data.season, data.week, locked, matchupIds, supabase],
   );
 
   useEffect(() => {
@@ -564,9 +681,11 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
     setPassword('');
     setLoginOpen(false);
     setMessage(
-      locked
-        ? 'Signed in. Locked picks and voter names are now revealed.'
-        : 'Signed in. Your picks will now be saved.',
+      mode === 'standings'
+        ? 'Signed in. The prediction standings are now visible.'
+        : locked
+          ? 'Signed in. Locked picks and voter names are now revealed.'
+          : 'Signed in. Your picks will now be saved.',
     );
   };
 
@@ -616,6 +735,14 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
 
   const picksMade = votes.filter((vote) => vote.voter_id === user?.id).length;
 
+  const seasonHasResults = seasonLeaderboard.some(
+    (row) => row.completed_picks > 0,
+  );
+  const weeklyHasResults = weeklyLeaderboard.some(
+    (row) => row.completed_picks > 0,
+  );
+  const viewingStandings = mode === 'standings';
+
   return (
     <div className="space-y-4 sm:space-y-5">
       <Card className="linear-panel gap-0 p-3.5 sm:p-4">
@@ -624,12 +751,16 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
             <span
               className={cn(
                 'flex size-9 shrink-0 items-center justify-center rounded-lg border',
-                locked
-                  ? 'border-amber-300/15 bg-amber-300/[0.055] text-amber-200'
-                  : 'border-primary/15 bg-primary/[0.07] text-primary',
+                viewingStandings
+                  ? 'border-primary/15 bg-primary/[0.07] text-primary'
+                  : locked
+                    ? 'border-amber-300/15 bg-amber-300/[0.055] text-amber-200'
+                    : 'border-primary/15 bg-primary/[0.07] text-primary',
               )}
             >
-              {locked ? (
+              {viewingStandings ? (
+                <Trophy className="size-4" />
+              ) : locked ? (
                 <LockKeyhole className="size-4" />
               ) : (
                 <Vote className="size-4" />
@@ -637,14 +768,22 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
             </span>
             <div>
               <p className="text-xs font-semibold">
-                {locked ? 'Week locked' : 'Anonymous voting is open'}
+                {viewingStandings
+                  ? `${data.season} prediction standings`
+                  : locked
+                    ? 'Week locked'
+                    : 'Anonymous voting is open'}
               </p>
               <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
-                {locked
+                {viewingStandings
                   ? user
-                    ? 'All picks are frozen. Vote totals and manager names are visible below.'
-                    : 'All picks are frozen. Sign in to reveal the manager names behind each choice.'
-                  : `All six picks close ${formatLockTime(data.lockAt)}. Nobody else can see your choices before then.`}
+                    ? 'Season totals update after each week is finalized.'
+                    : 'Sign in to view the prediction race and manager accuracy.'
+                  : locked
+                    ? user
+                      ? 'All picks are frozen. Vote totals and manager names are visible below.'
+                      : 'All picks are frozen. Sign in to reveal the manager names behind each choice.'
+                    : `All six picks close ${formatLockTime(data.lockAt)}. Nobody else can see your choices before then.`}
               </p>
             </div>
           </div>
@@ -660,11 +799,13 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
                     {profile.display_name}
                   </p>
                   <p className="text-[10px] text-muted-foreground">
-                    {locked
-                      ? 'Picks revealed'
-                      : `${picksMade} of ${data.matchups.length} picks saved`}
+                    {viewingStandings
+                      ? 'Prediction standings'
+                      : locked
+                        ? 'Picks revealed'
+                        : `${picksMade} of ${data.matchups.length} picks saved`}
                   </p>
-                  {!locked && data.matchups.length > 0 && (
+                  {!viewingStandings && !locked && data.matchups.length > 0 && (
                     <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.07]">
                       <span
                         className="block h-full bg-primary transition-[width]"
@@ -696,7 +837,7 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
               ) : (
                 <LogIn />
               )}
-              Sign in to vote
+              {viewingStandings ? 'Sign in to view' : 'Sign in to vote'}
             </Button>
           )}
         </div>
@@ -752,7 +893,21 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
         )}
       </Card>
 
-      {data.matchups.length ? (
+      {viewingStandings ? (
+        <PredictionTable
+          title={`${data.season} prediction standings`}
+          subtitle="Cumulative correct picks across every finalized week"
+          rows={seasonHasResults ? seasonLeaderboard : []}
+          currentUserId={user?.id}
+          emptyMessage={
+            !user
+              ? 'Sign in above to view the season standings.'
+              : !seasonHasResults
+                ? 'The standings will begin after Week 1 results are finalized.'
+                : undefined
+          }
+        />
+      ) : data.matchups.length ? (
         <div className="space-y-3">
           {data.matchups.map((matchup, index) => (
             <MatchupPanel
@@ -785,37 +940,24 @@ export function PredictionCentre({ data }: { data: PredictionWeekData }) {
         </Card>
       )}
 
-      {user && leaderboard.some((row) => row.completed_picks > 0) && (
-        <Card className="linear-panel gap-0 py-0">
-          <div className="flex items-center gap-2 border-b border-white/[0.065] px-4 py-3.5 sm:px-5">
-            <Trophy className="size-4 text-primary" />
-            <div>
-              <p className="text-xs font-semibold">Season prediction table</p>
-              <p className="mt-0.5 text-[9px] text-muted-foreground">
-                One point for every correct matchup winner
-              </p>
-            </div>
-          </div>
-          <div className="divide-y divide-white/[0.055] px-4 sm:px-5">
-            {leaderboard.map((row, index) => (
-              <div
-                key={row.voter_id}
-                className="grid grid-cols-[28px_minmax(0,1fr)_auto_auto] items-center gap-3 py-3 text-xs"
-              >
-                <span className="font-mono text-[10px] text-muted-foreground">
-                  {index + 1}
-                </span>
-                <span className="truncate font-medium">{row.display_name}</span>
-                <span className="font-mono font-bold text-primary">
-                  {row.correct_picks}
-                </span>
-                <span className="w-12 text-right font-mono text-[10px] text-muted-foreground">
-                  {Number(row.accuracy).toFixed(1)}%
-                </span>
-              </div>
-            ))}
-          </div>
-        </Card>
+      {!viewingStandings && (
+        <PredictionTable
+          title={`Week ${data.week} prediction table`}
+          subtitle="One point for every correctly predicted winner"
+          rows={
+            user && data.finalized && weeklyHasResults ? weeklyLeaderboard : []
+          }
+          currentUserId={user?.id}
+          emptyMessage={
+            !user
+              ? 'Sign in above to view this week’s prediction table.'
+              : !data.finalized
+                ? `Week ${data.week} accuracy will appear when the final scores are confirmed.`
+                : !weeklyHasResults
+                  ? 'This week’s results are still being finalized.'
+                  : undefined
+          }
+        />
       )}
     </div>
   );
