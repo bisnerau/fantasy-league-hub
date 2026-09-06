@@ -114,3 +114,58 @@ export function acquisitionSummary(
       : paid.reduce((n, r) => n + r.faab!, 0),
   };
 }
+
+export type ResultRow = {
+  roster_id: number;
+  matchup_id: number | null;
+  points: number;
+  custom_points?: number | null;
+};
+export function personalResults(
+  weeks: { week: number; rows: ResultRow[] }[],
+  rosterId: number,
+  expectedWeeks: number[],
+) {
+  const games: {
+    week: number;
+    points: number;
+    opponent: number;
+    against: number;
+  }[] = [];
+  const byes: number[] = [],
+    missing: number[] = [];
+  const score = (row: ResultRow) => {
+    const value = row.custom_points ?? row.points;
+    return typeof value === 'number' && Number.isFinite(value) ? value : null;
+  };
+  for (const week of expectedWeeks) {
+    const rows = weeks.find((w) => w.week === week)?.rows;
+    const own = rows?.find((r) => r.roster_id === rosterId);
+    if (!own) {
+      missing.push(week);
+      continue;
+    }
+    if (own.matchup_id === null) {
+      byes.push(week);
+      continue;
+    }
+    const others = rows!.filter(
+      (r) => r.matchup_id === own.matchup_id && r.roster_id !== rosterId,
+    );
+    if (
+      others.length !== 1 ||
+      score(own) === null ||
+      score(others[0]) === null
+    ) {
+      missing.push(week);
+      continue;
+    }
+    games.push({
+      week,
+      points: score(own)!,
+      opponent: others[0].roster_id,
+      against: score(others[0])!,
+    });
+  }
+  return { games, byes, missing };
+}

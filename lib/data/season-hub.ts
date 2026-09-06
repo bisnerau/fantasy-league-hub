@@ -172,8 +172,15 @@ export async function getSeasonHubData({
           acquisitions: transactionReady
             ? acquisitionReceipts(transactions, weeks, completedWeeks)
             : null,
-          weeks,
-          transactions,
+          weeks: weeks.map((w) => ({
+            week: w.week,
+            rows: w.rows.map((r) => ({
+              roster_id: r.roster_id,
+              matchup_id: r.matchup_id,
+              points: r.points,
+              custom_points: r.custom_points,
+            })),
+          })),
         }
       : null,
     leagueId: featureLeagueId,

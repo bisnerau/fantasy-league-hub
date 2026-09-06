@@ -21,8 +21,8 @@ import {
   type AwardVote,
   type FinalPickGame,
 } from '@/lib/season/features';
-import { acquisitionSummary } from '@/lib/season/my-season';
-import { matchupScore, formatScore, rosterScore } from '@/lib/sleeper/scores';
+import { acquisitionSummary, personalResults } from '@/lib/season/my-season';
+import { formatScore, rosterScore } from '@/lib/sleeper/scores';
 import type { SeasonHubData } from '@/lib/data/season-hub';
 import type { PredictionWeekData } from '@/lib/data/predictions';
 import type { SleeperRoster } from '@/lib/sleeper/types';
@@ -35,6 +35,7 @@ type Member = {
   votes: AwardVote[];
   games: Game[];
   finalVotes: AwardVote[];
+  awardsReady: boolean;
   forecast: number[] | null;
 };
 const empty = {
@@ -43,6 +44,7 @@ const empty = {
   votes: [],
   games: [],
   finalVotes: [],
+  awardsReady: true,
   forecast: null,
 };
 export type PersonalDraft = {
@@ -70,6 +72,7 @@ export function MySeason({
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [pickupSort, setPickupSort] = useState('recent');
   const [locked, setLocked] = useState(picks?.locked ?? true);
   useEffect(() => {
     if (!picks) return;
@@ -91,7 +94,11 @@ export function MySeason({
       if (!alive || id === lastId) return;
       lastId = id ?? undefined;
       const request = ++version;
-      setMember({ status: id ? 'loading' : 'signed-out', ...empty });
+      setMember((previous) =>
+        id && previous.status === 'ready' && previous.id === id
+          ? previous
+          : { status: id ? 'loading' : 'signed-out', ...empty },
+      );
       if (!client || !id) return;
       try {
         const [profile, forecast, votes, games] = await Promise.all([
@@ -155,16 +162,26 @@ export function MySeason({
             data.completedWeeks.includes(g.week),
         );
         const finalVotes: AwardVote[] = [];
-        for (let i = 0; i < settled.length; i += 40) {
-          const result = await client
-            .from('prediction_votes')
-            .select('matchup_id,voter_id,selected_roster_id')
-            .in(
-              'matchup_id',
-              settled.slice(i, i + 40).map((g) => g.id),
-            );
-          if (result.error) throw Error('Awards unavailable');
-          finalVotes.push(...result.data);
+        let awardsReady = true;
+        try {
+          for (let i = 0; i < settled.length; i += 40) {
+            const result = await client
+              .from('prediction_votes')
+              .select('matchup_id,voter_id,selected_roster_id')
+              .in(
+                'matchup_id',
+                settled.slice(i, i + 40).map((g) => g.id),
+              );
+            if (result.error) {
+              awardsReady = false;
+              finalVotes.length = 0;
+              break;
+            }
+            finalVotes.push(...result.data);
+          }
+        } catch {
+          awardsReady = false;
+          finalVotes.length = 0;
         }
         if (alive && version === request)
           setMember({
@@ -174,6 +191,7 @@ export function MySeason({
             votes: votes.data ?? [],
             games: mapped,
             finalVotes,
+            awardsReady,
             forecast: forecast.data?.rankings ?? null,
           });
       } catch {
@@ -214,6 +232,28 @@ export function MySeason({
       listener.subscription.unsubscribe();
     };
   }, [client, data, reload]);
+  useEffect(() => {
+    if (member.status !== 'ready') return;
+    let lastRefresh = 0;
+    const refresh = () => {
+      if (
+        document.visibilityState !== 'visible' ||
+        Date.now() - lastRefresh < 1000
+      )
+        return;
+      lastRefresh = Date.now();
+      setReload((value) => value + 1);
+    };
+    const restored = (event: PageTransitionEvent) => {
+      if (event.persisted) refresh();
+    };
+    window.addEventListener('focus', refresh);
+    window.addEventListener('pageshow', restored);
+    return () => {
+      window.removeEventListener('focus', refresh);
+      window.removeEventListener('pageshow', restored);
+    };
+  }, [member.status]);
   async function signIn(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!client || busy) return;
@@ -384,27 +424,24 @@ export function MySeason({
     finished.filter((g) => g.week <= 14),
     member.finalVotes,
   ).filter((c) => c.voterId === member.id);
+  const awardsPartial =
+    !member.awardsReady ||
+    data.awards.some((w) => !w.result || !w.result.waiverReady);
   const awardCount =
     new Set(honours.map((a) => `${a.week}:${a.kind}`)).size +
     new Set(minority.map((a) => a.week)).size;
-  const logs = (data.activity?.weeks ?? []).flatMap((w) => {
-    const own = w.rows.find((r) => r.roster_id === id);
-    if (!own || matchupScore(own) === null) return [];
-    const other =
-      own.matchup_id === null
-        ? undefined
-        : w.rows.find(
-            (r) => r.matchup_id === own.matchup_id && r.roster_id !== id,
-          );
-    return [
-      {
-        week: w.week,
-        points: matchupScore(own)!,
-        opponent: other?.roster_id ?? null,
-        against: other ? matchupScore(other) : null,
-      },
-    ];
-  });
+  const results = personalResults(
+    data.activity?.weeks ?? [],
+    id,
+    data.completedWeeks,
+  );
+  const logs = results.games;
+  const sortedAdds = [...(adds ?? [])].sort((a, b) =>
+    pickupSort === 'points'
+      ? (b.points ?? -Infinity) - (a.points ?? -Infinity) ||
+        b.acquired - a.acquired
+      : b.acquired - a.acquired,
+  );
   const bestWeek = [...logs].sort((a, b) => b.points - a.points)[0];
   const worstWeek = [...logs].sort((a, b) => a.points - b.points)[0];
   const draft = drafts.find((d) => d.rosterId === id);
@@ -422,6 +459,12 @@ export function MySeason({
           <h2 className="text-xl font-semibold">
             {member.profile!.display_name}
           </h2>
+          <a
+            href="/my-season"
+            className="flex min-h-11 items-center text-xs font-semibold text-primary"
+          >
+            Refresh all results
+          </a>
           <a
             href="https://sleeper.com/leagues/1389706813993160704"
             className="text-xs font-semibold text-primary"
@@ -449,7 +492,10 @@ export function MySeason({
                 : 'Unavailable',
             },
             { label: 'Prediction points', value: `${correct}` },
-            { label: 'Weekly awards', value: `${awardCount}` },
+            {
+              label: 'Weekly awards',
+              value: `${awardCount}${awardsPartial ? '+' : ''}`,
+            },
           ].map((s) => (
             <div
               key={s.label}
@@ -463,6 +509,8 @@ export function MySeason({
         <p className="mt-2 text-[10px] text-muted-foreground">
           Record is W–L–T. Prediction points and awards use settled results;
           league totals come from Sleeper.
+          {awardsPartial &&
+            ' The awards total is partial while some award data is unavailable.'}
         </p>
       </section>
       <section className="linear-panel rounded-xl border-primary/20 p-4 sm:p-5">
@@ -567,7 +615,32 @@ export function MySeason({
                 receipt book.
               </p>
             )}
-            {adds!.map((a) => (
+            {!!adds!.length && (
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <label htmlFor="pickup-sort" className="text-xs font-medium">
+                  Sort pickups
+                </label>
+                <Select
+                  value={pickupSort}
+                  onValueChange={(value) => {
+                    if (value) setPickupSort(value);
+                  }}
+                >
+                  <SelectTrigger id="pickup-sort" className="w-40">
+                    <SelectValue>
+                      {pickupSort === 'points'
+                        ? 'Most points used'
+                        : 'Most recent'}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="recent">Most recent</SelectItem>
+                    <SelectItem value="points">Most points used</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+            {sortedAdds.map((a) => (
               <details
                 key={a.id}
                 className="mt-3 rounded-lg border border-white/10 p-3"
@@ -580,9 +653,11 @@ export function MySeason({
                       ? `Waiver · ${a.faab === null ? 'FAAB unknown' : `${a.faab} FAAB`}`
                       : 'Free agent'}{' '}
                     ·{' '}
-                    {a.evidence?.length
-                      ? `${formatScore(a.points)} points used`
-                      : 'Waiting for settled weeks'}{' '}
+                    {a.evidence === null
+                      ? 'Return unavailable'
+                      : a.evidence.length
+                        ? `${formatScore(a.points)} points used`
+                        : 'Waiting for settled weeks'}{' '}
                     ·{' '}
                     {roster?.players?.includes(a.playerId)
                       ? 'On your roster'
@@ -695,7 +770,19 @@ export function MySeason({
         className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"
       >
         <h2 className="text-lg font-semibold">Your trophy cabinet</h2>
-        {!awardCount && (
+        {data.awards.some((w) => !w.result || !w.result.waiverReady) && (
+          <p className="mt-3 text-xs text-amber-200">
+            Some schedule or waiver awards are awaiting complete data. The total
+            shows confirmed awards only.
+          </p>
+        )}
+        {!member.awardsReady && (
+          <p className="mt-3 text-xs text-amber-200">
+            Against the Room results are temporarily unavailable. Other awards
+            remain below.
+          </p>
+        )}
+        {!awardCount && !awardsPartial && (
           <p className="mt-3 text-sm text-muted-foreground">
             No settled awards yet. The season has plenty of opportunities to
             provide evidence.
@@ -771,7 +858,13 @@ export function MySeason({
             </details>
           </>
         )}
-        {logs.length < data.completedWeeks.length && (
+        {!!results.byes.length && (
+          <p className="mt-3 text-xs text-muted-foreground">
+            No paired matchup in Weeks {results.byes.join(', ')} (including
+            playoff byes). These are excluded from best and lowest weeks.
+          </p>
+        )}
+        {results.missing.length > 0 && (
           <p className="mt-3 text-xs text-amber-200">
             Some historical scores are unavailable. Best and lowest weeks use
             the available results only.

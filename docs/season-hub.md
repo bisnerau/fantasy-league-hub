@@ -87,3 +87,13 @@ Personal prediction accuracy uses settled decisive matchups as its denominator,
 including missed picks, matching the existing prediction competition. Ties do not
 contribute. My Season also links each trade to its receipt and presents the original
 ballot, published draft grade, weekly awards and settled team results.
+
+My Season refreshes account data on window focus and browser back/forward restore;
+a full refresh link also reloads public league data. Background account refreshes
+preserve the displayed same-account content while clearing it on identity changes.
+Minority-vote award failures leave the rest of the dashboard available and label
+award totals as partial. Pickup receipts can be sorted by date or points used.
+The personal season log excludes unpaired weeks from best/lowest-week calculations
+and reports missing matchup scores separately. Server activity props contain only
+the score fields used by this log, not raw weekly lineups or transaction history.
+Trade links open the matching receipt automatically using a numeric trade ID hash.

@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import {
   acquisitionReceipts,
   acquisitionSummary,
+  personalResults,
 } from '../lib/season/my-season.ts';
 import { weekStart } from '../lib/season/features.ts';
 const claim = (id, week = 1) => ({
@@ -95,4 +96,24 @@ void test('FAAB is counted once per successful transaction and unsuccessful clai
   );
   assert.equal(result.additions, 2);
   assert.equal(result.faab, 10);
+});
+
+void test('unpaired playoff weeks are excluded from highs and lows, while missing results are reported', () => {
+  const w = (week, rows) => ({ week, rows });
+  const own = { roster_id: 1, matchup_id: 1, points: 110 };
+  const other = { roster_id: 2, matchup_id: 1, points: 100 };
+  const result = personalResults(
+    [
+      w(14, [own, other]),
+      w(15, [{ ...own, matchup_id: null, points: 0 }]),
+      w(16, [own, { ...other, points: null }]),
+    ],
+    1,
+    [14, 15, 16, 17],
+  );
+  assert.deepEqual(result.games, [
+    { week: 14, points: 110, opponent: 2, against: 100 },
+  ]);
+  assert.deepEqual(result.byes, [15]);
+  assert.deepEqual(result.missing, [16, 17]);
 });

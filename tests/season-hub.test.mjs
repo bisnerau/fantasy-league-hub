@@ -39,8 +39,10 @@ void test('season hub reads historical Week 7 rather than current standings and 
     return new Response(JSON.stringify(data));
   };
   try {
-    const data = await getSeasonHubData();
+    const data = await getSeasonHubData({ includeActivity: true });
     assert.equal(data.half.length, 12);
+    assert.ok(!('transactions' in data.activity));
+    assert.ok(!('players_points' in data.activity.weeks[0].rows[0]));
     assert.equal(data.half[0].points, 840);
     assert.equal(data.awards.length, 8);
     assert.equal(data.final, null);

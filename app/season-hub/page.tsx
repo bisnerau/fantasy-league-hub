@@ -1,3 +1,4 @@
+import { OpenLinkedReceipt } from '@/components/season/open-linked-receipt';
 import type { Metadata } from 'next';
 import { getSeasonHubData } from '@/lib/data/season-hub';
 import { awardNames } from '@/lib/season/features';
@@ -45,6 +46,7 @@ export default async function SeasonHubPage() {
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
   return (
     <div className="space-y-5">
+      <OpenLinkedReceipt />
       <header className="linear-panel rounded-xl p-4 sm:p-6">
         <p className="ui-kicker">MAC 12 · 2026 season</p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight">
@@ -259,7 +261,7 @@ export default async function SeasonHubPage() {
             <details
               key={trade.transaction_id}
               id={`trade-${trade.transaction_id}`}
-              className="mt-4 rounded-lg border border-white/10 p-3"
+              className="scroll-mt-20 mt-4 rounded-lg border border-white/10 p-3"
             >
               <summary className="cursor-pointer text-sm font-semibold">
                 {trade.roster_ids.map(name).join(' ↔ ')}
