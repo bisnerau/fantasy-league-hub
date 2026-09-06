@@ -235,6 +235,13 @@ export default async function DraftRecapPage() {
             <p className="mt-2 text-xs leading-6 text-muted-foreground">
               {draftRecapContent.methodology}
             </p>
+            <a
+              href="/data/draft-2026-pick-review.csv"
+              download
+              className="mt-3 inline-block text-xs font-medium text-primary underline underline-offset-4"
+            >
+              Download the 180-pick research review
+            </a>
             {draftRecapContent.sources.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {draftRecapContent.sources.map((source) => (
@@ -367,6 +374,13 @@ export default async function DraftRecapPage() {
                     {entry.summary}
                   </p>
                 </div>
+                <p className="text-[11px] leading-5 text-muted-foreground">
+                  Starters {entry.rubricScores.startingLineup}/30 · Value{' '}
+                  {entry.rubricScores.value}/25 · Construction{' '}
+                  {entry.rubricScores.construction}/20 · Depth{' '}
+                  {entry.rubricScores.depth}/15 · Risk management{' '}
+                  {entry.rubricScores.risk}/10
+                </p>
 
                 <div className="grid gap-3 md:grid-cols-2">
                   <div className="rounded-xl border border-primary/12 bg-primary/[0.035] p-3.5">
@@ -433,7 +447,7 @@ export default async function DraftRecapPage() {
                         className="grid grid-cols-[34px_minmax(0,1fr)_auto] items-center gap-2 border-b border-white/[0.05] py-2.5 text-[11px] last:border-0"
                       >
                         <span className="font-mono text-[9px] text-muted-foreground">
-                          {pick.round}.{pick.overall}
+                          #{pick.overall}
                         </span>
                         <span className="truncate font-medium">
                           {pick.player}

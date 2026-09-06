@@ -1,6 +1,6 @@
 import { leagueConfig } from '@/lib/config/league.config';
 import { predictionInternals } from '@/lib/data/predictions';
-import { getSupabaseAdminClient } from '@/lib/supabase/admin';
+import { getSupabaseReadClient } from '@/lib/supabase/read';
 
 export type SeasonForecastSettings = {
   leagueId: string;
@@ -16,9 +16,9 @@ export async function getSeasonForecastSettings(
 ): Promise<SeasonForecastSettings> {
   const leagueId = leagueConfig.sleeperLeagueId;
   const lockAt = predictionInternals.sundayKickoffForWeek(season, 1);
-  const admin = getSupabaseAdminClient();
+  const client = getSupabaseReadClient();
 
-  if (!leagueId || !admin || teamCount < 2) {
+  if (!leagueId || !client || teamCount < 2) {
     return {
       leagueId,
       season,
@@ -28,21 +28,21 @@ export async function getSeasonForecastSettings(
     };
   }
 
-  const { error } = await admin.from('season_forecast_windows').upsert(
-    {
-      league_id: leagueId,
-      season,
-      locks_at: lockAt.toISOString(),
-      team_count: teamCount,
-    },
-    { onConflict: 'league_id,season' },
-  );
+  const { data, error } = await client
+    .from('season_forecast_windows')
+    .select('locks_at, team_count')
+    .eq('league_id', leagueId)
+    .eq('season', season)
+    .maybeSingle();
 
   return {
     leagueId,
     season,
     lockAt: lockAt.toISOString(),
     locked: Date.now() >= lockAt.getTime(),
-    databaseReady: !error,
+    databaseReady:
+      !error &&
+      data?.team_count === teamCount &&
+      new Date(data.locks_at).getTime() === lockAt.getTime(),
   };
 }

@@ -1,0 +1,181 @@
+Pick,Player,Sleeper position,Consensus ADP order (not decimal ADP),Positional ADP order among ECR players,FantasyPros PPR ECR,RotoBaller PPR rank,CBS PPR rank,Highest ECR alternatives at position still available,Public PPR season projection (blank unavailable),Bye (FantasyPros)
+1,Jahmyr Gibbs,RB,1,1,2,1,1,Bijan Robinson; Christian McCaffrey; Jonathan Taylor,369.6,6
+2,Bijan Robinson,RB,2,2,4,2,2,Christian McCaffrey; Jonathan Taylor; James Cook III,353.3,11
+3,Ja'Marr Chase,WR,3,1,1,4,3,Puka Nacua; Jaxon Smith-Njigba; Amon-Ra St. Brown,338.3,6
+4,Christian McCaffrey,RB,5,3,7,5,8,Jonathan Taylor; James Cook III; Chase Brown,331.3,8
+5,Jonathan Taylor,RB,6,4,10,8,7,James Cook III; Chase Brown; De'Von Achane,309.4,13
+6,James Cook,RB,9,5,13,10,9,Chase Brown; De'Von Achane; Saquon Barkley,270.6,7
+7,Puka Nacua,WR,4,2,3,3,4,Jaxon Smith-Njigba; Amon-Ra St. Brown; CeeDee Lamb,338.3,11
+8,Amon-Ra St. Brown,WR,8,4,6,7,6,Jaxon Smith-Njigba; CeeDee Lamb; Justin Jefferson,333.5,6
+9,Jaxon Smith-Njigba,WR,7,3,5,6,5,CeeDee Lamb; Justin Jefferson; Drake London,324.2,11
+10,Saquon Barkley,RB,14,8,22,13,17,Chase Brown; De'Von Achane; Kenneth Walker III,274.2,10
+11,Chase Brown,RB,13,7,15,17,10,De'Von Achane; Kenneth Walker III; Omarion Hampton,285.8,6
+12,De'Von Achane,RB,12,6,20,14,12,Kenneth Walker III; Omarion Hampton; Ashton Jeanty,300.7,6
+13,Omarion Hampton,RB,15,9,25,18,14,Kenneth Walker III; Ashton Jeanty; Derrick Henry,,7
+14,Kenneth Walker,RB,19,12,24,12,13,Ashton Jeanty; Derrick Henry; Breece Hall,257.0,5
+15,Ashton Jeanty,RB,18,11,28,29,24,Derrick Henry; Breece Hall; Jeremiyah Love,,13
+16,CeeDee Lamb,WR,10,5,8,9,11,Justin Jefferson; Drake London; A.J. Brown,285.2,14
+17,Justin Jefferson,WR,11,6,9,11,15,Drake London; A.J. Brown; Nico Collins,274.0,6
+18,A.J. Brown,WR,17,7,12,23,20,Drake London; Nico Collins; Chris Olave,265.9,11
+19,Drake London,WR,20,8,11,15,16,Nico Collins; Chris Olave; George Pickens,271.3,11
+20,Brock Bowers,TE,22,1,19,20,25,Trey McBride; Colston Loveland; Tyler Warren,239.4,13
+21,Derrick Henry,RB,16,10,34,16,18,Breece Hall; Jeremiyah Love; Kyren Williams,278.5,13
+22,Nico Collins,WR,24,10,14,21,21,Chris Olave; George Pickens; DeVonta Smith,,8
+23,Trey McBride,TE,25,2,17,26,26,Colston Loveland; Tyler Warren; Harold Fannin Jr.,260.4,14
+24,Chris Olave,WR,26,11,16,22,22,George Pickens; DeVonta Smith; Malik Nabers,261.2,8
+25,Javonte Williams,RB,28,13,43,25,32,Breece Hall; Jeremiyah Love; Kyren Williams,,14
+26,George Pickens,WR,23,9,18,19,19,DeVonta Smith; Malik Nabers; Rashee Rice,,14
+27,Kyren Williams,RB,29,14,42,27,39,Breece Hall; Jeremiyah Love; Travis Etienne Jr.,,11
+28,Josh Allen,QB,21,1,26,39,37,Lamar Jackson; Drake Maye; Joe Burrow,367.3,7
+29,Ladd McConkey,WR,43,20,33,32,34,DeVonta Smith; Malik Nabers; Rashee Rice,,7
+30,Travis Etienne,RB,34,17,45,31,33,Breece Hall; Jeremiyah Love; D'Andre Swift,,8
+31,Colston Loveland,TE,39,3,38,42,31,Tyler Warren; Harold Fannin Jr.; Kyle Pitts Sr.,211.0,10
+32,Malik Nabers,WR,27,12,23,24,28,DeVonta Smith; Rashee Rice; Zay Flowers,,8
+33,Jeremiyah Love,RB,31,15,40,36,35,Breece Hall; D'Andre Swift; Bucky Irving,,14
+34,DeVonta Smith,WR,32,14,21,30,27,Rashee Rice; Zay Flowers; Garrett Wilson,,10
+35,Jaylen Waddle,WR,46,21,32,41,42,Rashee Rice; Zay Flowers; Garrett Wilson,,10
+36,Rashee Rice,WR,30,13,27,37,23,Zay Flowers; Garrett Wilson; Tetairoa McMillan,274.1,5
+37,Tetairoa McMillan,WR,37,16,35,47,36,Zay Flowers; Garrett Wilson; Tee Higgins,,5
+38,Breece Hall,RB,33,16,39,33,41,D'Andre Swift; Bucky Irving; Cam Skattebo,,13
+39,Zay Flowers,WR,35,15,29,28,30,Garrett Wilson; Tee Higgins; Emeka Egbuka,,13
+40,Lamar Jackson,QB,38,2,31,51,44,Drake Maye; Joe Burrow; Jalen Hurts,328.1,13
+41,Cam Skattebo,RB,36,18,54,54,53,D'Andre Swift; Bucky Irving; David Montgomery,,8
+42,Garrett Wilson,WR,40,17,30,38,40,Tee Higgins; Emeka Egbuka; Luther Burden III,,13
+43,Davante Adams,WR,50,23,49,40,48,Tee Higgins; Emeka Egbuka; Luther Burden III,,11
+44,Tee Higgins,WR,41,18,37,34,29,Emeka Egbuka; Luther Burden III; Terry McLaurin,,6
+45,Emeka Egbuka,WR,42,19,41,46,45,Luther Burden III; Terry McLaurin; DJ Moore,,10
+46,D'Andre Swift,RB,44,19,50,35,38,Bucky Irving; David Montgomery; Quinshon Judkins,,10
+47,Terry McLaurin,WR,56,25,47,48,49,Luther Burden III; DJ Moore; Jameson Williams,,7
+48,Luther Burden,WR,52,24,46,43,43,DJ Moore; Jameson Williams; Christian Watson,,10
+49,Joe Burrow,QB,54,4,44,65,63,Drake Maye; Jalen Hurts; Jayden Daniels,313.7,6
+50,Bucky Irving,RB,47,21,53,44,50,David Montgomery; Quinshon Judkins; Bhayshul Tuten,,10
+51,Jadarian Price,RB,58,24,65,55,58,David Montgomery; Quinshon Judkins; Bhayshul Tuten,,11
+52,Jameson Williams,WR,57,26,52,45,55,DJ Moore; Christian Watson; Parker Washington,,6
+53,David Montgomery,RB,49,22,60,53,57,Quinshon Judkins; Bhayshul Tuten; TreVeyon Henderson,,8
+54,Quinshon Judkins,RB,45,20,61,63,47,Bhayshul Tuten; TreVeyon Henderson; Rhamondre Stevenson,,11
+55,Bhayshul Tuten,RB,55,23,64,59,54,TreVeyon Henderson; Rhamondre Stevenson; Jaylen Warren,,7
+56,TreVeyon Henderson,RB,60,25,68,70,76,Rhamondre Stevenson; Jaylen Warren; Tony Pollard,,11
+57,DJ Moore,WR,48,22,48,49,46,Christian Watson; Parker Washington; Rome Odunze,,7
+58,Christian Watson,WR,65,29,56,56,61,Parker Washington; Rome Odunze; Mike Evans,,11
+59,Mike Evans,WR,67,30,62,52,72,Parker Washington; Rome Odunze; Carnell Tate,,8
+60,Drake Maye,QB,53,3,36,67,51,Jalen Hurts; Jayden Daniels; Caleb Williams,325.0,11
+61,Tyler Warren,TE,51,4,51,61,52,Harold Fannin Jr.; Kyle Pitts Sr.; Tucker Kraft,200.8,13
+62,Parker Washington,WR,63,28,58,50,56,Rome Odunze; Carnell Tate; Marvin Harrison Jr.,,7
+63,Rome Odunze,WR,59,27,59,64,60,Carnell Tate; Marvin Harrison Jr.; Chris Godwin Jr.,,10
+64,Jaylen Warren,RB,68,27,71,66,77,Rhamondre Stevenson; Tony Pollard; Rico Dowdle,,9
+65,Jalen Hurts,QB,61,5,55,57,68,Jayden Daniels; Caleb Williams; Justin Herbert,321.8,10
+66,Rhamondre Stevenson,RB,64,26,70,58,59,Tony Pollard; Rico Dowdle; Jonathon Brooks,,11
+67,DK Metcalf,WR,80,34,77,81,84,Carnell Tate; Marvin Harrison Jr.; Chris Godwin Jr.,,9
+68,Caleb Williams,QB,77,8,63,72,98,Jayden Daniels; Justin Herbert; Trevor Lawrence,,10
+69,Tony Pollard,RB,75,28,81,80,75,Rico Dowdle; Jonathon Brooks; RJ Harvey,,9
+70,Carnell Tate,WR,74,32,66,90,89,Marvin Harrison Jr.; Chris Godwin Jr.; Brian Thomas Jr.,,9
+71,Brian Thomas,WR,85,36,79,78,71,Marvin Harrison Jr.; Chris Godwin Jr.; Michael Pittman Jr.,,7
+72,Tucker Kraft,TE,69,6,78,74,66,Harold Fannin Jr.; Kyle Pitts Sr.; Sam LaPorta,,11
+73,RJ Harvey,RB,86,32,90,96,102,Rico Dowdle; Jonathon Brooks; Kenny Gainwell,,10
+74,Jayden Daniels,QB,62,6,57,60,70,Justin Herbert; Trevor Lawrence; Dak Prescott,312.7,7
+75,Marvin Harrison,WR,72,31,67,62,64,Chris Godwin Jr.; Michael Pittman Jr.; Courtland Sutton,,14
+76,Courtland Sutton,WR,76,33,83,89,78,Chris Godwin Jr.; Michael Pittman Jr.; Wan'Dale Robinson,,10
+77,Makai Lemon,WR,115,45,110,114,120,Chris Godwin Jr.; Michael Pittman Jr.; Wan'Dale Robinson,,10
+78,Dak Prescott,QB,73,7,75,77,80,Justin Herbert; Trevor Lawrence; Brock Purdy,315.8,14
+79,Justin Herbert,QB,84,9,69,71,93,Trevor Lawrence; Brock Purdy; Bo Nix,,7
+80,Sam LaPorta,TE,71,8,85,68,62,Harold Fannin Jr.; Kyle Pitts Sr.; George Kittle,191.7,6
+81,Chuba Hubbard,RB,90,34,98,91,103,Rico Dowdle; Jonathon Brooks; Kenny Gainwell,,5
+82,MarShawn Lloyd,RB,91,35,107,76,65,Rico Dowdle; Jonathon Brooks; Kenny Gainwell,,11
+83,Rico Dowdle,RB,79,30,82,69,74,Jonathon Brooks; Kenny Gainwell; J.K. Dobbins,,9
+84,Chris Godwin,WR,87,37,72,79,69,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,10
+85,Michael Wilson,WR,83,35,88,98,86,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,14
+86,Trevor Lawrence,QB,89,10,73,73,95,Brock Purdy; Bo Nix; Jaxson Dart,311.7,7
+87,Josh Jacobs,RB,78,29,149,123,117,Jonathon Brooks; Kenny Gainwell; J.K. Dobbins,,11
+88,George Kittle,TE,82,9,95,113,88,Harold Fannin Jr.; Kyle Pitts Sr.; Travis Kelce,187.0,8
+89,J.K. Dobbins,RB,88,33,101,82,85,Jonathon Brooks; Kenny Gainwell; Blake Corum,,10
+90,Alec Pierce,WR,92,38,99,112,87,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,13
+91,Kyle Pitts,TE,70,7,76,108,67,Harold Fannin Jr.; Travis Kelce; Dalton Kincaid,180.7,11
+92,Jonathon Brooks,RB,81,31,86,84,73,Kenny Gainwell; Blake Corum; Rachaad White,,5
+93,Jayden Reed,WR,119,47,100,75,99,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,11
+94,De'Zhaun Stribling,WR,110,44,120,115,114,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,8
+95,Blake Corum,RB,100,37,105,87,96,Kenny Gainwell; Rachaad White; Jordan Mason,,11
+96,Jordan Addison,WR,108,43,109,83,82,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,6
+97,Stefon Diggs,WR,99,40,91,95,94,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,7
+98,Quentin Johnston,WR,104,42,89,85,79,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,7
+99,Jaxson Dart,QB,97,11,96,101,121,Brock Purdy; Bo Nix; Patrick Mahomes II,,8
+100,Dalton Kincaid,TE,121,13,113,111,123,Harold Fannin Jr.; Travis Kelce; Isaiah Likely,,7
+101,KC Concepcion,WR,125,49,106,110,101,Michael Pittman Jr.; Wan'Dale Robinson; Josh Downs,,11
+102,Kenny Gainwell,RB,93,36,93,,,Rachaad White; Jordan Mason; Jacory Croskey-Merritt,,10
+103,Kyle Monangai,RB,106,39,122,130,105,Rachaad White; Jordan Mason; Jacory Croskey-Merritt,,10
+104,Michael Pittman,WR,95,39,80,92,109,Wan'Dale Robinson; Josh Downs; Jakobi Meyers,,9
+105,Jacory Croskey-Merritt,RB,109,40,115,97,81,Rachaad White; Jordan Mason; Aaron Jones Sr.,,7
+106,Harold Fannin,TE,66,5,74,105,91,Travis Kelce; Isaiah Likely; Dallas Goedert,198.4,11
+107,Josh Downs,WR,117,46,87,86,92,Wan'Dale Robinson; Jakobi Meyers; Jalen Coker,,13
+108,Jordan Mason,RB,101,38,112,93,90,Rachaad White; Aaron Jones Sr.; Woody Marks,,6
+109,Rachaad White,RB,118,41,111,119,104,Aaron Jones Sr.; Woody Marks; Tyler Allgeier,,7
+110,Dallas Goedert,TE,112,12,121,126,110,Travis Kelce; Isaiah Likely; Jake Ferguson,185.0,10
+111,Bo Nix,QB,116,15,94,109,134,Brock Purdy; Patrick Mahomes II; Jared Goff,,10
+112,Wan'Dale Robinson,WR,102,41,84,120,122,Jakobi Meyers; Jalen Coker; Matthew Golden,,9
+113,Matthew Golden,WR,127,50,126,99,115,Jakobi Meyers; Jalen Coker; Romeo Doubs,,11
+114,Jordyn Tyson,WR,145,55,138,144,128,Jakobi Meyers; Jalen Coker; Romeo Doubs,,8
+115,Jakobi Meyers,WR,124,48,108,122,119,Jalen Coker; Romeo Doubs; Khalil Shakir,,7
+116,Tyler Allgeier,RB,140,46,134,155,129,Aaron Jones Sr.; Woody Marks; Chris Rodriguez Jr.,,14
+117,Xavier Worthy,WR,131,52,131,107,136,Jalen Coker; Romeo Doubs; Khalil Shakir,,5
+118,Travis Kelce,TE,94,10,97,121,108,Isaiah Likely; Jake Ferguson; Juwan Johnson,185.7,5
+119,Aaron Jones,RB,120,42,117,138,112,Woody Marks; Chris Rodriguez Jr.; Tyjae Spears,,6
+120,Jake Ferguson,TE,122,14,123,139,157,Isaiah Likely; Juwan Johnson; Mark Andrews,,14
+121,Chris Rodriguez,RB,136,45,136,118,116,Woody Marks; Tyjae Spears; Jonah Coleman,,7
+122,Romeo Doubs,WR,129,51,127,117,127,Jalen Coker; Khalil Shakir; Deebo Samuel Sr.,,11
+123,Mike Washington,RB,130,43,145,147,106,Woody Marks; Tyjae Spears; Jonah Coleman,,13
+124,Khalil Shakir,WR,148,57,128,128,139,Jalen Coker; Deebo Samuel Sr.; Rashid Shaheed,,7
+125,Malik Washington,WR,222,72,179,234,155,Jalen Coker; Deebo Samuel Sr.; Rashid Shaheed,,6
+126,Woody Marks,RB,132,44,133,142,113,Tyjae Spears; Jonah Coleman; Dylan Sampson,,8
+127,Jonah Coleman,RB,152,49,141,168,130,Tyjae Spears; Dylan Sampson; Keaton Mitchell,,10
+128,Zach Charbonnet,RB,144,48,148,193,125,Tyjae Spears; Dylan Sampson; Keaton Mitchell,,11
+129,Los Angeles Rams,DEF,107,2,164,160,,Houston Texans; Denver Broncos; Seattle Seahawks,,11
+130,Brandon Aubrey,K,96,1,182,143,,Cameron Dicker; Ka'imi Fairbairn; Cam Little,,14
+131,Rashid Shaheed,WR,146,56,143,132,172,Jalen Coker; Deebo Samuel Sr.; Denzel Boston,,11
+132,Jason Myers,K,137,4,198,178,,Cameron Dicker; Ka'imi Fairbairn; Cam Little,,11
+133,Brian Robinson,RB,162,52,168,158,145,Tyjae Spears; Dylan Sampson; Keaton Mitchell,,11
+134,Keaton Mitchell,RB,161,51,146,136,147,Tyjae Spears; Dylan Sampson; Tank Bigsby,,7
+135,Ja'Kobi Lane,WR,175,61,206,180,164,Jalen Coker; Deebo Samuel Sr.; Denzel Boston,,13
+136,Jalen Coker,WR,141,54,125,124,107,Deebo Samuel Sr.; Denzel Boston; Tre Tucker,,5
+137,Deebo Samuel,WR,134,53,142,135,118,Denzel Boston; Tre Tucker; Adonai Mitchell,,8
+138,Houston Texans,DEF,103,1,155,157,,Denver Broncos; Seattle Seahawks; Philadelphia Eagles,,8
+139,Tyjae Spears,RB,143,47,137,133,126,Dylan Sampson; Tank Bigsby; Alvin Kamara,,9
+140,Cam Little,K,150,5,195,174,,Cameron Dicker; Ka'imi Fairbairn; Eddy Pineiro,,7
+141,Cameron Dicker,K,135,3,189,182,,Ka'imi Fairbairn; Eddy Pineiro; Tyler Loop,,7
+142,Chris Bell,WR,244,80,217,217,154,Denzel Boston; Tre Tucker; Adonai Mitchell,,6
+143,Seattle Seahawks,DEF,123,4,169,159,,Denver Broncos; Philadelphia Eagles; Pittsburgh Steelers,,11
+144,Kyler Murray,QB,138,17,114,116,135,Brock Purdy; Patrick Mahomes II; Jared Goff,,6
+145,Ka'imi Fairbairn,K,133,2,191,173,,Eddy Pineiro; Tyler Loop; Jake Bates,,8
+146,Jake Bates,K,160,6,215,212,,Eddy Pineiro; Tyler Loop; Evan McPherson,,6
+147,Juwan Johnson,TE,149,16,129,129,148,Isaiah Likely; Mark Andrews; Chig Okonkwo,,8
+148,Tyrone Tracy,RB,192,57,166,223,161,Dylan Sampson; Tank Bigsby; Alvin Kamara,,8
+149,Detroit Lions,DEF,179,12,226,358,,Denver Broncos; Philadelphia Eagles; Pittsburgh Steelers,,6
+150,Denver Broncos,DEF,114,3,165,176,,Philadelphia Eagles; Pittsburgh Steelers; Minnesota Vikings,,10
+151,Cyrus Allen,WR,202,66,260,213,165,Denzel Boston; Tre Tucker; Adonai Mitchell,,5
+152,Tank Bigsby,RB,165,53,158,140,137,Dylan Sampson; Alvin Kamara; Braelon Allen,,10
+153,Isaiah Likely,TE,105,11,119,137,83,Mark Andrews; Chig Okonkwo; Brenton Strange,,8
+154,Kaelon Black,RB,195,58,213,214,146,Dylan Sampson; Alvin Kamara; Braelon Allen,,8
+155,Jacksonville Jaguars,DEF,164,10,188,195,,Philadelphia Eagles; Pittsburgh Steelers; Minnesota Vikings,,7
+156,Travis Hunter,DB,259,85,200,228,191,Denzel Boston; Tre Tucker; Adonai Mitchell,,7
+157,Philadelphia Eagles,DEF,139,5,174,249,,Pittsburgh Steelers; Minnesota Vikings; New England Patriots,,10
+158,Tyler Loop,K,183,10,208,255,,Eddy Pineiro; Evan McPherson; Cairo Santos,,13
+159,Emmett Johnson,RB,185,56,172,169,138,Dylan Sampson; Alvin Kamara; Braelon Allen,,5
+160,Dylan Sampson,RB,173,55,144,184,141,Alvin Kamara; Braelon Allen; Ray Davis,,11
+161,Baltimore Ravens,DEF,155,8,192,204,,Pittsburgh Steelers; Minnesota Vikings; New England Patriots,,13
+162,Matthew Stafford,QB,98,12,104,94,124,Brock Purdy; Patrick Mahomes II; Jared Goff,,11
+163,Harrison Mevis,K,163,7,230,276,,Eddy Pineiro; Evan McPherson; Cairo Santos,,11
+164,Kayshon Boutte,WR,196,64,161,161,153,Denzel Boston; Tre Tucker; Adonai Mitchell,,8
+165,Brock Purdy,QB,113,14,92,88,100,Patrick Mahomes II; Jared Goff; Jordan Love,310.9,8
+166,Pittsburgh Steelers,DEF,151,6,184,203,,Minnesota Vikings; New England Patriots; Los Angeles Chargers,,9
+167,Ray Davis,RB,227,62,180,166,159,Alvin Kamara; Braelon Allen; Kimani Vidal,,7
+168,Nicholas Singleton,RB,239,65,212,253,192,Alvin Kamara; Braelon Allen; Kimani Vidal,,9
+169,Minnesota Vikings,DEF,159,9,186,202,,New England Patriots; Los Angeles Chargers; Kansas City Chiefs,,6
+170,Baker Mayfield,QB,142,18,118,104,170,Patrick Mahomes II; Jared Goff; Jordan Love,,10
+171,Evan McPherson,K,186,11,221,258,,Eddy Pineiro; Cairo Santos; Andy Borregales,,6
+172,Los Angeles Chargers,DEF,170,11,190,197,,New England Patriots; Kansas City Chiefs; Green Bay Packers,,7
+173,Patrick Mahomes,QB,111,13,102,100,133,Jared Goff; Jordan Love; Tyler Shough,305.8,5
+174,Alvin Kamara,RB,158,50,160,220,163,Braelon Allen; Kimani Vidal; Isiah Pacheco,,8
+175,Harrison Butker,K,177,8,253,275,,Eddy Pineiro; Cairo Santos; Andy Borregales,,5
+176,Chris Boswell,K,207,15,255,267,,Eddy Pineiro; Cairo Santos; Andy Borregales,,9
+177,Will Reichard,K,187,12,274,272,,Eddy Pineiro; Cairo Santos; Andy Borregales,,6
+178,Jared Goff,QB,126,16,103,103,111,Jordan Love; Tyler Shough; Malik Willis,,6
+179,Tre' Harris,WR,241,77,175,162,181,Denzel Boston; Tre Tucker; Adonai Mitchell,,7
+180,Jerry Jeudy,WR,181,62,162,192,198,Denzel Boston; Tre Tucker; Adonai Mitchell,,11
