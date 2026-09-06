@@ -11,6 +11,7 @@ import {
   Sparkles,
   Trophy,
 } from 'lucide-react';
+import { SchedulePreview } from '@/components/draft/schedule-preview';
 import { SeasonPreviewTabs } from '@/components/draft/season-preview-tabs';
 import { SeasonForecastBallot } from '@/components/draft/season-forecast-ballot';
 import { TeamAvatar } from '@/components/shared/team-avatar';
@@ -440,6 +441,8 @@ export default async function DraftRecapPage() {
                             </p>
                           </div>
                         </div>
+
+                        <SchedulePreview rosterId={entry.rosterId} />
 
                         <details className="group rounded-xl border border-white/[0.065] bg-black/10">
                           <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-muted-foreground hover:text-foreground">
