@@ -65,3 +65,25 @@ value. The receipt is not an assertion of overall trade quality or injury cause.
 Run `npm run lint`, `npm test`, and `npm run build` when changing the logic.
 Feature tests cover awards, ties, missing data, forecast validity and checkpoints,
 trade ownership boundaries, delayed settlement and read-only page loading.
+
+## My Season
+
+`/my-season` uses the same manager accounts and is linked from the mobile bottom
+navigation, clubhouse shortcuts and desktop menu. It fetches the signed-in profile,
+that manager's own votes and forecast under RLS. Before sign-in it shows a login
+form. Auth changes clear previous member data and invalidate pending responses.
+Server props contain only public Sleeper data and the published draft summary.
+
+The optional `includeActivity` argument on `getSeasonHubData` builds pickup receipts
+for this page, reusing the existing transaction and historical matchup reads.
+Each completed waiver/free-agent acquisition has its own ownership spell. Count
+recorded starter points from the transaction week, including the acquisition week;
+bench weeks contribute no used points. Exclude departure weeks and everything
+following them, with reacquisitions handled separately. Missing relevant timing,
+ownership or score data makes returns unavailable. FAAB totals count successful
+waiver transactions once, not once per added player; failed bids are excluded.
+
+Personal prediction accuracy uses settled decisive matchups as its denominator,
+including missed picks, matching the existing prediction competition. Ties do not
+contribute. My Season also links each trade to its receipt and presents the original
+ballot, published draft grade, weekly awards and settled team results.

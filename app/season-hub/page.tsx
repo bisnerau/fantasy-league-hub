@@ -258,6 +258,7 @@ export default async function SeasonHubPage() {
           return (
             <details
               key={trade.transaction_id}
+              id={`trade-${trade.transaction_id}`}
               className="mt-4 rounded-lg border border-white/10 p-3"
             >
               <summary className="cursor-pointer text-sm font-semibold">

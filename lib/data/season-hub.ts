@@ -1,3 +1,4 @@
+import { acquisitionReceipts } from '@/lib/season/my-season';
 import {
   getLeague,
   getNFLState,
@@ -30,7 +31,9 @@ async function batch<T, R>(items: T[], fn: (item: T) => Promise<R>) {
     results.push(...(await Promise.all(items.slice(i, i + 6).map(fn))));
   return results;
 }
-export async function getSeasonHubData() {
+export async function getSeasonHubData({
+  includeActivity = false,
+}: { includeActivity?: boolean } = {}) {
   const [leagueResult, stateResult] = await Promise.allSettled([
     getLeague(featureLeagueId),
     getNFLState(),
@@ -139,7 +142,10 @@ export async function getSeasonHubData() {
         (b.status_updated ?? b.created) - (a.status_updated ?? a.created),
     );
   const relevantIds = new Set(
-    transactions.flatMap((t) => Object.keys(t.adds ?? {})),
+    transactions.flatMap((t) => [
+      ...Object.keys(t.adds ?? {}),
+      ...Object.keys(t.drops ?? {}),
+    ]),
   );
   const names: Record<string, string> = {};
   if (relevantIds.size) {
@@ -161,6 +167,15 @@ export async function getSeasonHubData() {
     review: transactionReady ? reviewTrade(trade, weeks, transactions) : null,
   }));
   return {
+    activity: includeActivity
+      ? {
+          acquisitions: transactionReady
+            ? acquisitionReceipts(transactions, weeks, completedWeeks)
+            : null,
+          weeks,
+          transactions,
+        }
+      : null,
     leagueId: featureLeagueId,
     season: featureSeason,
     completedWeeks,

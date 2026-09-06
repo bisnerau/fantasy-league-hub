@@ -29,6 +29,12 @@ const navigation = [
   { label: 'Clubhouse', shortLabel: 'Home', href: '/', icon: Home },
   { label: 'Weekly picks', shortLabel: 'Picks', href: '/matchups', icon: Vote },
   {
+    label: 'My Season',
+    shortLabel: 'My Season',
+    href: '/my-season',
+    icon: Users,
+  },
+  {
     label: 'Record book',
     shortLabel: 'Records',
     href: '/records',

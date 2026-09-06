@@ -75,7 +75,7 @@ export default async function DashboardPage() {
                   icon: Award,
                 },
                 { label: 'Standings', href: '/standings', icon: BarChart3 },
-                { label: 'Managers', href: '/managers', icon: Users },
+                { label: 'My Season', href: '/my-season', icon: Users },
                 { label: 'Record Book', href: '/records', icon: BookOpen },
                 { label: 'Wall of Shame', href: '/wall-of-shame', icon: Skull },
               ].map(({ label, href, icon: Icon }) => (
@@ -260,6 +260,16 @@ export default async function DashboardPage() {
                   </span>
                   <span className="mt-1 block text-xs text-muted-foreground">
                     Weekly honours, trade returns and prediction reviews.
+                  </span>
+                </span>
+                <ArrowRight className="size-4" />
+              </a>
+              <a href="/my-season" className="clubhouse-directory-link">
+                <Users className="size-5 text-muted-foreground" />
+                <span className="flex-1">
+                  <span className="block font-semibold">My Season</span>
+                  <span className="mt-1 block text-xs text-muted-foreground">
+                    Your pickups, picks and personal receipts.
                   </span>
                 </span>
                 <ArrowRight className="size-4" />
