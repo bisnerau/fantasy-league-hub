@@ -340,7 +340,7 @@ test('theme changes persist and every league page is reachable without overflow'
     ['League standings', '/standings'],
     ['Managers', '/managers'],
     ['Wall of shame', '/wall-of-shame'],
-    ['Draft report', '/draft-recap'],
+    ['Draft Report & Season Preview', '/draft-recap'],
   ]) {
     await page.getByRole('button', { name: 'Open league navigation' }).click();
     await page.getByRole('link', { name: label, exact: true }).click();

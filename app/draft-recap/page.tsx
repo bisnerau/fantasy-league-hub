@@ -11,6 +11,7 @@ import {
   Sparkles,
   Trophy,
 } from 'lucide-react';
+import { SeasonPreviewTabs } from '@/components/draft/season-preview-tabs';
 import { SeasonForecastBallot } from '@/components/draft/season-forecast-ballot';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import { Badge } from '@/components/ui/badge';
@@ -20,9 +21,9 @@ import { getSeasonForecastSettings } from '@/lib/data/season-forecasts';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: '2026 Draft Recap',
+  title: 'Draft Report & Season Preview',
   description:
-    'MAC 12 draft grades, team analysis, season outlooks and Leinster comparisons.',
+    'MAC 12 draft grades, season previews, manager predictions and the league consensus table.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -175,7 +176,7 @@ export default async function DraftRecapPage() {
             </Badge>
           </div>
           <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-[-0.045em] text-foreground sm:text-4xl lg:text-5xl">
-            Twelve drafts. Twelve verdicts.
+            Draft Report &amp; Season Preview
           </h1>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
             {draftRecapContent.overview}
@@ -186,289 +187,293 @@ export default async function DraftRecapPage() {
         </div>
       </section>
 
-      <nav
-        className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4"
-        aria-label="Drafted teams"
-      >
-        {entries.map((entry) => (
-          <a
-            key={entry.rosterId}
-            href={`#roster-${entry.rosterId}`}
-            className="flex min-w-0 items-center gap-2 rounded-xl border border-white/[0.065] bg-white/[0.02] p-2.5 transition-colors hover:border-primary/20 hover:bg-primary/[0.035]"
-          >
-            <span
-              className={cn(
-                'flex size-8 shrink-0 items-center justify-center rounded-lg border font-mono text-sm font-black',
-                gradeClass(entry.grade),
-              )}
-            >
-              {entry.grade}
-            </span>
-            <span className="min-w-0">
-              <span className="block truncate text-[11px] font-semibold">
-                {entry.teamName}
-              </span>
-              <span className="mt-0.5 block truncate text-[9px] text-muted-foreground">
-                {entry.managerName}
-              </span>
-            </span>
-          </a>
-        ))}
-      </nav>
-
-      <Card className="linear-panel gap-0 py-0">
-        <details className="group">
-          <summary className="flex cursor-pointer list-none items-center gap-3 p-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-primary sm:p-5 [&::-webkit-details-marker]:hidden">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-primary/[0.055] text-primary">
-              <SearchCheck className="size-4" />
-            </span>
-            <span className="ui-kicker flex-1">
-              How the grades were calculated
-            </span>
-            <ChevronDown className="size-4 shrink-0 transition-transform group-open:rotate-180" />
-          </summary>
-          <div className="border-t border-white/[0.065] p-4 sm:p-5">
-            {draftRecapContent.generatedAt && (
-              <p className="mt-1 text-[9px] text-muted-foreground">
-                Research updated{' '}
-                {new Intl.DateTimeFormat('en-IE', {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
-                }).format(new Date(draftRecapContent.generatedAt))}
-              </p>
-            )}
-            <p className="mt-2 text-xs leading-6 text-muted-foreground">
-              {draftRecapContent.methodology}
-            </p>
-            <a
-              href="/data/draft-2026-pick-review.csv"
-              download
-              className="mt-3 inline-block text-xs font-medium text-primary underline underline-offset-4"
-            >
-              Download the 180-pick research review
-            </a>
-            {draftRecapContent.sources.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {draftRecapContent.sources.map((source) => (
-                  <a
-                    key={`${source.category}-${source.url}`}
-                    href={source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 text-[9px] font-medium text-muted-foreground transition-colors hover:border-primary/20 hover:text-primary"
-                  >
-                    {source.label} · {source.category}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        </details>
-      </Card>
-
-      <Card className="linear-panel gap-0 py-0">
-        <div className="flex items-start gap-3 border-b border-white/[0.065] p-4 sm:p-5">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-secondary/20 bg-secondary/[0.055] text-secondary-foreground">
-            <ListOrdered className="size-4" />
-          </span>
-          <div>
-            <p className="ui-kicker">AI prediction</p>
-            <h2 className="mt-1 text-base font-semibold sm:text-lg">
-              My projected final table
-            </h2>
-            <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
-              My evidence-led call after grading all 12 drafts. It is locked on
-              publication so we can bring the receipts back after the season.
-            </p>
-          </div>
-        </div>
-
-        <div className="divide-y divide-white/[0.055]">
-          {projectedTable.map((entry) => (
-            <a
-              key={entry.rosterId}
-              href={`#roster-${entry.rosterId}`}
-              className="group flex items-center gap-3 px-4 py-3 transition-colors hover:bg-white/[0.025] sm:px-5"
-            >
-              <span className="w-8 shrink-0 font-mono text-lg font-black tracking-[-0.05em] text-primary sm:w-10">
-                {entry.predictedFinish}
-              </span>
-              <TeamAvatar
-                avatar={entry.avatar}
-                name={entry.teamName}
-                className="size-9 shrink-0"
-              />
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-xs font-semibold group-hover:text-primary sm:text-sm">
-                  {entry.teamName}
-                </span>
-                <span className="mt-0.5 block truncate text-[9px] text-muted-foreground sm:text-[10px]">
-                  {entry.managerName}
-                </span>
-              </span>
-              <span className="hidden text-[9px] uppercase tracking-[0.1em] text-muted-foreground sm:block">
-                Draft grade
-              </span>
-              <span
-                className={cn(
-                  'flex size-8 shrink-0 items-center justify-center rounded-lg border font-mono text-xs font-black',
-                  gradeClass(entry.grade),
-                )}
-              >
-                {entry.grade}
-              </span>
-            </a>
-          ))}
-        </div>
-      </Card>
-
-      <SeasonForecastBallot
-        settings={forecastSettings}
-        teams={entries.map((entry) => ({
-          rosterId: entry.rosterId,
-          teamName: entry.teamName,
-          managerName: entry.managerName,
-          avatar: entry.avatar,
-        }))}
-      />
-
-      <div className="space-y-4">
-        {entries.map((entry) => (
-          <article
-            key={entry.rosterId}
-            id={`roster-${entry.rosterId}`}
-            className="scroll-mt-20"
-          >
+      <SeasonPreviewTabs
+        predictions={
+          <SeasonForecastBallot
+            settings={forecastSettings}
+            teams={entries.map((entry) => ({
+              rosterId: entry.rosterId,
+              teamName: entry.teamName,
+              managerName: entry.managerName,
+              avatar: entry.avatar,
+            }))}
+          />
+        }
+        report={
+          <div className="space-y-5">
             <Card className="linear-panel gap-0 py-0">
-              <header className="flex items-start gap-3 border-b border-white/[0.065] p-4 sm:items-center sm:p-5">
-                <TeamAvatar
-                  avatar={entry.avatar}
-                  name={entry.teamName}
-                  className="size-11 sm:size-12"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.13em] text-muted-foreground">
-                    Draft slot {entry.draftSlot} · {entry.managerName}
-                  </p>
-                  <h2 className="mt-1 truncate text-lg font-bold tracking-[-0.025em] sm:text-xl">
-                    {entry.teamName}
-                  </h2>
-                </div>
-                <div
-                  className={cn(
-                    'flex min-w-16 shrink-0 flex-col items-center rounded-xl border px-3 py-2',
-                    gradeClass(entry.grade),
+              <details className="group">
+                <summary className="flex cursor-pointer list-none items-center gap-3 p-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-primary sm:p-5 [&::-webkit-details-marker]:hidden">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-primary/[0.055] text-primary">
+                    <SearchCheck className="size-4" />
+                  </span>
+                  <span className="ui-kicker flex-1">
+                    How the grades were calculated
+                  </span>
+                  <ChevronDown className="size-4 shrink-0 transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="border-t border-white/[0.065] p-4 sm:p-5">
+                  {draftRecapContent.generatedAt && (
+                    <p className="mt-1 text-[9px] text-muted-foreground">
+                      Research updated{' '}
+                      {new Intl.DateTimeFormat('en-IE', {
+                        dateStyle: 'medium',
+                        timeStyle: 'short',
+                      }).format(new Date(draftRecapContent.generatedAt))}
+                    </p>
                   )}
-                >
-                  <span className="font-mono text-2xl font-black tracking-[-0.06em]">
-                    {entry.grade}
-                  </span>
-                  <span className="text-[8px] font-semibold uppercase tracking-[0.12em] opacity-70">
-                    {entry.gradeScore}/100
-                  </span>
-                </div>
-              </header>
-
-              <div className="space-y-5 p-4 sm:p-5">
-                <div>
-                  <p className="ui-kicker">The verdict</p>
-                  <h3 className="mt-1.5 text-base font-semibold sm:text-lg">
-                    {entry.headline}
-                  </h3>
-                  <p className="mt-2 text-xs leading-6 text-muted-foreground sm:text-[13px]">
-                    {entry.summary}
+                  <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                    {draftRecapContent.methodology}
                   </p>
-                </div>
-                <p className="text-[11px] leading-5 text-muted-foreground">
-                  Starters {entry.rubricScores.startingLineup}/30 · Value{' '}
-                  {entry.rubricScores.value}/25 · Construction{' '}
-                  {entry.rubricScores.construction}/20 · Depth{' '}
-                  {entry.rubricScores.depth}/15 · Risk management{' '}
-                  {entry.rubricScores.risk}/10
-                </p>
-
-                <div className="grid gap-3 md:grid-cols-2">
-                  <div className="rounded-xl border border-primary/12 bg-primary/[0.035] p-3.5">
-                    <p className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary">
-                      <Award className="size-3.5" /> Best pick
-                    </p>
-                    <p className="mt-2 text-sm font-semibold">
-                      {entry.bestPick.player}
-                    </p>
-                    <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
-                      {entry.bestPick.detail}
-                    </p>
-                  </div>
-                  <div className="rounded-xl border border-amber-300/12 bg-amber-300/[0.025] p-3.5">
-                    <p className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-amber-200">
-                      <AlertTriangle className="size-3.5" /> Biggest concern
-                    </p>
-                    <p className="mt-2 text-sm font-semibold">
-                      {entry.biggestConcern.player}
-                    </p>
-                    <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
-                      {entry.biggestConcern.detail}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid gap-3 lg:grid-cols-2">
-                  <div className="rounded-xl border border-white/[0.065] bg-white/[0.018] p-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="ui-kicker">Season outlook</p>
-                      <Badge
-                        variant="outline"
-                        className="shrink-0 border-primary/20 bg-primary/[0.055] text-[9px] text-primary"
-                      >
-                        Predicted {ordinal(entry.predictedFinish)}
-                      </Badge>
+                  <a
+                    href="/data/draft-2026-pick-review.csv"
+                    download
+                    className="mt-3 inline-block text-xs font-medium text-primary underline underline-offset-4"
+                  >
+                    Download the 180-pick research review
+                  </a>
+                  {draftRecapContent.sources.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {draftRecapContent.sources.map((source) => (
+                        <a
+                          key={`${source.category}-${source.url}`}
+                          href={source.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 text-[9px] font-medium text-muted-foreground transition-colors hover:border-primary/20 hover:text-primary"
+                        >
+                          {source.label} · {source.category}
+                        </a>
+                      ))}
                     </div>
-                    <p className="mt-2 text-xs leading-6 text-muted-foreground">
-                      {entry.seasonOutlook}
-                    </p>
-                  </div>
-                  <div className="rounded-xl border border-secondary/20 bg-secondary/[0.045] p-4">
-                    <p className="ui-kicker text-secondary-foreground/70">
-                      Leinster comparison
-                    </p>
-                    <p className="mt-2 text-sm font-semibold">
-                      {entry.leinsterComparison.player}
-                    </p>
-                    <p className="mt-1 text-xs leading-6 text-muted-foreground">
-                      {entry.leinsterComparison.detail}
-                    </p>
-                  </div>
+                  )}
                 </div>
+              </details>
+            </Card>
 
-                <details className="group rounded-xl border border-white/[0.065] bg-black/10">
-                  <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-muted-foreground hover:text-foreground">
-                    Full draft · {entry.picks.length} picks
-                    <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" />
-                  </summary>
-                  <div className="border-t border-white/[0.055] px-3 pb-2 sm:px-4">
-                    {entry.picks.map((pick) => (
-                      <div
-                        key={pick.overall}
-                        className="grid grid-cols-[34px_minmax(0,1fr)_auto] items-center gap-2 border-b border-white/[0.05] py-2.5 text-[11px] last:border-0"
+            <Card className="linear-panel gap-0 py-0">
+              <details className="group/table">
+                <summary className="flex cursor-pointer list-none items-start gap-3 border-b border-white/[0.065] p-4 sm:p-5">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-secondary/20 bg-secondary/[0.055] text-secondary-foreground">
+                    <ListOrdered className="size-4" />
+                  </span>
+                  <div>
+                    <p className="ui-kicker">AI prediction</p>
+                    <h2 className="mt-1 text-base font-semibold sm:text-lg">
+                      Editorial projected final table
+                    </h2>
+                    <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
+                      The report’s evidence-led call after grading all 12
+                      drafts. It is locked on publication so we can bring the
+                      receipts back after the season.
+                    </p>
+                  </div>
+                  <ChevronDown className="ml-auto size-4 shrink-0 transition-transform group-open/table:rotate-180" />
+                </summary>
+
+                <div className="divide-y divide-white/[0.055]">
+                  {projectedTable.map((entry) => (
+                    <a
+                      key={entry.rosterId}
+                      href={`#roster-${entry.rosterId}`}
+                      className="group flex items-center gap-3 px-4 py-3 transition-colors hover:bg-white/[0.025] sm:px-5"
+                    >
+                      <span className="w-8 shrink-0 font-mono text-lg font-black tracking-[-0.05em] text-primary sm:w-10">
+                        {entry.predictedFinish}
+                      </span>
+                      <TeamAvatar
+                        avatar={entry.avatar}
+                        name={entry.teamName}
+                        className="size-9 shrink-0"
+                      />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-xs font-semibold group-hover:text-primary sm:text-sm">
+                          {entry.teamName}
+                        </span>
+                        <span className="mt-0.5 block truncate text-[9px] text-muted-foreground sm:text-[10px]">
+                          {entry.managerName}
+                        </span>
+                      </span>
+                      <span className="hidden text-[9px] uppercase tracking-[0.1em] text-muted-foreground sm:block">
+                        Draft grade
+                      </span>
+                      <span
+                        className={cn(
+                          'flex size-8 shrink-0 items-center justify-center rounded-lg border font-mono text-xs font-black',
+                          gradeClass(entry.grade),
+                        )}
                       >
-                        <span className="font-mono text-[9px] text-muted-foreground">
-                          #{pick.overall}
+                        {entry.grade}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </details>
+            </Card>
+
+            <div className="space-y-4">
+              {entries.map((entry) => (
+                <article
+                  key={entry.rosterId}
+                  id={`roster-${entry.rosterId}`}
+                  className="scroll-mt-20"
+                >
+                  <Card className="linear-panel gap-0 py-0">
+                    <header className="flex items-start gap-3 border-b border-white/[0.065] p-4 sm:items-center sm:p-5">
+                      <TeamAvatar
+                        avatar={entry.avatar}
+                        name={entry.teamName}
+                        className="size-11 sm:size-12"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[9px] font-semibold uppercase tracking-[0.13em] text-muted-foreground">
+                          Draft slot {entry.draftSlot} · {entry.managerName}
+                        </p>
+                        <h2 className="mt-1 truncate text-lg font-bold tracking-[-0.025em] sm:text-xl">
+                          {entry.teamName}
+                        </h2>
+                      </div>
+                      <div
+                        className={cn(
+                          'flex min-w-16 shrink-0 flex-col items-center rounded-xl border px-3 py-2',
+                          gradeClass(entry.grade),
+                        )}
+                      >
+                        <span className="font-mono text-2xl font-black tracking-[-0.06em]">
+                          {entry.grade}
                         </span>
-                        <span className="truncate font-medium">
-                          {pick.player}
-                        </span>
-                        <span className="text-[9px] text-muted-foreground">
-                          {pick.position} · {pick.nflTeam}
+                        <span className="text-[8px] font-semibold uppercase tracking-[0.12em] opacity-70">
+                          {entry.gradeScore}/100
                         </span>
                       </div>
-                    ))}
-                  </div>
-                </details>
-              </div>
-            </Card>
-          </article>
-        ))}
-      </div>
+                    </header>
+
+                    <details data-report-card className="group/report">
+                      <summary className="cursor-pointer list-none p-4 focus-visible:outline-2 focus-visible:outline-primary sm:p-5 [&::-webkit-details-marker]:hidden">
+                        <span className="text-[10px] font-semibold text-primary">
+                          Projected {ordinal(entry.predictedFinish)}
+                        </span>
+                        <span className="mt-2 block text-base font-semibold">
+                          {entry.headline}
+                        </span>
+                        <span className="mt-2 block text-xs leading-6 text-muted-foreground group-open/report:hidden">
+                          {entry.summary.split(/(?<=\.)\s/)[0]}
+                        </span>
+                        <span className="mt-3 flex items-center gap-2 text-xs font-medium text-primary">
+                          <span className="group-open/report:hidden">
+                            Read full verdict
+                          </span>
+                          <span className="hidden group-open/report:inline">
+                            Close verdict
+                          </span>
+                          <ChevronDown className="size-4 transition-transform group-open/report:rotate-180" />
+                        </span>
+                      </summary>
+                      <div className="space-y-5 border-t border-white/[0.065] p-4 sm:p-5">
+                        <div>
+                          <p className="ui-kicker">The verdict</p>
+                          <h3 className="mt-1.5 text-base font-semibold sm:text-lg">
+                            {entry.headline}
+                          </h3>
+                          <p className="mt-2 text-xs leading-6 text-muted-foreground sm:text-[13px]">
+                            {entry.summary}
+                          </p>
+                        </div>
+                        <p className="text-[11px] leading-5 text-muted-foreground">
+                          Starters {entry.rubricScores.startingLineup}/30 ·
+                          Value {entry.rubricScores.value}/25 · Construction{' '}
+                          {entry.rubricScores.construction}/20 · Depth{' '}
+                          {entry.rubricScores.depth}/15 · Risk management{' '}
+                          {entry.rubricScores.risk}/10
+                        </p>
+
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <div className="rounded-xl border border-primary/12 bg-primary/[0.035] p-3.5">
+                            <p className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary">
+                              <Award className="size-3.5" /> Best pick
+                            </p>
+                            <p className="mt-2 text-sm font-semibold">
+                              {entry.bestPick.player}
+                            </p>
+                            <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
+                              {entry.bestPick.detail}
+                            </p>
+                          </div>
+                          <div className="rounded-xl border border-amber-300/12 bg-amber-300/[0.025] p-3.5">
+                            <p className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-amber-200">
+                              <AlertTriangle className="size-3.5" /> Biggest
+                              concern
+                            </p>
+                            <p className="mt-2 text-sm font-semibold">
+                              {entry.biggestConcern.player}
+                            </p>
+                            <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
+                              {entry.biggestConcern.detail}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="grid gap-3 lg:grid-cols-2">
+                          <div className="rounded-xl border border-white/[0.065] bg-white/[0.018] p-4">
+                            <div className="flex items-center justify-between gap-3">
+                              <p className="ui-kicker">Season outlook</p>
+                              <Badge
+                                variant="outline"
+                                className="shrink-0 border-primary/20 bg-primary/[0.055] text-[9px] text-primary"
+                              >
+                                Predicted {ordinal(entry.predictedFinish)}
+                              </Badge>
+                            </div>
+                            <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                              {entry.seasonOutlook}
+                            </p>
+                          </div>
+                          <div className="rounded-xl border border-secondary/20 bg-secondary/[0.045] p-4">
+                            <p className="ui-kicker text-secondary-foreground/70">
+                              Leinster comparison
+                            </p>
+                            <p className="mt-2 text-sm font-semibold">
+                              {entry.leinsterComparison.player}
+                            </p>
+                            <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                              {entry.leinsterComparison.detail}
+                            </p>
+                          </div>
+                        </div>
+
+                        <details className="group rounded-xl border border-white/[0.065] bg-black/10">
+                          <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.11em] text-muted-foreground hover:text-foreground">
+                            Full draft · {entry.picks.length} picks
+                            <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" />
+                          </summary>
+                          <div className="border-t border-white/[0.055] px-3 pb-2 sm:px-4">
+                            {entry.picks.map((pick) => (
+                              <div
+                                key={pick.overall}
+                                className="grid grid-cols-[34px_minmax(0,1fr)_auto] items-center gap-2 border-b border-white/[0.05] py-2.5 text-[11px] last:border-0"
+                              >
+                                <span className="font-mono text-[9px] text-muted-foreground">
+                                  #{pick.overall}
+                                </span>
+                                <span className="truncate font-medium">
+                                  {pick.player}
+                                </span>
+                                <span className="text-[9px] text-muted-foreground">
+                                  {pick.position} · {pick.nflTeam}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </details>
+                      </div>
+                    </details>
+                  </Card>
+                </article>
+              ))}
+            </div>
+          </div>
+        }
+      />
     </div>
   );
 }

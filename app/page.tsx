@@ -73,7 +73,7 @@ export default async function DashboardPage() {
           <a href="/draft-recap" className="story-feature group">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
               <span className="ui-kicker text-primary">
-                {draftRecapContent.season} draft report
+                {draftRecapContent.season} draft report &amp; season preview
               </span>
               <span>
                 {published

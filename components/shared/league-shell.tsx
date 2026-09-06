@@ -37,7 +37,11 @@ const navigation = [
   { label: 'League standings', href: '/standings', icon: BarChart3 },
   { label: 'Managers', href: '/managers', icon: Users },
   { label: 'Wall of shame', href: '/wall-of-shame', icon: Skull },
-  { label: 'Draft report', href: '/draft-recap', icon: NotebookPen },
+  {
+    label: 'Draft Report & Season Preview',
+    href: '/draft-recap',
+    icon: NotebookPen,
+  },
 ];
 
 export function LeagueShell({
@@ -114,8 +118,8 @@ export function LeagueShell({
                 )}
                 aria-current={pathname === item.href ? 'page' : undefined}
               >
-                <Icon className="size-[18px]" />
-                {item.label}
+                <Icon className="size-[18px] shrink-0" />
+                <span className="min-w-0 leading-5">{item.label}</span>
               </a>
             );
           })}

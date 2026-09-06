@@ -4,6 +4,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type SyntheticEvent,
 } from 'react';
@@ -36,6 +37,11 @@ import {
 import { leagueMembers, memberLoginEmail } from '@/lib/data/member-directory';
 import type { SeasonForecastSettings } from '@/lib/data/season-forecasts';
 import { getBrowserSupabaseClient } from '@/lib/supabase/browser';
+import {
+  calculateSeasonConsensus,
+  isCompleteForecast,
+} from '@/lib/predictions/season-consensus';
+import { formatLockTime, signInErrorMessage } from '@/lib/predictions/rules';
 import { cn } from '@/lib/utils';
 
 export type SeasonForecastTeam = {
@@ -56,21 +62,12 @@ type ForecastRecord = {
   updated_at: string;
 };
 
-type ConsensusRow = SeasonForecastTeam & {
-  averagePosition: number;
-  firstPlaceVotes: number;
+type SubmissionStatus = {
+  voter_id: string;
+  roster_id: number;
+  display_name: string;
+  submitted: boolean;
 };
-
-function formatLockTime(value: string) {
-  return new Intl.DateTimeFormat(undefined, {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZoneName: 'short',
-  }).format(new Date(value));
-}
 
 function ForecastRows({
   rankings,
@@ -123,9 +120,6 @@ export function SeasonForecastBallot({
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [forecasts, setForecasts] = useState<ForecastRecord[]>([]);
-  const [profileNames, setProfileNames] = useState<Map<string, string>>(
-    new Map(),
-  );
   const [ranking, setRanking] = useState<number[]>([]);
   const [locked, setLocked] = useState(settings.locked);
   const [authLoading, setAuthLoading] = useState(Boolean(supabase));
@@ -134,13 +128,26 @@ export function SeasonForecastBallot({
   const [password, setPassword] = useState('');
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [submissions, setSubmissions] = useState<SubmissionStatus[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [statusError, setStatusError] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [loadingForecasts, setLoadingForecasts] = useState(true);
+  const requestVersion = useRef(0);
 
   const refreshForecasts = useCallback(
     async (member: User | null) => {
+      const version = ++requestVersion.current;
+      setEditing(false);
+      setLoadError(null);
+      setLoadingForecasts(true);
+      setForecasts([]);
+      setSubmissions([]);
+      setRanking([]);
       if (!supabase || !member) {
+        setLoadingForecasts(false);
         setProfile(null);
         setForecasts([]);
-        setProfileNames(new Map());
         setRanking([]);
         return;
       }
@@ -156,34 +163,52 @@ export function SeasonForecastBallot({
         .eq('league_id', settings.leagueId)
         .eq('season', settings.season)
         .order('updated_at');
-      const namesRequest = locked
-        ? supabase.from('profiles').select('id,display_name')
-        : Promise.resolve({ data: [], error: null });
+      const namesRequest = supabase.rpc('season_forecast_submission_status', {
+        requested_league: settings.leagueId,
+        requested_season: settings.season,
+      });
 
       const [profileResult, forecastResult, namesResult] = await Promise.all([
         profileRequest,
         forecastRequest,
         namesRequest,
       ]);
-      const loadedForecasts =
+      if (version !== requestVersion.current) return;
+      setLoadingForecasts(false);
+      if (profileResult.error || forecastResult.error) {
+        setLoadError(
+          'Predictions could not be loaded. Refresh to try again. Your saved table has not changed.',
+        );
+        return;
+      }
+      const rawForecasts =
         (forecastResult.data as ForecastRecord[] | null) ?? [];
+      const loadedForecasts = rawForecasts.filter((f) =>
+        isCompleteForecast(
+          f.rankings,
+          teams.map((t) => t.rosterId),
+        ),
+      );
+      if (rawForecasts.length !== loadedForecasts.length) {
+        setLoadError(
+          'A submitted table could not be verified. Refresh to try again.',
+        );
+        return;
+      }
+      const statusRows = (namesResult.data as SubmissionStatus[] | null) ?? [];
+      setSubmissions(statusRows);
+      setStatusError(
+        Boolean(namesResult.error) || statusRows.length !== teams.length,
+      );
       const ownForecast = loadedForecasts.find(
         (forecast) => forecast.voter_id === member.id,
       );
 
       setProfile((profileResult.data as Profile | null) ?? null);
       setForecasts(loadedForecasts);
-      setProfileNames(
-        new Map(
-          ((namesResult.data as Profile[] | null) ?? []).map((item) => [
-            item.id,
-            item.display_name,
-          ]),
-        ),
-      );
       setRanking(ownForecast?.rankings ?? []);
     },
-    [locked, settings.leagueId, settings.season, supabase],
+    [settings.leagueId, settings.season, supabase, teams],
   );
 
   useEffect(() => {
@@ -205,21 +230,21 @@ export function SeasonForecastBallot({
     if (!supabase) return;
     let active = true;
 
-    void supabase.auth.getSession().then(({ data }) => {
-      if (!active) return;
-      const member = data.session?.user ?? null;
+    let currentMemberId: string | null | undefined;
+    const loadMember = (member: User | null) => {
+      const id = member?.id ?? null;
+      if (!active || currentMemberId === id) return;
+      currentMemberId = id;
       setUser(member);
       void refreshForecasts(member).finally(() => {
         if (active) setAuthLoading(false);
       });
-    });
-
+    };
+    void supabase.auth
+      .getSession()
+      .then(({ data }) => loadMember(data.session?.user ?? null));
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        const member = session?.user ?? null;
-        setUser(member);
-        void refreshForecasts(member);
-      },
+      (_event, session) => loadMember(session?.user ?? null),
     );
 
     return () => {
@@ -227,6 +252,39 @@ export function SeasonForecastBallot({
       listener.subscription.unsubscribe();
     };
   }, [refreshForecasts, supabase]);
+
+  useEffect(() => {
+    if (!locked || !user) return;
+    const timer = window.setTimeout(() => {
+      void refreshForecasts(user);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [locked, user, refreshForecasts]);
+
+  useEffect(() => {
+    if (!supabase || !user) return;
+    let active = true;
+    const refreshStatus = async () => {
+      const { data, error } = await supabase.rpc(
+        'season_forecast_submission_status',
+        {
+          requested_league: settings.leagueId,
+          requested_season: settings.season,
+        },
+      );
+      if (!active) return;
+      const rows = (data as SubmissionStatus[] | null) ?? [];
+      setStatusError(Boolean(error) || rows.length !== teams.length);
+      if (!error) setSubmissions(rows);
+    };
+    const interval = window.setInterval(() => {
+      void refreshStatus();
+    }, 30_000);
+    return () => {
+      active = false;
+      window.clearInterval(interval);
+    };
+  }, [supabase, user, settings.leagueId, settings.season, teams.length]);
 
   const signIn = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -241,7 +299,7 @@ export function SeasonForecastBallot({
 
     setAuthLoading(false);
     if (error) {
-      setMessage('That password did not match this manager account.');
+      setMessage(signInErrorMessage(error, navigator.onLine));
       return;
     }
 
@@ -261,14 +319,15 @@ export function SeasonForecastBallot({
   };
 
   const addTeam = (rosterId: number) => {
-    if (locked || ranking.includes(rosterId)) return;
+    if (saving || locked || ranking.includes(rosterId)) return;
     setRanking((current) => [...current, rosterId]);
     setMessage(null);
   };
 
   const moveTeam = (index: number, direction: -1 | 1) => {
     const destination = index + direction;
-    if (locked || destination < 0 || destination >= ranking.length) return;
+    if (saving || locked || destination < 0 || destination >= ranking.length)
+      return;
 
     setRanking((current) => {
       const next = [...current];
@@ -279,30 +338,52 @@ export function SeasonForecastBallot({
   };
 
   const removeTeam = (rosterId: number) => {
-    if (locked) return;
+    if (saving || locked) return;
     setRanking((current) => current.filter((id) => id !== rosterId));
     setMessage(null);
   };
 
   const saveForecast = async () => {
-    if (!supabase || !user || locked || ranking.length !== teams.length) return;
+    if (
+      !supabase ||
+      !user ||
+      saving ||
+      locked ||
+      !isCompleteForecast(
+        ranking,
+        teams.map((team) => team.rosterId),
+      )
+    )
+      return;
+    const version = requestVersion.current;
+    const submittedRanking = [...ranking];
     setSaving(true);
     setMessage(null);
 
-    const { error } = await supabase.from('season_forecasts').upsert(
-      {
-        league_id: settings.leagueId,
-        season: settings.season,
-        voter_id: user.id,
-        rankings: ranking,
-      },
-      { onConflict: 'league_id,season,voter_id' },
-    );
+    const { data: saved, error } = await supabase
+      .from('season_forecasts')
+      .upsert(
+        {
+          league_id: settings.leagueId,
+          season: settings.season,
+          voter_id: user.id,
+          rankings: submittedRanking,
+        },
+        { onConflict: 'league_id,season,voter_id' },
+      )
+      .select('voter_id,rankings,updated_at')
+      .single();
 
     setSaving(false);
-    if (error) {
+    if (version !== requestVersion.current) return;
+    if (
+      error ||
+      !saved ||
+      saved.voter_id !== user.id ||
+      JSON.stringify(saved.rankings) !== JSON.stringify(submittedRanking)
+    ) {
       setMessage(
-        error.message.toLowerCase().includes('locked')
+        error?.message.toLowerCase().includes('locked')
           ? 'Voting has just locked for the season.'
           : 'Your table could not be saved. Please try again.',
       );
@@ -313,10 +394,16 @@ export function SeasonForecastBallot({
       ...current.filter((forecast) => forecast.voter_id !== user.id),
       {
         voter_id: user.id,
-        rankings: ranking,
-        updated_at: new Date().toISOString(),
+        rankings: submittedRanking,
+        updated_at: saved.updated_at,
       },
     ]);
+    setEditing(false);
+    setSubmissions((current) =>
+      current.map((row) =>
+        row.voter_id === user.id ? { ...row, submitted: true } : row,
+      ),
+    );
     setMessage('Prediction saved. You can change it until the Week 1 lock.');
   };
 
@@ -326,31 +413,15 @@ export function SeasonForecastBallot({
   const unrankedTeams = teams.filter(
     (team) => !ranking.includes(team.rosterId),
   );
-  const consensus = useMemo<ConsensusRow[]>(() => {
-    if (!locked || forecasts.length === 0) return [];
-
-    return teams
-      .map((team) => {
-        const positions = forecasts.map(
-          (forecast) => forecast.rankings.indexOf(team.rosterId) + 1,
-        );
-
-        return {
-          ...team,
-          averagePosition:
-            positions.reduce((total, position) => total + position, 0) /
-            positions.length,
-          firstPlaceVotes: positions.filter((position) => position === 1)
-            .length,
-        };
-      })
-      .sort(
-        (a, b) =>
-          a.averagePosition - b.averagePosition ||
-          b.firstPlaceVotes - a.firstPlaceVotes ||
-          a.rosterId - b.rosterId,
-      );
-  }, [forecasts, locked, teams]);
+  const consensus = useMemo(() => {
+    if (!locked) return [];
+    return calculateSeasonConsensus(
+      forecasts,
+      teams.map((t) => t.rosterId),
+    ).map((row) => ({ ...teamsById.get(row.rosterId)!, ...row }));
+  }, [forecasts, locked, teams, teamsById]);
+  const unsaved =
+    JSON.stringify(ranking) !== JSON.stringify(ownForecast?.rankings ?? []);
 
   return (
     <Card className="linear-panel gap-0 py-0">
@@ -377,7 +448,7 @@ export function SeasonForecastBallot({
             </h2>
             <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
               {locked
-                ? `${forecasts.length} submitted tables are frozen and revealed below.`
+                ? `Submitted tables are frozen. Sign in to explore the league’s predictions.`
                 : `Rank all 12 teams before ${formatLockTime(settings.lockAt)}. Every table stays private until then.`}
             </p>
           </div>
@@ -472,48 +543,213 @@ export function SeasonForecastBallot({
         </output>
       )}
 
-      {!locked && user && settings.databaseReady && (
-        <div className="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
-          <div className="border-b border-white/[0.065] p-4 sm:p-5 lg:border-r lg:border-b-0">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold">Your predicted order</p>
-                <p className="mt-0.5 text-[9px] text-muted-foreground">
-                  Tap the remaining teams in the order you expect them to
-                  finish.
-                </p>
+      {user && loadingForecasts && (
+        <output className="block p-5 text-xs text-muted-foreground">
+          Loading your saved prediction…
+        </output>
+      )}
+      {user && loadError && (
+        <p role="alert" className="p-5 text-xs text-amber-200">
+          {loadError}
+        </p>
+      )}
+      {user && ownForecast && !loadError && (
+        <section
+          className="border-b border-white/[0.065] p-4 sm:p-5"
+          aria-label="Your submitted table"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-semibold">Your submitted table</h3>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {locked
+                  ? 'Frozen at the deadline'
+                  : 'Saved — private until the deadline'}
+                {editing && unsaved ? ' · You have unsaved changes' : ''}
+              </p>
+            </div>
+            {!locked && !editing && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setRanking([...ownForecast.rankings]);
+                  setEditing(true);
+                }}
+              >
+                Edit prediction
+              </Button>
+            )}
+          </div>
+          <details className="mt-3 rounded-lg border border-white/[0.065] p-3">
+            <summary className="cursor-pointer text-xs font-medium">
+              View your saved 1st–12th table
+            </summary>
+            <ForecastRows
+              rankings={ownForecast.rankings}
+              teamsById={teamsById}
+            />
+          </details>
+        </section>
+      )}
+      {!locked &&
+        user &&
+        settings.databaseReady &&
+        !loadingForecasts &&
+        !loadError &&
+        (!ownForecast || editing) && (
+          <div className="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
+            <div className="border-b border-white/[0.065] p-4 sm:p-5 lg:border-r lg:border-b-0">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold">
+                    {ownForecast
+                      ? 'Edit your prediction'
+                      : 'Build your prediction'}
+                  </p>
+                  {unsaved && (
+                    <p className="mt-1 text-xs text-amber-200">
+                      Unsaved changes
+                    </p>
+                  )}
+                  <p className="mt-0.5 text-[9px] text-muted-foreground">
+                    Tap the remaining teams in the order you expect them to
+                    finish.
+                  </p>
+                </div>
+                {ranking.length > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    disabled={saving}
+                    onClick={() => {
+                      setRanking([]);
+                      setMessage(null);
+                    }}
+                  >
+                    <RotateCcw /> Reset
+                  </Button>
+                )}
               </div>
-              {ranking.length > 0 && (
+
+              <div className="mt-4 space-y-2">
+                {ranking.map((rosterId, index) => {
+                  const team = teamsById.get(rosterId);
+                  if (!team) return null;
+
+                  return (
+                    <div
+                      key={rosterId}
+                      className="grid grid-cols-[28px_auto_minmax(0,1fr)_auto] items-center gap-2 rounded-lg border border-white/[0.065] bg-white/[0.018] p-2"
+                    >
+                      <span className="text-center font-mono text-xs font-black text-primary">
+                        {index + 1}
+                      </span>
+                      <TeamAvatar
+                        avatar={team.avatar}
+                        name={team.teamName}
+                        className="size-8"
+                      />
+                      <span className="min-w-0">
+                        <span className="block truncate text-[11px] font-semibold">
+                          {team.teamName}
+                        </span>
+                        <span className="block truncate text-[9px] text-muted-foreground">
+                          {team.managerName}
+                        </span>
+                      </span>
+                      <span className="flex items-center gap-0.5">
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
+                          onClick={() => moveTeam(index, -1)}
+                          disabled={saving || index === 0}
+                          aria-label={`Move ${team.teamName} up`}
+                        >
+                          <ArrowUp />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
+                          onClick={() => moveTeam(index, 1)}
+                          disabled={saving || index === ranking.length - 1}
+                          aria-label={`Move ${team.teamName} down`}
+                        >
+                          <ArrowDown />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
+                          disabled={saving}
+                          onClick={() => removeTeam(rosterId)}
+                          aria-label={`Remove ${team.teamName}`}
+                        >
+                          ×
+                        </Button>
+                      </span>
+                    </div>
+                  );
+                })}
+
+                {ranking.length === 0 && (
+                  <div className="rounded-lg border border-dashed border-white/[0.09] px-4 py-8 text-center text-[11px] text-muted-foreground">
+                    Your table will appear here as you choose teams.
+                  </div>
+                )}
+              </div>
+
+              <Button
+                className="mt-4 w-full"
+                onClick={saveForecast}
+                disabled={ranking.length !== teams.length || saving}
+              >
+                {saving ? (
+                  <LoaderCircle className="animate-spin" />
+                ) : ownForecast ? (
+                  <Save />
+                ) : (
+                  <Check />
+                )}
+                {ranking.length === teams.length
+                  ? ownForecast
+                    ? 'Update prediction'
+                    : 'Submit prediction'
+                  : `${teams.length - ranking.length} teams left to rank`}
+              </Button>
+              {ownForecast && (
                 <Button
                   variant="ghost"
-                  size="sm"
+                  className="mt-2 w-full"
+                  disabled={saving}
                   onClick={() => {
-                    setRanking([]);
+                    setRanking([...ownForecast.rankings]);
+                    setEditing(false);
                     setMessage(null);
                   }}
                 >
-                  <RotateCcw /> Reset
+                  Cancel changes
                 </Button>
               )}
             </div>
 
-            <div className="mt-4 space-y-2">
-              {ranking.map((rosterId, index) => {
-                const team = teamsById.get(rosterId);
-                if (!team) return null;
-
-                return (
-                  <div
-                    key={rosterId}
-                    className="grid grid-cols-[28px_auto_minmax(0,1fr)_auto] items-center gap-2 rounded-lg border border-white/[0.065] bg-white/[0.018] p-2"
+            <div className="p-4 sm:p-5">
+              <p className="text-xs font-semibold">Teams still to rank</p>
+              <p className="mt-0.5 text-[9px] text-muted-foreground">
+                Your next choice takes the next available position.
+              </p>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                {unrankedTeams.map((team) => (
+                  <button
+                    key={team.rosterId}
+                    type="button"
+                    disabled={saving}
+                    onClick={() => addTeam(team.rosterId)}
+                    className="flex min-w-0 items-center gap-2 rounded-lg border border-white/[0.065] bg-white/[0.018] p-2.5 text-left transition-colors hover:border-primary/20 hover:bg-primary/[0.035]"
                   >
-                    <span className="text-center font-mono text-xs font-black text-primary">
-                      {index + 1}
-                    </span>
                     <TeamAvatar
                       avatar={team.avatar}
                       name={team.teamName}
-                      className="size-8"
+                      className="size-8 shrink-0"
                     />
                     <span className="min-w-0">
                       <span className="block truncate text-[11px] font-semibold">
@@ -523,102 +759,17 @@ export function SeasonForecastBallot({
                         {team.managerName}
                       </span>
                     </span>
-                    <span className="flex items-center gap-0.5">
-                      <Button
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => moveTeam(index, -1)}
-                        disabled={index === 0}
-                        aria-label={`Move ${team.teamName} up`}
-                      >
-                        <ArrowUp />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => moveTeam(index, 1)}
-                        disabled={index === ranking.length - 1}
-                        aria-label={`Move ${team.teamName} down`}
-                      >
-                        <ArrowDown />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon-sm"
-                        onClick={() => removeTeam(rosterId)}
-                        aria-label={`Remove ${team.teamName}`}
-                      >
-                        ×
-                      </Button>
-                    </span>
-                  </div>
-                );
-              })}
-
-              {ranking.length === 0 && (
-                <div className="rounded-lg border border-dashed border-white/[0.09] px-4 py-8 text-center text-[11px] text-muted-foreground">
-                  Your table will appear here as you choose teams.
+                  </button>
+                ))}
+              </div>
+              {unrankedTeams.length === 0 && (
+                <div className="mt-4 rounded-lg border border-primary/15 bg-primary/[0.04] px-3 py-4 text-center text-[11px] text-primary">
+                  All 12 ranked. Review your order, then save it.
                 </div>
               )}
             </div>
-
-            <Button
-              className="mt-4 w-full"
-              onClick={saveForecast}
-              disabled={ranking.length !== teams.length || saving}
-            >
-              {saving ? (
-                <LoaderCircle className="animate-spin" />
-              ) : ownForecast ? (
-                <Save />
-              ) : (
-                <Check />
-              )}
-              {ranking.length === teams.length
-                ? ownForecast
-                  ? 'Update prediction'
-                  : 'Submit prediction'
-                : `${teams.length - ranking.length} teams left to rank`}
-            </Button>
           </div>
-
-          <div className="p-4 sm:p-5">
-            <p className="text-xs font-semibold">Teams still to rank</p>
-            <p className="mt-0.5 text-[9px] text-muted-foreground">
-              Your next choice takes the next available position.
-            </p>
-            <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-              {unrankedTeams.map((team) => (
-                <button
-                  key={team.rosterId}
-                  type="button"
-                  onClick={() => addTeam(team.rosterId)}
-                  className="flex min-w-0 items-center gap-2 rounded-lg border border-white/[0.065] bg-white/[0.018] p-2.5 text-left transition-colors hover:border-primary/20 hover:bg-primary/[0.035]"
-                >
-                  <TeamAvatar
-                    avatar={team.avatar}
-                    name={team.teamName}
-                    className="size-8 shrink-0"
-                  />
-                  <span className="min-w-0">
-                    <span className="block truncate text-[11px] font-semibold">
-                      {team.teamName}
-                    </span>
-                    <span className="block truncate text-[9px] text-muted-foreground">
-                      {team.managerName}
-                    </span>
-                  </span>
-                </button>
-              ))}
-            </div>
-            {unrankedTeams.length === 0 && (
-              <div className="mt-4 rounded-lg border border-primary/15 bg-primary/[0.04] px-3 py-4 text-center text-[11px] text-primary">
-                All 12 ranked. Review your order, then save it.
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+        )}
 
       {!locked && !user && (
         <div className="px-5 py-10 text-center">
@@ -635,7 +786,8 @@ export function SeasonForecastBallot({
               <div>
                 <p className="text-xs font-semibold">League consensus</p>
                 <p className="mt-0.5 text-[9px] text-muted-foreground">
-                  Ordered by the average position across every submitted table.
+                  Lower average position ranks higher. Ties use first-place
+                  votes, then roster order if still level.
                 </p>
               </div>
               <Badge
@@ -680,55 +832,120 @@ export function SeasonForecastBallot({
               ))}
             </div>
           </div>
+        </div>
+      )}
 
-          <div className="p-4 sm:p-5">
-            <p className="text-xs font-semibold">Every manager’s prediction</p>
-            <div className="mt-3 grid gap-2 md:grid-cols-2">
-              {forecasts.map((forecast) => (
-                <details
-                  key={forecast.voter_id}
-                  className="group rounded-lg border border-white/[0.065] bg-white/[0.018]"
-                >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-3 text-[11px] font-semibold">
-                    <span>
-                      {profileNames.get(forecast.voter_id) ?? 'League manager'}
-                      {forecast.voter_id === user.id && (
-                        <span className="ml-1.5 text-[8px] uppercase tracking-wide text-primary">
-                          You
-                        </span>
-                      )}
+      {!locked && (
+        <section className="border-b border-white/[0.065] p-4 sm:p-5">
+          <h3 className="text-sm font-semibold">League consensus</h3>
+          <p className="mt-2 text-xs leading-6 text-muted-foreground">
+            Revealed with everyone’s predictions at{' '}
+            {formatLockTime(settings.lockAt)}. Every complete submitted table
+            gets one equal vote.
+          </p>
+        </section>
+      )}
+      {locked &&
+        user &&
+        !loadingForecasts &&
+        !loadError &&
+        consensus.length === 0 && (
+          <p className="p-5 text-xs text-muted-foreground">
+            No complete tables were submitted before the deadline.
+          </p>
+        )}
+      <section className="p-4 sm:p-5" aria-label="Every manager’s prediction">
+        <h3 className="text-sm font-semibold">Every manager’s prediction</h3>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {!user
+            ? 'Sign in to see who has submitted and view revealed tables.'
+            : loadingForecasts
+              ? 'Loading submission status…'
+              : statusError
+                ? 'Submission status is temporarily unavailable.'
+                : `${submissions.filter((row) => row.submitted).length} of ${teams.length} submitted`}
+        </p>
+        {!locked && (
+          <p className="mt-1 text-xs text-muted-foreground">
+            Choices stay private until the deadline. Participation updates every
+            30 seconds.
+          </p>
+        )}
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {teams.map((team) => {
+            const status = submissions.find(
+              (row) => row.roster_id === team.rosterId,
+            );
+            const forecast =
+              status &&
+              forecasts.find((row) => row.voter_id === status.voter_id);
+            const canReveal = Boolean(
+              user && forecast && (locked || forecast.voter_id === user.id),
+            );
+            return (
+              <details
+                key={team.rosterId}
+                className="group/manager rounded-xl border border-white/[0.065] bg-white/[0.018]"
+              >
+                <summary className="flex cursor-pointer list-none items-center gap-3 p-3 [&::-webkit-details-marker]:hidden">
+                  <TeamAvatar
+                    avatar={team.avatar}
+                    name={team.teamName}
+                    className="size-9"
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-xs font-semibold">
+                      {team.managerName}
+                      {status?.voter_id === user?.id && user ? ' · You' : ''}
                     </span>
-                    <ChevronDown className="size-3.5 text-muted-foreground transition-transform group-open:rotate-180" />
-                  </summary>
-                  <div className="border-t border-white/[0.055] px-3 pb-2">
+                    <span className="mt-1 block truncate text-[10px] text-muted-foreground">
+                      {!user
+                        ? 'Sign in to view status'
+                        : loadingForecasts
+                          ? 'Loading…'
+                          : statusError || !status
+                            ? 'Status unavailable'
+                            : status.submitted
+                              ? 'Submitted'
+                              : 'Not submitted'}
+                    </span>
+                    {canReveal && forecast && (
+                      <span className="mt-1 block text-[10px] text-primary">
+                        Champion:{' '}
+                        {teamsById.get(forecast.rankings[0])?.teamName}
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDown className="size-4 shrink-0 transition-transform group-open/manager:rotate-180" />
+                </summary>
+                <div className="border-t border-white/[0.065] px-3 py-2">
+                  {canReveal && forecast ? (
                     <ForecastRows
                       rankings={forecast.rankings}
                       teamsById={teamsById}
                       compact
                     />
-                  </div>
-                </details>
-              ))}
-            </div>
-          </div>
+                  ) : (
+                    <p className="py-2 text-xs leading-5 text-muted-foreground">
+                      {!user
+                        ? 'Sign in with your manager account to view predictions.'
+                        : statusError || loadError || !status
+                          ? 'This prediction could not be loaded. Please try again shortly.'
+                          : !status.submitted
+                            ? locked
+                              ? 'No table submitted before the deadline.'
+                              : 'This manager has not submitted a table yet.'
+                            : !locked
+                              ? `Submitted and sealed until ${formatLockTime(settings.lockAt)}.`
+                              : 'This table could not be loaded. Refresh to try again.'}
+                    </p>
+                  )}
+                </div>
+              </details>
+            );
+          })}
         </div>
-      )}
-
-      {locked && user && consensus.length === 0 && (
-        <div className="px-5 py-10 text-center">
-          <p className="text-xs text-muted-foreground">
-            No complete manager tables were submitted before the lock.
-          </p>
-        </div>
-      )}
-
-      {locked && !user && (
-        <div className="px-5 py-10 text-center">
-          <p className="text-xs text-muted-foreground">
-            Sign in to reveal the league consensus and every manager’s table.
-          </p>
-        </div>
-      )}
+      </section>
     </Card>
   );
 }
