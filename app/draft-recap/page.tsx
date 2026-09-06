@@ -316,8 +316,6 @@ export default async function DraftRecapPage() {
               </details>
             </Card>
 
-            <DraftPersonalityTable />
-
             <div className="space-y-4">
               {entries.map((entry) => (
                 <article
@@ -482,6 +480,8 @@ export default async function DraftRecapPage() {
                 </article>
               ))}
             </div>
+
+            <DraftPersonalityTable />
           </div>
         }
       />

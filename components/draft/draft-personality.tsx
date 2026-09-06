@@ -28,11 +28,19 @@ function Methodology() {
 
 export function DraftPersonalityTable() {
   return (
-    <section className="linear-panel rounded-xl p-4 sm:p-5">
-      <p className="ui-kicker">The draft-room receipts</p>
-      <h2 className="mt-1 text-base font-semibold sm:text-lg">
-        Who drafted by the book?
-      </h2>
+    <details
+      data-adp-comparison
+      className="group/adp linear-panel rounded-xl p-4 sm:p-5"
+    >
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 focus-visible:outline-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+        <div>
+          <p className="ui-kicker">The draft-room receipts</p>
+          <h2 className="mt-1 text-base font-semibold sm:text-lg">
+            Who drafted by the book?
+          </h2>
+        </div>
+        <ChevronDown className="size-4 shrink-0 transition-transform group-open/adp:rotate-180" />
+      </summary>
       <p className="mt-2 text-xs leading-6 text-muted-foreground">
         From market followers to managers who brought their own shopping list.
         Open a manager’s report for the roast and every pick.
@@ -108,7 +116,7 @@ export function DraftPersonalityTable() {
           <Methodology />
         </div>
       </details>
-    </section>
+    </details>
   );
 }
 
