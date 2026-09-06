@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Fantasy League Hub for "MAC 12" — a 12-team fantasy football league (est. 2020). The app pulls live data from the Sleeper API and displays a dashboard with standings, matchups, trending players, transaction activity, draft countdown, and a historical record book spanning 2020–present. Falls back to demo data when no Sleeper league ID is configured.
+Fantasy League Hub for "MAC 12" — a 12-team fantasy football league (est. 2020). A fun Sleeper companion centred on weekly picks, bragging rights, league stories, managers, and a historical record book. Live scoring and roster management belong on Sleeper. Unavailable feeds show honest unavailable/waiting states, never fictional demo league data.
 
 ## Commands
 
@@ -14,20 +14,26 @@ Fantasy League Hub for "MAC 12" — a 12-team fantasy football league (est. 2020
 - `npm run lint` — run oxlint (type-aware, with React/TS/a11y/import plugins)
 - `npm run format` — run oxfmt (single quotes, 80-char width)
 
-No test runner is configured.
+- `npm test` — isolated Node unit/integration tests (Node 22.13+)
+- `npm run test:e2e` — Playwright Chromium tests against the existing production build; run `npm run build` first. Initial setup: `npx playwright install chromium`.
+
+See `docs/clubhouse-verification.md` for fixture isolation, coverage, and release checks.
 
 ## Architecture
 
 **Framework stack**: Vite 8 + vinext (React 19 RSC framework) + Cloudflare Workers runtime. Despite leftover Next.js types in tsconfig and `next.config.ts`, the app builds and runs through vinext/Vite — not Next.js. Imports like `next/font/google`, `next/image`, `next/link`, `next/navigation` and the `next/` metadata types are shimmed by vinext.
 
-**Routing**: File-based App Router convention under `app/`. Three routes:
+**Routing**: File-based App Router convention under `app/`:
 
-- `/` — draft-week dashboard (draft countdown, champion spotlight, league roster, settings, trending players, activity feed)
+- `/` — picks-first clubhouse, member-only prediction race, draft story/status, champion and shame spotlights
 - `/standings` — live standings table with median record
 - `/matchups` — weekly matchup predictions, expandable lineups, authenticated voting, and the season prediction table
 - `/records` — historical record book (2020–present), franchise all-time records
+- `/managers` — manager profiles and history
+- `/wall-of-shame` — league lowlights
+- `/draft-recap` — commissioner-prepared draft report, published only after review
 
-**Data flow**: All pages are async RSCs. Data is fetched server-side in `lib/data/` modules which call into `lib/sleeper/client.ts`. The Sleeper client uses `fetch` with `next.revalidate` caching hints (300s–86400s depending on endpoint volatility). No database — all state comes from the Sleeper API or hardcoded historical data.
+**Data flow**: Pages are async RSCs. Sleeper data is fetched server-side through `lib/data/` and `lib/sleeper/client.ts`, with caching hints and bounded fetch timeouts. Supabase stores prediction metadata, votes, member profiles, and leaderboards. Public page reads use a sessionless publishable-key client. Only the authenticated cron sync uses the server secret; visiting any page must never seed or grade predictions. Browser member reads and saves retain the existing Supabase authentication and RLS contract.
 
 **Key data modules**:
 
@@ -35,17 +41,20 @@ No test runner is configured.
 - `lib/sleeper/types.ts` — TypeScript types for Sleeper API responses
 - `lib/sleeper/history.ts` — `crawlLeagueHistory()` walks `previous_league_id` chain to archive full seasons
 - `lib/sleeper/projections.ts` — unofficial Sleeper projections/stats feed
-- `lib/data/dashboard.ts` — assembles `DashboardData` (standings, matchups, activities, trending, draft info, reigning champion); returns demo data when no league ID is set
+- `lib/data/dashboard.ts` — assembles standings, draft status and reigning champion; optional feed failures do not discard available standings
 - `lib/data/historical.ts` — hardcoded 2020–2024 season results with franchise color mapping
 - `lib/data/verified-history.ts` — merges hardcoded history with Sleeper-verified seasons by walking the league chain
-- `lib/data/predictions.ts` — assembles weekly Sleeper lineups/projections and synchronizes prediction metadata/results to Supabase
+- `lib/data/predictions.ts` — separate read-only weekly picks and cron-only metadata/result synchronization paths
+- `lib/predictions/rules.ts` — Sunday 1pm Eastern lock, Irish-time display, grading delay, sign-in error messages
+- `lib/predictions/votes.ts` — verifies the exact saved row before confirming a pick
+- `lib/sleeper/scores.ts` — shared score handling (Sleeper fractional fields are hundredths; missing is not zero)
 - `lib/supabase/` — browser and server-only Supabase clients; the server client requires the secret key and must never be imported by client components
 
 **League config**: `lib/config/league.config.ts` — league name, branding colors (exposed as CSS custom properties `--league-primary/secondary/accent`), owner name/avatar overrides. League ID comes from `NEXT_PUBLIC_SLEEPER_LEAGUE_ID` env var.
 
-**UI**: shadcn/ui (base-nova style, Radix + Tailwind CSS 4) with Recharts for charts. `components/ui/` is auto-generated by shadcn — oxlint ignores it. Custom components live in `components/cards/`, `components/charts/`, `components/draft/`, `components/shared/`, `components/standings/`.
+**UI**: shadcn/ui (Base UI + Tailwind CSS 4), with Recharts where needed. `components/ui/` is generated and excluded from oxlint. Charcoal/chalk/crest-green theme, gold for achievements, restrained motion, and global reduced-motion support. Standard anchors are intentional: production QA found the current vinext `next/link` dynamic navigation import throws at runtime. Do not restore that shim without testing the built app's navigation.
 
-**Client components**: Only `components/shared/league-shell.tsx` (navigation shell), `components/shared/query-provider.tsx` (TanStack Query), `components/shared/theme-toggle.tsx`, `components/draft/draft-countdown.tsx`, and `components/standings/standings-table.tsx` are `'use client'`. Everything else is server-rendered.
+**Client components**: Interactive navigation/theme, draft countdown, standings sorting, manager accordions, and the prediction centre/clubhouse member panels. `use-prediction-member.ts` shares authenticated reads and guards against stale responses. Page shells and public data remain server-rendered.
 
 ## Path aliases
 
@@ -75,7 +84,7 @@ Supabase schema changes live in `supabase/migrations/` and are applied with the 
 
 The `.openai/hosting.json` contains a legacy OpenAI Sites project ID (this was originally scaffolded as an OpenAI Site). D1/R2 bindings are configured in the Cloudflare plugin but currently null/unused.
 
-Vercel calls `/api/cron/predictions` every Tuesday to finalize the prior week's results. The endpoint requires the server-only `CRON_SECRET` configured in Vercel.
+`vercel.json` schedules `/api/cron/predictions` daily at 10:00 UTC. It prepares the current ballot and retries every unresolved stored week in the configured league season. Grading requires at least 64 hours after Sunday lock, NFL state advanced beyond the week, a complete schedule, and both scores for each matchup. Settled rows are not downgraded or regraded; votes are never changed. Any failed week yields HTTP 503 for monitoring. Vercel applies this schedule only on deployment. The endpoint requires the server-only `CRON_SECRET` and `SUPABASE_SECRET_KEY` configured in Vercel.
 
 ## Formatting & linting conventions
 

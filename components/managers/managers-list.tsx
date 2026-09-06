@@ -1,7 +1,7 @@
 'use client';
 
 import { Crown, Medal, Star } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import {
   Accordion,
@@ -51,28 +51,46 @@ function finishLabel(finish: number) {
 }
 
 export function ManagersList({ entries }: { entries: ManagerEntry[] }) {
-  const initialHash = useMemo(() => {
-    if (typeof window === 'undefined') return [];
-    const hash = window.location.hash.slice(1);
-    return hash && entries.some((e) => e.franchiseId === hash) ? [hash] : [];
-  }, [entries]);
+  const [openManagers, setOpenManagers] = useState<string[]>([]);
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (hash) {
-      requestAnimationFrame(() => {
-        document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    let frame = 0;
+    const revealManager = () => {
+      const hash = window.location.hash.slice(1);
+      if (!entries.some((entry) => entry.franchiseId === hash)) return;
+      frame = requestAnimationFrame(() => {
+        setOpenManagers((current) =>
+          current.includes(hash) ? current : [...current, hash],
+        );
+        document.getElementById(hash)?.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+            .matches
+            ? 'instant'
+            : 'smooth',
+          block: 'start',
+        });
       });
-    }
-  }, []);
+    };
+    revealManager();
+    window.addEventListener('hashchange', revealManager);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('hashchange', revealManager);
+    };
+  }, [entries]);
 
   return (
     <Accordion
       className="space-y-3"
-      defaultValue={initialHash}
+      value={openManagers}
+      onValueChange={setOpenManagers}
     >
       {entries.map((entry) => (
-        <Card key={entry.franchiseId} id={entry.franchiseId} className="overflow-hidden p-0">
+        <Card
+          key={entry.franchiseId}
+          id={entry.franchiseId}
+          className="scroll-mt-20 overflow-hidden p-0"
+        >
           <AccordionItem value={entry.franchiseId} className="border-none">
             <AccordionTrigger className="w-full gap-4 px-5 py-4 hover:no-underline sm:px-6">
               <div className="flex min-w-0 flex-1 items-center gap-3.5">

@@ -30,9 +30,9 @@ export type SleeperRoster = {
     wins: number;
     losses: number;
     ties: number;
-    fpts: number;
+    fpts?: number;
     fpts_decimal?: number;
-    fpts_against: number;
+    fpts_against?: number;
     fpts_against_decimal?: number;
     waiver_position?: number;
     waiver_budget_used?: number;

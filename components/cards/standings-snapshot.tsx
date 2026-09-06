@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import type { TeamStanding } from '@/lib/data/dashboard';
+import { formatScore } from '@/lib/sleeper/scores';
 
 export function StandingsSnapshot({
   standings,
@@ -28,7 +29,9 @@ export function StandingsSnapshot({
         {standings.slice(0, 6).map((team, index) => (
           <a
             key={team.rosterId}
-            href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'}
+            href={
+              team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'
+            }
             className={`grid grid-cols-[24px_auto_minmax(0,1fr)_auto] items-center gap-2.5 px-4 py-2.5 sm:px-5 ${index === 5 ? 'relative border-b-2 border-dashed border-primary/30' : 'border-b border-white/[0.055]'}`}
           >
             <span
@@ -52,7 +55,7 @@ export function StandingsSnapshot({
                 {team.wins}-{team.losses}
               </p>
               <p className="text-[9px] text-muted-foreground">
-                {team.pointsFor.toFixed(1)} PF
+                {formatScore(team.pointsFor)} PF
               </p>
             </div>
           </a>

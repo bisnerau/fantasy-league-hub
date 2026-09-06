@@ -20,9 +20,9 @@ export const leagueConfig: LeagueBranding = {
   tagline: 'Twelve managers. One champion. Est. 2020.',
   season: undefined,
   colors: {
-    primary: '#c8ff3d',
-    secondary: '#7c5cff',
-    accent: '#ff7a45',
+    primary: 'var(--primary)',
+    secondary: 'var(--secondary)',
+    accent: 'var(--accent)',
   },
   ownerNameOverrides: {},
   teamAvatarOverrides: {},

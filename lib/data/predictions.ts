@@ -1,5 +1,11 @@
 import { leagueConfig } from '@/lib/config/league.config';
 import { getSupabaseAdminClient } from '@/lib/supabase/admin';
+import { getSupabaseReadClient } from '@/lib/supabase/read';
+import { matchupScore } from '@/lib/sleeper/scores';
+import {
+  isGradingEligible,
+  sundayKickoffForWeek,
+} from '@/lib/predictions/rules';
 import {
   getLeague,
   getLeagueRosters,
@@ -11,6 +17,7 @@ import {
 import { getWeeklyProjections } from '@/lib/sleeper/projections';
 import type {
   SleeperLeague,
+  SleeperNFLState,
   SleeperMatchup,
   SleeperPlayer,
   SleeperProjection,
@@ -24,7 +31,7 @@ export type PredictionPlayer = {
   position: string;
   nflTeam: string;
   slot: string;
-  projectedPoints: number;
+  projectedPoints: number | null;
   starter: boolean;
 };
 
@@ -36,8 +43,8 @@ export type PredictionTeam = {
   wins: number;
   losses: number;
   ties: number;
-  projectedScore: number;
-  actualScore: number;
+  projectedScore: number | null;
+  actualScore: number | null;
   starters: PredictionPlayer[];
   bench: PredictionPlayer[];
 };
@@ -58,15 +65,26 @@ export type PredictionWeekData = {
   locked: boolean;
   finalized: boolean;
   databaseReady: boolean;
+  availability: 'ready' | 'waiting' | 'unavailable';
+  sourceComplete: boolean;
+  gradingEligible: boolean;
   matchups: PredictionMatchup[];
 };
 
 type StoredMatchup = {
   id: number;
   sleeper_matchup_id: number;
+  home_roster_id: number;
+  away_roster_id: number;
   home_projected: number | string;
   away_projected: number | string;
+  home_final: number | string | null;
+  away_final: number | string | null;
+  status: 'scheduled' | 'locked' | 'final';
 };
+
+const STORED_FIELDS =
+  'id,sleeper_matchup_id,home_roster_id,away_roster_id,home_projected,away_projected,home_final,away_final,status';
 
 function teamNameFor(user: SleeperUser | undefined, roster: SleeperRoster) {
   const ownerId = roster.owner_id ?? '';
@@ -79,47 +97,13 @@ function teamNameFor(user: SleeperUser | undefined, roster: SleeperRoster) {
   );
 }
 
-function firstSundayOfSeason(season: number) {
-  const date = new Date(Date.UTC(season, 8, 7));
-  while (date.getUTCDay() !== 0) {
-    date.setUTCDate(date.getUTCDate() + 1);
-  }
-  return date;
-}
-
-function sundayKickoffForWeek(season: number, week: number) {
-  const date = firstSundayOfSeason(season);
-  date.setUTCDate(date.getUTCDate() + (week - 1) * 7);
-
-  const easternHour = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    hour: '2-digit',
-    hourCycle: 'h23',
-  });
-
-  for (const utcHour of [17, 18]) {
-    const candidate = new Date(
-      Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate(),
-        utcHour,
-      ),
-    );
-    if (easternHour.format(candidate) === '13') return candidate;
-  }
-
-  return new Date(
-    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 18),
-  );
-}
-
 function projectionFor(
   playerId: string,
   projectionByPlayer: Map<string, SleeperProjection>,
 ) {
   const stats = projectionByPlayer.get(playerId)?.stats;
-  return Number(stats?.pts_ppr ?? stats?.pts_half_ppr ?? stats?.pts_std ?? 0);
+  const value = stats?.pts_ppr ?? stats?.pts_half_ppr ?? stats?.pts_std;
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
 
 function playerName(player: SleeperPlayer | undefined, playerId: string) {
@@ -187,7 +171,11 @@ function createTeam(
     .map((playerId) =>
       createPlayer(playerId, 'BN', false, players, projectionByPlayer),
     )
-    .sort((a, b) => b.projectedPoints - a.projectedPoints);
+    .sort(
+      (a, b) =>
+        (b.projectedPoints ?? -Infinity) - (a.projectedPoints ?? -Infinity) ||
+        0,
+    );
 
   return {
     rosterId: roster.roster_id,
@@ -201,11 +189,10 @@ function createTeam(
     wins: roster.settings.wins,
     losses: roster.settings.losses,
     ties: roster.settings.ties,
-    projectedScore: starters.reduce(
-      (total, player) => total + player.projectedPoints,
-      0,
-    ),
-    actualScore: matchup.points ?? 0,
+    projectedScore: starters.every((player) => player.projectedPoints != null)
+      ? starters.reduce((total, player) => total + player.projectedPoints!, 0)
+      : null,
+    actualScore: matchupScore(matchup),
     starters,
     bench,
   };
@@ -272,12 +259,225 @@ function buildMatchups(
     });
 }
 
-async function syncPredictionWeek(
-  data: Omit<PredictionWeekData, 'databaseReady'>,
-) {
-  const admin = getSupabaseAdminClient();
-  if (!admin) return { ...data, databaseReady: false };
+type SourceContext = {
+  league: SleeperLeague;
+  state: SleeperNFLState;
+  rosters: SleeperRoster[];
+  users: SleeperUser[];
+  players: Record<string, SleeperPlayer>;
+};
 
+async function getSourceContext(): Promise<SourceContext> {
+  const id = leagueConfig.sleeperLeagueId;
+  const [league, state, rosters, users, players] = await Promise.all([
+    getLeague(id),
+    getNFLState(),
+    getLeagueRosters(id),
+    getLeagueUsers(id),
+    getPlayers().catch(() => ({})),
+  ]);
+  return { league, state, rosters, users, players };
+}
+
+function currentPredictionWeek({ league, state }: SourceContext) {
+  if (league.status === 'complete')
+    return Math.max(
+      1,
+      Math.min(18, Number(league.settings.last_scored_leg ?? 18)),
+    );
+  if (state.season !== league.season || state.season_type === 'pre') return 1;
+  return state.season_type === 'post'
+    ? 18
+    : Math.max(1, Math.min(18, state.week));
+}
+
+async function loadPredictionSource(
+  context: SourceContext,
+  requestedWeek?: number,
+): Promise<PredictionWeekData> {
+  const { league, state, rosters, users, players } = context;
+  const currentWeek = currentPredictionWeek(context);
+  const week = Math.max(
+    1,
+    Math.min(
+      currentWeek,
+      Number.isInteger(requestedWeek) ? requestedWeek! : currentWeek,
+    ),
+  );
+  const season = league.season;
+  const lockAt = sundayKickoffForWeek(Number(season), week).toISOString();
+  const [entries, projections] = await Promise.all([
+    getMatchups(league.league_id, week),
+    getWeeklyProjections(season, week).catch(() => []),
+  ]);
+  const matchups = buildMatchups(
+    entries,
+    rosters,
+    users,
+    league,
+    players,
+    projections,
+  );
+  const ids = new Set(entries.map((entry) => entry.roster_id));
+  const groupedIds = new Set(
+    entries.flatMap((entry) =>
+      entry.matchup_id == null ? [] : [entry.matchup_id],
+    ),
+  );
+  const sourceComplete =
+    entries.length === ids.size &&
+    rosters.length === league.total_rosters &&
+    rosters.every((roster) => ids.has(roster.roster_id)) &&
+    matchups.length === groupedIds.size &&
+    matchups.length > 0;
+  const weekHasEnded =
+    Number(state.season) > Number(season) ||
+    (state.season === season &&
+      (state.season_type === 'post' ||
+        (state.season_type === 'regular' && state.week > week)));
+  return {
+    leagueId: league.league_id,
+    season,
+    week,
+    currentWeek,
+    lockAt,
+    locked: Date.now() >= new Date(lockAt).getTime(),
+    finalized: false,
+    databaseReady: false,
+    availability: matchups.length ? 'ready' : 'waiting',
+    sourceComplete,
+    gradingEligible: weekHasEnded && isGradingEligible(lockAt),
+    matchups,
+  };
+}
+
+function withStoredMatchups(
+  data: PredictionWeekData,
+  rows: StoredMatchup[],
+): PredictionWeekData {
+  const byId = new Map(rows.map((row) => [row.sleeper_matchup_id, row]));
+  const complete =
+    data.sourceComplete &&
+    data.matchups.every((matchup) => {
+      const row = byId.get(matchup.sleeperMatchupId);
+      return (
+        row &&
+        row.home_roster_id === matchup.home.rosterId &&
+        row.away_roster_id === matchup.away.rosterId
+      );
+    });
+  return {
+    ...data,
+    databaseReady: complete,
+    finalized:
+      complete &&
+      data.matchups.every((matchup) => {
+        const row = byId.get(matchup.sleeperMatchupId)!;
+        return (
+          row.status === 'final' &&
+          row.home_final != null &&
+          row.away_final != null &&
+          Number.isFinite(Number(row.home_final)) &&
+          Number.isFinite(Number(row.away_final))
+        );
+      }),
+    matchups: data.matchups.map((matchup) => {
+      const row = byId.get(matchup.sleeperMatchupId);
+      if (
+        !row ||
+        row.home_roster_id !== matchup.home.rosterId ||
+        row.away_roster_id !== matchup.away.rosterId
+      )
+        return matchup;
+      return {
+        ...matchup,
+        databaseId: row.id,
+        home: {
+          ...matchup.home,
+          actualScore:
+            row.status === 'final' && row.home_final != null
+              ? Number(row.home_final)
+              : matchup.home.actualScore,
+        },
+        away: {
+          ...matchup.away,
+          actualScore:
+            row.status === 'final' && row.away_final != null
+              ? Number(row.away_final)
+              : matchup.away.actualScore,
+        },
+      };
+    }),
+  };
+}
+
+/** Read-only: visiting the clubhouse or a historical week never grades results. */
+export async function getPredictionWeekData(
+  requestedWeek?: number,
+): Promise<PredictionWeekData> {
+  let season = leagueConfig.season ?? '';
+  let currentWeek = 1;
+  try {
+    if (!leagueConfig.sleeperLeagueId) throw new Error('League not configured');
+    const context = await getSourceContext();
+    season = context.league.season;
+    currentWeek = currentPredictionWeek(context);
+    const data = await loadPredictionSource(context, requestedWeek);
+    const readClient = getSupabaseReadClient();
+    if (!readClient) return data;
+    const { data: weekRow, error: weekError } = await readClient
+      .from('prediction_weeks')
+      .select('id,locks_at')
+      .eq('league_id', data.leagueId)
+      .eq('season', Number(data.season))
+      .eq('week', data.week)
+      .maybeSingle();
+    if (weekError) return { ...data, availability: 'unavailable' };
+    if (!weekRow) return data;
+    const { data: rows, error } = await readClient
+      .from('prediction_matchups')
+      .select(STORED_FIELDS)
+      .eq('prediction_week_id', weekRow.id);
+    if (error || !rows) return { ...data, availability: 'unavailable' };
+    return withStoredMatchups(
+      {
+        ...data,
+        lockAt: weekRow.locks_at,
+        locked: Date.now() >= new Date(weekRow.locks_at).getTime(),
+      },
+      rows as StoredMatchup[],
+    );
+  } catch {
+    const week = Math.max(
+      1,
+      Math.min(
+        currentWeek,
+        Number.isInteger(requestedWeek) ? requestedWeek! : currentWeek,
+      ),
+    );
+    return {
+      leagueId: leagueConfig.sleeperLeagueId,
+      season,
+      week,
+      currentWeek,
+      lockAt: season
+        ? sundayKickoffForWeek(Number(season), week).toISOString()
+        : '',
+      locked: true,
+      finalized: false,
+      databaseReady: false,
+      availability: 'unavailable',
+      sourceComplete: false,
+      gradingEligible: false,
+      matchups: [],
+    };
+  }
+}
+
+/** Only the authenticated cron route calls this write path. Never touches votes. */
+async function syncPredictionWeek(data: PredictionWeekData) {
+  const admin = getSupabaseAdminClient();
+  if (!admin) throw new Error('Prediction sync is not configured');
   const { data: weekRow, error: weekError } = await admin
     .from('prediction_weeks')
     .upsert(
@@ -287,175 +487,169 @@ async function syncPredictionWeek(
         week: data.week,
         locks_at: data.lockAt,
       },
-      { onConflict: 'league_id,season,week' },
+      { onConflict: 'league_id,season,week', ignoreDuplicates: true },
     )
-    .select('id')
-    .single();
-
-  if (weekError || !weekRow) return { ...data, databaseReady: false };
-
-  const { data: storedRows, error: storedError } = await admin
-    .from('prediction_matchups')
-    .select('id,sleeper_matchup_id,home_projected,away_projected')
-    .eq('prediction_week_id', weekRow.id);
-
-  if (storedError) return { ...data, databaseReady: false };
-
-  const storedBySleeperId = new Map(
-    (storedRows as StoredMatchup[]).map((row) => [row.sleeper_matchup_id, row]),
-  );
-  const finalScoresReady =
-    Date.now() >= new Date(data.lockAt).getTime() + 64 * 60 * 60 * 1000;
-  const synced: PredictionMatchup[] = [];
-
-  for (const matchup of data.matchups) {
-    let stored = storedBySleeperId.get(matchup.sleeperMatchupId);
-
-    if (!stored) {
-      const { data: inserted, error } = await admin
-        .from('prediction_matchups')
-        .insert({
-          prediction_week_id: weekRow.id,
-          sleeper_matchup_id: matchup.sleeperMatchupId,
-          home_roster_id: matchup.home.rosterId,
-          away_roster_id: matchup.away.rosterId,
-          home_projected: matchup.home.projectedScore,
-          away_projected: matchup.away.projectedScore,
-          status: data.locked ? 'locked' : 'scheduled',
-        })
-        .select('id,sleeper_matchup_id,home_projected,away_projected')
-        .single();
-      if (error || !inserted) continue;
-      stored = inserted as StoredMatchup;
-    } else if (!data.locked) {
-      const { data: updated } = await admin
-        .from('prediction_matchups')
-        .update({
-          home_roster_id: matchup.home.rosterId,
-          away_roster_id: matchup.away.rosterId,
-          home_projected: matchup.home.projectedScore,
-          away_projected: matchup.away.projectedScore,
-          status: 'scheduled',
-        })
-        .eq('id', stored.id)
-        .select('id,sleeper_matchup_id,home_projected,away_projected')
-        .single();
-      if (updated) stored = updated as StoredMatchup;
-    }
-
-    if (data.locked) {
-      const homeScore = matchup.home.actualScore;
-      const awayScore = matchup.away.actualScore;
-      const hasFinalScores = finalScoresReady;
-      const winnerRosterId = hasFinalScores
-        ? homeScore === awayScore
-          ? null
-          : homeScore > awayScore
-            ? matchup.home.rosterId
-            : matchup.away.rosterId
-        : null;
-
-      await admin
-        .from('prediction_matchups')
-        .update(
-          hasFinalScores
-            ? {
-                home_final: homeScore,
-                away_final: awayScore,
-                winner_roster_id: winnerRosterId,
-                status: 'final',
-              }
-            : { status: 'locked' },
-        )
-        .eq('id', stored.id);
-    }
-
-    synced.push({
-      ...matchup,
-      databaseId: stored.id,
-      home: {
-        ...matchup.home,
-        projectedScore: Number(stored.home_projected),
-      },
-      away: {
-        ...matchup.away,
-        projectedScore: Number(stored.away_projected),
-      },
-    });
-  }
-
-  return {
-    ...data,
-    matchups: synced,
-    databaseReady: synced.length === data.matchups.length,
-  };
-}
-
-export async function getPredictionWeekData(
-  requestedWeek?: number,
-): Promise<PredictionWeekData> {
-  const leagueId = leagueConfig.sleeperLeagueId;
-  const nflState = await getNFLState();
-  const currentWeek = Math.max(1, Math.min(18, nflState.week));
-  const week = Math.max(1, Math.min(currentWeek, requestedWeek ?? currentWeek));
-  const season = leagueConfig.season ?? nflState.season;
-  const lockAt = sundayKickoffForWeek(Number(season), week);
-  const locked = Date.now() >= lockAt.getTime();
-
-  if (!leagueId) {
-    return {
-      leagueId: '',
-      season,
-      week,
-      currentWeek,
-      lockAt: lockAt.toISOString(),
-      locked,
-      finalized: false,
-      databaseReady: false,
-      matchups: [],
+    .select('id');
+  if (weekError) throw new Error('Could not prepare prediction week');
+  let weekId = weekRow?.[0]?.id;
+  if (weekId == null) {
+    const existing = await admin
+      .from('prediction_weeks')
+      .select('id,locks_at')
+      .eq('league_id', data.leagueId)
+      .eq('season', Number(data.season))
+      .eq('week', data.week)
+      .single();
+    if (existing.error || !existing.data)
+      throw new Error('Could not read prediction week');
+    weekId = existing.data.id;
+    data = {
+      ...data,
+      lockAt: existing.data.locks_at,
+      locked: Date.now() >= new Date(existing.data.locks_at).getTime(),
+      gradingEligible:
+        data.gradingEligible && isGradingEligible(existing.data.locks_at),
     };
   }
-
-  const [league, rosters, users, entries, players, projections] =
-    await Promise.all([
-      getLeague(leagueId),
-      getLeagueRosters(leagueId),
-      getLeagueUsers(leagueId),
-      getMatchups(leagueId, week),
-      getPlayers(),
-      getWeeklyProjections(season, week),
-    ]);
-  const matchups = buildMatchups(
-    entries,
-    rosters,
-    users,
-    league,
-    players,
-    projections,
+  if (!data.matchups.length) return data;
+  if (!data.sourceComplete)
+    throw new Error('Sleeper returned an incomplete matchup schedule');
+  const { error: insertError } = await admin.from('prediction_matchups').upsert(
+    data.matchups.map((matchup) => ({
+      prediction_week_id: weekId,
+      sleeper_matchup_id: matchup.sleeperMatchupId,
+      home_roster_id: matchup.home.rosterId,
+      away_roster_id: matchup.away.rosterId,
+      home_projected: matchup.home.projectedScore ?? 0,
+      away_projected: matchup.away.projectedScore ?? 0,
+      status: data.locked ? 'locked' : 'scheduled',
+    })),
+    {
+      onConflict: 'prediction_week_id,sleeper_matchup_id',
+      ignoreDuplicates: true,
+    },
   );
-  const finalized =
-    locked && Date.now() >= lockAt.getTime() + 64 * 60 * 60 * 1000;
+  if (insertError) throw new Error('Could not prepare prediction matchups');
+  const stored = await admin
+    .from('prediction_matchups')
+    .select(STORED_FIELDS)
+    .eq('prediction_week_id', weekId);
+  if (stored.error || !stored.data)
+    throw new Error('Could not read prediction matchups');
+  const rows = stored.data as StoredMatchup[];
+  const byId = new Map(rows.map((row) => [row.sleeper_matchup_id, row]));
+  const scoresReady =
+    data.gradingEligible &&
+    data.matchups.every(
+      (matchup) =>
+        matchup.home.actualScore != null && matchup.away.actualScore != null,
+    );
 
-  return syncPredictionWeek({
-    leagueId,
-    season,
-    week,
-    currentWeek,
-    lockAt: lockAt.toISOString(),
-    locked,
-    finalized,
-    matchups,
-  });
+  for (const matchup of data.matchups) {
+    const row = byId.get(matchup.sleeperMatchupId);
+    if (
+      !row ||
+      row.home_roster_id !== matchup.home.rosterId ||
+      row.away_roster_id !== matchup.away.rosterId
+    )
+      throw new Error('Stored matchup does not match Sleeper');
+    if (row.status === 'final') continue;
+    const homeScore = matchup.home.actualScore;
+    const awayScore = matchup.away.actualScore;
+    const updates =
+      scoresReady && homeScore != null && awayScore != null
+        ? {
+            home_final: homeScore,
+            away_final: awayScore,
+            winner_roster_id:
+              homeScore === awayScore
+                ? null
+                : homeScore > awayScore
+                  ? matchup.home.rosterId
+                  : matchup.away.rosterId,
+            status: 'final',
+          }
+        : data.locked
+          ? { status: 'locked' }
+          : {
+              home_projected: matchup.home.projectedScore ?? row.home_projected,
+              away_projected: matchup.away.projectedScore ?? row.away_projected,
+              status: 'scheduled',
+            };
+    const updated = await admin
+      .from('prediction_matchups')
+      .update(updates)
+      .eq('id', row.id)
+      .neq('status', 'final')
+      .select(STORED_FIELDS);
+    if (updated.error) throw new Error('Could not save prediction results');
+  }
+  const confirmed = await admin
+    .from('prediction_matchups')
+    .select(STORED_FIELDS)
+    .eq('prediction_week_id', weekId);
+  if (confirmed.error || !confirmed.data)
+    throw new Error('Could not confirm prediction results');
+  const result = withStoredMatchups(data, confirmed.data as StoredMatchup[]);
+  if (scoresReady && !result.finalized)
+    throw new Error('Prediction results were not fully saved');
+  return result;
 }
 
 export async function syncPredictionWeeksForCron() {
-  const state = await getNFLState();
-  const weeks = [...new Set([state.week - 1, state.week])].filter(
-    (week) => week >= 1 && week <= 18,
+  const admin = getSupabaseAdminClient();
+  if (!admin) throw new Error('Prediction sync is not configured');
+  const context = await getSourceContext();
+  const currentWeek = currentPredictionWeek(context);
+  const { data: storedWeeks, error } = await admin
+    .from('prediction_weeks')
+    .select('week,prediction_matchups(status)')
+    .eq('league_id', context.league.league_id)
+    .eq('season', Number(context.league.season));
+  if (error) throw new Error('Could not find unresolved prediction weeks');
+  const pending = (storedWeeks ?? []).filter(
+    (row) =>
+      !row.prediction_matchups.length ||
+      row.prediction_matchups.some(
+        (matchup: { status: string }) => matchup.status !== 'final',
+      ),
   );
-  return Promise.all(weeks.map((week) => getPredictionWeekData(week)));
+  const weeks = [
+    ...new Set([currentWeek, ...pending.map((row) => Number(row.week))]),
+  ]
+    .filter((week) => week >= 1 && week <= currentWeek)
+    .sort((a, b) => a - b);
+  return Promise.all(
+    weeks.map(async (week) => {
+      try {
+        const result = await syncPredictionWeek(
+          await loadPredictionSource(context, week),
+        );
+        return {
+          season: result.season,
+          week: result.week,
+          matchups: result.matchups.length,
+          finalized: result.finalized,
+          ok:
+            (result.availability === 'waiting' && !result.gradingEligible) ||
+            (result.databaseReady &&
+              (!result.gradingEligible || result.finalized)),
+        };
+      } catch {
+        return {
+          season: context.league.season,
+          week,
+          matchups: 0,
+          finalized: false,
+          ok: false,
+        };
+      }
+    }),
+  );
 }
 
 export const predictionInternals = {
   sundayKickoffForWeek,
+  withStoredMatchups,
+  syncPredictionWeek,
 };

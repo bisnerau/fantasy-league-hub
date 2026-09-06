@@ -13,10 +13,11 @@ async function getUnofficialFeed(
     );
     const response = await fetch(
       `https://api.sleeper.app/${kind}/nfl/${year}/${week}?season_type=regular&${query}`,
-      { next: { revalidate: 900 } },
+      { next: { revalidate: 900 }, signal: AbortSignal.timeout(8_000) },
     );
     if (!response.ok) return [];
-    return (await response.json()) as SleeperProjection[];
+    const data = await response.json();
+    return Array.isArray(data) ? (data as SleeperProjection[]) : [];
   } catch {
     return [];
   }

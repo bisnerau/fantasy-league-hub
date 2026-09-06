@@ -10,6 +10,8 @@
     "build": "vinext build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
+    "test": "node --experimental-transform-types --import ./tests/register.mjs --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
     "format": "oxfmt",
     "draft:prepare": "node --env-file=.env.local scripts/prepare-draft-recap.mjs",
     "members:create": "node --env-file=.env.local --experimental-strip-types scripts/create-supabase-members.mjs"
@@ -42,6 +44,7 @@
     "@cloudflare/vite-plugin": "1.37.1",
     "@cloudflare/workers-types": "4.20260515.1",
     "@openai/sites-vite-plugin": "0.2.0",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",

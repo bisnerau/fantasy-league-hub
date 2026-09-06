@@ -15,6 +15,7 @@ import {
 import { PointsBars } from '@/components/charts/points-bars';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import type { TeamStanding } from '@/lib/data/dashboard';
+import { formatScore } from '@/lib/sleeper/scores';
 
 type SortKey = 'rank' | 'wins' | 'pointsFor' | 'pointsAgainst' | 'medianWins';
 
@@ -49,17 +50,28 @@ function SortButton({
   );
 }
 
-export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
+export function StandingsTable({
+  standings,
+  historyAvailable = true,
+}: {
+  standings: TeamStanding[];
+  historyAvailable?: boolean;
+}) {
   const [sortKey, setSortKey] = useState<SortKey>('rank');
   const [direction, setDirection] = useState<'asc' | 'desc'>('asc');
   const maxPoints = Math.max(
-    ...standings.flatMap((team) => [team.pointsFor, team.pointsAgainst]),
+    ...standings.flatMap((team) => [
+      team.pointsFor ?? 0,
+      team.pointsAgainst ?? 0,
+    ]),
     1,
   );
   const sorted = useMemo(
     () =>
       [...standings].sort((a, b) => {
-        const delta = a[sortKey] - b[sortKey];
+        if (a[sortKey] == null) return b[sortKey] == null ? 0 : 1;
+        if (b[sortKey] == null) return -1;
+        const delta = a[sortKey]! - b[sortKey]!;
         return direction === 'asc' ? delta : -delta;
       }),
     [direction, sortKey, standings],
@@ -138,7 +150,14 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
                   </span>
                 </TableCell>
                 <TableCell>
-                  <a href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'} className="flex items-center gap-3">
+                  <a
+                    href={
+                      team.franchiseId
+                        ? `/managers#${team.franchiseId}`
+                        : '/managers'
+                    }
+                    className="flex items-center gap-3"
+                  >
                     <TeamAvatar avatar={team.avatar} name={team.teamName} />
                     <div>
                       <p className="text-sm font-bold">{team.teamName}</p>
@@ -146,11 +165,12 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
                         {team.ownerName}
                       </p>
                     </div>
-                    {team.rank === 1 && (
-                      <Badge className="ml-2 bg-primary/10 text-[9px] text-primary">
-                        #1 SEED
-                      </Badge>
-                    )}
+                    {team.rank === 1 &&
+                      team.wins + team.losses + team.ties > 0 && (
+                        <Badge className="ml-2 bg-primary/10 text-[9px] text-primary">
+                          #1 SEED
+                        </Badge>
+                      )}
                   </a>
                 </TableCell>
                 <TableCell>
@@ -171,18 +191,20 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
                         <span className="inline-block w-5 text-primary">
                           PF
                         </span>
-                        {team.pointsFor.toFixed(1)}
+                        {formatScore(team.pointsFor)}
                       </p>
                       <p>
                         <span className="inline-block w-5 text-accent">PA</span>
-                        {team.pointsAgainst.toFixed(1)}
+                        {formatScore(team.pointsAgainst)}
                       </p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
                   <span className="font-mono text-xs font-bold">
-                    {team.medianWins}-{team.medianLosses}
+                    {historyAvailable
+                      ? `${team.medianWins}-${team.medianLosses}`
+                      : 'Unavailable'}
                   </span>
                 </TableCell>
                 <TableCell className="pr-5 text-right">
@@ -218,7 +240,9 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
         {sorted.map((team) => (
           <a
             key={team.rosterId}
-            href={team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'}
+            href={
+              team.franchiseId ? `/managers#${team.franchiseId}` : '/managers'
+            }
             className={`block rounded-xl border bg-card p-4 text-card-foreground shadow-sm ${team.rank === 6 ? 'border-b-2 border-b-primary/30' : ''}`}
           >
             <div className="flex items-center gap-3">
@@ -229,26 +253,29 @@ export function StandingsTable({ standings }: { standings: TeamStanding[] }) {
               </span>
               <TeamAvatar avatar={team.avatar} name={team.teamName} />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-bold">{team.teamName}</p>
+                <p className="break-words text-sm font-bold">{team.teamName}</p>
                 <p className="text-[10px] text-muted-foreground">
                   {team.ownerName}
                 </p>
               </div>
               <span className="score-number text-lg">
                 {team.wins}-{team.losses}
+                {team.ties ? `-${team.ties}` : ''}
               </span>
             </div>
             <div className="mt-4 grid grid-cols-3 border-t border-white/8 pt-3 text-center">
               <div>
                 <p className="metric-label">Points for</p>
                 <p className="mt-1 font-mono text-xs font-bold">
-                  {team.pointsFor.toFixed(1)}
+                  {formatScore(team.pointsFor)}
                 </p>
               </div>
               <div className="border-x border-white/8">
                 <p className="metric-label">Median</p>
                 <p className="mt-1 font-mono text-xs font-bold">
-                  {team.medianWins}-{team.medianLosses}
+                  {historyAvailable
+                    ? `${team.medianWins}-${team.medianLosses}`
+                    : 'Unavailable'}
                 </p>
               </div>
               <div>

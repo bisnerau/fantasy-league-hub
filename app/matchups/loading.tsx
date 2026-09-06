@@ -1,5 +1,5 @@
-import { DashboardSkeleton } from '@/components/shared/page-skeleton';
+import { PicksSkeleton } from '@/components/shared/page-skeleton';
 
 export default function MatchupsLoading() {
-  return <DashboardSkeleton />;
+  return <PicksSkeleton />;
 }

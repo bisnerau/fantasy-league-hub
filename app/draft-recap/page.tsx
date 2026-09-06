@@ -93,15 +93,17 @@ function WaitingForDraft() {
               variant="outline"
               className="border-amber-300/20 bg-amber-300/[0.055] text-[9px] text-amber-200"
             >
-              <CalendarClock /> Waiting for the final pick
+              <CalendarClock /> Report not yet published
             </Badge>
           </div>
           <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-[-0.045em] text-foreground sm:text-4xl lg:text-5xl">
             The verdict is ready to be written.
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            As soon as Sleeper marks the draft complete, every roster will be
-            graded, analysed and compared with a Leinster player.
+            After the draft, the league report will be written and reviewed:
+            grades, team outlooks, and a Leinster comparison for every roster.
+            It appears here when published—not automatically after the final
+            pick.
           </p>
         </div>
         <div className="hidden size-14 items-center justify-center rounded-2xl border border-primary/15 bg-primary/[0.065] text-primary sm:flex">

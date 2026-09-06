@@ -100,7 +100,7 @@ export default async function RecordsPage() {
       </section>
 
       <section>
-        <div className="mb-3 flex items-end justify-between">
+        <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="section-kicker">Championship history</p>
             <h2 className="mt-1 font-heading text-xl font-black">
@@ -162,16 +162,25 @@ export default async function RecordsPage() {
         </div>
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,.75fr)]">
-        <div>
+      <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,.75fr)]">
+        <div className="min-w-0">
           <div className="mb-3">
             <p className="section-kicker">All-time table</p>
             <h2 className="mt-1 font-heading text-xl font-black">
               Franchise records
             </h2>
+            <p className="mt-2 text-xs text-muted-foreground md:hidden">
+              Scroll the table sideways for the full record.
+            </p>
           </div>
           <Card className="gap-0 overflow-hidden p-0">
-            <div className="overflow-x-auto">
+            <section
+              className="overflow-x-auto"
+              aria-label="All-time franchise records, scrollable table"
+              // A focusable scroll region lets keyboard users reach hidden columns.
+              // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+              tabIndex={0}
+            >
               <table className="w-full min-w-[720px] text-left text-xs">
                 <thead>
                   <tr className="border-b border-white/8 text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
@@ -279,7 +288,7 @@ export default async function RecordsPage() {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </section>
           </Card>
         </div>
 

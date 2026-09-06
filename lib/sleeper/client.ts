@@ -27,6 +27,7 @@ class SleeperAPIError extends Error {
 async function sleeperFetch<T>(path: string, revalidate = 3600): Promise<T> {
   const response = await fetch(`${API_ROOT}${path}`, {
     headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(10_000),
     next: { revalidate },
   });
 
@@ -37,7 +38,10 @@ async function sleeperFetch<T>(path: string, revalidate = 3600): Promise<T> {
     );
   }
 
-  return (await response.json()) as T;
+  const data = await response.json();
+  if (data == null)
+    throw new SleeperAPIError(`Sleeper returned no data: ${path}`);
+  return data as T;
 }
 
 export const getLeague = (leagueId: string) =>
@@ -62,7 +66,7 @@ export const getTransactions = (leagueId: string, round: number) =>
   );
 
 export const getDrafts = (leagueId: string) =>
-  sleeperFetch<SleeperDraft[]>(`/league/${leagueId}/drafts`, 86400);
+  sleeperFetch<SleeperDraft[]>(`/league/${leagueId}/drafts`, 300);
 
 export const getDraftPicks = (draftId: string) =>
   sleeperFetch<SleeperDraftPick[]>(`/draft/${draftId}/picks`, 86400);

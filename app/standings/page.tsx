@@ -3,6 +3,7 @@ import { Activity, ShieldCheck, Target, Trophy } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { StandingsTable } from '@/components/standings/standings-table';
 import { getDashboardData } from '@/lib/data/dashboard';
+import { formatScore } from '@/lib/sleeper/scores';
 
 export const metadata: Metadata = {
   title: 'Standings',
@@ -14,13 +15,21 @@ export const revalidate = 300;
 export default async function StandingsPage() {
   const data = await getDashboardData();
   const leader = data.standings[0];
-  const scoringLeader = [...data.standings].sort(
-    (a, b) => b.pointsFor - a.pointsFor,
-  )[0];
-  const toughest = [...data.standings].sort(
-    (a, b) => a.pointsAgainst - b.pointsAgainst,
-  )[0];
+  const scoringLeader = data.standings
+    .filter((team) => team.pointsFor != null)
+    .sort(
+      (a, b) => (b.pointsFor ?? -Infinity) - (a.pointsFor ?? -Infinity) || 0,
+    )[0];
+  const toughest = data.standings
+    .filter((team) => team.pointsAgainst != null)
+    .sort(
+      (a, b) =>
+        (a.pointsAgainst ?? Infinity) - (b.pointsAgainst ?? Infinity) || 0,
+    )[0];
   const bubble = data.standings[5];
+  const seasonStarted = data.standings.some(
+    (team) => team.wins + team.losses + team.ties > 0,
+  );
 
   const summaries = [
     {
@@ -32,13 +41,13 @@ export default async function StandingsPage() {
     {
       label: 'Scoring leader',
       value: scoringLeader?.teamName,
-      detail: `${scoringLeader?.pointsFor.toFixed(1)} PF`,
+      detail: `${formatScore(scoringLeader?.pointsFor)} PF`,
       icon: Activity,
     },
     {
-      label: 'Best defense',
+      label: 'Fewest points faced',
       value: toughest?.teamName,
-      detail: `${toughest?.pointsAgainst.toFixed(1)} PA`,
+      detail: `${formatScore(toughest?.pointsAgainst)} PA`,
       icon: ShieldCheck,
     },
     {
@@ -65,31 +74,39 @@ export default async function StandingsPage() {
           </p>
         </div>
         <span className="w-fit rounded-full border border-white/8 bg-white/[0.035] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-          {data.mode === 'live' ? 'Verified Sleeper data' : 'Demo data'}
+          {data.mode === 'live' ? 'Sleeper league data' : 'Data unavailable'}
         </span>
       </section>
 
-      <section className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-        {summaries.map((summary) => {
-          const Icon = summary.icon;
-          return (
-            <Card key={summary.label} className="gap-0 p-4">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="metric-label">{summary.label}</p>
-                  <p className="mt-2 truncate text-sm font-bold">
-                    {summary.value}
-                  </p>
-                  <p className="mt-1 font-mono text-[10px] text-primary">
-                    {summary.detail}
-                  </p>
+      {seasonStarted ? (
+        <section className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+          {summaries.map((summary) => {
+            const Icon = summary.icon;
+            return (
+              <Card key={summary.label} className="gap-0 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="metric-label">{summary.label}</p>
+                    <p className="mt-2 break-words text-sm font-bold">
+                      {summary.value ?? 'Unavailable'}
+                    </p>
+                    <p className="mt-1 font-mono text-[10px] text-primary">
+                      {summary.detail}
+                    </p>
+                  </div>
+                  <Icon className="size-4 shrink-0 text-muted-foreground" />
                 </div>
-                <Icon className="size-4 shrink-0 text-muted-foreground" />
-              </div>
-            </Card>
-          );
-        })}
-      </section>
+              </Card>
+            );
+          })}
+        </section>
+      ) : (
+        <p className="notice">
+          {data.mode === 'unavailable'
+            ? 'League standings are temporarily unavailable. Please refresh to try again.'
+            : 'A clean slate. There are no seeds or scoring leaders until results are recorded.'}
+        </p>
+      )}
 
       <section>
         <div className="mb-3 flex items-center justify-between">
@@ -103,7 +120,10 @@ export default async function StandingsPage() {
             Tap any column heading to sort
           </span>
         </div>
-        <StandingsTable standings={data.standings} />
+        <StandingsTable
+          standings={data.standings}
+          historyAvailable={data.weeklyHistoryAvailable}
+        />
       </section>
     </div>
   );

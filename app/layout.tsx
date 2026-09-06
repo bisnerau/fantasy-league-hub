@@ -17,9 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    'https://fantasy-league-hub-plum.vercel.app',
-  ),
+  metadataBase: new URL('https://fantasy-league-hub-plum.vercel.app'),
   title: {
     default: `${leagueConfig.name} · League Hub`,
     template: `%s · ${leagueConfig.name}`,
@@ -28,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${leagueConfig.name} · Fantasy League Hub`,
     description:
-      'Twelve teams. One trophy. Live matchups, standings, and league pulse.',
+      'Weekly picks, league stories, and a very long memory. The MAC 12 clubhouse.',
     type: 'website',
     images: [
       {
@@ -43,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${leagueConfig.name} · Fantasy League Hub`,
     description:
-      'Twelve teams. One trophy. Live matchups, standings, and league pulse.',
+      'Weekly picks, league stories, and a very long memory. The MAC 12 clubhouse.',
     images: ['/og.jpg'],
   },
 };
@@ -77,7 +75,10 @@ export default async function RootLayout({
         }
       >
         <QueryProvider>
-          <LeagueShell leagueAvatar={league?.avatar ?? null}>
+          <LeagueShell
+            leagueAvatar={league?.avatar ?? null}
+            season={league?.season}
+          >
             {children}
           </LeagueShell>
         </QueryProvider>

@@ -11,6 +11,7 @@ import type {
   SleeperUser,
 } from '@/lib/sleeper/types';
 import { historicalSeasons, type HistoricalSeason } from './historical';
+import { rosterScore } from '@/lib/sleeper/scores';
 
 export const ownerFranchiseMap: Record<string, string> = {
   '718453786330365952': 'burns',
@@ -28,7 +29,7 @@ export const ownerFranchiseMap: Record<string, string> = {
 };
 
 function rosterPoints(roster: SleeperRoster) {
-  return Number(`${roster.settings.fpts}.${roster.settings.fpts_decimal ?? 0}`);
+  return rosterScore(roster.settings.fpts, roster.settings.fpts_decimal);
 }
 
 function getPodium(bracket: SleeperBracketMatch[]) {
@@ -72,7 +73,9 @@ async function getSeasonSummary(
     const bPodium = podiumFinish.get(b.roster_id);
     if (aPodium || bPodium) return (aPodium ?? 99) - (bPodium ?? 99);
     return (
-      b.settings.wins - a.settings.wins || rosterPoints(b) - rosterPoints(a)
+      b.settings.wins - a.settings.wins ||
+      (rosterPoints(b) ?? -Infinity) - (rosterPoints(a) ?? -Infinity) ||
+      0
     );
   });
   const standings = ordered.map((roster, index) => {

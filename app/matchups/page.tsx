@@ -3,18 +3,16 @@ import {
   CalendarDays,
   ChevronLeft,
   ChevronRight,
-  Sparkles,
   Swords,
   Trophy,
 } from 'lucide-react';
 import { PredictionCentre } from '@/components/predictions/prediction-centre';
-import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { getPredictionWeekData } from '@/lib/data/predictions';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Matchup Predictor',
+  title: 'Weekly Picks',
   description:
     'Pick every MAC 12 matchup winner before Sunday kickoff and track the season prediction table.',
 };
@@ -42,23 +40,19 @@ export default async function MatchupsPage({
       <section className="draft-page-heading !items-center !py-1">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="ui-kicker">Matchup predictor</span>
-            <Badge
-              variant="outline"
-              className="border-primary/15 bg-primary/[0.055] text-[9px] text-primary"
-            >
-              <Sparkles /> New for 2026
-            </Badge>
+            <span className="ui-kicker">
+              Weekly picks · {data.season || 'MAC 12'}
+            </span>
           </div>
           <h1 className="mt-2 max-w-3xl text-2xl font-semibold tracking-[-0.04em] text-foreground sm:text-3xl lg:text-[38px]">
             {view === 'standings'
               ? 'Who calls it best?'
-              : 'Call every game before kickoff.'}
+              : 'Put your football knowledge on record.'}
           </h1>
           <p className="mt-1.5 max-w-2xl text-[13px] leading-5 text-muted-foreground">
             {view === 'standings'
               ? 'Every correct weekly pick counts toward the season prediction title.'
-              : 'Six weekly picks. Hidden until Sunday. Every correct winner counts toward the season prediction title.'}
+              : 'Six fantasy matchups. A Sunday deadline. A whole season of bragging rights.'}
           </p>
         </div>
         <div className="hidden size-12 items-center justify-center rounded-xl border border-primary/15 bg-primary/[0.065] text-primary sm:flex">
@@ -67,13 +61,13 @@ export default async function MatchupsPage({
       </section>
 
       <nav
-        className="grid grid-cols-2 gap-1 rounded-xl border border-white/[0.065] bg-white/[0.02] p-1"
+        className="grid grid-cols-2 gap-1 rounded-xl border border-border bg-muted/30 p-1"
         aria-label="Prediction views"
       >
         <a
           href={`/matchups?week=${data.week}`}
           className={cn(
-            'flex h-9 items-center justify-center gap-2 rounded-lg text-[11px] font-semibold transition-colors',
+            'flex min-h-11 items-center justify-center gap-2 rounded-lg text-sm font-semibold transition-colors',
             view === 'weekly'
               ? 'bg-primary/10 text-primary'
               : 'text-muted-foreground hover:bg-white/[0.035] hover:text-foreground',
@@ -85,7 +79,7 @@ export default async function MatchupsPage({
         <a
           href="/matchups?view=standings"
           className={cn(
-            'flex h-9 items-center justify-center gap-2 rounded-lg text-[11px] font-semibold transition-colors',
+            'flex min-h-11 items-center justify-center gap-2 rounded-lg text-sm font-semibold transition-colors',
             view === 'standings'
               ? 'bg-primary/10 text-primary'
               : 'text-muted-foreground hover:bg-white/[0.035] hover:text-foreground',
@@ -97,7 +91,7 @@ export default async function MatchupsPage({
       </nav>
 
       {view === 'weekly' && (
-        <div className="flex items-center justify-between rounded-xl border border-white/[0.065] bg-white/[0.02] p-2">
+        <div className="flex items-center justify-between rounded-xl border border-border bg-muted/30 p-2">
           {data.week <= earliestWeek ? (
             <span
               className={cn(
@@ -120,7 +114,7 @@ export default async function MatchupsPage({
             <p className="font-heading text-sm font-semibold">
               Week {data.week}
             </p>
-            <p className="text-[10px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               {data.season} season
             </p>
           </div>
@@ -145,7 +139,11 @@ export default async function MatchupsPage({
         </div>
       )}
 
-      <PredictionCentre data={data} mode={view} />
+      <PredictionCentre
+        key={`${data.season}-${data.week}-${view}`}
+        data={data}
+        mode={view}
+      />
     </div>
   );
 }

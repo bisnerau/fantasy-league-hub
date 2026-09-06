@@ -1,45 +1,35 @@
-'use client';
-
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { formatScore } from '@/lib/sleeper/scores';
 
 export function PointsBars({
   pointsFor,
   pointsAgainst,
   max,
 }: {
-  pointsFor: number;
-  pointsAgainst: number;
+  pointsFor: number | null;
+  pointsAgainst: number | null;
   max: number;
 }) {
   return (
     <div
-      className="h-8 w-28"
-      aria-label={`${pointsFor.toFixed(1)} points for and ${pointsAgainst.toFixed(1)} points against`}
+      className="flex h-8 w-28 flex-col justify-center gap-1.5"
+      aria-label={`${formatScore(pointsFor)} points for and ${formatScore(pointsAgainst)} points against`}
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={[{ name: 'points', PF: pointsFor, PA: pointsAgainst }]}
-          layout="vertical"
-          barGap={3}
-          margin={{ top: 1, right: 0, bottom: 1, left: 0 }}
-        >
-          <XAxis type="number" domain={[0, max]} hide />
-          <YAxis type="category" dataKey="name" hide />
-          <Bar
-            dataKey="PF"
-            fill="var(--league-primary)"
-            radius={[0, 3, 3, 0]}
-            barSize={6}
+      {[
+        { value: pointsFor, color: 'bg-primary' },
+        { value: pointsAgainst, color: 'bg-accent' },
+      ].map((bar, index) => (
+        <div key={index} className="h-1.5 rounded-sm bg-muted">
+          <span
+            className={`block h-full rounded-sm ${bar.color}`}
+            style={{
+              width:
+                bar.value == null
+                  ? '0%'
+                  : `${Math.max(0, Math.min(100, (bar.value / Math.max(max, 1)) * 100))}%`,
+            }}
           />
-          <Bar
-            dataKey="PA"
-            fill="var(--league-accent)"
-            radius={[0, 3, 3, 0]}
-            barSize={6}
-            fillOpacity={0.65}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+        </div>
+      ))}
     </div>
   );
 }

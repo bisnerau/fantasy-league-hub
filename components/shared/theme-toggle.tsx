@@ -1,21 +1,17 @@
 'use client';
 
 import { Moon, Sun } from 'lucide-react';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(() =>
-    typeof document === 'undefined'
-      ? true
-      : document.documentElement.classList.contains('dark'),
-  );
-
   function toggleTheme() {
-    const next = !dark;
-    setDark(next);
+    const next = !document.documentElement.classList.contains('dark');
     document.documentElement.classList.toggle('dark', next);
-    window.localStorage.setItem('fantasy-theme', next ? 'dark' : 'light');
+    try {
+      window.localStorage.setItem('fantasy-theme', next ? 'dark' : 'light');
+    } catch {
+      /* Theme still works when browser storage is unavailable. */
+    }
   }
 
   return (
@@ -23,10 +19,11 @@ export function ThemeToggle() {
       variant="outline"
       size="icon"
       onClick={toggleTheme}
-      aria-label={`Switch to ${dark ? 'light' : 'dark'} mode`}
-      className="rounded-full border-white/10 bg-white/5"
+      aria-label="Toggle light and dark mode"
+      className="size-11 rounded-lg border-border bg-background"
     >
-      {dark ? <Sun /> : <Moon />}
+      <Sun className="hidden dark:block" />
+      <Moon className="dark:hidden" />
     </Button>
   );
 }
