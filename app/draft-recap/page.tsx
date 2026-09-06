@@ -216,13 +216,18 @@ export default async function DraftRecapPage() {
         ))}
       </nav>
 
-      <Card className="linear-panel gap-0 p-4 sm:p-5">
-        <div className="flex items-start gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-primary/[0.055] text-primary">
-            <SearchCheck className="size-4" />
-          </span>
-          <div>
-            <p className="ui-kicker">How the grades were calculated</p>
+      <Card className="linear-panel gap-0 py-0">
+        <details className="group">
+          <summary className="flex cursor-pointer list-none items-center gap-3 p-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-primary sm:p-5 [&::-webkit-details-marker]:hidden">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-primary/[0.055] text-primary">
+              <SearchCheck className="size-4" />
+            </span>
+            <span className="ui-kicker flex-1">
+              How the grades were calculated
+            </span>
+            <ChevronDown className="size-4 shrink-0 transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-white/[0.065] p-4 sm:p-5">
             {draftRecapContent.generatedAt && (
               <p className="mt-1 text-[9px] text-muted-foreground">
                 Research updated{' '}
@@ -258,7 +263,7 @@ export default async function DraftRecapPage() {
               </div>
             )}
           </div>
-        </div>
+        </details>
       </Card>
 
       <Card className="linear-panel gap-0 py-0">

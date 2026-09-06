@@ -163,7 +163,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 2,
       headline: 'The commissioner has left himself some work to do.',
       summary:
-        'Chase and Collins give Burns a proper PPR foundation. Waiting for Dart and Kelce let him keep buying running backs and receivers, but Kyren at 27 was a price the expert boards did not unanimously endorse. Price, Tate and Stribling make the bench exciting rather than dependable. This is a competitive draft with room for the commissioner’s usual unsolicited trade offers.',
+        'Chase and Collins give Burns a proper PPR foundation. Waiting for Dart and Kelce let him keep buying running backs and receivers, but Kyren at 27 was a price the expert boards did not unanimously endorse. Price, Tate and Stribling make the bench exciting rather than dependable. This is a competitive draft with room for the commissioner’s usual unsolicited trade offers. Somewhere, Burns is already drafting a message that begins ‘hear me out’ and ends with your best running back joining Burns XI. Taking Kelce late gives him a veteran sounding board for the only person in MAC 12 who reads the rules recreationally. If the rookies hit, it was meticulous scouting; if they miss, expect a discreet proposal to expand the benches.',
       bestPick: {
         player: 'Nico Collins',
         detail:
@@ -307,7 +307,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 5,
       headline: 'The hangover cure starts with three running backs.',
       summary:
-        'Brown, Walker and Hall fill both running-back spots and the flex without requiring a rookie breakthrough. Waddle, Evans and Washington offer different routes to receiving production, although Waddle at 35 was earlier than the ADP order suggested. Lawrence and Goedert were sensible late solutions. There is more practical depth here than glamour.',
+        "Brown, Walker and Hall fill both running-back spots and the flex without requiring a rookie breakthrough. Waddle, Evans and Washington offer different routes to receiving production, although Waddle at 35 was earlier than the ADP order suggested. Lawrence and Goedert were sensible late solutions. There is more practical depth here than glamour. Three early running backs is a perfectly reasonable response to discovering that a championship defence can end in competitive doughnut consumption. The team name still advertises Mahomes while Trevor Lawrence actually does the job, which is the fantasy equivalent of leaving the previous owner's sign above the pub. Niall has drafted enough sensible cover to suggest he would very much like his next pint to be optional.",
       bestPick: {
         player: 'Josh Downs',
         detail:
@@ -452,7 +452,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 12,
       headline: 'A Green Bay insurance policy with several exclusions.',
       summary:
-        'Smith and Flowers were good recoveries after Barkley and Jeanty cost more than the three-board consensus supported. Fannin at 106 helps, but Lloyd and Jacobs are not two independent sources of backfield security. Spending on a second quarterback while finishing without a defence creates an immediate roster decision. The starters can compete; the construction is the weakest part of the draft.',
+        'Smith and Flowers were good recoveries after Barkley and Jeanty cost more than the three-board consensus supported. Fannin at 106 helps, but Lloyd and Jacobs are not two independent sources of backfield security. Spending on a second quarterback while finishing without a defence creates an immediate roster decision. The starters can compete; the construction is the weakest part of the draft. Keenan has diversified his investments across Green Bay, more Green Bay, and the hope that Green Bay sorts itself out. There is no drafted defence, presumably because the 2021 championship is still being asked to defend his reputation. Fannin was a genuinely tidy bit of business, but even he cannot catch the league up on the years since that trophy.',
       bestPick: {
         player: 'Harold Fannin',
         detail:
@@ -597,7 +597,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 10,
       headline: 'The receivers are ready. The running backs are a thesis.',
       summary:
-        'Nacua, Brown and Wilson are a compelling PPR trio, with Loveland adding an ambitious tight-end investment. The bill arrives at running back: Tuten and Stevenson start ahead of a collection of contingent bets. Loveland at 31 matched CBS but was earlier than the other boards. Plenty of ceiling, with a familiar amount of work required to reach it.',
+        'Nacua, Brown and Wilson are a compelling PPR trio, with Loveland adding an ambitious tight-end investment. The bill arrives at running back: Tuten and Stevenson start ahead of a collection of contingent bets. Loveland at 31 matched CBS but was earlier than the other boards. Plenty of ceiling, with a familiar amount of work required to reach it. Tommy has once again assembled a roster that would absolutely dominate a league scored on the phrase ‘if you look at the underlying numbers’. The receiver room is a luxury penthouse; the running backs are still waiting for planning permission. By October, either the vision will be vindicated or the group chat will receive a 900-word explanation of why the process was correct.',
       bestPick: {
         player: 'Puka Nacua',
         detail:
@@ -742,7 +742,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 1,
       headline: 'At last, a roster that leaves the schedule no defence.',
       summary:
-        'Bijan, McBride and Pickens establish strength at three positions, with McLaurin and Irving completing a credible weekly core. Daniels at 74 adds quarterback upside without consuming an early pick. The bench contains usable receiver alternatives and running-back contingencies. It is the most complete balance of starters, price and construction in this cohort.',
+        'Bijan, McBride and Pickens establish strength at three positions, with McLaurin and Irving completing a credible weekly core. Daniels at 74 adds quarterback upside without consuming an early pick. The bench contains usable receiver alternatives and running-back contingencies. It is the most complete balance of starters, price and construction in this cohort. This is deeply inconvenient for a man whose post-match analysis traditionally begins with the fixture list. Even the bench looks sufficiently thought through that the usual appeal to the Court of Points Against may be dismissed without a hearing. If Karl does not win with this lot, the group chat is entitled to request a new excuse in writing, with no mention of scheduling.',
       bestPick: {
         player: 'Jayden Daniels',
         detail:
@@ -886,7 +886,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 4,
       headline: 'The champion has upgraded from CMC faith to Gibbs faith.',
       summary:
-        'Gibbs and Olave give the title defence a strong base. Javonte at 25 is the debate: RotoBaller endorsed that price, while CBS and FantasyPros were less enthusiastic. Burrow, Burden and Kraft provide a coherent starting group, but Harvey at 73 was another purchase ahead of all three expert boards. Two quarterbacks and two tight ends reduce the room for new flex options.',
+        'Gibbs and Olave give the title defence a strong base. Javonte at 25 is the debate: RotoBaller endorsed that price, while CBS and FantasyPros were less enthusiastic. Burrow, Burden and Kraft provide a coherent starting group, but Harvey at 73 was another purchase ahead of all three expert boards. Two quarterbacks and two tight ends reduce the room for new flex options. Alan has gone from the Titanic tour to defending a title, and is now building another expensive vessel around one exceptional running back. Gibbs is an excellent choice of captain; the two quarterbacks sharing a bye is more of a deckchair arrangement. Expect the newsletter to describe every win as inevitable and every loss as a fascinating statistical anomaly requiring three additional paragraphs.',
       bestPick: {
         player: 'Chris Olave',
         detail:
@@ -1031,7 +1031,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 3,
       headline: 'Fourth place has been served an eviction notice.',
       summary:
-        'St. Brown, Jefferson and Nabers are an excellent answer to full PPR scoring and an RB/WR flex. Hurts and LaPorta round out a high-ceiling lineup. The trade-off is visible at running back, where Skattebo and Henderson cost more than the expert boards generally preferred. Dobbins offers support, but Charbonnet is a recovery stash rather than immediate cover.',
+        'St. Brown, Jefferson and Nabers are an excellent answer to full PPR scoring and an RB/WR flex. Hurts and LaPorta round out a high-ceiling lineup. The trade-off is visible at running back, where Skattebo and Henderson cost more than the expert boards generally preferred. Dobbins offers support, but Charbonnet is a recovery stash rather than immediate cover. Joe spent three years treating fourth place like a rent-controlled apartment, then briefly moved to eleventh to appreciate what he had. This receiver room is good enough to put a deposit on somewhere nicer. The only administrative concern is whether he has accidentally drafted his best team for Aidan again and will discover the paperwork error in December.',
       bestPick: {
         player: 'Justin Jefferson',
         detail:
@@ -1175,7 +1175,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 11,
       headline: 'A fine starting six, followed by an expensive prospectus.',
       summary:
-        'Taylor, Bowers, McConkey and Higgins make a credible foundation, and Montgomery gives the team a second running back. The draft becomes harder to defend after that: Lemon at 77 was well ahead of every checked expert board, and Malik Washington at 125 was another substantial premium. Mahomes at 173 restores some value, but a cheap second quarterback does not fill the flex gap.',
+        "Taylor, Bowers, McConkey and Higgins make a credible foundation, and Montgomery gives the team a second running back. The draft becomes harder to defend after that: Lemon at 77 was well ahead of every checked expert board, and Malik Washington at 125 was another substantial premium. Mahomes at 173 restores some value, but a cheap second quarterback does not fill the flex gap. Hugo's opening rounds looked like a man determined never to perform on Grafton Street again; the later ones looked like he was keeping his options open. Lemon and Washington have been bought at prices that suggest their agents were allowed into the draft room. If both break out, call it vision; if neither does, at least ‘Wonderwall’ remains widely recognisable.",
       bestPick: {
         player: 'Tee Higgins',
         detail:
@@ -1320,7 +1320,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 8,
       headline: 'Prime cuts, mature stock, and a very expensive quarterback.',
       summary:
-        'McCaffrey, Henry and Allen can carry a weekly score, but buying all three before a receiver imposes a clear PPR trade-off. Egbuka and Jameson Williams have to be more than supporting acts. Pollard, Sutton and Reed provide alternatives, while Kincaid adds an Allen connection. This is a viable win-now build with a narrower safety margin than the famous names suggest.',
+        'McCaffrey, Henry and Allen can carry a weekly score, but buying all three before a receiver imposes a clear PPR trade-off. Egbuka and Jameson Williams have to be more than supporting acts. Pollard, Sutton and Reed provide alternatives, while Kincaid adds an Allen connection. This is a viable win-now build with a narrower safety margin than the famous names suggest. Jack has ordered the tasting menu of established fantasy names and left the receiver room to survive on sides. There is enough quality here to revive the Wagyu brand, although the running-back department could reasonably request its own recovery lounge. A proper twelve-team title would finally give him a trophy the group chat cannot dismiss by asking who else was actually there.',
       bestPick: {
         player: 'Derrick Henry',
         detail:
@@ -1464,7 +1464,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 6,
       headline: 'An excellent team. Please remember to select it.',
       summary:
-        'Smith-Njigba and Lamb were both available later than every checked expert board placed them. Love, Lamar and Moore then built a dangerous starting unit without leaving the flex empty. Warren and Hubbard make the running-back group serviceable, while Likely offers a second tight-end route behind Kittle. One of the strongest drafts, with fewer obvious construction mistakes than most.',
+        'Smith-Njigba and Lamb were both available later than every checked expert board placed them. Love, Lamar and Moore then built a dangerous starting unit without leaving the flex empty. Warren and Hubbard make the running-back group serviceable, while Likely offers a second tight-end route behind Kittle. One of the strongest drafts, with fewer obvious construction mistakes than most. The hardest remaining pick is which day of the week Shane will remember that he owns these players. On paper this is a contender; on a Sunday with three unanswered WhatsApps it becomes a community safeguarding project for whoever is near the bottom. Jack Ringrose is entitled to request proof of lineup submission before accepting that everything is under control.',
       bestPick: {
         player: 'CeeDee Lamb',
         detail:
@@ -1609,7 +1609,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 7,
       headline: 'Burkeys Teur has drafted a reason to stay logged in.',
       summary:
-        'Achane and Hampton establish a strong running-back pair, Rice and McMillan fill receiver, and Maye and Warren give the lineup upside at the remaining offensive positions. Godwin at 84 adds a credible flex option. The late rounds are less convincing, especially Hunter in a league without individual-defender slots, but the opening eight picks form a genuinely competitive team.',
+        'Achane and Hampton establish a strong running-back pair, Rice and McMillan fill receiver, and Maye and Warren give the lineup upside at the remaining offensive positions. Godwin at 84 adds a credible flex option. The late rounds are less convincing, especially Hunter in a league without individual-defender slots, but the opening eight picks form a genuinely competitive team. For once, ‘I just picked the names I recognised’ would undersell what is a very respectable opening to a draft. Taking a player labelled DB in a league without an IDP slot does suggest the research department clocked off before the end, but the main work was already done. The challenge now is persuading David that Sleeper remains available to download updates after September.',
       bestPick: {
         player: 'Rashee Rice',
         detail:
@@ -1753,7 +1753,7 @@ export const draftRecapContent: DraftRecapContent = {
       predictedFinish: 9,
       headline: 'Set and forget has a Week 11 appointment.',
       summary:
-        'Cook, London and Etienne give the roster a clear structure, with Adams and Judkins providing enough options to avoid an immediate flex scramble. The prices were less exciting: Cook at six and Metcalf at 67 were ahead of all three expert boards. Prescott was sensible, and Pitts at 91 divides opinion. There are usable reserves, but fewer obvious positional advantages than the leading teams possess.',
+        'Cook, London and Etienne give the roster a clear structure, with Adams and Judkins providing enough options to avoid an immediate flex scramble. The prices were less exciting: Cook at six and Metcalf at 67 were ahead of all three expert boards. Prescott was sensible, and Pitts at 91 divides opinion. There are usable reserves, but fewer obvious positional advantages than the leading teams possess. Aidan has again built a team that could keep quietly winning while everyone else explains why it should not. Week 11 is the catch: several key players are taking the same week off, which is an ambitious scheduling decision for a manager whose preferred intervention is none. Joe should clarify now whether complimentary technical support includes tight-end cover or only the initial installation.',
       bestPick: {
         player: 'Drake London',
         detail:
