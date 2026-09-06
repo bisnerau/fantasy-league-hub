@@ -36,6 +36,7 @@ const navigation = [
   },
   { label: 'League standings', href: '/standings', icon: BarChart3 },
   { label: 'Managers', href: '/managers', icon: Users },
+  { label: 'Awards & Receipts', href: '/season-hub', icon: BookOpen },
   { label: 'Wall of shame', href: '/wall-of-shame', icon: Skull },
   {
     label: 'Draft Report & Season Preview',

@@ -189,6 +189,16 @@ export default async function DashboardPage() {
             </span>
             <ArrowRight className="size-4" />
           </a>
+          <a href="/season-hub" className="clubhouse-directory-link">
+            <ArrowRight className="size-5 text-muted-foreground" />
+            <span className="flex-1">
+              <span className="block font-semibold">Awards &amp; Receipts</span>
+              <span className="mt-1 block text-xs text-muted-foreground">
+                Weekly honours, trade returns and prediction reviews.
+              </span>
+            </span>
+            <ArrowRight className="size-4" />
+          </a>
           <a href="/managers" className="clubhouse-directory-link">
             <Users className="size-5 text-muted-foreground" />
             <span className="flex-1">

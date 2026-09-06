@@ -53,6 +53,9 @@ export type SleeperMatchup = {
 
 export type SleeperTransaction = {
   transaction_id: string;
+  status_updated?: number;
+  leg?: number;
+  waiver_budget?: Array<{ sender: number; receiver: number; amount: number }>;
   type: 'trade' | 'waiver' | 'free_agent' | 'commissioner';
   status: string;
   created: number;
