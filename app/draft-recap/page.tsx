@@ -1,3 +1,7 @@
+import {
+  DraftPersonality,
+  DraftPersonalityTable,
+} from '@/components/draft/draft-personality';
 import type { Metadata } from 'next';
 import {
   AlertTriangle,
@@ -312,6 +316,8 @@ export default async function DraftRecapPage() {
               </details>
             </Card>
 
+            <DraftPersonalityTable />
+
             <div className="space-y-4">
               {entries.map((entry) => (
                 <article
@@ -441,6 +447,8 @@ export default async function DraftRecapPage() {
                             </p>
                           </div>
                         </div>
+
+                        <DraftPersonality rosterId={entry.rosterId} />
 
                         <SchedulePreview rosterId={entry.rosterId} />
 
