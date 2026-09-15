@@ -35,7 +35,7 @@ No deployment, schema migration, account provisioning or production vote changes
 
 ## Remaining boundaries
 
-- Finalization uses the 64-hour delay plus NFL week advancement and complete finite scores, not a dedicated NFL game-completion feed. Unusual postponements and later stat corrections still need commissioner review; final rows are intentionally not automatically regraded.
+- Finalization starts Tuesday at 11am Irish time (Europe/Dublin, including clock changes), with NFL week advancement and complete finite scores also required, not a dedicated NFL game-completion feed. Unusual postponements and later stat corrections still need commissioner review; final rows are intentionally not automatically regraded. The two daily sync jobs cover the summer and winter UTC offsets; scheduler delivery may be later than the cutoff.
 - Projection numbers are PPR estimates, not authoritative custom-league projections. Missing estimates are unavailable, not displayed as zero.
 - Ordinary document navigation is retained because the current vinext production `next/link` handler fails when dynamically loading its navigation module. Soft transitions should wait for a verified framework fix; hover, press, panel and arrival feedback remain available with reduced-motion support.
 - Dependency/security remediation and live RLS validation from the broader review are separate follow-up work. Do not treat fixture tests as a production security certification.

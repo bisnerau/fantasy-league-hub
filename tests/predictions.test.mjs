@@ -105,7 +105,7 @@ beforeEach(() => {
   matchups = [];
   writes = [];
   fail = null;
-  mock.method(Date, 'now', () => Date.parse('2026-09-16T10:00:00Z'));
+  mock.method(Date, 'now', () => Date.parse('2026-09-15T10:00:00Z'));
   mock.method(globalThis, 'fetch', async (input, options = {}) => {
     const url = new URL(
       typeof input === 'string' ? input : (input.url ?? input.href),
@@ -207,7 +207,7 @@ void test('new ballots are prepared only by the scheduled sync, not a page reque
   assert.equal(weeks.length, 1);
   assert.equal(matchups.length, 1);
 });
-void test('Wednesday sync grades a previous week and never writes votes', async () => {
+void test('Tuesday 11am Irish sync grades a previous week and never writes votes', async () => {
   seedWeek(1);
   const results = await syncPredictionWeeksForCron();
   assert.equal(results.find((row) => row.week === 1).finalized, true);
@@ -216,6 +216,23 @@ void test('Wednesday sync grades a previous week and never writes votes', async 
     1,
   );
   assert.ok(results.every((row) => row.ok));
+});
+void test('sync holds completed scores until the Tuesday 11am Irish cutoff', async () => {
+  seedWeek(1);
+  mock.method(Date, 'now', () => Date.parse('2026-09-15T09:59:59.999Z'));
+  const results = await syncPredictionWeeksForCron();
+  assert.equal(results.find((row) => row.week === 1).finalized, false);
+  assert.equal(
+    matchups.find((row) => row.prediction_week_id === 1).status,
+    'locked',
+  );
+});
+void test('Tuesday cutoff still requires NFL week advancement', async () => {
+  seedWeek(1);
+  state.week = 1;
+  const results = await syncPredictionWeeksForCron();
+  assert.equal(results.find((row) => row.week === 1).finalized, false);
+  assert.equal(matchups[0].status, 'locked');
 });
 void test('failed result writes remain unresolved and are retried successfully', async () => {
   seedWeek(1);

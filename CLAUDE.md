@@ -84,7 +84,7 @@ Supabase schema changes live in `supabase/migrations/` and are applied with the 
 
 The `.openai/hosting.json` contains a legacy OpenAI Sites project ID (this was originally scaffolded as an OpenAI Site). D1/R2 bindings are configured in the Cloudflare plugin but currently null/unused.
 
-`vercel.json` schedules `/api/cron/predictions` daily at 10:00 UTC. It prepares the current ballot and retries every unresolved stored week in the configured league season. Grading requires at least 64 hours after Sunday lock, NFL state advanced beyond the week, a complete schedule, and both scores for each matchup. Settled rows are not downgraded or regraded; votes are never changed. Any failed week yields HTTP 503 for monitoring. Vercel applies this schedule only on deployment. The endpoint requires the server-only `CRON_SECRET` and `SUPABASE_SECRET_KEY` configured in Vercel.
+`vercel.json` schedules `/api/cron/predictions` with two daily jobs, at 10:00 and 11:00 UTC, covering 11am Irish time in both summer and winter. It prepares the current ballot and retries every unresolved stored week in the configured league season. Grading starts on the Tuesday after Sunday lock at 11:00 Europe/Dublin, and also requires NFL state advanced beyond the week, a complete schedule, and both scores for each matchup. The earlier winter run cannot settle that week before the Irish cutoff; repeated runs are idempotent. Scheduler delivery may be later than the configured time. Settled rows are not downgraded or regraded; votes are never changed. Any failed week yields HTTP 503 for monitoring. Vercel applies these schedules only on deployment. The endpoint requires the server-only `CRON_SECRET` and `SUPABASE_SECRET_KEY` configured in Vercel.
 
 ## Formatting & linting conventions
 

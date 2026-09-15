@@ -12,8 +12,9 @@ existing bounded, cached Sleeper fetcher. Transactions are fetched in batches of
 
 ## Weekly awards
 
-Regular season Weeks 1–14, with at least 64 hours after the Sunday lock and the
-NFL state advanced beyond the week. Require all 12 scored teams, six valid pairs.
+Regular season Weeks 1–14, from the following Tuesday at 11am Irish time
+(Europe/Dublin, including clock changes), with NFL state advanced beyond the week.
+Require all 12 scored teams, six valid pairs.
 Use commissioner-adjusted totals when present. Award tied qualifiers jointly.
 Each manager receives at most one trophy per award type per week.
 

@@ -6,7 +6,7 @@ import {
   formatScore,
 } from '../lib/sleeper/scores.ts';
 import {
-  GRADING_DELAY_MS,
+  settlementTimeForLock,
   sundayKickoffForWeek,
   isGradingEligible,
   formatLockTime,
@@ -49,24 +49,24 @@ void test('all picks lock at the Sunday 1pm Eastern kickoff, including DST chang
     '2027-01-10T18:00:00.000Z',
   );
 });
-void test('Tuesday is too early; Wednesday grading includes the precise boundary', () => {
-  const lock = sundayKickoffForWeek(2026, 1).toISOString();
-  assert.equal(
-    isGradingEligible(lock, Date.parse('2026-09-15T10:00:00Z')),
-    false,
-  );
-  assert.equal(
-    isGradingEligible(lock, Date.parse(lock) + GRADING_DELAY_MS - 1),
-    false,
-  );
-  assert.equal(
-    isGradingEligible(lock, Date.parse(lock) + GRADING_DELAY_MS),
-    true,
-  );
-  assert.equal(
-    isGradingEligible(lock, Date.parse('2026-09-16T10:00:00Z')),
-    true,
-  );
+void test('settlement starts Tuesday at 11am Irish time through DST and year rollover', () => {
+  for (const [week, expected] of [
+    [1, '2026-09-15T10:00:00.000Z'],
+    [6, '2026-10-20T10:00:00.000Z'],
+    [7, '2026-10-27T11:00:00.000Z'],
+    [8, '2026-11-03T11:00:00.000Z'],
+    [17, '2027-01-05T11:00:00.000Z'],
+  ]) {
+    const lock = sundayKickoffForWeek(2026, week).toISOString();
+    const boundary = Date.parse(expected);
+    assert.equal(settlementTimeForLock(lock).toISOString(), expected);
+    assert.equal(isGradingEligible(lock, boundary - 1), false);
+    assert.equal(isGradingEligible(lock, boundary), true);
+    assert.equal(isGradingEligible(lock, boundary + 1), true);
+  }
+});
+void test('invalid lock times cannot become eligible for settlement', () => {
+  assert.equal(isGradingEligible('invalid'), false);
 });
 void test('deadline formatting uses an explicit Irish timezone and locale', () => {
   assert.match(

@@ -20,6 +20,35 @@ const weekRows = (week) =>
     starters: [],
     players_points: {},
   }));
+void test('weekly awards and My Season results unlock together at Tuesday 11am Irish time', async (t) => {
+  let now = Date.parse('2026-09-15T09:59:59.999Z');
+  t.mock.method(Date, 'now', () => now);
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    assert.ok(!options?.method || options.method === 'GET');
+    const path = new URL(url).pathname;
+    return new Response(
+      JSON.stringify(
+        path.endsWith('/state/nfl')
+          ? { season: '2026', season_type: 'regular', week: 2 }
+          : path.includes('/transactions/')
+            ? []
+            : path.includes('/matchups/')
+              ? weekRows(1)
+              : league,
+      ),
+    );
+  });
+  const before = await getSeasonHubData({ includeActivity: true });
+  assert.deepEqual(before.completedWeeks, []);
+  assert.deepEqual(before.awards, []);
+  assert.deepEqual(before.activity.weeks, []);
+  now += 1;
+  const after = await getSeasonHubData({ includeActivity: true });
+  assert.deepEqual(after.completedWeeks, [1]);
+  assert.equal(after.awards[0].week, 1);
+  assert.ok(after.awards[0].result);
+  assert.equal(after.activity.weeks[0].week, 1);
+});
 void test('season hub reads historical Week 7 rather than current standings and never writes', async () => {
   const original = globalThis.fetch,
     now = Date.now;

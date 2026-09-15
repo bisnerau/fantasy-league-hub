@@ -1,5 +1,3 @@
-export const GRADING_DELAY_MS = 64 * 60 * 60 * 1000;
-
 export function sundayKickoffForWeek(season: number, week: number) {
   const date = new Date(Date.UTC(season, 8, 7));
   while (date.getUTCDay() !== 0) date.setUTCDate(date.getUTCDate() + 1);
@@ -20,8 +18,26 @@ export function formatLockTime(value: string) {
   return `${new Intl.DateTimeFormat('en-IE', { weekday: 'long', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Dublin' }).format(new Date(value))} · Irish time`;
 }
 
+export function settlementTimeForLock(lockAt: string) {
+  const date = new Date(lockAt);
+  if (!Number.isFinite(date.getTime())) return date;
+  // Sunday locks fall on the same calendar date in UTC and Ireland.
+  // Use the following Tuesday's Irish clock time, not a fixed elapsed delay.
+  date.setUTCDate(date.getUTCDate() + ((2 - date.getUTCDay() + 7) % 7 || 7));
+  const irishHour = new Intl.DateTimeFormat('en-IE', {
+    timeZone: 'Europe/Dublin',
+    hour: '2-digit',
+    hourCycle: 'h23',
+  });
+  for (const hour of [10, 11]) {
+    date.setUTCHours(hour, 0, 0, 0);
+    if (irishHour.format(date) === '11') return date;
+  }
+  throw new Error('Unable to calculate Tuesday settlement time');
+}
+
 export function isGradingEligible(lockAt: string, now = Date.now()) {
-  return now >= new Date(lockAt).getTime() + GRADING_DELAY_MS;
+  return now >= settlementTimeForLock(lockAt).getTime();
 }
 
 export function signInErrorMessage(
