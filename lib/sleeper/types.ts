@@ -130,5 +130,6 @@ export type SleeperTrendingPlayer = {
 export type SleeperProjection = {
   player_id: string;
   stats: Record<string, number>;
+  date?: string | null;
   player?: Record<string, unknown>;
 };

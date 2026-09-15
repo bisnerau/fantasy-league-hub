@@ -86,6 +86,8 @@ The `.openai/hosting.json` contains a legacy OpenAI Sites project ID (this was o
 
 `vercel.json` schedules `/api/cron/predictions` with two daily jobs, at 10:00 and 11:00 UTC, covering 11am Irish time in both summer and winter. It prepares the current ballot and retries every unresolved stored week in the configured league season. Grading starts on the Tuesday after Sunday lock at 11:00 Europe/Dublin, and also requires NFL state advanced beyond the week, a complete schedule, and both scores for each matchup. The earlier winter run cannot settle that week before the Irish cutoff; repeated runs are idempotent. Scheduler delivery may be later than the configured time. Settled rows are not downgraded or regraded; votes are never changed. Any failed week yields HTTP 503 for monitoring. Vercel applies these schedules only on deployment. The endpoint requires the server-only `CRON_SECRET` and `SUPABASE_SECRET_KEY` configured in Vercel.
 
+Weekly Picks also includes automatic matchup previews and reviews. The same cron saves immutable Thursday 11am Irish-time previews in `prediction_matchups.preview_story`; read-only reviews use settled results from Tuesday 11am. The saved call is revisited in the review, and historical games without a preview say so. See `docs/matchup-stories.md` for publication windows, missing-data behavior, league voice and coverage. `lib/predictions/stories.ts` builds fact-based prose without an external AI service.
+
 ## Formatting & linting conventions
 
 - oxfmt: single quotes, 80-char print width

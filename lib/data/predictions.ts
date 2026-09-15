@@ -3,6 +3,17 @@ import { getSupabaseAdminClient } from '@/lib/supabase/admin';
 import { getSupabaseReadClient } from '@/lib/supabase/read';
 import { matchupScore } from '@/lib/sleeper/scores';
 import {
+  canPublishPreview,
+  createMatchupPreview,
+  createMatchupReview,
+  readPreview,
+  storyManagerName,
+  previewPublishTimeForLock,
+  type MatchupPreview,
+  type MatchupStory,
+  type StoryHistory,
+} from '@/lib/predictions/stories';
+import {
   isGradingEligible,
   sundayKickoffForWeek,
 } from '@/lib/predictions/rules';
@@ -32,6 +43,8 @@ export type PredictionPlayer = {
   nflTeam: string;
   slot: string;
   projectedPoints: number | null;
+  actualPoints: number | null;
+  eligiblePositions: string[];
   starter: boolean;
 };
 
@@ -54,6 +67,8 @@ export type PredictionMatchup = {
   sleeperMatchupId: number;
   home: PredictionTeam;
   away: PredictionTeam;
+  preview?: MatchupPreview | null;
+  review?: MatchupStory | null;
 };
 
 export type PredictionWeekData = {
@@ -68,6 +83,8 @@ export type PredictionWeekData = {
   availability: 'ready' | 'waiting' | 'unavailable';
   sourceComplete: boolean;
   gradingEligible: boolean;
+  previewEligible?: boolean;
+  previewWindow?: 'before' | 'open' | 'closed';
   matchups: PredictionMatchup[];
 };
 
@@ -81,10 +98,11 @@ type StoredMatchup = {
   home_final: number | string | null;
   away_final: number | string | null;
   status: 'scheduled' | 'locked' | 'final';
+  preview_story?: unknown;
 };
 
 const STORED_FIELDS =
-  'id,sleeper_matchup_id,home_roster_id,away_roster_id,home_projected,away_projected,home_final,away_final,status';
+  'id,sleeper_matchup_id,home_roster_id,away_roster_id,home_projected,away_projected,home_final,away_final,status,preview_story';
 
 function teamNameFor(user: SleeperUser | undefined, roster: SleeperRoster) {
   const ownerId = roster.owner_id ?? '';
@@ -128,6 +146,8 @@ function createPlayer(
       nflTeam: '—',
       slot,
       projectedPoints: 0,
+      actualPoints: 0,
+      eligiblePositions: [],
       starter,
     };
   }
@@ -140,6 +160,9 @@ function createPlayer(
     nflTeam: player?.team ?? 'FA',
     slot,
     projectedPoints: projectionFor(playerId, projectionByPlayer),
+    actualPoints: null,
+    eligiblePositions:
+      player?.fantasy_positions ?? (player?.position ? [player.position] : []),
     starter,
   };
 }
@@ -177,10 +200,27 @@ function createTeam(
         0,
     );
 
+  for (const [index, starter] of starters.entries()) {
+    if (starter.id.endsWith('-empty')) continue;
+    const score =
+      matchup.starters_points?.[index] ?? matchup.players_points?.[starter.id];
+    starter.actualPoints =
+      typeof score === 'number' && Number.isFinite(score) ? score : null;
+  }
+  for (const player of bench) {
+    const score = matchup.players_points?.[player.id];
+    player.actualPoints =
+      typeof score === 'number' && Number.isFinite(score) ? score : null;
+  }
+
   return {
     rosterId: roster.roster_id,
     teamName: teamNameFor(user, roster),
-    ownerName: user?.display_name ?? 'Unassigned',
+    ownerName: storyManagerName(
+      roster.roster_id,
+      user?.display_name ?? 'Unassigned',
+      league.league_id,
+    ),
     avatar:
       leagueConfig.teamAvatarOverrides[roster.owner_id ?? ''] ??
       user?.metadata?.avatar ??
@@ -335,6 +375,13 @@ async function loadPredictionSource(
     (state.season === season &&
       (state.season_type === 'post' ||
         (state.season_type === 'regular' && state.week > week)));
+  const previewAt = previewPublishTimeForLock(lockAt).getTime();
+  const previewWindow =
+    Date.now() < previewAt
+      ? 'before'
+      : Date.now() < previewAt + 7200000
+        ? 'open'
+        : 'closed';
   return {
     leagueId: league.league_id,
     season,
@@ -347,6 +394,14 @@ async function loadPredictionSource(
     availability: matchups.length ? 'ready' : 'waiting',
     sourceComplete,
     gradingEligible: weekHasEnded && isGradingEligible(lockAt),
+    previewWindow,
+    previewEligible:
+      !weekHasEnded &&
+      entries.every((row) => matchupScore(row) === 0) &&
+      canPublishPreview(
+        lockAt,
+        projections.flatMap((p) => (p.date ? [p.date] : [])),
+      ),
     matchups,
   };
 }
@@ -392,6 +447,11 @@ function withStoredMatchups(
       return {
         ...matchup,
         databaseId: row.id,
+        preview: [matchup.home.rosterId, matchup.away.rosterId].includes(
+          readPreview(row.preview_story)?.pickRosterId ?? -1,
+        )
+          ? readPreview(row.preview_story)
+          : null,
         home: {
           ...matchup.home,
           actualScore:
@@ -439,7 +499,7 @@ export async function getPredictionWeekData(
       .select(STORED_FIELDS)
       .eq('prediction_week_id', weekRow.id);
     if (error || !rows) return { ...data, availability: 'unavailable' };
-    return withStoredMatchups(
+    const result = withStoredMatchups(
       {
         ...data,
         lockAt: weekRow.locks_at,
@@ -447,6 +507,26 @@ export async function getPredictionWeekData(
       },
       rows as StoredMatchup[],
     );
+    if (result.finalized) {
+      const scores = result.matchups.flatMap((m) => [
+        m.home.actualScore!,
+        m.away.actualScore!,
+      ]);
+      result.matchups = result.matchups.map((matchup) => ({
+        ...matchup,
+        review: createMatchupReview(
+          matchup,
+          {
+            leagueId: result.leagueId,
+            season: result.season,
+            week: result.week,
+            history: [],
+          },
+          scores,
+        ),
+      }));
+    }
+    return result;
   } catch {
     const week = Math.max(
       1,
@@ -593,6 +673,56 @@ async function syncPredictionWeek(data: PredictionWeekData) {
   const result = withStoredMatchups(data, confirmed.data as StoredMatchup[]);
   if (scoresReady && !result.finalized)
     throw new Error('Prediction results were not fully saved');
+  if (
+    data.previewEligible &&
+    !data.locked &&
+    Date.now() < previewPublishTimeForLock(data.lockAt).getTime() + 7200000
+  ) {
+    const history: StoryHistory = [];
+    for (let start = 1; start < data.week; start += 4) {
+      const prior = Array.from(
+        { length: Math.min(4, data.week - start) },
+        (_, i) => start + i,
+      );
+      history.push(
+        ...(await Promise.all(
+          prior.map(async (week) => ({
+            week,
+            rows: await getMatchups(data.leagueId, week).catch(() => null),
+          })),
+        )),
+      );
+    }
+    for (const matchup of result.matchups) {
+      if (matchup.preview) continue;
+      const preview = createMatchupPreview(matchup, {
+        leagueId: data.leagueId,
+        season: data.season,
+        week: data.week,
+        history,
+      });
+      if (!preview)
+        throw new Error(
+          'Complete projections are not yet available for the preview',
+        );
+      const saved = await admin
+        .from('prediction_matchups')
+        .update({ preview_story: preview })
+        .eq('id', matchup.databaseId!)
+        .eq('status', 'scheduled')
+        .is('preview_story', null)
+        .select('preview_story');
+      if (saved.error) throw new Error('Could not save matchup preview');
+      const confirmedPreview = await admin
+        .from('prediction_matchups')
+        .select('preview_story')
+        .eq('id', matchup.databaseId!)
+        .single();
+      matchup.preview = readPreview(confirmedPreview.data?.preview_story);
+      if (confirmedPreview.error || !matchup.preview)
+        throw new Error('Could not confirm matchup preview');
+    }
+  }
   return result;
 }
 
@@ -630,6 +760,7 @@ export async function syncPredictionWeeksForCron() {
           week: result.week,
           matchups: result.matchups.length,
           finalized: result.finalized,
+          previews: result.matchups.filter((m) => m.preview).length,
           ok:
             (result.availability === 'waiting' && !result.gradingEligible) ||
             (result.databaseReady &&

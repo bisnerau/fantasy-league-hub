@@ -54,6 +54,7 @@ import type {
   PredictionWeekData,
 } from '@/lib/data/predictions';
 import { cn } from '@/lib/utils';
+import { MatchupEditorial } from './matchup-editorial';
 
 type VoterDisplay = {
   id: string;
@@ -365,6 +366,8 @@ function TeamChoice({
 
 function MatchupPanel({
   matchup,
+  lockAt,
+  previewWindow,
   index,
   locked,
   finalized,
@@ -379,6 +382,8 @@ function MatchupPanel({
   onRequireLogin,
 }: {
   matchup: PredictionMatchup;
+  lockAt: string;
+  previewWindow?: 'before' | 'open' | 'closed';
   index: number;
   locked: boolean;
   finalized: boolean;
@@ -530,6 +535,21 @@ function MatchupPanel({
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      <MatchupEditorial
+        matchup={matchup}
+        lockAt={lockAt}
+        previewWindow={previewWindow}
+        finalized={finalized}
+        receipt={
+          finalized && user && votersReady
+            ? totalVotes === 0
+              ? 'No member picks were recorded for this matchup.'
+              : matchup.home.actualScore === matchup.away.actualScore
+                ? `${totalVotes} managers picked a winner; the tie gives nobody a correct winner pick.`
+                : `${matchup.home.actualScore! > matchup.away.actualScore! ? homeVoters.length : awayVoters.length} of ${totalVotes} voters backed ${matchup.home.actualScore! > matchup.away.actualScore! ? matchup.home.ownerName : matchup.away.ownerName}, the winning side. The original picks stay on the record.`
+            : undefined
+        }
+      />
     </Card>
   );
 }
@@ -979,6 +999,8 @@ export function PredictionCentre({
             <MatchupPanel
               key={matchup.sleeperMatchupId}
               matchup={matchup}
+              lockAt={data.lockAt}
+              previewWindow={data.previewWindow}
               index={index}
               locked={locked}
               finalized={data.finalized}

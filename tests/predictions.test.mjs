@@ -51,6 +51,7 @@ let weeks;
 let matchups;
 let writes;
 let fail;
+let storyProjections;
 
 function response(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -62,6 +63,7 @@ function matches(row, url) {
   return [...url.searchParams.entries()].every(([key, value]) => {
     if (value.startsWith('eq.')) return String(row[key]) === value.slice(3);
     if (value.startsWith('neq.')) return String(row[key]) !== value.slice(4);
+    if (value === 'is.null') return row[key] == null;
     return true;
   });
 }
@@ -105,6 +107,7 @@ beforeEach(() => {
   matchups = [];
   writes = [];
   fail = null;
+  storyProjections = [];
   mock.method(Date, 'now', () => Date.parse('2026-09-15T10:00:00Z'));
   mock.method(globalThis, 'fetch', async (input, options = {}) => {
     const url = new URL(
@@ -122,7 +125,8 @@ beforeEach(() => {
         return fail === 'drafts' ? response({}, 503) : response([]);
       if (url.pathname === '/v1/league/fixture-league') return response(league);
       if (url.pathname === '/v1/players/nfl') return response({});
-      if (url.pathname.startsWith('/projections/')) return response([]);
+      if (url.pathname.startsWith('/projections/'))
+        return response(storyProjections);
       throw new Error(`Unmocked Sleeper endpoint: ${url.pathname}`);
     }
     assert.equal(
@@ -216,6 +220,56 @@ void test('Tuesday 11am Irish sync grades a previous week and never writes votes
     1,
   );
   assert.ok(results.every((row) => row.ok));
+});
+void test('Thursday cron archives a preview once; later calls and reads preserve the original prediction', async () => {
+  seedWeek(2, 'scheduled');
+  entries.forEach((row) => {
+    row.points = 0;
+  });
+  storyProjections = [1, 2].map((id) => ({
+    player_id: `player-${id}`,
+    stats: { pts_ppr: id === 1 ? 20 : 15 },
+    date: '2026-09-17',
+  }));
+  mock.method(Date, 'now', () => Date.parse('2026-09-17T10:00:00Z'));
+  const result = await syncPredictionWeeksForCron();
+  assert.equal(result[0].previews, 1);
+  const original = structuredClone(matchups[0].preview_story);
+  assert.equal(original.pickRosterId, 1);
+  storyProjections[0].stats.pts_ppr = 1;
+  await syncPredictionWeeksForCron();
+  assert.deepEqual(matchups[0].preview_story, original);
+  const beforeRead = writes.length;
+  const data = await getPredictionWeekData(2);
+  assert.deepEqual(data.matchups[0].preview, original);
+  assert.equal(writes.length, beforeRead);
+});
+void test('a silent preview write failure is reported and retried', async () => {
+  seedWeek(2, 'scheduled');
+  entries.forEach((row) => {
+    row.points = 0;
+  });
+  storyProjections = [1, 2].map((id) => ({
+    player_id: `player-${id}`,
+    stats: { pts_ppr: 20 },
+    date: '2026-09-17',
+  }));
+  mock.method(Date, 'now', () => Date.parse('2026-09-17T10:00:00Z'));
+  fail = 'silent-write';
+  assert.equal((await syncPredictionWeeksForCron())[0].ok, false);
+  assert.equal(matchups[0].preview_story, undefined);
+  fail = null;
+  assert.equal((await syncPredictionWeeksForCron())[0].previews, 1);
+});
+void test('past games do not get backfilled previews; final pages get read-only reviews', async () => {
+  seedWeek(1);
+  await syncPredictionWeeksForCron();
+  assert.equal(matchups[0].preview_story, undefined);
+  const beforeRead = writes.length;
+  const data = await getPredictionWeekData(1);
+  assert.match(data.matchups[0].review.summary, /110.00–90.00/);
+  assert.equal(data.matchups[0].preview, null);
+  assert.equal(writes.length, beforeRead);
 });
 void test('sync holds completed scores until the Tuesday 11am Irish cutoff', async () => {
   seedWeek(1);
