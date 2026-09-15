@@ -92,8 +92,9 @@ export default async function SeasonHubPage() {
       >
         <h2 className="text-lg font-semibold">Weekly awards</h2>
         <p className="mt-2 text-xs leading-6 text-muted-foreground">
-          Regular season, Weeks 1–14. Results wait until at least Wednesday and
-          the NFL week has advanced. No qualifying performance means no award.
+          Regular season, Weeks 1–14. Results are available from Tuesday at
+          11am Irish time, once the NFL week has advanced. No qualifying
+          performance means no award.
           Ties share the honour; each manager earns at most one of each award
           per week.
         </p>
