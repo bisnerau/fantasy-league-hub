@@ -1,17 +1,13 @@
 import { leagueConfig } from '@/lib/config/league.config';
 import { getSupabaseAdminClient } from '@/lib/supabase/admin';
 import { getSupabaseReadClient } from '@/lib/supabase/read';
+import { getMatchupNewsletter } from '@/lib/data/matchup-newsletters';
 import { matchupScore } from '@/lib/sleeper/scores';
 import {
-  canPublishPreview,
-  createMatchupPreview,
-  createMatchupReview,
   readPreview,
   storyManagerName,
-  previewPublishTimeForLock,
   type MatchupPreview,
   type MatchupStory,
-  type StoryHistory,
 } from '@/lib/predictions/stories';
 import {
   isGradingEligible,
@@ -83,8 +79,6 @@ export type PredictionWeekData = {
   availability: 'ready' | 'waiting' | 'unavailable';
   sourceComplete: boolean;
   gradingEligible: boolean;
-  previewEligible?: boolean;
-  previewWindow?: 'before' | 'open' | 'closed';
   matchups: PredictionMatchup[];
 };
 
@@ -375,13 +369,6 @@ async function loadPredictionSource(
     (state.season === season &&
       (state.season_type === 'post' ||
         (state.season_type === 'regular' && state.week > week)));
-  const previewAt = previewPublishTimeForLock(lockAt).getTime();
-  const previewWindow =
-    Date.now() < previewAt
-      ? 'before'
-      : Date.now() < previewAt + 7200000
-        ? 'open'
-        : 'closed';
   return {
     leagueId: league.league_id,
     season,
@@ -394,14 +381,6 @@ async function loadPredictionSource(
     availability: matchups.length ? 'ready' : 'waiting',
     sourceComplete,
     gradingEligible: weekHasEnded && isGradingEligible(lockAt),
-    previewWindow,
-    previewEligible:
-      !weekHasEnded &&
-      entries.every((row) => matchupScore(row) === 0) &&
-      canPublishPreview(
-        lockAt,
-        projections.flatMap((p) => (p.date ? [p.date] : [])),
-      ),
     matchups,
   };
 }
@@ -507,25 +486,21 @@ export async function getPredictionWeekData(
       },
       rows as StoredMatchup[],
     );
-    if (result.finalized) {
-      const scores = result.matchups.flatMap((m) => [
-        m.home.actualScore!,
-        m.away.actualScore!,
-      ]);
-      result.matchups = result.matchups.map((matchup) => ({
+    result.matchups = result.matchups.map((matchup) => {
+      const edition = getMatchupNewsletter({
+        leagueId: result.leagueId,
+        season: result.season,
+        week: result.week,
+        sleeperMatchupId: matchup.sleeperMatchupId,
+        homeRosterId: matchup.home.rosterId,
+        awayRosterId: matchup.away.rosterId,
+      });
+      return {
         ...matchup,
-        review: createMatchupReview(
-          matchup,
-          {
-            leagueId: result.leagueId,
-            season: result.season,
-            week: result.week,
-            history: [],
-          },
-          scores,
-        ),
-      }));
-    }
+        preview: edition.preview ?? matchup.preview,
+        review: result.finalized ? edition.review : null,
+      };
+    });
     return result;
   } catch {
     const week = Math.max(
@@ -673,56 +648,6 @@ async function syncPredictionWeek(data: PredictionWeekData) {
   const result = withStoredMatchups(data, confirmed.data as StoredMatchup[]);
   if (scoresReady && !result.finalized)
     throw new Error('Prediction results were not fully saved');
-  if (
-    data.previewEligible &&
-    !data.locked &&
-    Date.now() < previewPublishTimeForLock(data.lockAt).getTime() + 7200000
-  ) {
-    const history: StoryHistory = [];
-    for (let start = 1; start < data.week; start += 4) {
-      const prior = Array.from(
-        { length: Math.min(4, data.week - start) },
-        (_, i) => start + i,
-      );
-      history.push(
-        ...(await Promise.all(
-          prior.map(async (week) => ({
-            week,
-            rows: await getMatchups(data.leagueId, week).catch(() => null),
-          })),
-        )),
-      );
-    }
-    for (const matchup of result.matchups) {
-      if (matchup.preview) continue;
-      const preview = createMatchupPreview(matchup, {
-        leagueId: data.leagueId,
-        season: data.season,
-        week: data.week,
-        history,
-      });
-      if (!preview)
-        throw new Error(
-          'Complete projections are not yet available for the preview',
-        );
-      const saved = await admin
-        .from('prediction_matchups')
-        .update({ preview_story: preview })
-        .eq('id', matchup.databaseId!)
-        .eq('status', 'scheduled')
-        .is('preview_story', null)
-        .select('preview_story');
-      if (saved.error) throw new Error('Could not save matchup preview');
-      const confirmedPreview = await admin
-        .from('prediction_matchups')
-        .select('preview_story')
-        .eq('id', matchup.databaseId!)
-        .single();
-      matchup.preview = readPreview(confirmedPreview.data?.preview_story);
-      if (confirmedPreview.error || !matchup.preview)
-        throw new Error('Could not confirm matchup preview');
-    }
-  }
   return result;
 }
 

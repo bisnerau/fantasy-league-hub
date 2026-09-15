@@ -2,7 +2,6 @@
 
 import type { PredictionMatchup } from '@/lib/data/predictions';
 import type { MatchupStory } from '@/lib/predictions/stories';
-import { previewPublishTimeForLock } from '@/lib/predictions/stories';
 import { formatLockTime, settlementTimeForLock } from '@/lib/predictions/rules';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import {
@@ -53,9 +52,11 @@ function Breakdown({
                 </section>
               )}
               <p className="border-t border-border pt-3 text-xs leading-5 text-muted-foreground">
-                {kind === 'preview'
-                  ? 'Based on the recorded Thursday lineup and Sleeper PPR estimates, which may differ from league-scored projections. Lineups can change afterwards.'
-                  : 'Based on settled team results and Sleeper’s recorded player points. Individual breakdowns can reflect later stat corrections; saved final team scores remain the grading record.'}
+                {story.editorial
+                  ? 'MAC 12 newsletter · Sleeper results, league history and a little perspective.'
+                  : kind === 'preview'
+                    ? 'Based on the recorded Thursday lineup and Sleeper PPR estimates, which may differ from league-scored projections. Lineups can change afterwards.'
+                    : 'Based on settled team results and Sleeper’s recorded player points. Individual breakdowns can reflect later stat corrections; saved final team scores remain the grading record.'}
               </p>
             </div>
           </AccordionContent>
@@ -70,15 +71,14 @@ export function MatchupEditorial({
   lockAt,
   finalized,
   receipt,
-  previewWindow,
+  locked,
 }: {
   matchup: PredictionMatchup;
   lockAt: string;
   finalized: boolean;
   receipt?: string;
-  previewWindow?: 'before' | 'open' | 'closed';
+  locked: boolean;
 }) {
-  const publication = previewPublishTimeForLock(lockAt);
   return (
     <div className="border-t border-border px-3.5 py-3 sm:px-4">
       <Tabs
@@ -107,11 +107,9 @@ export function MatchupEditorial({
             </>
           ) : (
             <p className="py-2 text-sm leading-6 text-muted-foreground">
-              {previewWindow === 'closed' || finalized
-                ? 'No pregame preview was saved for this matchup. We won’t write a prediction after the fact.'
-                : previewWindow === 'open'
-                  ? 'The Thursday edition is being prepared. It will appear here once complete projections are available.'
-                  : `The preview arrives ${formatLockTime(publication.toISOString())}, after the week’s waiver moves. Our winner call will stay here for the review.`}
+              {locked || finalized
+                ? 'No pregame newsletter was published for this matchup.'
+                : 'The Thursday newsletter has not been published yet. Each edition includes our winner call, saved here for the review.'}
             </p>
           )}
         </TabsContent>
@@ -120,10 +118,9 @@ export function MatchupEditorial({
             <Breakdown story={matchup.review} kind="review" receipt={receipt} />
           ) : (
             <p className="py-2 text-sm leading-6 text-muted-foreground">
-              The review follows settled results from{' '}
-              {formatLockTime(settlementTimeForLock(lockAt).toISOString())}.
-              Standout players, the bench receipt and our original call will all
-              get their turn.
+              {finalized
+                ? 'The result is final. The Tuesday newsletter review has not been published yet.'
+                : `The Tuesday newsletter will revisit this game once results settle, from ${formatLockTime(settlementTimeForLock(lockAt).toISOString())}.`}
             </p>
           )}
         </TabsContent>

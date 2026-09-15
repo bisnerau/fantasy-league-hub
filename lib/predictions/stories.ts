@@ -11,6 +11,7 @@ import { leagueMembers } from '@/lib/data/member-directory';
 export type StorySection = { title: string; text: string };
 export type MatchupStory = {
   version: 1;
+  editorial?: boolean;
   headline: string;
   summary: string;
   sections: StorySection[];

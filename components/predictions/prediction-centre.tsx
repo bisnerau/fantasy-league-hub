@@ -367,7 +367,6 @@ function TeamChoice({
 function MatchupPanel({
   matchup,
   lockAt,
-  previewWindow,
   index,
   locked,
   finalized,
@@ -383,7 +382,6 @@ function MatchupPanel({
 }: {
   matchup: PredictionMatchup;
   lockAt: string;
-  previewWindow?: 'before' | 'open' | 'closed';
   index: number;
   locked: boolean;
   finalized: boolean;
@@ -538,7 +536,7 @@ function MatchupPanel({
       <MatchupEditorial
         matchup={matchup}
         lockAt={lockAt}
-        previewWindow={previewWindow}
+        locked={locked}
         finalized={finalized}
         receipt={
           finalized && user && votersReady
@@ -1000,7 +998,6 @@ export function PredictionCentre({
               key={matchup.sleeperMatchupId}
               matchup={matchup}
               lockAt={data.lockAt}
-              previewWindow={data.previewWindow}
               index={index}
               locked={locked}
               finalized={data.finalized}

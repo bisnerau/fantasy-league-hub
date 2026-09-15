@@ -1,60 +1,84 @@
-# Weekly matchup previews and reviews
+# MAC 12 matchup newsletter
 
-Every matchup in Weekly Picks has Preview and Review tabs beneath the lineup
-section. Each opens with a short summary and an expandable breakdown. Reviews
-are selected for settled weeks; upcoming weeks select Preview.
+## Agreed workflow
 
-## Voice and content
+The commissioner prompts Codex for **reviews on Tuesdays** and **previews on
+Thursdays**. These are individually researched and written newsletter editions.
+There is no scheduled AI author and no automatic template publication. The daily
+cron still prepares ballots and settles results after Tuesday 11am Irish time.
 
-League newsletter analysis with friendly slagging, generated automatically from
-structured Sleeper facts. No external AI service, API key or generation charge
-is required. Copy is assembled from the facts; it does not claim to report live
-NFL news, injuries, touchdowns or the sequence of scoring plays.
+Every matchup in Weekly Picks has Preview and Review tabs, a short summary and
+an expandable full story. A missing edition says it has not been published.
+Final games default to Review. Published previews remain available afterwards.
 
-Previews cover pregame form, the biggest projected player contributions, the
-largest lineup-slot projection gap, verified 2025 meetings and an explicit
-winner call. The call uses the higher complete starting-lineup PPR estimate;
-equal estimates get an explicitly labelled coin-flip choice of the first-listed
-team. These estimates are not custom-league projections or win probabilities.
-Hugo Walsh and Alan Horgan share a home; their matchup is the household derby.
+## Writing brief
 
-Reviews explain the settled result, league-wide scoring context, each side’s
-leading and lowest-scoring starters, one position-compatible bench alternative,
-and whether the archived preview picked the winner. Bench alternatives are
-hindsight, not claims that a move was available before kickoff. Authenticated
-members also see how many recorded voters backed the winning team; this uses
-the existing member-only vote reads, with no public vote data in story storage.
+- Informed league newsletter with friendly slagging: story first, numbers in
+  support. The commissioner rejected the initial stats-heavy reports.
+- Give each game its own headline, a short enticing summary and roughly three
+  short sections. Aim for about 180–250 words overall, without padding.
+- Use a few telling stats, not a catalogue of every starter and their score.
+  The matchup card already displays the result. Explain why a number matters.
+- Use established manager personalities, genuine league history and fair jokes.
+  Read `lib/data/managers.ts`. Hugo Walsh and Alan Horgan live together; their
+  Week 2 matchup is the household derby. Never invent quotes or private events.
+- Do not claim a scoring sequence, injury explanation, player usage or NFL news
+  without verifying it. A zero is not proof that somebody forgot their lineup.
+- Previews make an editorial winner call. It can favour the underdog when the
+  reasoning supports it; it need not follow the largest projection.
+- Reviews own the original call, including mistakes. For Week 1, there was no
+  pregame edition. Do not invent or repeatedly apologise for a missing call.
+- Member voting details stay in the authenticated receipt section, never copied
+  into public newsletter prose. It is fine to describe public awards.
 
-## Publication and preservation
+## Research and publish an edition
 
-- Previews publish Thursday at 11am Europe/Dublin via the existing daily cron.
-  The 10:00/11:00 UTC schedules cover Irish summer and winter time. Vercel Hobby
-  delivery may occur within the following hour. Publication is restricted to
-  the two-hour morning window, before ordinary Thursday NFL games.
-- A preview requires complete nonzero team estimates, dated projection data
-  with no game date before Thursday, and zero points in every current matchup.
-  An unusual Wednesday game or missing data can prevent that week’s edition;
-  the site does not manufacture a pregame prediction afterwards.
-- A nullable `prediction_matchups.preview_story` JSONB column stores the whole
-  preview, publication timestamp, winner call and both estimates. The cron only
-  writes when the column is null and the matchup is scheduled. Retries read
-  back the saved row; concurrent runs cannot replace the original edition.
-- Reviews appear on read once the existing Tuesday 11am Irish settlement gate
-  has passed and all stored matchups are final. Page requests remain read-only.
-  Final stored totals determine the result. Player breakdowns use Sleeper’s
-  recorded historical lineup, which may reflect later stat corrections.
-- Week 1 has reviews and an explicit notice that no pregame preview was saved.
-  Week 2’s first edition is Thursday 17 September 2026 at 11am Irish time.
+1. Read current Sleeper fixtures, recorded lineups and projections for previews;
+   use settled stored scores plus historical player points for reviews. Verify
+   every number and matchup identity. Inspect previous editions, manager
+   history, last week's form and relevant waiver moves. Research any additional
+   NFL claims from current primary sources.
+2. Write the edition in `lib/data/newsletters/<season>-week-<week>.ts`, with one
+   `MatchupNewsletter` record per game. Match league ID, season, week, Sleeper
+   matchup ID and both roster IDs exactly. Add it to the index in
+   `lib/data/matchup-newsletters.ts`.
+3. Set `editorial: true` on stories. Each review has `version`, `publishedAt`,
+   `headline`, `summary` and `sections`. Each preview additionally preserves
+   `pickRosterId`, `homeProjection` and `awayProjection` from its original
+   source snapshot. PPR estimates may differ from custom-league projections.
+4. Publish previews before the first NFL game of the week. Check the actual
+   schedule, including unusual Wednesday games, rather than relying on the
+   Sunday pick deadline. If the request arrives too late, say so; never backdate
+   a prediction. Keep published previews unchanged when adding the review.
+5. Reviews must wait for finalized prediction results. The page enforces this
+   even if a review file exists. Future-dated editions remain hidden.
+6. Run the relevant tests, lint and production build. Deploy through the existing
+   Vercel Git workflow, then verify all six live stories and the active week.
 
-## Validation
+The authoring helpers in `lib/predictions/stories.ts` can assemble a factual
+outline (including position-compatible bench alternatives), but they are not
+connected to automatic publication. A hindsight bench alternative does not
+establish that a change was available before the players locked.
 
-`tests/matchup-stories.test.mjs` covers Irish publication boundaries, suppression
-after earlier games, historical form without hindsight, missing projections,
-household context, correct/incorrect/tied calls, missing player scores, legal
-single bench swaps and all-play counts. Prediction integration tests cover
-immutable archives, silent-write retries, no retrospective previews, and
-read-only review generation. Existing vote and settlement tests still apply.
+## Storage and privacy
 
-Deploy the additive Supabase migration before the app. The existing public-read
-and service-role-write matchup policies apply to the new column; no member
-permissions, ballots or vote rows are changed.
+Authored editions are saved in source control. The existing nullable
+`prediction_matchups.preview_story` column is retained for older archived
+previews; the cron neither generates nor overwrites it. Public page requests
+are read-only. Authored previews take precedence over a legacy stored template;
+new editions must preserve any genuine prior published winner call.
+
+Scores, awards and pick grading remain automatic. Newsletter prose requires the
+commissioner's prompt. There is no external model API key or recurring model
+charge configured.
+
+## Initial edition and checks
+
+`lib/data/newsletters/2026-week-1.ts` contains six individually written reviews,
+checked against the settled Week 1 results on 15 September 2026. There are no
+Week 1 previews and no Week 2 previews yet.
+
+Tests cover exact edition-to-fixture matching, hidden future editions, authored
+underdog calls, read-only pages, settlement gating and a Thursday cron that
+cannot generate or overwrite editorial text. The existing score, vote, timezone
+and factual analysis tests remain in place.

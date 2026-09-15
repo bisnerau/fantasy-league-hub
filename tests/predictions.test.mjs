@@ -15,6 +15,8 @@ const {
 } = await import('../lib/data/predictions.ts');
 const { getDashboardData } = await import('../lib/data/dashboard.ts');
 const { GET } = await import('../app/api/cron/predictions/route.ts');
+const { matchupNewsletters } =
+  await import('../lib/data/matchup-newsletters.ts');
 
 const league = {
   league_id: 'fixture-league',
@@ -221,30 +223,7 @@ void test('Tuesday 11am Irish sync grades a previous week and never writes votes
   );
   assert.ok(results.every((row) => row.ok));
 });
-void test('Thursday cron archives a preview once; later calls and reads preserve the original prediction', async () => {
-  seedWeek(2, 'scheduled');
-  entries.forEach((row) => {
-    row.points = 0;
-  });
-  storyProjections = [1, 2].map((id) => ({
-    player_id: `player-${id}`,
-    stats: { pts_ppr: id === 1 ? 20 : 15 },
-    date: '2026-09-17',
-  }));
-  mock.method(Date, 'now', () => Date.parse('2026-09-17T10:00:00Z'));
-  const result = await syncPredictionWeeksForCron();
-  assert.equal(result[0].previews, 1);
-  const original = structuredClone(matchups[0].preview_story);
-  assert.equal(original.pickRosterId, 1);
-  storyProjections[0].stats.pts_ppr = 1;
-  await syncPredictionWeeksForCron();
-  assert.deepEqual(matchups[0].preview_story, original);
-  const beforeRead = writes.length;
-  const data = await getPredictionWeekData(2);
-  assert.deepEqual(data.matchups[0].preview, original);
-  assert.equal(writes.length, beforeRead);
-});
-void test('a silent preview write failure is reported and retried', async () => {
+void test('Thursday sync prepares picks without generating or overwriting newsletter previews', async () => {
   seedWeek(2, 'scheduled');
   entries.forEach((row) => {
     row.points = 0;
@@ -255,21 +234,82 @@ void test('a silent preview write failure is reported and retried', async () => 
     date: '2026-09-17',
   }));
   mock.method(Date, 'now', () => Date.parse('2026-09-17T10:00:00Z'));
-  fail = 'silent-write';
-  assert.equal((await syncPredictionWeeksForCron())[0].ok, false);
+  assert.equal((await syncPredictionWeeksForCron())[0].ok, true);
   assert.equal(matchups[0].preview_story, undefined);
-  fail = null;
-  assert.equal((await syncPredictionWeeksForCron())[0].previews, 1);
+  const archived = {
+    version: 1,
+    headline: 'Original edition',
+    summary: 'Our original call.',
+    sections: [],
+    publishedAt: '2026-09-17T10:00:00Z',
+    pickRosterId: 1,
+    homeProjection: 20,
+    awayProjection: 15,
+  };
+  matchups[0].preview_story = archived;
+  await syncPredictionWeeksForCron();
+  assert.deepEqual(matchups[0].preview_story, archived);
+  const beforeRead = writes.length;
+  assert.deepEqual(
+    (await getPredictionWeekData(2)).matchups[0].preview,
+    archived,
+  );
+  assert.equal(writes.length, beforeRead);
 });
-void test('past games do not get backfilled previews; final pages get read-only reviews', async () => {
+void test('past games do not get backfilled previews or automatically written reviews', async () => {
   seedWeek(1);
   await syncPredictionWeeksForCron();
   assert.equal(matchups[0].preview_story, undefined);
   const beforeRead = writes.length;
   const data = await getPredictionWeekData(1);
-  assert.match(data.matchups[0].review.summary, /110.00–90.00/);
+  assert.equal(data.matchups[0].review, null);
   assert.equal(data.matchups[0].preview, null);
   assert.equal(writes.length, beforeRead);
+});
+void test('authored reviews stay hidden until settlement and reads preserve the written winner call', async (t) => {
+  seedWeek(1);
+  const preview = {
+    version: 1,
+    editorial: true,
+    headline: 'An underdog call',
+    summary: 'Manager two gets the nod.',
+    sections: [],
+    publishedAt: '2026-09-10T10:00:00Z',
+    pickRosterId: 2,
+    homeProjection: 110,
+    awayProjection: 90,
+  };
+  const review = {
+    version: 1,
+    editorial: true,
+    headline: 'We got that wrong',
+    summary: 'Manager one won this one.',
+    sections: [],
+    publishedAt: '2026-09-15T10:00:00Z',
+  };
+  const edition = {
+    leagueId: league.league_id,
+    season: '2026',
+    week: 1,
+    sleeperMatchupId: 1,
+    homeRosterId: 1,
+    awayRosterId: 2,
+    preview,
+    review,
+  };
+  matchupNewsletters.push(edition);
+  t.after(() =>
+    matchupNewsletters.splice(matchupNewsletters.indexOf(edition), 1),
+  );
+  const before = await getPredictionWeekData(1);
+  assert.deepEqual(before.matchups[0].preview, preview);
+  assert.equal(before.matchups[0].review, null);
+  await syncPredictionWeeksForCron();
+  const writesBeforeRead = writes.length;
+  const after = await getPredictionWeekData(1);
+  assert.deepEqual(after.matchups[0].review, review);
+  assert.equal(after.matchups[0].preview.pickRosterId, 2);
+  assert.equal(writes.length, writesBeforeRead);
 });
 void test('sync holds completed scores until the Tuesday 11am Irish cutoff', async () => {
   seedWeek(1);
