@@ -40,21 +40,21 @@ export const weekTwoReports: MatchupNewsletter[] = [
       pickRosterId: 11,
       homeProjection: 108.9,
       awayProjection: 115.66,
-      headline: 'Sharpe’s next escape route runs through the commissioner',
+      headline: 'David discovers you can win twice without learning anything',
       summary:
-        'Burns scored more than twice David’s total last week. Both got one win. Now the Thursday estimates favour Sharpe, which feels like an administrative error the commissioner ought to have prevented.',
+        'Burns scored more than twice David’s total last week and got the same head-to-head win. Now Sharpe is projected to beat him. The commissioner has built an entire website just to have this information displayed in public.',
       sections: [
         {
-          title: 'The receipt has an awkward small print',
-          text: 'David’s 78.02-point opener was enough to beat Murphy and almost nobody else. This assignment is rather less forgiving. Achane, Hampton and Tetairoa McMillan give him a credible route to a proper score, while Rashee Rice remains in the starting side. Sharpe also added Chris Brooks on Wednesday. The set-and-forget department has, at least briefly, opened for business.',
+          title: 'The bar was on the floor. Murphy brought a shovel.',
+          text: 'David won with 78.02 points. That is less a statement of intent than a clerical loophole. Achane, Hampton, Tetairoa McMillan and Rashee Rice give him a credible chance of earning this one. He even added Chris Brooks on Wednesday. A waiver move from Sharpe: somewhere, a phone has been taken off battery saver.',
         },
         {
-          title: 'Burns has some moving parts',
-          text: 'Nico Collins is on the bench in the recorded lineup, with Carnell Tate starting. Collins was limited by a hamstring issue in Wednesday’s official report; Thursday’s NFL update says his availability is in doubt. Swift was also limited on Thursday. That leaves Chase, Kyren Williams and Jaxson Dart carrying much of the commissioner’s argument, with the latter two playing each other on Monday night. There is still plenty of time for Burns to make this everyone else’s business.',
+          title: 'Burns considers offering someone three bench players',
+          text: 'Collins is benched for Carnell Tate in the recorded lineup. His hamstring limited him on Wednesday, and Thursday’s update leaves his availability in doubt. Swift was also limited on Thursday. Chase, Kyren Williams and Dart therefore carry much of the case, with Kyren and Dart facing each other on Monday. Burns has time to improve things, which means the rest of the league has time to receive a trade offer that mainly improves things for Burns.',
         },
         {
           title: 'The call: David Sharpe',
-          text: 'David, narrowly. The current PPR estimate gives him roughly seven points of breathing room, and his selected lineup has fewer immediate availability concerns. Burns has enough bench quality to change the picture, especially if Collins clears. On the team actually recorded tonight, however, Sharpe gets the nod. Two wins would be an outrageous return on last week’s investment.',
+          text: 'David, narrowly. His selected lineup has fewer immediate availability concerns and roughly seven points of projected breathing room. Collins clearing could change Burns’ outlook, but the recorded team favours Sharpe. If David reaches 2–0 after that opener, the commissioner should introduce a minimum-effort requirement. Unfortunately, he would have to enforce it against a man beating him.',
         },
       ],
       sources: [
@@ -79,21 +79,21 @@ export const weekTwoReports: MatchupNewsletter[] = [
       pickRosterId: 10,
       homeProjection: 121.1,
       awayProjection: 110.14,
-      headline: 'Murphy could do with turning it off and on again',
+      headline: 'Murphy’s auto-renewal has been declined',
       summary:
-        'Shane opened by beating the champion. Aidan opened with 57 points. The league’s most dependable passenger now needs a response against a manager who is considerably more dangerous when he remembers to participate.',
+        'Shane beat the champion. Aidan scored 57. For years Murphy has treated the playoffs like a standing order; apparently the bank would now like him to provide proof of football knowledge.',
       sections: [
         {
-          title: 'The champion collection continues',
-          text: 'Marmion has Lamar Jackson, CeeDee Lamb and Jaxon Smith-Njigba in the same starting side. That is a persuasive answer to most matchup questions. There is a complication for JSN: Seattle have ruled out Sam Darnold, with Drew Lock starting in Arizona. The projection still likes Shane, but treating every receiver estimate as business as usual would be generous.',
+          title: 'Marmion has remembered what the app is for',
+          text: 'Lamar Jackson, CeeDee Lamb and Jaxon Smith-Njigba give Shane a serious lineup when he is paying attention. That last clause has historically done some heavy lifting. JSN does have a complication: Darnold is ruled out and Drew Lock starts in Arizona. Shane remains the favourite, but Seattle changing quarterbacks is worth more consideration than his traditional troubleshooting method of leaving it until Tuesday.',
         },
         {
-          title: 'A different tight-end decision',
-          text: 'George Kittle is starting for Shane, while last week’s standout Isaiah Likely is on the bench. Kittle was limited with his Achilles issue in the 49ers’ Wednesday update, so that choice still needs watching. Murphy’s first chance to repair the mood comes through James Cook in tonight’s Bills–Lions game. Dak Prescott then faces Washington, while Drake London and Kyle Pitts offer a chance for Atlanta to improve Aidan’s Sunday considerably. Another Pitts zero would be testing the draft-day faith rather severely.',
+          title: 'Aidan could try asking Joe again',
+          text: 'Kittle starts for Shane ahead of last week’s standout Likely, despite being limited with his Achilles issue in Wednesday’s update. That needs watching. Murphy gets James Cook tonight, Prescott against Washington, and London and Pitts against Carolina. There is a recovery available here. Pitts returning another zero would be particularly unhelpful: Aidan already has a manager contributing nothing to the research department, so he cannot afford duplication at tight end.',
         },
         {
           title: 'The call: Shane Marmion',
-          text: 'Shane to make it two wins. His roughly eleven-point projected advantage has enough support across the lineup to survive a merely ordinary performance from one star. Murphy can absolutely recover from one ugly opener; the problem is that his opponent has rather more ways to win this particular game. Autopilot may need a destination change.',
+          text: 'Shane to go 2–0. His roughly eleven-point projected advantage rests on enough quality to survive one ordinary performance. Aidan’s season is hardly finished after one defeat, but the usual plan of drafting once and reappearing in the playoffs needs immediate maintenance. Joe has picked a team for him before. At what point does that become an ongoing support contract?',
         },
       ],
       sources: [
@@ -118,21 +118,22 @@ export const weekTwoReports: MatchupNewsletter[] = [
       pickRosterId: 7,
       homeProjection: 112.79,
       awayProjection: 119.49,
-      headline: 'Joe requests a result to go with the performance',
+      headline:
+        'Joe demands a win. Keenan demands we remember 2021.',
       summary:
-        'Ennis outscored Keenan last week and has the worse record. A direct meeting offers a convenient appeals process. Keenan would prefer the league to recognise that winning is a skill, particularly when Tommy is available.',
+        'Ennis outscored Keenan last week and still has the worse record. Keenan beat Tommy, which counts as a win under the rules even if it feels a bit like finding money in a coat.',
       sections: [
         {
-          title: 'One win does not settle the comeback',
-          text: 'Keenan got 32.7 points apiece from Ashton Jeanty and Christian Watson in the opener. Asking both to repeat that is a fairly demanding weekly business plan. Jeanty was a full participant on the Raiders’ Wednesday report despite an ankle listing, which is encouraging. Saquon Barkley and DeVonta Smith join him in the selected lineup, both facing Tennessee. There is enough here to make Joe earn his first win.',
+          title: 'The comeback documentary remains in development',
+          text: 'Jeanty and Watson supplied 32.7 points each for Keenan. The repeat-performance plan is straightforward: ask two players to have another enormous week and describe it as management. Jeanty practiced fully on Wednesday despite an ankle listing. Barkley and DeVonta Smith both face Tennessee. There is real quality here, but one win over Tommy does not mean we need the extended edition of Keenan’s 2021 championship speech.',
         },
         {
-          title: 'Ennis gets a useful update',
-          text: 'TreVeyon Henderson practiced fully again on Thursday after missing Week 1. That gives Joe a more encouraging picture at running back alongside Cam Skattebo. The glamour remains at receiver: Jefferson and Amon-Ra, with Malik Nabers in the flex. Amon-Ra and Sam LaPorta play tonight, so this contest could acquire a substantial first impression before either manager has finished preparing his excuses. Keenan’s Barkley–Smith pairing and Joe’s Jalen Hurts also make the Eagles game a shared source of celebration and irritation.',
+          title: 'Fourth place will not pursue itself',
+          text: 'Henderson practiced fully again on Thursday after missing Week 1, improving Joe’s outlook alongside Skattebo. Jefferson, Amon-Ra and Nabers give him a formidable receiver group. Amon-Ra and LaPorta play tonight, so he could establish an early lead while still composing the complaint about last week. Joe’s Hurts and Keenan’s Barkley–Smith pairing also make the Eagles game a shared interest. Both want Philadelphia touchdowns; each would prefer the other’s players to be fetching water.',
         },
         {
           title: 'The call: Joe Ennis',
-          text: 'Joe, with his receiver depth and Hurts giving him the slightly stronger overall case. The estimates separate them by under seven points, so this is no procession. Keenan can absolutely spoil the appeal; Ennis simply gets the better argument this time. It would be nice if the points department could finally forward it to the results department.',
+          text: 'Joe, thanks to the receivers and Hurts. The projected gap is under seven points, so Keenan has every chance of ruining another perfectly reasonable Ennis performance. Still, this looks like Joe’s route to a first win. His long-term ambition of finishing fourth deserves a start, and someone has to stop Keenan using a win over Tommy as evidence that the glory years are back.',
         },
       ],
       sources: [sleeper, chargers, thursday],
@@ -150,21 +151,21 @@ export const weekTwoReports: MatchupNewsletter[] = [
       pickRosterId: 6,
       homeProjection: 128.45,
       awayProjection: 114.43,
-      headline: 'One roof. Two lineups. An unbearable winner.',
+      headline: 'The household derby: loser still has to go home',
       summary:
-        'Hugo and Alan live together. Hugo is unbeaten, Alan is the defending champion, and only one of them has spent the week looking at Stefon Diggs’ bench points. The household derby arrives with its own editorial material.',
+        'Hugo and Alan live together, so muting the group chat will achieve absolutely nothing. Hugo has the form. Alan has the trophy. Whoever wins will be available for comment in every room.',
       sections: [
         {
-          title: 'Alan has located the Diggs button',
-          text: 'Diggs is now in Alan’s flex, with Jordan Addison on the bench. That will not recover last week’s defeat, but it does remove the most obvious opening line from Tuesday’s report. Jahmyr Gibbs plays tonight and supplies the largest individual estimate in this matchup. Alan has also swapped Minnesota’s defence for New England. There is evidence of actual management, which is an inconvenient development for anyone hoping to recycle the same joke.',
+          title: 'Alan discovers that bench points do not count',
+          text: 'Diggs is in the flex and Addison is on the bench. A major tactical breakthrough from the reigning champion, who spent Week 1 providing evidence for his own match report. Gibbs plays tonight and has the biggest individual estimate in the fixture. Alan has also replaced Minnesota’s defence with New England. He is making changes. Whether this is a title defence or a man desperately trying to avoid being slagged in his own kitchen remains unclear.',
         },
         {
-          title: 'The practice reports get a room too',
-          text: 'Burrow’s back and Olave’s limited practice listing need watching for Alan; Burrow said on Wednesday that he expects to play. Hugo has his own concern: McConkey missed Wednesday with a rib injury and remains in the recorded flex. Brock Bowers also missed that practice with a knee issue, although Mark Andrews is already Hugo’s selected tight end. Caleb Williams, Jonathan Taylor and David Montgomery still give the challenger a very respectable way to make home life difficult.',
+          title: 'The injury report may need its own key',
+          text: 'Burrow’s back and Olave’s limited practice listing need watching; Burrow said Wednesday he expects to play. Hugo has McConkey in the flex after Wednesday’s rib-related absence. Bowers also missed practice with a knee issue, although Andrews is already starting. Caleb Williams, Taylor and Montgomery keep Hugo dangerous. He could send the champion to 0–2 without even paying for transport to the gloating.',
         },
         {
           title: 'The call: Alan Horgan',
-          text: 'Alan to level their records. Gibbs and Javonte Williams give him a strong starting point, and the current estimate favours him by about fourteen. That call assumes Burrow and Olave are available; neither practice concern has been wished away. Hugo has the form, but Alan gets the narrow ownership rights to the kitchen conversation.',
+          text: 'Alan, assuming Burrow and Olave are available. Gibbs and Javonte Williams help build a projected advantage of about fourteen points. Hugo can overturn it, but the champion gets the call. If Alan wins, expect the trophy to become relevant to conversations it has absolutely no business being in. If Hugo wins, Alan may discover why most match reporters do not share accommodation with their subject.',
         },
       ],
       sources: [
@@ -190,21 +191,21 @@ export const weekTwoReports: MatchupNewsletter[] = [
       pickRosterId: 5,
       homeProjection: 105.35,
       awayProjection: 130.35,
-      headline: 'Potential meets the complaints department',
+      headline: 'Tommy and Karl present: Twelve Angry Excuses',
       summary:
-        'Tommy and Karl both need a first win. Between them, the explanation for any defeat should be immaculate. Karl brings the stronger Thursday lineup; Tommy brings Puka Nacua and the continuing possibility that this is finally the week.',
+        'One man knows exactly why his players should be better. The other knows exactly why his opponents should be worse. Somehow, despite this combined expertise, somebody is leaving 0–2.',
       sections: [
         {
-          title: 'A kinder appointment for Karl',
-          text: 'Moroney drew Niall’s league-leading 169 points in the opener. Tommy’s 74.46 presents a rather different recent reference point, although last week’s scores cannot play this week’s fixture. Bijan Robinson and Bucky Irving lead Karl’s backfield, with Aaron Jones in the flex. That is a substantial problem for an opponent starting Bhayshul Tuten, Rhamondre Stevenson and Kyle Monangai. Karl’s scheduling grievance may have to take the weekend off.',
+          title: 'Karl receives a fixture he may struggle to complain about',
+          text: 'Niall hit Karl with a league-leading 169 last week. Tommy arrives off 74.46. The schedule has offered Moroney an apology, flowers and a lift home. Bijan, Bucky Irving and flex starter Aaron Jones give him a substantial backfield advantage over Tuten, Stevenson and Monangai. Tommy can explain the upside of all three. Karl would probably settle for the points.',
         },
         {
-          title: 'There is a route for Tommy',
-          text: 'Nacua and Garrett Wilson give O’Brien the sort of receiver pairing that can overturn a sensible preview. He needs Colston Loveland to contribute after the opening zero, too. The current roster has A.J. Brown on injured reserve, and Wednesday’s Antonio Williams pickup is on the bench. Monangai was limited on Thursday; Karl should also watch Trey McBride after a missed-practice listing in the latest NFL report. Those are checks to make, not declarations that either will miss Sunday.',
+          title: 'The breakout is running slightly behind schedule',
+          text: 'Puka Nacua and Garrett Wilson give Tommy a real route to an upset. Loveland needs to help after his opening zero; a detailed understanding of his potential will only sustain morale for so long. A.J. Brown is on injured reserve and Wednesday pickup Antonio Williams is benched. Monangai was limited Thursday; Karl should watch McBride after a missed-practice listing. Neither is declared out. For once, both managers have something useful to monitor instead of rehearsing their closing arguments.',
         },
         {
           title: 'The call: Karl Moroney',
-          text: 'Karl. The 25-point gap in the recorded PPR estimates is the widest of the six fixtures, and his running-back depth gives the forecast a convincing explanation. Tommy needs his receivers to make it a very bad week for explanations. It can happen, but this is the strongest call on the board. Moroney may finally have to discuss a win without mentioning the schedule.',
+          text: 'Karl. His 25-point projected advantage is the largest on the slate, with the running backs doing much of the convincing. Tommy needs his receivers to blow it open. If he wins, we will all be expected to attend a lecture on why it was obvious. If Karl loses, nobody is getting out of the group chat without reading a full inquiry into the circumstances.',
         },
       ],
       sources: [sleeper, injuries, thursday],
@@ -222,21 +223,21 @@ export const weekTwoReports: MatchupNewsletter[] = [
       pickRosterId: 2,
       homeProjection: 113.58,
       awayProjection: 119.6,
-      headline: 'Niall’s revival gets the premium-cut inspection',
+      headline: 'Niall tries counting points instead of doughnuts',
       summary:
-        'Murray opened with the league’s biggest score. Ringrose opened by discovering that Josh Allen and Derrick Henry cannot cover every shift. The estimates lean Jack; this report is backing Niall to make that awkward.',
+        'Murray’s 169-point opener suggests the championship settings are back on. Jack brings the league’s inaugural trophy, won when there were eight managers and considerably fewer obstacles to feeling important.',
       sections: [
         {
-          title: 'The early shift belongs to Jack',
-          text: 'Allen, Jameson Williams and Dalton Kincaid all feature in tonight’s Bills–Lions game. That gives Jack three immediate opportunities to set the mood, although sharing one game also ties a sizeable piece of his lineup to the same evening. Christian McCaffrey faces Miami on Sunday. His Wednesday absence was a rest day, according to Kyle Shanahan, so there is no basis for inventing a new injury scare from that listing.',
+          title: 'Jack orders three portions of Thursday night',
+          text: 'Allen, Jameson Williams and Kincaid all play in Bills–Lions tonight. That could establish a serious lead or give Jack one concentrated evening of asking why they keep throwing to the wrong bloke. McCaffrey faces Miami on Sunday. Shanahan confirmed his Wednesday absence was rest, so there is no new injury scare to manufacture. Jack needs points, not a support group formed around the letters DNP.',
         },
         {
-          title: 'Murray has a different shape',
-          text: 'Chase Brown and Breece Hall occupy Niall’s running-back slots, with Kenneth Walker in the flex after helping drive that 169-point opener. The worry is whether Mike Evans and Parker Washington supply enough alongside them. Trevor Lawrence and Washington share the trip to Denver, so Murray has some concentration of his own. He also picked up Eddy Piñeiro on Wednesday; Shanahan said the kicker was ill and would miss practice. A useful reminder that even a new kicker comes with homework.',
+          title: 'The fifty challenge has been replaced by a useful number',
+          text: 'Niall starts Chase Brown and Breece Hall, with Kenneth Walker in the flex after helping drive that 169-point opener. Evans and Parker Washington need to supply enough around them. Lawrence and Washington share the Denver trip, so Niall also has points travelling together. He added Piñeiro on Wednesday, only for Shanahan’s update to explain that the kicker was ill. Even Murray’s smallest recruitment decision has arrived with an absence note.',
         },
         {
           title: 'The call: Niall Murray',
-          text: 'Niall, in the week’s deliberate underdog pick. Jack’s estimate is six points higher, but Murray’s three-running-back core and stronger opening performance persuade me to take the other side of a close one. Allen could make that look foolish before Friday breakfast. After last season’s forfeit, though, Niall has earned one preview that backs the comeback. The receipt stays here either way.',
+          text: 'Niall, our deliberate underdog pick. Jack leads the estimates by six, but Murray’s three-running-back core and stronger opener persuade me to back him. Allen could make this look stupid before Friday breakfast. That is the risk. Niall went from champion to forfeit in a year; two good weeks would be a welcome sign that his next public achievement might involve sitting down and eating a normal number of doughnuts.',
         },
       ],
       sources: [sleeper, injuries, niners],

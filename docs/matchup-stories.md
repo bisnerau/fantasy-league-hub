@@ -14,7 +14,8 @@ Final games default to Review. Published previews remain available afterwards.
 ## Writing brief
 
 - Informed league writing with friendly slagging: story first, numbers in
-  support. The commissioner rejected the initial stats-heavy reports.
+  support. The commissioner wants funnier, more pointed manager-specific jokes
+  throughout the headlines, summaries and verdicts, grounded in league history. The commissioner rejected the initial stats-heavy reports.
 - Give each game its own headline, a short enticing summary and roughly three
   short sections. Aim for about 180–250 words overall, without padding.
 - Use a few telling stats, not a catalogue of every starter and their score.
