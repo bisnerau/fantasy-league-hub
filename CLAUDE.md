@@ -88,6 +88,13 @@ The `.openai/hosting.json` contains a legacy OpenAI Sites project ID (this was o
 
 Weekly Picks includes authored matchup reports in `lib/data/newsletters/`, indexed by `lib/data/matchup-newsletters.ts`. The commissioner prompts for reviews on Tuesdays and previews on Thursdays. Write individual stories with a few telling stats and friendly league slagging; the initial stats-heavy template style was rejected. The cron only syncs results and ballots, never generates prose. Preserve each published preview and winner call; show reviews only after settlement. Week 1 reviews and Week 2 previews are authored. Use “matchup report”, “preview” or “round-up” in visible wording; the commissioner retired “newsletter”. Hugo and Alan live together. See `docs/matchup-stories.md` for the writing and publishing workflow.
 
+Match of the Week is an editorial choice saved in `lib/data/match-of-the-week.ts`.
+Choose it with Thursday's previews using story, stakes and competitiveness;
+freeze it before kickoff and revisit the original call in Tuesday's review.
+Week 2's inaugural selection is Alan vs Hugo. The Weekly Picks page promotes the
+existing card without changing fixture IDs, voting or the archived selection.
+See `docs/matchup-stories.md` for the agreed criteria.
+
 ## Formatting & linting conventions
 
 - oxfmt: single quotes, 80-char print width

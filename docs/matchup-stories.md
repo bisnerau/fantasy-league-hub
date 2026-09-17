@@ -11,6 +11,31 @@ Every matchup in Weekly Picks has Preview and Review tabs, a short summary and
 an expandable full story. A missing edition says it has not been published.
 Final games default to Review. Published previews remain available afterwards.
 
+## Match of the Week
+
+Choose one fixture editorially alongside Thursday's previews, before the first
+NFL kickoff. Store the exact fixture and selection time in
+`lib/data/match-of-the-week.ts`. The commissioner approved Alan Horgan vs Hugo
+Walsh (Week 2, fixture 4) as the inaugural selection.
+
+- Consider the story (rivalry, revenge, rematch), stakes (records, playoffs,
+  losing streaks, forfeit battle) and contest (quality and closeness).
+- Early in the season, give rivalries and personalities more weight. Later,
+  favour playoff and forfeit implications. Rotate attention when choices are
+  otherwise close; do not impose a quota or simply pick the highest projection.
+- Explain the choice briefly under “Why this one?” and add a little more
+  build-up and manager-specific slagging than the other fixtures receive.
+- The selected fixture gets a badge and first position in Weekly Picks. Keep
+  the original fixture and database IDs so votes remain tied to the same teams.
+- Selection is fixed once published and remains visible in archived weeks.
+  Do not use member votes, later results or automated ranking to change it.
+- Tuesday's authored review gets a fuller verdict that revisits the original
+  winner call, including mistakes. The review tab repeats the saved pregame
+  call once a settled review is published. Do not write a verdict before results
+  settle or promise automatically generated prose.
+
+Weeks without a published selection keep their normal order and have no badge.
+
 ## Writing brief
 
 - Informed league writing with friendly slagging: story first, numbers in

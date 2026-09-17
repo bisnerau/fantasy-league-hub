@@ -93,12 +93,14 @@ export function MatchupEditorial({
   finalized,
   receipt,
   locked,
+  featured = false,
 }: {
   matchup: PredictionMatchup;
   lockAt: string;
   finalized: boolean;
   receipt?: string;
   locked: boolean;
+  featured?: boolean;
 }) {
   return (
     <div className="border-t border-border px-3.5 py-3 sm:px-4">
@@ -136,7 +138,22 @@ export function MatchupEditorial({
         </TabsContent>
         <TabsContent value="review">
           {finalized && matchup.review ? (
-            <Breakdown story={matchup.review} kind="review" receipt={receipt} />
+            <>
+              {featured && matchup.preview && (
+                <p className="mt-3 text-sm font-medium text-primary">
+                  Our pregame call:{' '}
+                  {matchup.preview.pickRosterId === matchup.home.rosterId
+                    ? matchup.home.ownerName
+                    : matchup.away.ownerName}
+                  . The original preview stays on the record.
+                </p>
+              )}
+              <Breakdown
+                story={matchup.review}
+                kind="review"
+                receipt={receipt}
+              />
+            </>
           ) : (
             <p className="py-2 text-sm leading-6 text-muted-foreground">
               {finalized

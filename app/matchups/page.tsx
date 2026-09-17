@@ -9,6 +9,10 @@ import {
 import { PredictionCentre } from '@/components/predictions/prediction-centre';
 import { buttonVariants } from '@/components/ui/button';
 import { getPredictionWeekData } from '@/lib/data/predictions';
+import {
+  getMatchOfTheWeek,
+  orderMatchupsForDisplay,
+} from '@/lib/data/match-of-the-week';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -31,6 +35,7 @@ export default async function MatchupsPage({
     Number.isInteger(requestedWeek) ? requestedWeek : undefined,
   );
   const earliestWeek = 1;
+  const matchOfTheWeek = getMatchOfTheWeek(data);
   const latestWeek = Math.max(1, data.currentWeek);
   const previousWeek = Math.max(earliestWeek, data.week - 1);
   const nextWeek = Math.min(latestWeek, data.week + 1);
@@ -141,7 +146,11 @@ export default async function MatchupsPage({
 
       <PredictionCentre
         key={`${data.season}-${data.week}-${view}`}
-        data={data}
+        data={{
+          ...data,
+          matchups: orderMatchupsForDisplay(data.matchups, matchOfTheWeek),
+        }}
+        matchOfTheWeek={matchOfTheWeek}
         mode={view}
       />
     </div>

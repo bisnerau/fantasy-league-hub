@@ -26,6 +26,7 @@ import {
   LogIn,
   LogOut,
   ShieldCheck,
+  Star,
   Trophy,
   Vote,
 } from 'lucide-react';
@@ -37,6 +38,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
@@ -55,6 +57,7 @@ import type {
 } from '@/lib/data/predictions';
 import { cn } from '@/lib/utils';
 import { MatchupEditorial } from './matchup-editorial';
+import type { MatchOfTheWeek } from '@/lib/data/match-of-the-week';
 
 type VoterDisplay = {
   id: string;
@@ -367,7 +370,7 @@ function TeamChoice({
 function MatchupPanel({
   matchup,
   lockAt,
-  index,
+  feature,
   locked,
   finalized,
   user,
@@ -382,7 +385,7 @@ function MatchupPanel({
 }: {
   matchup: PredictionMatchup;
   lockAt: string;
-  index: number;
+  feature?: MatchOfTheWeek;
   locked: boolean;
   finalized: boolean;
   user: User | null;
@@ -425,11 +428,25 @@ function MatchupPanel({
   };
 
   return (
-    <Card className="linear-panel gap-0 py-0">
+    <Card
+      className={cn(
+        'linear-panel gap-0 py-0',
+        feature && 'ring-1 ring-primary/40',
+      )}
+      data-matchup-id={matchup.sleeperMatchupId}
+      data-match-of-the-week={feature ? 'true' : undefined}
+    >
       <div className="flex items-center justify-between border-b border-border px-3.5 py-2.5 sm:px-4">
-        <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-          Matchup {index + 1}
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          {feature && (
+            <Badge className="h-auto gap-1.5 px-2.5 py-1 text-sm">
+              <Star aria-hidden="true" /> Match of the Week
+            </Badge>
+          )}
+          <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+            Matchup {matchup.sleeperMatchupId}
+          </span>
+        </div>
         <span className="text-xs font-medium text-muted-foreground">
           {finalized
             ? 'Final'
@@ -485,6 +502,19 @@ function MatchupPanel({
           onPick={pick}
         />
       </div>
+      {feature && (
+        <section className="border-t border-primary/15 bg-primary/[0.045] px-3.5 py-4 sm:px-4">
+          <h3 className="text-sm font-semibold text-primary">
+            {finalized ? 'Why we chose it' : 'Why this one?'}
+          </h3>
+          <p className="mt-2 text-base leading-7">{feature.reason}</p>
+          {!finalized && (
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              {feature.buildUp}
+            </p>
+          )}
+        </section>
+      )}
       {feedback && (
         <p
           role={feedback.error ? 'alert' : 'status'}
@@ -535,6 +565,7 @@ function MatchupPanel({
       </Accordion>
       <MatchupEditorial
         matchup={matchup}
+        featured={Boolean(feature)}
         lockAt={lockAt}
         locked={locked}
         finalized={finalized}
@@ -555,9 +586,11 @@ function MatchupPanel({
 export function PredictionCentre({
   data,
   mode = 'weekly',
+  matchOfTheWeek,
 }: {
   data: PredictionWeekData;
   mode?: PredictionView;
+  matchOfTheWeek?: MatchOfTheWeek | null;
 }) {
   const [locked, setLocked] = useState(data.locked);
   const member = usePredictionMember(data, locked);
@@ -993,12 +1026,16 @@ export function PredictionCentre({
             reference only; use Sleeper for league-scored projections and live
             scores.
           </p>
-          {data.matchups.map((matchup, index) => (
+          {data.matchups.map((matchup) => (
             <MatchupPanel
               key={matchup.sleeperMatchupId}
               matchup={matchup}
               lockAt={data.lockAt}
-              index={index}
+              feature={
+                matchup.sleeperMatchupId === matchOfTheWeek?.sleeperMatchupId
+                  ? matchOfTheWeek
+                  : undefined
+              }
               locked={locked}
               finalized={data.finalized}
               user={user}
