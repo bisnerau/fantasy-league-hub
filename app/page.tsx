@@ -7,6 +7,7 @@ import {
   BarChart3,
   NotebookPen,
   Award,
+  TrendingUp,
 } from 'lucide-react';
 import { MobileDisclosure } from '@/components/shared/mobile-disclosure';
 import { DraftCountdown } from '@/components/draft/draft-countdown';
@@ -15,6 +16,8 @@ import { TeamAvatar } from '@/components/shared/team-avatar';
 import { getDashboardData } from '@/lib/data/dashboard';
 import { getPredictionWeekData } from '@/lib/data/predictions';
 import { draftRecapContent } from '@/lib/data/draft-recap-content';
+import { getLatestAuthoredReviewWeek } from '@/lib/data/matchup-newsletters';
+import { ThisWeek } from '@/components/clubhouse/this-week';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,6 +33,15 @@ export default async function DashboardPage() {
   const published =
     draftRecapContent.published && draftRecapContent.entries.length > 0;
   const showCountdown = draft && draft.status !== 'complete' && beforeDraft;
+  const latestReviewWeek = beforeDraft
+    ? null
+    : getLatestAuthoredReviewWeek(predictions);
+  const reviewData =
+    latestReviewWeek === null
+      ? null
+      : latestReviewWeek === predictions.week
+        ? predictions
+        : await getPredictionWeekData(latestReviewWeek);
 
   return (
     <div className="space-y-4 sm:space-y-10">
@@ -54,6 +66,9 @@ export default async function DashboardPage() {
           book are kept separately—nothing has been replaced with demo data.
         </output>
       )}
+      {!beforeDraft && predictions.season && (
+        <ThisWeek data={predictions} reviewData={reviewData} />
+      )}
       <ClubhousePicks
         key={`${predictions.season}-${predictions.week}`}
         data={predictions}
@@ -65,9 +80,9 @@ export default async function DashboardPage() {
             >
               {[
                 {
-                  label: 'Draft Report',
-                  href: '/draft-recap',
-                  icon: NotebookPen,
+                  label: beforeDraft ? 'Draft Report' : 'Power Rankings',
+                  href: beforeDraft ? '/draft-recap' : '/power-rankings',
+                  icon: beforeDraft ? NotebookPen : TrendingUp,
                 },
                 {
                   label: 'Awards & Receipts',
@@ -90,15 +105,15 @@ export default async function DashboardPage() {
               ))}
             </nav>
             <a
-              href={published ? '/draft-recap' : '/season-hub'}
+              href={beforeDraft ? '/draft-recap' : '/power-rankings'}
               className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/[0.04] p-3"
             >
               <span className="min-w-0 flex-1">
                 <span className="ui-kicker text-primary">From the league</span>
                 <span className="mt-1 block text-xs font-semibold">
-                  {published
-                    ? 'Draft verdicts and ADP receipts are in.'
-                    : 'Weekly awards and trade receipts.'}
+                  {beforeDraft
+                    ? 'Draft verdicts and ADP receipts.'
+                    : 'The weekly pecking order. Twelve things to argue about.'}
                 </span>
               </span>
               <ArrowRight className="size-4 shrink-0 text-primary" />
@@ -108,61 +123,66 @@ export default async function DashboardPage() {
       />
       <MobileDisclosure title="League stories & bragging rights">
         <div className="space-y-6 sm:space-y-10">
-          <section aria-labelledby="league-stories-title">
-            <div className="mb-4 flex items-end justify-between gap-4">
-              <div>
-                <p className="ui-kicker">From the league</p>
-                <h2
-                  id="league-stories-title"
-                  className="mt-1 text-xl font-bold tracking-tight"
-                >
-                  The talking points.
-                </h2>
-              </div>
-              <span className="hidden text-xs text-muted-foreground sm:block">
-                The part Sleeper doesn’t do.
-              </span>
-            </div>
-            <div
-              className={
-                showCountdown
-                  ? 'grid gap-5 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]'
-                  : ''
-              }
-            >
-              <a href="/draft-recap" className="story-feature group">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
-                  <span className="ui-kicker text-primary">
-                    {draftRecapContent.season} draft report &amp; season preview
-                  </span>
-                  <span>
-                    {published
-                      ? 'Published'
-                      : beforeDraft
-                        ? 'After the final pick'
-                        : 'Recap being prepared'}
-                  </span>
+          {beforeDraft && (
+            <section aria-labelledby="league-stories-title">
+              <div className="mb-4 flex items-end justify-between gap-4">
+                <div>
+                  <p className="ui-kicker">From the league</p>
+                  <h2
+                    id="league-stories-title"
+                    className="mt-1 text-xl font-bold tracking-tight"
+                  >
+                    The talking points.
+                  </h2>
                 </div>
-                <h3 className="mt-4 max-w-xl text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
-                  {published
-                    ? 'The draft is done. Here’s the verdict.'
-                    : 'Good draft. Famous last words.'}
-                </h3>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
-                  {published
-                    ? draftRecapContent.overview
-                    : 'Draft grades, team outlooks, and a Leinster comparison for every roster. Written and reviewed after the draft—not published automatically.'}
-                </p>
-                <span className="clubhouse-text-link mt-6">
-                  {published
-                    ? 'Read the draft report'
-                    : 'About the draft report'}{' '}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                <span className="hidden text-xs text-muted-foreground sm:block">
+                  The part Sleeper doesn’t do.
                 </span>
-              </a>
-              {showCountdown && <DraftCountdown startTime={draft.startTime} />}
-            </div>
-          </section>
+              </div>
+              <div
+                className={
+                  showCountdown
+                    ? 'grid gap-5 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]'
+                    : ''
+                }
+              >
+                <a href="/draft-recap" className="story-feature group">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+                    <span className="ui-kicker text-primary">
+                      {draftRecapContent.season} draft report &amp; season
+                      preview
+                    </span>
+                    <span>
+                      {published
+                        ? 'Published'
+                        : beforeDraft
+                          ? 'After the final pick'
+                          : 'Recap being prepared'}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 max-w-xl text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+                    {published
+                      ? 'The draft is done. Here’s the verdict.'
+                      : 'Good draft. Famous last words.'}
+                  </h3>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
+                    {published
+                      ? draftRecapContent.overview
+                      : 'Draft grades, team outlooks, and a Leinster comparison for every roster. Written and reviewed after the draft—not published automatically.'}
+                  </p>
+                  <span className="clubhouse-text-link mt-6">
+                    {published
+                      ? 'Read the draft report'
+                      : 'About the draft report'}{' '}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </a>
+                {showCountdown && (
+                  <DraftCountdown startTime={draft.startTime} />
+                )}
+              </div>
+            </section>
+          )}
           <section aria-labelledby="bragging-rights-title">
             <div className="mb-4">
               <p className="ui-kicker">Long memories</p>
@@ -242,6 +262,20 @@ export default async function DashboardPage() {
               </a>
             </div>
             <div className="mt-5 grid divide-y divide-border border-y border-border sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+              {!beforeDraft && (
+                <a href="/draft-recap" className="clubhouse-directory-link">
+                  <NotebookPen className="size-5 text-muted-foreground" />
+                  <span className="flex-1">
+                    <span className="block font-semibold">
+                      The preseason forecast
+                    </span>
+                    <span className="mt-1 block text-xs text-muted-foreground">
+                      Draft grades and the original calls, kept on record.
+                    </span>
+                  </span>
+                  <ArrowRight className="size-4" />
+                </a>
+              )}
               <a href="/records" className="clubhouse-directory-link">
                 <BookOpen className="size-5 text-muted-foreground" />
                 <span className="flex-1">

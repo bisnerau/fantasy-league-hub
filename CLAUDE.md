@@ -25,7 +25,8 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 
 **Routing**: File-based App Router convention under `app/`:
 
-- `/` — picks-first clubhouse, member-only prediction race, draft story/status, champion and shame spotlights
+- `/` — current-week stories, power-ranking teaser, weekly picks, member-only prediction race, champion and shame spotlights
+- `/power-rankings` — archived weekly editorial rankings for all twelve managers
 - `/standings` — live standings table with median record
 - `/matchups` — weekly matchup predictions, expandable lineups, authenticated voting, and the season prediction table
 - `/records` — historical record book (2020–present), franchise all-time records
@@ -94,6 +95,14 @@ freeze it before kickoff and revisit the original call in Tuesday's review.
 Week 2's inaugural selection is Alan vs Hugo. The Weekly Picks page promotes the
 existing card without changing fixture IDs, voting or the archived selection.
 See `docs/matchup-stories.md` for the agreed criteria.
+
+The in-season homepage leads with “This week in MAC 12”: the featured matchup,
+published previews and settled reviews, three current talking points, and a
+power-ranking teaser. Rankings are authored alongside Thursday previews in
+`lib/data/power-rankings/`; cron does not write or reorder them. The first
+edition's movement compares with the published preseason forecast; subsequent
+editions compare with the previous published weekly ranking. Preserve archived
+editions and show honest gaps. See `docs/weekly-clubhouse.md`.
 
 ## Formatting & linting conventions
 

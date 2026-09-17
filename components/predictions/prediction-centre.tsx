@@ -430,10 +430,11 @@ function MatchupPanel({
   return (
     <Card
       className={cn(
-        'linear-panel gap-0 py-0',
+        'linear-panel scroll-mt-20 gap-0 py-0',
         feature && 'ring-1 ring-primary/40',
       )}
       data-matchup-id={matchup.sleeperMatchupId}
+      id={`matchup-${matchup.sleeperMatchupId}`}
       data-match-of-the-week={feature ? 'true' : undefined}
     >
       <div className="flex items-center justify-between border-b border-border px-3.5 py-2.5 sm:px-4">

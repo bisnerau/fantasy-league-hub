@@ -338,6 +338,7 @@ test('theme changes persist and every league page is reachable without overflow'
   await expect(page.locator('html')).not.toHaveClass(/dark/);
   for (const [label, path] of [
     ['League standings', '/standings'],
+    ['Power rankings', '/power-rankings'],
     ['Managers', '/managers'],
     ['Wall of shame', '/wall-of-shame'],
     ['Draft Report & Season Preview', '/draft-recap'],
@@ -353,7 +354,8 @@ test('theme changes persist and every league page is reachable without overflow'
     ).toBe(true);
     await expect(page.locator('body')).not.toContainText('NaN');
   }
-  await page.getByRole('link', { name: 'Records', exact: true }).click();
+  await page.getByRole('button', { name: 'Open league navigation' }).click();
+  await page.getByRole('link', { name: 'Record book', exact: true }).click();
   await expect(page).toHaveURL(/\/records$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   expect(

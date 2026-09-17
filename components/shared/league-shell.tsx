@@ -11,6 +11,7 @@ import {
   Skull,
   Users,
   Vote,
+  TrendingUp,
 } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -41,6 +42,7 @@ const navigation = [
     icon: BookOpen,
   },
   { label: 'League standings', href: '/standings', icon: BarChart3 },
+  { label: 'Power rankings', href: '/power-rankings', icon: TrendingUp },
   { label: 'Managers', href: '/managers', icon: Users },
   { label: 'Awards & Receipts', href: '/season-hub', icon: BookOpen },
   { label: 'Wall of shame', href: '/wall-of-shame', icon: Skull },

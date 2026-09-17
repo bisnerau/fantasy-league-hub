@@ -1,0 +1,644 @@
+{
+  "leagueId": "1389706813993160704",
+  "season": "2026",
+  "week": 2,
+  "retrievedAt": "2026-09-17T21:52:00+00:00",
+  "rows": [
+    {
+      "rosterId": 1,
+      "week1Score": 158.1,
+      "record": "1\u20130",
+      "week2Ppr": 109.28,
+      "week2Starters": [
+        {
+          "id": "12508",
+          "name": "Jaxson Dart",
+          "ppr": 18.07
+        },
+        {
+          "id": "6790",
+          "name": "D'Andre Swift",
+          "ppr": 11.62
+        },
+        {
+          "id": "13286",
+          "name": "Jadarian Price",
+          "ppr": 11.68
+        },
+        {
+          "id": "7564",
+          "name": "Ja'Marr Chase",
+          "ppr": 17.24
+        },
+        {
+          "id": "13296",
+          "name": "Caleb Douglas",
+          "ppr": 8.86
+        },
+        {
+          "id": "7002",
+          "name": "Juwan Johnson",
+          "ppr": 9.87
+        },
+        {
+          "id": "8150",
+          "name": "Kyren Williams",
+          "ppr": 16.99
+        },
+        {
+          "id": "7839",
+          "name": "Evan McPherson",
+          "ppr": 6.18
+        },
+        {
+          "id": "KC",
+          "name": "Kansas City",
+          "ppr": 8.77
+        }
+      ]
+    },
+    {
+      "rosterId": 2,
+      "week1Score": 169.0,
+      "record": "1\u20130",
+      "week2Ppr": 113.58,
+      "week2Starters": [
+        {
+          "id": "7523",
+          "name": "Trevor Lawrence",
+          "ppr": 17.2
+        },
+        {
+          "id": "9224",
+          "name": "Chase Brown",
+          "ppr": 15.46
+        },
+        {
+          "id": "8155",
+          "name": "Breece Hall",
+          "ppr": 13.91
+        },
+        {
+          "id": "2216",
+          "name": "Mike Evans",
+          "ppr": 12.93
+        },
+        {
+          "id": "9487",
+          "name": "Parker Washington",
+          "ppr": 10.97
+        },
+        {
+          "id": "5022",
+          "name": "Dallas Goedert",
+          "ppr": 10.17
+        },
+        {
+          "id": "8151",
+          "name": "Kenneth Walker",
+          "ppr": 16.39
+        },
+        {
+          "id": "5189",
+          "name": "Eddy Pineiro",
+          "ppr": 6.77
+        },
+        {
+          "id": "TB",
+          "name": "Tampa Bay",
+          "ppr": 9.78
+        }
+      ]
+    },
+    {
+      "rosterId": 3,
+      "week1Score": 120.24,
+      "record": "1\u20130",
+      "week2Ppr": 112.79,
+      "week2Starters": [
+        {
+          "id": "11563",
+          "name": "Bo Nix",
+          "ppr": 15.74
+        },
+        {
+          "id": "4866",
+          "name": "Saquon Barkley",
+          "ppr": 16.64
+        },
+        {
+          "id": "12527",
+          "name": "Ashton Jeanty",
+          "ppr": 14.87
+        },
+        {
+          "id": "7525",
+          "name": "DeVonta Smith",
+          "ppr": 14.76
+        },
+        {
+          "id": "11620",
+          "name": "Rome Odunze",
+          "ppr": 9.46
+        },
+        {
+          "id": "12506",
+          "name": "Harold Fannin",
+          "ppr": 9.78
+        },
+        {
+          "id": "8167",
+          "name": "Christian Watson",
+          "ppr": 14.84
+        },
+        {
+          "id": "11533",
+          "name": "Brandon Aubrey",
+          "ppr": 7.26
+        },
+        {
+          "id": "SF",
+          "name": "San Francisco",
+          "ppr": 9.44
+        }
+      ]
+    },
+    {
+      "rosterId": 4,
+      "week1Score": 74.46,
+      "record": "0\u20131",
+      "week2Ppr": 105.35,
+      "week2Starters": [
+        {
+          "id": "6797",
+          "name": "Justin Herbert",
+          "ppr": 16.88
+        },
+        {
+          "id": "12490",
+          "name": "Bhayshul Tuten",
+          "ppr": 9.1
+        },
+        {
+          "id": "7611",
+          "name": "Rhamondre Stevenson",
+          "ppr": 12.28
+        },
+        {
+          "id": "9493",
+          "name": "Puka Nacua",
+          "ppr": 20.14
+        },
+        {
+          "id": "8146",
+          "name": "Garrett Wilson",
+          "ppr": 15.11
+        },
+        {
+          "id": "12517",
+          "name": "Colston Loveland",
+          "ppr": 11.6
+        },
+        {
+          "id": "12534",
+          "name": "Kyle Monangai",
+          "ppr": 7.0
+        },
+        {
+          "id": "4227",
+          "name": "Harrison Butker",
+          "ppr": 6.31
+        },
+        {
+          "id": "HOU",
+          "name": "Houston",
+          "ppr": 6.93
+        }
+      ]
+    },
+    {
+      "rosterId": 5,
+      "week1Score": 126.66,
+      "record": "0\u20131",
+      "week2Ppr": 130.35,
+      "week2Starters": [
+        {
+          "id": "11566",
+          "name": "Jayden Daniels",
+          "ppr": 20.25
+        },
+        {
+          "id": "9509",
+          "name": "Bijan Robinson",
+          "ppr": 22.36
+        },
+        {
+          "id": "11584",
+          "name": "Bucky Irving",
+          "ppr": 13.82
+        },
+        {
+          "id": "8137",
+          "name": "George Pickens",
+          "ppr": 16.34
+        },
+        {
+          "id": "5927",
+          "name": "Terry McLaurin",
+          "ppr": 13.95
+        },
+        {
+          "id": "8130",
+          "name": "Trey McBride",
+          "ppr": 14.6
+        },
+        {
+          "id": "4199",
+          "name": "Aaron Jones",
+          "ppr": 14.01
+        },
+        {
+          "id": "11539",
+          "name": "Jake Bates",
+          "ppr": 6.15
+        },
+        {
+          "id": "SEA",
+          "name": "Seattle",
+          "ppr": 8.87
+        }
+      ]
+    },
+    {
+      "rosterId": 6,
+      "week1Score": 136.16,
+      "record": "0\u20131",
+      "week2Ppr": 128.45,
+      "week2Starters": [
+        {
+          "id": "6770",
+          "name": "Joe Burrow",
+          "ppr": 17.81
+        },
+        {
+          "id": "9221",
+          "name": "Jahmyr Gibbs",
+          "ppr": 26.13
+        },
+        {
+          "id": "7588",
+          "name": "Javonte Williams",
+          "ppr": 17.39
+        },
+        {
+          "id": "8144",
+          "name": "Chris Olave",
+          "ppr": 15.59
+        },
+        {
+          "id": "12519",
+          "name": "Luther Burden",
+          "ppr": 11.19
+        },
+        {
+          "id": "9484",
+          "name": "Tucker Kraft",
+          "ppr": 11.85
+        },
+        {
+          "id": "2449",
+          "name": "Stefon Diggs",
+          "ppr": 12.67
+        },
+        {
+          "id": "3451",
+          "name": "Ka'imi Fairbairn",
+          "ppr": 7.31
+        },
+        {
+          "id": "NE",
+          "name": "New England",
+          "ppr": 8.51
+        }
+      ]
+    },
+    {
+      "rosterId": 7,
+      "week1Score": 139.02,
+      "record": "0\u20131",
+      "week2Ppr": 119.49,
+      "week2Starters": [
+        {
+          "id": "6904",
+          "name": "Jalen Hurts",
+          "ppr": 20.79
+        },
+        {
+          "id": "12481",
+          "name": "Cam Skattebo",
+          "ppr": 13.38
+        },
+        {
+          "id": "12529",
+          "name": "TreVeyon Henderson",
+          "ppr": 9.54
+        },
+        {
+          "id": "7547",
+          "name": "Amon-Ra St. Brown",
+          "ppr": 17.44
+        },
+        {
+          "id": "6794",
+          "name": "Justin Jefferson",
+          "ppr": 17.49
+        },
+        {
+          "id": "10859",
+          "name": "Sam LaPorta",
+          "ppr": 11.19
+        },
+        {
+          "id": "11632",
+          "name": "Malik Nabers",
+          "ppr": 13.85
+        },
+        {
+          "id": "7042",
+          "name": "Tyler Bass",
+          "ppr": 6.63
+        },
+        {
+          "id": "BAL",
+          "name": "Baltimore",
+          "ppr": 9.18
+        }
+      ]
+    },
+    {
+      "rosterId": 8,
+      "week1Score": 156.06,
+      "record": "1\u20130",
+      "week2Ppr": 114.43,
+      "week2Starters": [
+        {
+          "id": "11560",
+          "name": "Caleb Williams",
+          "ppr": 16.68
+        },
+        {
+          "id": "6813",
+          "name": "Jonathan Taylor",
+          "ppr": 18.79
+        },
+        {
+          "id": "5892",
+          "name": "David Montgomery",
+          "ppr": 17.07
+        },
+        {
+          "id": "6801",
+          "name": "Tee Higgins",
+          "ppr": 13.84
+        },
+        {
+          "id": "13298",
+          "name": "KC Concepcion",
+          "ppr": 9.9
+        },
+        {
+          "id": "5012",
+          "name": "Mark Andrews",
+          "ppr": 9.91
+        },
+        {
+          "id": "11635",
+          "name": "Ladd McConkey",
+          "ppr": 13.1
+        },
+        {
+          "id": "11786",
+          "name": "Cam Little",
+          "ppr": 6.19
+        },
+        {
+          "id": "GB",
+          "name": "Green Bay",
+          "ppr": 8.95
+        }
+      ]
+    },
+    {
+      "rosterId": 9,
+      "week1Score": 130.56,
+      "record": "0\u20131",
+      "week2Ppr": 119.6,
+      "week2Starters": [
+        {
+          "id": "4984",
+          "name": "Josh Allen",
+          "ppr": 21.89
+        },
+        {
+          "id": "4034",
+          "name": "Christian McCaffrey",
+          "ppr": 19.76
+        },
+        {
+          "id": "3198",
+          "name": "Derrick Henry",
+          "ppr": 14.91
+        },
+        {
+          "id": "12514",
+          "name": "Emeka Egbuka",
+          "ppr": 10.8
+        },
+        {
+          "id": "8148",
+          "name": "Jameson Williams",
+          "ppr": 12.62
+        },
+        {
+          "id": "10236",
+          "name": "Dalton Kincaid",
+          "ppr": 12.16
+        },
+        {
+          "id": "10222",
+          "name": "Jayden Reed",
+          "ppr": 11.58
+        },
+        {
+          "id": "8259",
+          "name": "Cameron Dicker",
+          "ppr": 7.36
+        },
+        {
+          "id": "LAC",
+          "name": "Los Angeles",
+          "ppr": 8.52
+        }
+      ]
+    },
+    {
+      "rosterId": 10,
+      "week1Score": 147.66,
+      "record": "1\u20130",
+      "week2Ppr": 121.45,
+      "week2Starters": [
+        {
+          "id": "4881",
+          "name": "Lamar Jackson",
+          "ppr": 20.36
+        },
+        {
+          "id": "13287",
+          "name": "Jeremiyah Love",
+          "ppr": 12.53
+        },
+        {
+          "id": "7594",
+          "name": "Chuba Hubbard",
+          "ppr": 12.41
+        },
+        {
+          "id": "9488",
+          "name": "Jaxon Smith-Njigba",
+          "ppr": 18.78
+        },
+        {
+          "id": "4983",
+          "name": "DJ Moore",
+          "ppr": 13.12
+        },
+        {
+          "id": "4217",
+          "name": "George Kittle",
+          "ppr": 10.7
+        },
+        {
+          "id": "6786",
+          "name": "CeeDee Lamb",
+          "ppr": 18.54
+        },
+        {
+          "id": "11792",
+          "name": "Will Reichard",
+          "ppr": 6.26
+        },
+        {
+          "id": "LAR",
+          "name": "Los Angeles",
+          "ppr": 8.75
+        }
+      ]
+    },
+    {
+      "rosterId": 11,
+      "week1Score": 78.02,
+      "record": "1\u20130",
+      "week2Ppr": 115.66,
+      "week2Starters": [
+        {
+          "id": "11564",
+          "name": "Drake Maye",
+          "ppr": 18.89
+        },
+        {
+          "id": "9226",
+          "name": "De'Von Achane",
+          "ppr": 16.93
+        },
+        {
+          "id": "12507",
+          "name": "Omarion Hampton",
+          "ppr": 13.74
+        },
+        {
+          "id": "10229",
+          "name": "Rashee Rice",
+          "ppr": 13.93
+        },
+        {
+          "id": "12526",
+          "name": "Tetairoa McMillan",
+          "ppr": 14.6
+        },
+        {
+          "id": "12518",
+          "name": "Tyler Warren",
+          "ppr": 11.33
+        },
+        {
+          "id": "10232",
+          "name": "Michael Wilson",
+          "ppr": 9.92
+        },
+        {
+          "id": "2747",
+          "name": "Jason Myers",
+          "ppr": 6.72
+        },
+        {
+          "id": "PHI",
+          "name": "Philadelphia",
+          "ppr": 9.6
+        }
+      ]
+    },
+    {
+      "rosterId": 12,
+      "week1Score": 57.0,
+      "record": "0\u20131",
+      "week2Ppr": 110.14,
+      "week2Starters": [
+        {
+          "id": "3294",
+          "name": "Dak Prescott",
+          "ppr": 20.26
+        },
+        {
+          "id": "8138",
+          "name": "James Cook",
+          "ppr": 17.01
+        },
+        {
+          "id": "7543",
+          "name": "Travis Etienne",
+          "ppr": 10.99
+        },
+        {
+          "id": "8112",
+          "name": "Drake London",
+          "ppr": 13.84
+        },
+        {
+          "id": "2133",
+          "name": "Davante Adams",
+          "ppr": 12.11
+        },
+        {
+          "id": "7553",
+          "name": "Kyle Pitts",
+          "ppr": 9.55
+        },
+        {
+          "id": "12512",
+          "name": "Quinshon Judkins",
+          "ppr": 12.44
+        },
+        {
+          "id": "12015",
+          "name": "Harrison Mevis",
+          "ppr": 7.04
+        },
+        {
+          "id": "DEN",
+          "name": "Denver",
+          "ppr": 6.9
+        }
+      ]
+    }
+  ]
+}

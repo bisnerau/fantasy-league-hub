@@ -24,6 +24,25 @@ export const matchupNewsletters: readonly MatchupNewsletter[] = [
   ...weekTwoReports,
 ];
 
+// A candidate only: callers still load the week and require settled results
+// before advertising reviews. Never infer settlement from an authored file.
+export function getLatestAuthoredReviewWeek(
+  key: Pick<NewsletterKey, 'leagueId' | 'season' | 'week'>,
+  now = Date.now(),
+) {
+  const weeks = matchupNewsletters
+    .filter(
+      (entry) =>
+        entry.leagueId === key.leagueId &&
+        entry.season === key.season &&
+        entry.week <= key.week &&
+        entry.review &&
+        Date.parse(entry.review.publishedAt) <= now,
+    )
+    .map((entry) => entry.week);
+  return weeks.length ? Math.max(...weeks) : null;
+}
+
 export function getMatchupNewsletter(
   key: NewsletterKey,
   editions: readonly MatchupNewsletter[] = matchupNewsletters,
