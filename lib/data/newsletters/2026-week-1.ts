@@ -19,7 +19,7 @@ export const weekOneNewsletters: MatchupNewsletter[] = [
       publishedAt,
       headline: 'Sharpe takes the win. Please destroy the footage.',
       summary:
-        'The league’s two set-and-forget specialists met, and David finally got the better version of the arrangement. Aidan managed to make a deeply ordinary winning performance look almost comfortable. Neither should be asking for this one to lead the newsletter.',
+        'The league’s two set-and-forget specialists met, and David finally got the better version of the arrangement. Aidan managed to make a deeply ordinary winning performance look almost comfortable. Neither should be asking for this one to lead the match report.',
       sections: [
         {
           title: 'A fine advertisement for checking your team',
@@ -75,7 +75,7 @@ export const weekOneNewsletters: MatchupNewsletter[] = [
       publishedAt,
       headline: 'The champion has a Diggs-shaped problem',
       summary:
-        'Alan’s title defence begins with Shane taking the win and Stefon Diggs providing some deeply unhelpful reading from the bench. For the man who normally writes the newsletter, becoming its easiest material is an unfortunate opening-week development.',
+        'Alan’s title defence begins with Shane taking the win and Stefon Diggs providing some deeply unhelpful reading from the bench. For the man who normally writes the weekly round-up, becoming its easiest material is an unfortunate opening-week development.',
       sections: [
         {
           title: 'Marmion, inconveniently switched on',

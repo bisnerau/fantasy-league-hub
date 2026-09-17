@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { readFileSync } from 'node:fs';
 import { getMatchupNewsletter } from '../lib/data/matchup-newsletters.ts';
+import { weekTwoReports } from '../lib/data/newsletters/2026-week-2.ts';
+import { readPreview } from '../lib/predictions/stories.ts';
 
 const key = {
   leagueId: 'fixture',
@@ -28,6 +31,62 @@ const review = {
   publishedAt: '2026-09-22T10:00:00Z',
 };
 const entries = [{ ...key, preview, review }];
+
+void test('all six Week 2 previews match the researched fixtures and preserve the original PPR snapshot', () => {
+  const snapshot = JSON.parse(
+    readFileSync(
+      new URL('../docs/research/2026-week-2-sleeper.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  assert.equal(weekTwoReports.length, 6);
+  assert.equal(new Set(weekTwoReports.map((e) => e.sleeperMatchupId)).size, 6);
+  for (const edition of weekTwoReports) {
+    const pair = snapshot.teams.filter(
+      (t) => t.matchupId === edition.sleeperMatchupId,
+    );
+    assert.deepEqual(
+      pair.map((t) => t.rosterId),
+      [edition.homeRosterId, edition.awayRosterId],
+    );
+    const p = edition.preview;
+    assert.equal(edition.leagueId, snapshot.leagueId);
+    assert.equal(edition.season, snapshot.season);
+    assert.equal(edition.week, snapshot.week);
+    assert.ok(Date.parse(p.publishedAt) >= Date.parse(snapshot.retrievedAt));
+    assert.ok(Date.parse(p.publishedAt) < Date.parse(snapshot.firstKickoff));
+    assert.equal(p.homeProjection, pair[0].pprTotal);
+    assert.equal(p.awayProjection, pair[1].pprTotal);
+    assert.ok(pair.some((t) => t.rosterId === p.pickRosterId));
+    assert.equal(p.editorial, true);
+    assert.equal(edition.review, undefined);
+    assert.deepEqual(readPreview(p), p);
+    assert.deepEqual(
+      getMatchupNewsletter(edition, undefined, Date.parse(p.publishedAt))
+        .preview,
+      p,
+    );
+  }
+});
+
+void test('preview sources accept HTTPS links and reject malformed archived values', () => {
+  const p = {
+    ...preview,
+    sources: [
+      { label: 'Official report', url: 'https://www.nfl.com/injuries/' },
+    ],
+  };
+  assert.deepEqual(readPreview(p), p);
+  for (const sources of [
+    null,
+    {},
+    [null],
+    [{ label: 'Broken' }],
+    [{ label: 'Unsafe', url: 'javascript:alert(1)' }],
+  ]) {
+    assert.equal(readPreview({ ...p, sources }), null);
+  }
+});
 
 void test('newsletter preserves an authored underdog call instead of choosing the projection favourite', () => {
   const saved = structuredClone(entries);

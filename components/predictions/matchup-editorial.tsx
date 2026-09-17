@@ -53,11 +53,32 @@ function Breakdown({
               )}
               <p className="border-t border-border pt-3 text-xs leading-5 text-muted-foreground">
                 {story.editorial
-                  ? 'MAC 12 newsletter · Sleeper results, league history and a little perspective.'
+                  ? kind === 'preview'
+                    ? 'MAC 12 matchup report · A snapshot of the recorded lineup and latest available news at publication. Sleeper PPR estimates can differ from league-scored projections; later team news and lineup changes can alter the outlook.'
+                    : 'MAC 12 matchup report · Sleeper results, league history and a little perspective.'
                   : kind === 'preview'
                     ? 'Based on the recorded Thursday lineup and Sleeper PPR estimates, which may differ from league-scored projections. Lineups can change afterwards.'
                     : 'Based on settled team results and Sleeper’s recorded player points. Individual breakdowns can reflect later stat corrections; saved final team scores remain the grading record.'}
               </p>
+              {story.sources && story.sources.length > 0 && (
+                <ul
+                  aria-label="Report sources"
+                  className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground"
+                >
+                  {story.sources.map((source) => (
+                    <li key={source.url}>
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline underline-offset-4 hover:text-foreground"
+                      >
+                        {source.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -108,8 +129,8 @@ export function MatchupEditorial({
           ) : (
             <p className="py-2 text-sm leading-6 text-muted-foreground">
               {locked || finalized
-                ? 'No pregame newsletter was published for this matchup.'
-                : 'The Thursday newsletter has not been published yet. Each edition includes our winner call, saved here for the review.'}
+                ? 'No pregame preview was published for this matchup.'
+                : 'The Thursday preview is still to come. Our winner call will stay here for the post-match review.'}
             </p>
           )}
         </TabsContent>
@@ -119,8 +140,8 @@ export function MatchupEditorial({
           ) : (
             <p className="py-2 text-sm leading-6 text-muted-foreground">
               {finalized
-                ? 'The result is final. The Tuesday newsletter review has not been published yet.'
-                : `The Tuesday newsletter will revisit this game once results settle, from ${formatLockTime(settlementTimeForLock(lockAt).toISOString())}.`}
+                ? 'The result is final. The match report is still to come.'
+                : `The Tuesday match report will revisit this game once results settle, from ${formatLockTime(settlementTimeForLock(lockAt).toISOString())}.`}
             </p>
           )}
         </TabsContent>

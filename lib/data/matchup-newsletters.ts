@@ -1,5 +1,6 @@
 import type { MatchupPreview, MatchupStory } from '@/lib/predictions/stories';
 import { weekOneNewsletters } from './newsletters/2026-week-1';
+import { weekTwoReports } from './newsletters/2026-week-2';
 
 export type NewsletterKey = {
   leagueId: string;
@@ -20,6 +21,7 @@ export type MatchupNewsletter = NewsletterKey & {
 // Never backdate a preview or label a reconstructed outlook as a pregame call.
 export const matchupNewsletters: readonly MatchupNewsletter[] = [
   ...weekOneNewsletters,
+  ...weekTwoReports,
 ];
 
 export function getMatchupNewsletter(

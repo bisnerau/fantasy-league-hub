@@ -1,0 +1,1480 @@
+{
+  "leagueId": "1389706813993160704",
+  "season": "2026",
+  "week": 2,
+  "retrievedAt": "2026-09-17T21:12:15+00:00",
+  "firstKickoff": "2026-09-18T00:15:00Z",
+  "projectionBasis": "Sleeper pts_ppr for the recorded starting lineup, not custom league scoring",
+  "teams": [
+    {
+      "matchupId": 1,
+      "rosterId": 1,
+      "week1Points": 158.1,
+      "pprTotal": 108.9,
+      "starters": [
+        {
+          "id": "12508",
+          "name": "Jaxson Dart",
+          "slot": "QB",
+          "team": "NYG",
+          "opponent": "LAR",
+          "gameDate": "2026-09-21",
+          "ppr": 18.07
+        },
+        {
+          "id": "6790",
+          "name": "D'Andre Swift",
+          "slot": "RB",
+          "team": "CHI",
+          "opponent": "MIN",
+          "gameDate": "2026-09-20",
+          "ppr": 11.62
+        },
+        {
+          "id": "13286",
+          "name": "Jadarian Price",
+          "slot": "RB",
+          "team": "SEA",
+          "opponent": "ARI",
+          "gameDate": "2026-09-20",
+          "ppr": 11.68
+        },
+        {
+          "id": "7564",
+          "name": "Ja'Marr Chase",
+          "slot": "WR",
+          "team": "CIN",
+          "opponent": "HOU",
+          "gameDate": "2026-09-20",
+          "ppr": 17.24
+        },
+        {
+          "id": "13279",
+          "name": "Carnell Tate",
+          "slot": "WR",
+          "team": "TEN",
+          "opponent": "PHI",
+          "gameDate": "2026-09-20",
+          "ppr": 8.48
+        },
+        {
+          "id": "7002",
+          "name": "Juwan Johnson",
+          "slot": "TE",
+          "team": "NO",
+          "opponent": "BAL",
+          "gameDate": "2026-09-20",
+          "ppr": 9.87
+        },
+        {
+          "id": "8150",
+          "name": "Kyren Williams",
+          "slot": "WRRB_FLEX",
+          "team": "LAR",
+          "opponent": "NYG",
+          "gameDate": "2026-09-21",
+          "ppr": 16.99
+        },
+        {
+          "id": "7839",
+          "name": "Evan McPherson",
+          "slot": "K",
+          "team": "CIN",
+          "opponent": "HOU",
+          "gameDate": "2026-09-20",
+          "ppr": 6.18
+        },
+        {
+          "id": "KC",
+          "name": "Kansas City Chiefs",
+          "slot": "DEF",
+          "team": "KC",
+          "opponent": "IND",
+          "gameDate": "2026-09-20",
+          "ppr": 8.77
+        }
+      ],
+      "bench": [
+        {
+          "id": "11628",
+          "name": "Marvin Harrison"
+        },
+        {
+          "id": "13296",
+          "name": "Caleb Douglas"
+        },
+        {
+          "id": "13311",
+          "name": "Chris Bell"
+        },
+        {
+          "id": "13417",
+          "name": "De'Zhaun Stribling"
+        },
+        {
+          "id": "1466",
+          "name": "Travis Kelce"
+        },
+        {
+          "id": "7569",
+          "name": "Nico Collins"
+        }
+      ]
+    },
+    {
+      "matchupId": 1,
+      "rosterId": 11,
+      "week1Points": 78.02,
+      "pprTotal": 115.66,
+      "starters": [
+        {
+          "id": "11564",
+          "name": "Drake Maye",
+          "slot": "QB",
+          "team": "NE",
+          "opponent": "PIT",
+          "gameDate": "2026-09-20",
+          "ppr": 18.89
+        },
+        {
+          "id": "9226",
+          "name": "De'Von Achane",
+          "slot": "RB",
+          "team": "MIA",
+          "opponent": "SF",
+          "gameDate": "2026-09-20",
+          "ppr": 16.93
+        },
+        {
+          "id": "12507",
+          "name": "Omarion Hampton",
+          "slot": "RB",
+          "team": "LAC",
+          "opponent": "LV",
+          "gameDate": "2026-09-20",
+          "ppr": 13.74
+        },
+        {
+          "id": "10229",
+          "name": "Rashee Rice",
+          "slot": "WR",
+          "team": "KC",
+          "opponent": "IND",
+          "gameDate": "2026-09-20",
+          "ppr": 13.93
+        },
+        {
+          "id": "12526",
+          "name": "Tetairoa McMillan",
+          "slot": "WR",
+          "team": "CAR",
+          "opponent": "ATL",
+          "gameDate": "2026-09-20",
+          "ppr": 14.6
+        },
+        {
+          "id": "12518",
+          "name": "Tyler Warren",
+          "slot": "TE",
+          "team": "IND",
+          "opponent": "KC",
+          "gameDate": "2026-09-20",
+          "ppr": 11.33
+        },
+        {
+          "id": "10232",
+          "name": "Michael Wilson",
+          "slot": "WRRB_FLEX",
+          "team": "ARI",
+          "opponent": "SEA",
+          "gameDate": "2026-09-20",
+          "ppr": 9.92
+        },
+        {
+          "id": "2747",
+          "name": "Jason Myers",
+          "slot": "K",
+          "team": "SEA",
+          "opponent": "ARI",
+          "gameDate": "2026-09-20",
+          "ppr": 6.72
+        },
+        {
+          "id": "PHI",
+          "name": "Philadelphia Eagles",
+          "slot": "DEF",
+          "team": "PHI",
+          "opponent": "TEN",
+          "gameDate": "2026-09-20",
+          "ppr": 9.6
+        }
+      ],
+      "bench": [
+        {
+          "id": "11370",
+          "name": "Chris Brooks"
+        },
+        {
+          "id": "11603",
+          "name": "AJ Barner"
+        },
+        {
+          "id": "4037",
+          "name": "Chris Godwin"
+        },
+        {
+          "id": "6783",
+          "name": "Jerry Jeudy"
+        },
+        {
+          "id": "8136",
+          "name": "Rachaad White"
+        },
+        {
+          "id": "8154",
+          "name": "Brian Robinson"
+        },
+        {
+          "id": "8408",
+          "name": "Jordan Mason"
+        }
+      ]
+    },
+    {
+      "matchupId": 2,
+      "rosterId": 10,
+      "week1Points": 147.66,
+      "pprTotal": 121.1,
+      "starters": [
+        {
+          "id": "4881",
+          "name": "Lamar Jackson",
+          "slot": "QB",
+          "team": "BAL",
+          "opponent": "NO",
+          "gameDate": "2026-09-20",
+          "ppr": 20.36
+        },
+        {
+          "id": "13287",
+          "name": "Jeremiyah Love",
+          "slot": "RB",
+          "team": "ARI",
+          "opponent": "SEA",
+          "gameDate": "2026-09-20",
+          "ppr": 12.53
+        },
+        {
+          "id": "8228",
+          "name": "Jaylen Warren",
+          "slot": "RB",
+          "team": "PIT",
+          "opponent": "NE",
+          "gameDate": "2026-09-20",
+          "ppr": 12.06
+        },
+        {
+          "id": "9488",
+          "name": "Jaxon Smith-Njigba",
+          "slot": "WR",
+          "team": "SEA",
+          "opponent": "ARI",
+          "gameDate": "2026-09-20",
+          "ppr": 18.78
+        },
+        {
+          "id": "4983",
+          "name": "DJ Moore",
+          "slot": "WR",
+          "team": "BUF",
+          "opponent": "DET",
+          "gameDate": "2026-09-17",
+          "ppr": 13.12
+        },
+        {
+          "id": "4217",
+          "name": "George Kittle",
+          "slot": "TE",
+          "team": "SF",
+          "opponent": "MIA",
+          "gameDate": "2026-09-20",
+          "ppr": 10.7
+        },
+        {
+          "id": "6786",
+          "name": "CeeDee Lamb",
+          "slot": "WRRB_FLEX",
+          "team": "DAL",
+          "opponent": "WAS",
+          "gameDate": "2026-09-20",
+          "ppr": 18.54
+        },
+        {
+          "id": "11792",
+          "name": "Will Reichard",
+          "slot": "K",
+          "team": "MIN",
+          "opponent": "CHI",
+          "gameDate": "2026-09-20",
+          "ppr": 6.26
+        },
+        {
+          "id": "LAR",
+          "name": "Los Angeles Rams",
+          "slot": "DEF",
+          "team": "LAR",
+          "opponent": "NYG",
+          "gameDate": "2026-09-21",
+          "ppr": 8.75
+        }
+      ],
+      "bench": [
+        {
+          "id": "11646",
+          "name": "Jalen Coker"
+        },
+        {
+          "id": "12469",
+          "name": "Dylan Sampson"
+        },
+        {
+          "id": "12533",
+          "name": "Jacory Croskey-Merritt"
+        },
+        {
+          "id": "6130",
+          "name": "Devin Singletary"
+        },
+        {
+          "id": "7594",
+          "name": "Chuba Hubbard"
+        },
+        {
+          "id": "8126",
+          "name": "Wan'Dale Robinson"
+        },
+        {
+          "id": "8131",
+          "name": "Isaiah Likely"
+        }
+      ]
+    },
+    {
+      "matchupId": 2,
+      "rosterId": 12,
+      "week1Points": 57.0,
+      "pprTotal": 110.14,
+      "starters": [
+        {
+          "id": "3294",
+          "name": "Dak Prescott",
+          "slot": "QB",
+          "team": "DAL",
+          "opponent": "WAS",
+          "gameDate": "2026-09-20",
+          "ppr": 20.26
+        },
+        {
+          "id": "8138",
+          "name": "James Cook",
+          "slot": "RB",
+          "team": "BUF",
+          "opponent": "DET",
+          "gameDate": "2026-09-17",
+          "ppr": 17.01
+        },
+        {
+          "id": "7543",
+          "name": "Travis Etienne",
+          "slot": "RB",
+          "team": "NO",
+          "opponent": "BAL",
+          "gameDate": "2026-09-20",
+          "ppr": 10.99
+        },
+        {
+          "id": "8112",
+          "name": "Drake London",
+          "slot": "WR",
+          "team": "ATL",
+          "opponent": "CAR",
+          "gameDate": "2026-09-20",
+          "ppr": 13.84
+        },
+        {
+          "id": "2133",
+          "name": "Davante Adams",
+          "slot": "WR",
+          "team": "LAR",
+          "opponent": "NYG",
+          "gameDate": "2026-09-21",
+          "ppr": 12.11
+        },
+        {
+          "id": "7553",
+          "name": "Kyle Pitts",
+          "slot": "TE",
+          "team": "ATL",
+          "opponent": "CAR",
+          "gameDate": "2026-09-20",
+          "ppr": 9.55
+        },
+        {
+          "id": "12512",
+          "name": "Quinshon Judkins",
+          "slot": "WRRB_FLEX",
+          "team": "CLE",
+          "opponent": "TB",
+          "gameDate": "2026-09-20",
+          "ppr": 12.44
+        },
+        {
+          "id": "12015",
+          "name": "Harrison Mevis",
+          "slot": "K",
+          "team": "LAR",
+          "opponent": "NYG",
+          "gameDate": "2026-09-21",
+          "ppr": 7.04
+        },
+        {
+          "id": "DEN",
+          "name": "Denver Broncos",
+          "slot": "DEF",
+          "team": "DEN",
+          "opponent": "JAX",
+          "gameDate": "2026-09-20",
+          "ppr": 6.9
+        }
+      ],
+      "bench": [
+        {
+          "id": "12474",
+          "name": "Woody Marks"
+        },
+        {
+          "id": "4035",
+          "name": "Alvin Kamara"
+        },
+        {
+          "id": "5846",
+          "name": "DK Metcalf"
+        },
+        {
+          "id": "5947",
+          "name": "Jakobi Meyers"
+        },
+        {
+          "id": "7567",
+          "name": "Kenny Gainwell"
+        },
+        {
+          "id": "9508",
+          "name": "Tyjae Spears"
+        }
+      ]
+    },
+    {
+      "matchupId": 3,
+      "rosterId": 3,
+      "week1Points": 120.24,
+      "pprTotal": 112.79,
+      "starters": [
+        {
+          "id": "11563",
+          "name": "Bo Nix",
+          "slot": "QB",
+          "team": "DEN",
+          "opponent": "JAX",
+          "gameDate": "2026-09-20",
+          "ppr": 15.74
+        },
+        {
+          "id": "4866",
+          "name": "Saquon Barkley",
+          "slot": "RB",
+          "team": "PHI",
+          "opponent": "TEN",
+          "gameDate": "2026-09-20",
+          "ppr": 16.64
+        },
+        {
+          "id": "12527",
+          "name": "Ashton Jeanty",
+          "slot": "RB",
+          "team": "LV",
+          "opponent": "LAC",
+          "gameDate": "2026-09-20",
+          "ppr": 14.87
+        },
+        {
+          "id": "7525",
+          "name": "DeVonta Smith",
+          "slot": "WR",
+          "team": "PHI",
+          "opponent": "TEN",
+          "gameDate": "2026-09-20",
+          "ppr": 14.76
+        },
+        {
+          "id": "11620",
+          "name": "Rome Odunze",
+          "slot": "WR",
+          "team": "CHI",
+          "opponent": "MIN",
+          "gameDate": "2026-09-20",
+          "ppr": 9.46
+        },
+        {
+          "id": "12506",
+          "name": "Harold Fannin",
+          "slot": "TE",
+          "team": "CLE",
+          "opponent": "TB",
+          "gameDate": "2026-09-20",
+          "ppr": 9.78
+        },
+        {
+          "id": "8167",
+          "name": "Christian Watson",
+          "slot": "WRRB_FLEX",
+          "team": "GB",
+          "opponent": "NYJ",
+          "gameDate": "2026-09-20",
+          "ppr": 14.84
+        },
+        {
+          "id": "11533",
+          "name": "Brandon Aubrey",
+          "slot": "K",
+          "team": "DAL",
+          "opponent": "WAS",
+          "gameDate": "2026-09-20",
+          "ppr": 7.26
+        },
+        {
+          "id": "SF",
+          "name": "San Francisco 49ers",
+          "slot": "DEF",
+          "team": "SF",
+          "opponent": "MIA",
+          "gameDate": "2026-09-20",
+          "ppr": 9.44
+        }
+      ],
+      "bench": [
+        {
+          "id": "11581",
+          "name": "MarShawn Lloyd"
+        },
+        {
+          "id": "11834",
+          "name": "Devaughn Vele"
+        },
+        {
+          "id": "13337",
+          "name": "Emmett Johnson"
+        },
+        {
+          "id": "13414",
+          "name": "Kaelon Black"
+        },
+        {
+          "id": "4137",
+          "name": "James Conner"
+        },
+        {
+          "id": "5850",
+          "name": "Josh Jacobs"
+        },
+        {
+          "id": "8205",
+          "name": "Isiah Pacheco"
+        },
+        {
+          "id": "9502",
+          "name": "Tank Dell"
+        },
+        {
+          "id": "9997",
+          "name": "Zay Flowers"
+        }
+      ]
+    },
+    {
+      "matchupId": 3,
+      "rosterId": 7,
+      "week1Points": 139.02,
+      "pprTotal": 119.49,
+      "starters": [
+        {
+          "id": "6904",
+          "name": "Jalen Hurts",
+          "slot": "QB",
+          "team": "PHI",
+          "opponent": "TEN",
+          "gameDate": "2026-09-20",
+          "ppr": 20.79
+        },
+        {
+          "id": "12481",
+          "name": "Cam Skattebo",
+          "slot": "RB",
+          "team": "NYG",
+          "opponent": "LAR",
+          "gameDate": "2026-09-21",
+          "ppr": 13.38
+        },
+        {
+          "id": "12529",
+          "name": "TreVeyon Henderson",
+          "slot": "RB",
+          "team": "NE",
+          "opponent": "PIT",
+          "gameDate": "2026-09-20",
+          "ppr": 9.54
+        },
+        {
+          "id": "7547",
+          "name": "Amon-Ra St. Brown",
+          "slot": "WR",
+          "team": "DET",
+          "opponent": "BUF",
+          "gameDate": "2026-09-17",
+          "ppr": 17.44
+        },
+        {
+          "id": "6794",
+          "name": "Justin Jefferson",
+          "slot": "WR",
+          "team": "MIN",
+          "opponent": "CHI",
+          "gameDate": "2026-09-20",
+          "ppr": 17.49
+        },
+        {
+          "id": "10859",
+          "name": "Sam LaPorta",
+          "slot": "TE",
+          "team": "DET",
+          "opponent": "BUF",
+          "gameDate": "2026-09-17",
+          "ppr": 11.19
+        },
+        {
+          "id": "11632",
+          "name": "Malik Nabers",
+          "slot": "WRRB_FLEX",
+          "team": "NYG",
+          "opponent": "LAR",
+          "gameDate": "2026-09-21",
+          "ppr": 13.85
+        },
+        {
+          "id": "7042",
+          "name": "Tyler Bass",
+          "slot": "K",
+          "team": "BUF",
+          "opponent": "DET",
+          "gameDate": "2026-09-17",
+          "ppr": 6.63
+        },
+        {
+          "id": "BAL",
+          "name": "Baltimore Ravens",
+          "slot": "DEF",
+          "team": "BAL",
+          "opponent": "NO",
+          "gameDate": "2026-09-20",
+          "ppr": 9.18
+        }
+      ],
+      "bench": [
+        {
+          "id": "11576",
+          "name": "Braelon Allen"
+        },
+        {
+          "id": "12501",
+          "name": "Matthew Golden"
+        },
+        {
+          "id": "5872",
+          "name": "Deebo Samuel"
+        },
+        {
+          "id": "6806",
+          "name": "J.K. Dobbins"
+        },
+        {
+          "id": "6819",
+          "name": "Michael Pittman"
+        },
+        {
+          "id": "9225",
+          "name": "Tank Bigsby"
+        },
+        {
+          "id": "9753",
+          "name": "Zach Charbonnet"
+        }
+      ]
+    },
+    {
+      "matchupId": 4,
+      "rosterId": 6,
+      "week1Points": 136.16,
+      "pprTotal": 128.45,
+      "starters": [
+        {
+          "id": "6770",
+          "name": "Joe Burrow",
+          "slot": "QB",
+          "team": "CIN",
+          "opponent": "HOU",
+          "gameDate": "2026-09-20",
+          "ppr": 17.81
+        },
+        {
+          "id": "9221",
+          "name": "Jahmyr Gibbs",
+          "slot": "RB",
+          "team": "DET",
+          "opponent": "BUF",
+          "gameDate": "2026-09-17",
+          "ppr": 26.13
+        },
+        {
+          "id": "7588",
+          "name": "Javonte Williams",
+          "slot": "RB",
+          "team": "DAL",
+          "opponent": "WAS",
+          "gameDate": "2026-09-20",
+          "ppr": 17.39
+        },
+        {
+          "id": "8144",
+          "name": "Chris Olave",
+          "slot": "WR",
+          "team": "NO",
+          "opponent": "BAL",
+          "gameDate": "2026-09-20",
+          "ppr": 15.59
+        },
+        {
+          "id": "12519",
+          "name": "Luther Burden",
+          "slot": "WR",
+          "team": "CHI",
+          "opponent": "MIN",
+          "gameDate": "2026-09-20",
+          "ppr": 11.19
+        },
+        {
+          "id": "9484",
+          "name": "Tucker Kraft",
+          "slot": "TE",
+          "team": "GB",
+          "opponent": "NYJ",
+          "gameDate": "2026-09-20",
+          "ppr": 11.85
+        },
+        {
+          "id": "2449",
+          "name": "Stefon Diggs",
+          "slot": "WRRB_FLEX",
+          "team": "WAS",
+          "opponent": "DAL",
+          "gameDate": "2026-09-20",
+          "ppr": 12.67
+        },
+        {
+          "id": "3451",
+          "name": "Ka'imi Fairbairn",
+          "slot": "K",
+          "team": "HOU",
+          "opponent": "CIN",
+          "gameDate": "2026-09-20",
+          "ppr": 7.31
+        },
+        {
+          "id": "NE",
+          "name": "New England Patriots",
+          "slot": "DEF",
+          "team": "NE",
+          "opponent": "PIT",
+          "gameDate": "2026-09-20",
+          "ppr": 8.51
+        }
+      ],
+      "bench": [
+        {
+          "id": "10219",
+          "name": "Chris Rodriguez"
+        },
+        {
+          "id": "12489",
+          "name": "RJ Harvey"
+        },
+        {
+          "id": "13288",
+          "name": "Nicholas Singleton"
+        },
+        {
+          "id": "4993",
+          "name": "Mike Gesicki"
+        },
+        {
+          "id": "5849",
+          "name": "Kyler Murray"
+        },
+        {
+          "id": "9756",
+          "name": "Jordan Addison"
+        }
+      ]
+    },
+    {
+      "matchupId": 4,
+      "rosterId": 8,
+      "week1Points": 156.06,
+      "pprTotal": 114.43,
+      "starters": [
+        {
+          "id": "11560",
+          "name": "Caleb Williams",
+          "slot": "QB",
+          "team": "CHI",
+          "opponent": "MIN",
+          "gameDate": "2026-09-20",
+          "ppr": 16.68
+        },
+        {
+          "id": "6813",
+          "name": "Jonathan Taylor",
+          "slot": "RB",
+          "team": "IND",
+          "opponent": "KC",
+          "gameDate": "2026-09-20",
+          "ppr": 18.79
+        },
+        {
+          "id": "5892",
+          "name": "David Montgomery",
+          "slot": "RB",
+          "team": "HOU",
+          "opponent": "CIN",
+          "gameDate": "2026-09-20",
+          "ppr": 17.07
+        },
+        {
+          "id": "6801",
+          "name": "Tee Higgins",
+          "slot": "WR",
+          "team": "CIN",
+          "opponent": "HOU",
+          "gameDate": "2026-09-20",
+          "ppr": 13.84
+        },
+        {
+          "id": "13298",
+          "name": "KC Concepcion",
+          "slot": "WR",
+          "team": "CLE",
+          "opponent": "TB",
+          "gameDate": "2026-09-20",
+          "ppr": 9.9
+        },
+        {
+          "id": "5012",
+          "name": "Mark Andrews",
+          "slot": "TE",
+          "team": "BAL",
+          "opponent": "NO",
+          "gameDate": "2026-09-20",
+          "ppr": 9.91
+        },
+        {
+          "id": "11635",
+          "name": "Ladd McConkey",
+          "slot": "WRRB_FLEX",
+          "team": "LAC",
+          "opponent": "LV",
+          "gameDate": "2026-09-20",
+          "ppr": 13.1
+        },
+        {
+          "id": "11786",
+          "name": "Cam Little",
+          "slot": "K",
+          "team": "JAX",
+          "opponent": "DEN",
+          "gameDate": "2026-09-20",
+          "ppr": 6.19
+        },
+        {
+          "id": "GB",
+          "name": "Green Bay Packers",
+          "slot": "DEF",
+          "team": "GB",
+          "opponent": "NYJ",
+          "gameDate": "2026-09-20",
+          "ppr": 8.95
+        }
+      ],
+      "bench": [
+        {
+          "id": "11583",
+          "name": "Jonathon Brooks"
+        },
+        {
+          "id": "11604",
+          "name": "Brock Bowers"
+        },
+        {
+          "id": "11610",
+          "name": "Malik Washington"
+        },
+        {
+          "id": "13294",
+          "name": "Makai Lemon"
+        },
+        {
+          "id": "4046",
+          "name": "Patrick Mahomes"
+        },
+        {
+          "id": "8132",
+          "name": "Tyler Allgeier"
+        }
+      ]
+    },
+    {
+      "matchupId": 5,
+      "rosterId": 4,
+      "week1Points": 74.46,
+      "pprTotal": 105.35,
+      "starters": [
+        {
+          "id": "6797",
+          "name": "Justin Herbert",
+          "slot": "QB",
+          "team": "LAC",
+          "opponent": "LV",
+          "gameDate": "2026-09-20",
+          "ppr": 16.88
+        },
+        {
+          "id": "12490",
+          "name": "Bhayshul Tuten",
+          "slot": "RB",
+          "team": "JAX",
+          "opponent": "DEN",
+          "gameDate": "2026-09-20",
+          "ppr": 9.1
+        },
+        {
+          "id": "7611",
+          "name": "Rhamondre Stevenson",
+          "slot": "RB",
+          "team": "NE",
+          "opponent": "PIT",
+          "gameDate": "2026-09-20",
+          "ppr": 12.28
+        },
+        {
+          "id": "9493",
+          "name": "Puka Nacua",
+          "slot": "WR",
+          "team": "LAR",
+          "opponent": "NYG",
+          "gameDate": "2026-09-21",
+          "ppr": 20.14
+        },
+        {
+          "id": "8146",
+          "name": "Garrett Wilson",
+          "slot": "WR",
+          "team": "NYJ",
+          "opponent": "GB",
+          "gameDate": "2026-09-20",
+          "ppr": 15.11
+        },
+        {
+          "id": "12517",
+          "name": "Colston Loveland",
+          "slot": "TE",
+          "team": "CHI",
+          "opponent": "MIN",
+          "gameDate": "2026-09-20",
+          "ppr": 11.6
+        },
+        {
+          "id": "12534",
+          "name": "Kyle Monangai",
+          "slot": "WRRB_FLEX",
+          "team": "CHI",
+          "opponent": "MIN",
+          "gameDate": "2026-09-20",
+          "ppr": 7.0
+        },
+        {
+          "id": "4227",
+          "name": "Harrison Butker",
+          "slot": "K",
+          "team": "KC",
+          "opponent": "IND",
+          "gameDate": "2026-09-20",
+          "ppr": 6.31
+        },
+        {
+          "id": "HOU",
+          "name": "Houston Texans",
+          "slot": "DEF",
+          "team": "HOU",
+          "opponent": "CIN",
+          "gameDate": "2026-09-20",
+          "ppr": 6.93
+        }
+      ],
+      "bench": [
+        {
+          "id": "13281",
+          "name": "Jordyn Tyson"
+        },
+        {
+          "id": "13301",
+          "name": "Antonio Williams"
+        },
+        {
+          "id": "13330",
+          "name": "Kenyon Sadiq"
+        },
+        {
+          "id": "13345",
+          "name": "Jonah Coleman"
+        },
+        {
+          "id": "13413",
+          "name": "Cyrus Allen"
+        },
+        {
+          "id": "421",
+          "name": "Matthew Stafford"
+        },
+        {
+          "id": "5859",
+          "name": "A.J. Brown"
+        },
+        {
+          "id": "8142",
+          "name": "Alec Pierce"
+        }
+      ]
+    },
+    {
+      "matchupId": 5,
+      "rosterId": 5,
+      "week1Points": 126.66,
+      "pprTotal": 130.35,
+      "starters": [
+        {
+          "id": "11566",
+          "name": "Jayden Daniels",
+          "slot": "QB",
+          "team": "WAS",
+          "opponent": "DAL",
+          "gameDate": "2026-09-20",
+          "ppr": 20.25
+        },
+        {
+          "id": "9509",
+          "name": "Bijan Robinson",
+          "slot": "RB",
+          "team": "ATL",
+          "opponent": "CAR",
+          "gameDate": "2026-09-20",
+          "ppr": 22.36
+        },
+        {
+          "id": "11584",
+          "name": "Bucky Irving",
+          "slot": "RB",
+          "team": "TB",
+          "opponent": "CLE",
+          "gameDate": "2026-09-20",
+          "ppr": 13.82
+        },
+        {
+          "id": "8137",
+          "name": "George Pickens",
+          "slot": "WR",
+          "team": "DAL",
+          "opponent": "WAS",
+          "gameDate": "2026-09-20",
+          "ppr": 16.34
+        },
+        {
+          "id": "5927",
+          "name": "Terry McLaurin",
+          "slot": "WR",
+          "team": "WAS",
+          "opponent": "DAL",
+          "gameDate": "2026-09-20",
+          "ppr": 13.95
+        },
+        {
+          "id": "8130",
+          "name": "Trey McBride",
+          "slot": "TE",
+          "team": "ARI",
+          "opponent": "SEA",
+          "gameDate": "2026-09-20",
+          "ppr": 14.6
+        },
+        {
+          "id": "4199",
+          "name": "Aaron Jones",
+          "slot": "WRRB_FLEX",
+          "team": "MIN",
+          "opponent": "CHI",
+          "gameDate": "2026-09-20",
+          "ppr": 14.01
+        },
+        {
+          "id": "11539",
+          "name": "Jake Bates",
+          "slot": "K",
+          "team": "DET",
+          "opponent": "BUF",
+          "gameDate": "2026-09-17",
+          "ppr": 6.15
+        },
+        {
+          "id": "SEA",
+          "name": "Seattle Seahawks",
+          "slot": "DEF",
+          "team": "SEA",
+          "opponent": "ARI",
+          "gameDate": "2026-09-20",
+          "ppr": 8.87
+        }
+      ],
+      "bench": [
+        {
+          "id": "11575",
+          "name": "Ray Davis"
+        },
+        {
+          "id": "11586",
+          "name": "Blake Corum"
+        },
+        {
+          "id": "11631",
+          "name": "Brian Thomas"
+        },
+        {
+          "id": "4892",
+          "name": "Baker Mayfield"
+        },
+        {
+          "id": "8121",
+          "name": "Romeo Doubs"
+        },
+        {
+          "id": "9754",
+          "name": "Quentin Johnston"
+        }
+      ]
+    },
+    {
+      "matchupId": 6,
+      "rosterId": 2,
+      "week1Points": 169.0,
+      "pprTotal": 113.58,
+      "starters": [
+        {
+          "id": "7523",
+          "name": "Trevor Lawrence",
+          "slot": "QB",
+          "team": "JAX",
+          "opponent": "DEN",
+          "gameDate": "2026-09-20",
+          "ppr": 17.2
+        },
+        {
+          "id": "9224",
+          "name": "Chase Brown",
+          "slot": "RB",
+          "team": "CIN",
+          "opponent": "HOU",
+          "gameDate": "2026-09-20",
+          "ppr": 15.46
+        },
+        {
+          "id": "8155",
+          "name": "Breece Hall",
+          "slot": "RB",
+          "team": "NYJ",
+          "opponent": "GB",
+          "gameDate": "2026-09-20",
+          "ppr": 13.91
+        },
+        {
+          "id": "2216",
+          "name": "Mike Evans",
+          "slot": "WR",
+          "team": "SF",
+          "opponent": "MIA",
+          "gameDate": "2026-09-20",
+          "ppr": 12.93
+        },
+        {
+          "id": "9487",
+          "name": "Parker Washington",
+          "slot": "WR",
+          "team": "JAX",
+          "opponent": "DEN",
+          "gameDate": "2026-09-20",
+          "ppr": 10.97
+        },
+        {
+          "id": "5022",
+          "name": "Dallas Goedert",
+          "slot": "TE",
+          "team": "PHI",
+          "opponent": "TEN",
+          "gameDate": "2026-09-20",
+          "ppr": 10.17
+        },
+        {
+          "id": "8151",
+          "name": "Kenneth Walker",
+          "slot": "WRRB_FLEX",
+          "team": "KC",
+          "opponent": "IND",
+          "gameDate": "2026-09-20",
+          "ppr": 16.39
+        },
+        {
+          "id": "5189",
+          "name": "Eddy Pineiro",
+          "slot": "K",
+          "team": "SF",
+          "opponent": "MIA",
+          "gameDate": "2026-09-20",
+          "ppr": 6.77
+        },
+        {
+          "id": "TB",
+          "name": "Tampa Bay Buccaneers",
+          "slot": "DEF",
+          "team": "TB",
+          "opponent": "CLE",
+          "gameDate": "2026-09-20",
+          "ppr": 9.78
+        }
+      ],
+      "bench": [
+        {
+          "id": "12487",
+          "name": "Terrance Ferguson"
+        },
+        {
+          "id": "7021",
+          "name": "Rico Dowdle"
+        },
+        {
+          "id": "7526",
+          "name": "Jaylen Waddle"
+        },
+        {
+          "id": "8676",
+          "name": "Rashid Shaheed"
+        },
+        {
+          "id": "9500",
+          "name": "Josh Downs"
+        },
+        {
+          "id": "9511",
+          "name": "Keaton Mitchell"
+        }
+      ]
+    },
+    {
+      "matchupId": 6,
+      "rosterId": 9,
+      "week1Points": 130.56,
+      "pprTotal": 119.6,
+      "starters": [
+        {
+          "id": "4984",
+          "name": "Josh Allen",
+          "slot": "QB",
+          "team": "BUF",
+          "opponent": "DET",
+          "gameDate": "2026-09-17",
+          "ppr": 21.89
+        },
+        {
+          "id": "4034",
+          "name": "Christian McCaffrey",
+          "slot": "RB",
+          "team": "SF",
+          "opponent": "MIA",
+          "gameDate": "2026-09-20",
+          "ppr": 19.76
+        },
+        {
+          "id": "3198",
+          "name": "Derrick Henry",
+          "slot": "RB",
+          "team": "BAL",
+          "opponent": "NO",
+          "gameDate": "2026-09-20",
+          "ppr": 14.91
+        },
+        {
+          "id": "12514",
+          "name": "Emeka Egbuka",
+          "slot": "WR",
+          "team": "TB",
+          "opponent": "CLE",
+          "gameDate": "2026-09-20",
+          "ppr": 10.8
+        },
+        {
+          "id": "8148",
+          "name": "Jameson Williams",
+          "slot": "WR",
+          "team": "DET",
+          "opponent": "BUF",
+          "gameDate": "2026-09-17",
+          "ppr": 12.62
+        },
+        {
+          "id": "10236",
+          "name": "Dalton Kincaid",
+          "slot": "TE",
+          "team": "BUF",
+          "opponent": "DET",
+          "gameDate": "2026-09-17",
+          "ppr": 12.16
+        },
+        {
+          "id": "10222",
+          "name": "Jayden Reed",
+          "slot": "WRRB_FLEX",
+          "team": "GB",
+          "opponent": "NYJ",
+          "gameDate": "2026-09-20",
+          "ppr": 11.58
+        },
+        {
+          "id": "8259",
+          "name": "Cameron Dicker",
+          "slot": "K",
+          "team": "LAC",
+          "opponent": "LV",
+          "gameDate": "2026-09-20",
+          "ppr": 7.36
+        },
+        {
+          "id": "LAC",
+          "name": "Los Angeles Chargers",
+          "slot": "DEF",
+          "team": "LAC",
+          "opponent": "LV",
+          "gameDate": "2026-09-20",
+          "ppr": 8.52
+        }
+      ],
+      "bench": [
+        {
+          "id": "11624",
+          "name": "Xavier Worthy"
+        },
+        {
+          "id": "11655",
+          "name": "Tyrone Tracy"
+        },
+        {
+          "id": "5045",
+          "name": "Courtland Sutton"
+        },
+        {
+          "id": "5967",
+          "name": "Tony Pollard"
+        },
+        {
+          "id": "8134",
+          "name": "Khalil Shakir"
+        },
+        {
+          "id": "8183",
+          "name": "Brock Purdy"
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "type": "free_agent",
+      "at": "2026-09-16T21:25:49.533000+00:00",
+      "adds": {
+        "Antonio Williams": 4
+      },
+      "drops": {}
+    },
+    {
+      "type": "free_agent",
+      "at": "2026-09-16T19:51:20.569000+00:00",
+      "adds": {
+        "Chris Brooks": 11
+      },
+      "drops": {}
+    },
+    {
+      "type": "free_agent",
+      "at": "2026-09-16T09:02:16.723000+00:00",
+      "adds": {
+        "Eddy Pineiro": 2
+      },
+      "drops": {
+        "Tyler Loop": 2
+      }
+    },
+    {
+      "type": "free_agent",
+      "at": "2026-09-16T07:53:29.124000+00:00",
+      "adds": {
+        "NE": 6
+      },
+      "drops": {
+        "MIN": 6
+      }
+    },
+    {
+      "type": "free_agent",
+      "at": "2026-09-16T07:53:04.291000+00:00",
+      "adds": {
+        "Mike Gesicki": 6
+      },
+      "drops": {
+        "Jake Ferguson": 6
+      }
+    },
+    {
+      "type": "free_agent",
+      "at": "2026-09-16T07:27:18.764000+00:00",
+      "adds": {
+        "GB": 8
+      },
+      "drops": {
+        "DET": 8
+      }
+    }
+  ]
+}

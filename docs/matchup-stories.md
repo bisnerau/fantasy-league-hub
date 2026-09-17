@@ -1,9 +1,9 @@
-# MAC 12 matchup newsletter
+# MAC 12 matchup reports
 
 ## Agreed workflow
 
 The commissioner prompts Codex for **reviews on Tuesdays** and **previews on
-Thursdays**. These are individually researched and written newsletter editions.
+Thursdays**. These are individually researched and written matchup reports.
 There is no scheduled AI author and no automatic template publication. The daily
 cron still prepares ballots and settles results after Tuesday 11am Irish time.
 
@@ -13,7 +13,7 @@ Final games default to Review. Published previews remain available afterwards.
 
 ## Writing brief
 
-- Informed league newsletter with friendly slagging: story first, numbers in
+- Informed league writing with friendly slagging: story first, numbers in
   support. The commissioner rejected the initial stats-heavy reports.
 - Give each game its own headline, a short enticing summary and roughly three
   short sections. Aim for about 180–250 words overall, without padding.
@@ -29,7 +29,7 @@ Final games default to Review. Published previews remain available afterwards.
 - Reviews own the original call, including mistakes. For Week 1, there was no
   pregame edition. Do not invent or repeatedly apologise for a missing call.
 - Member voting details stay in the authenticated receipt section, never copied
-  into public newsletter prose. It is fine to describe public awards.
+  into public report prose. It is fine to describe public awards.
 
 ## Research and publish an edition
 
@@ -42,7 +42,10 @@ Final games default to Review. Published previews remain available afterwards.
    `MatchupNewsletter` record per game. Match league ID, season, week, Sleeper
    matchup ID and both roster IDs exactly. Add it to the index in
    `lib/data/matchup-newsletters.ts`.
-3. Set `editorial: true` on stories. Each review has `version`, `publishedAt`,
+3. Use “matchup report”, “preview”, “match report” or “round-up” in visible
+   copy; the commissioner retired the word “newsletter”. Keep existing internal
+   module names stable. Link current primary NFL sources for news claims.
+   Set `editorial: true` on stories. Each review has `version`, `publishedAt`,
    `headline`, `summary` and `sections`. Each preview additionally preserves
    `pickRosterId`, `homeProjection` and `awayProjection` from its original
    source snapshot. PPR estimates may differ from custom-league projections.
@@ -68,7 +71,7 @@ previews; the cron neither generates nor overwrites it. Public page requests
 are read-only. Authored previews take precedence over a legacy stored template;
 new editions must preserve any genuine prior published winner call.
 
-Scores, awards and pick grading remain automatic. Newsletter prose requires the
+Scores, awards and pick grading remain automatic. Match report prose requires the
 commissioner's prompt. There is no external model API key or recurring model
 charge configured.
 
@@ -76,7 +79,9 @@ charge configured.
 
 `lib/data/newsletters/2026-week-1.ts` contains six individually written reviews,
 checked against the settled Week 1 results on 15 September 2026. There are no
-Week 1 previews and no Week 2 previews yet.
+Week 1 previews. `lib/data/newsletters/2026-week-2.ts` contains six Week 2
+previews, researched on Thursday 17 September before the opening NFL game.
+The research receipt is in `docs/research/2026-week-2.md`.
 
 Tests cover exact edition-to-fixture matching, hidden future editions, authored
 underdog calls, read-only pages, settlement gating and a Thursday cron that

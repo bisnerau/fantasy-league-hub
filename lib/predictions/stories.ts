@@ -15,6 +15,7 @@ export type MatchupStory = {
   headline: string;
   summary: string;
   sections: StorySection[];
+  sources?: { label: string; url: string }[];
 };
 export type MatchupPreview = MatchupStory & {
   publishedAt: string;
@@ -95,6 +96,15 @@ export function readPreview(value: unknown): MatchupPreview | null {
     Number.isInteger(p.pickRosterId) &&
     Number.isFinite(p.homeProjection) &&
     Number.isFinite(p.awayProjection) &&
+    (p.sources === undefined ||
+      (Array.isArray(p.sources) &&
+        p.sources.every(
+          (source) =>
+            source &&
+            typeof source.label === 'string' &&
+            typeof source.url === 'string' &&
+            source.url.startsWith('https://'),
+        ))) &&
     Array.isArray(p.sections) &&
     p.sections.every(
       (s) => s && typeof s.title === 'string' && typeof s.text === 'string',
