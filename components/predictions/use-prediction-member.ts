@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 import type { PredictionWeekData } from '@/lib/data/predictions';
 import { getBrowserSupabaseClient } from '@/lib/supabase/browser';
-import type { VoteRecord } from '@/lib/predictions/votes';
+import type { VoteRecord, BankerRecord } from '@/lib/predictions/votes';
 export type { VoteRecord } from '@/lib/predictions/votes';
 
 export type Profile = {
@@ -18,11 +18,15 @@ export type LeaderboardRow = {
   completed_picks: number;
   correct_picks: number;
   accuracy: number | string;
+  points: number;
+  completed_bankers: number;
+  correct_bankers: number;
 };
 
 const empty = {
   profile: null as Profile | null,
   votes: [] as VoteRecord[],
+  bankers: [] as BankerRecord[],
   names: [] as { id: string; display_name: string }[],
   weeklyLeaderboard: [] as LeaderboardRow[],
   seasonLeaderboard: [] as LeaderboardRow[],
@@ -104,43 +108,52 @@ export function usePredictionMember(data: PredictionWeekData, locked: boolean) {
       );
       try {
         const columns =
-          'voter_id,display_name,completed_picks,correct_picks,accuracy';
+          'voter_id,display_name,completed_picks,correct_picks,accuracy,points,completed_bankers,correct_bankers';
         const leaderboard = (table: string) =>
           supabase
             .from(table)
             .select(columns)
             .eq('league_id', data.leagueId)
             .eq('season', Number(data.season))
-            .order('correct_picks', { ascending: false })
-            .order('accuracy', { ascending: false })
+            .order('points', { ascending: false })
             .order('display_name');
-        const [profile, votes, names, weekly, season] = await Promise.all([
-          supabase
-            .from('profiles')
-            .select('id,display_name,roster_id')
-            .eq('id', user.id)
-            .maybeSingle(),
-          matchupIds.length
-            ? supabase
-                .from('prediction_votes')
-                .select('matchup_id,voter_id,selected_roster_id')
-                .in('matchup_id', matchupIds)
-            : Promise.resolve({ data: [], error: null }),
-          locked
-            ? supabase.from('profiles').select('id,display_name')
-            : Promise.resolve({ data: [], error: null }),
-          leaderboard('prediction_weekly_leaderboard').eq('week', data.week),
-          leaderboard('prediction_season_leaderboard'),
-        ]);
+        const [profile, votes, names, weekly, season, bankers] =
+          await Promise.all([
+            supabase
+              .from('profiles')
+              .select('id,display_name,roster_id')
+              .eq('id', user.id)
+              .maybeSingle(),
+            matchupIds.length
+              ? supabase
+                  .from('prediction_votes')
+                  .select('matchup_id,voter_id,selected_roster_id')
+                  .in('matchup_id', matchupIds)
+              : Promise.resolve({ data: [], error: null }),
+            locked
+              ? supabase.from('profiles').select('id,display_name')
+              : Promise.resolve({ data: [], error: null }),
+            leaderboard('prediction_weekly_leaderboard').eq('week', data.week),
+            leaderboard('prediction_season_leaderboard'),
+            matchupIds.length
+              ? supabase
+                  .from('prediction_bankers')
+                  .select('prediction_week_id,matchup_id,voter_id')
+                  .in('matchup_id', matchupIds)
+              : Promise.resolve({ data: [], error: null }),
+          ]);
         if (!active || request !== requestId.current) return;
         if (
-          [profile, votes, names, weekly, season].some((result) => result.error)
+          [profile, votes, names, weekly, season, bankers].some(
+            (result) => result.error,
+          )
         )
           throw new Error('Member data unavailable');
         if (!profile.data) throw new Error('Member profile unavailable');
         setMemberData({
           profile: profile.data as Profile,
           votes: votes.data as VoteRecord[],
+          bankers: bankers.data as BankerRecord[],
           names: names.data as { id: string; display_name: string }[],
           weeklyLeaderboard: weekly.data as LeaderboardRow[],
           seasonLeaderboard: season.data as LeaderboardRow[],
@@ -190,6 +203,26 @@ export function usePredictionMember(data: PredictionWeekData, locked: boolean) {
     [refresh],
   );
 
+  const recordSavedBanker = useCallback(
+    (banker: BankerRecord) => {
+      requestId.current += 1;
+      setLoading(false);
+      setMemberData((previous) => ({
+        ...previous,
+        bankers: [
+          ...previous.bankers.filter(
+            (row) =>
+              row.voter_id !== banker.voter_id ||
+              row.prediction_week_id !== banker.prediction_week_id,
+          ),
+          banker,
+        ],
+      }));
+      refresh();
+    },
+    [refresh],
+  );
+
   return {
     supabase,
     user,
@@ -198,5 +231,6 @@ export function usePredictionMember(data: PredictionWeekData, locked: boolean) {
     error,
     refresh,
     recordSavedVote,
+    recordSavedBanker,
   };
 }

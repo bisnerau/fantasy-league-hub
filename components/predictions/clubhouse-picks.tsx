@@ -82,11 +82,11 @@ export function ClubhousePicks({
           ) : (
             <>
               <span className="sm:hidden">
-                Six matchups. Picks stay private until Sunday.
+                Six matchups. One double-points Banker. Private until Sunday.
               </span>
               <span className="hidden sm:inline">
-                Pick the winner of each fantasy matchup. Your calls stay private
-                until Sunday, then the whole league gets to see them.
+                Pick each winner and choose one Banker for double points. Your
+                calls stay private until Sunday.
               </span>
             </>
           )}
@@ -129,7 +129,12 @@ export function ClubhousePicks({
               ) : (
                 <span className="flex items-center gap-2 text-sm text-primary">
                   <Check className="size-4" /> {picksMade} of{' '}
-                  {data.matchups.length} saved
+                  {data.matchups.length} saved ·{' '}
+                  {member.bankers.some((b) => b.voter_id === member.user?.id)
+                    ? 'Banker saved'
+                    : locked
+                      ? 'No Banker'
+                      : 'Choose your Banker'}
                 </span>
               ))}
           </div>
@@ -149,7 +154,7 @@ export function ClubhousePicks({
             Who calls it best?
           </h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            The season-long prediction race. One point for every correct winner.
+            One point per correct winner. Two for a correct Banker.
           </p>
           <div className="my-5 flex-1 border-y border-border py-5">
             {member.loading ? (
@@ -197,9 +202,7 @@ export function ClubhousePicks({
                   >
                     <span className="w-5 font-mono text-muted-foreground">
                       {member.seasonLeaderboard.findIndex(
-                        (candidate) =>
-                          candidate.correct_picks === row.correct_picks &&
-                          Number(candidate.accuracy) === Number(row.accuracy),
+                        (candidate) => candidate.points === row.points,
                       ) + 1}
                     </span>
                     <span className="min-w-0 flex-1 font-medium">
@@ -209,7 +212,7 @@ export function ClubhousePicks({
                       )}
                     </span>
                     <span className="font-mono text-primary">
-                      {row.correct_picks}
+                      {row.points}
                       <span className="ml-1 text-xs text-muted-foreground">
                         pts
                       </span>

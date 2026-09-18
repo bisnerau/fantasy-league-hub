@@ -6,6 +6,34 @@ export type VoteRecord = {
   selected_roster_id: number;
 };
 
+export type BankerRecord = {
+  prediction_week_id: number;
+  matchup_id: number;
+  voter_id: string;
+};
+
+/** The database atomically replaces the week's nomination and enforces its deadline. */
+export async function persistBanker(
+  client: SupabaseClient,
+  matchupId: number,
+  voterId: string,
+) {
+  const { data: saved, error } = await client
+    .rpc('set_prediction_banker', { target_matchup_id: matchupId })
+    .single();
+  const row = saved as BankerRecord | null;
+  return {
+    saved:
+      !error &&
+      row?.matchup_id === matchupId &&
+      row.voter_id === voterId &&
+      Number.isInteger(row.prediction_week_id)
+        ? row
+        : null,
+    locked: Boolean(error?.message.toLowerCase().includes('locked')),
+  };
+}
+
 /** Confirm the exact persisted row before the interface calls a pick saved. */
 export async function persistPick(client: SupabaseClient, vote: VoteRecord) {
   const { data: saved, error } = await client

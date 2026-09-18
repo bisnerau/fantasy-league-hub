@@ -14,6 +14,7 @@ import {
   orderMatchupsForDisplay,
 } from '@/lib/data/match-of-the-week';
 import { cn } from '@/lib/utils';
+import { getWeeklyRivalries } from '@/lib/data/rivalries';
 
 export const metadata: Metadata = {
   title: 'Weekly Picks',
@@ -35,6 +36,7 @@ export default async function MatchupsPage({
     Number.isInteger(requestedWeek) ? requestedWeek : undefined,
   );
   const earliestWeek = 1;
+  const rivalries = view === 'weekly' ? await getWeeklyRivalries(data) : {};
   const matchOfTheWeek = getMatchOfTheWeek(data);
   const latestWeek = Math.max(1, data.currentWeek);
   const previousWeek = Math.max(earliestWeek, data.week - 1);
@@ -56,8 +58,8 @@ export default async function MatchupsPage({
           </h1>
           <p className="mt-1.5 max-w-2xl text-[13px] leading-5 text-muted-foreground">
             {view === 'standings'
-              ? 'Every correct weekly pick counts toward the season prediction title.'
-              : 'Six fantasy matchups. A Sunday deadline. A whole season of bragging rights.'}
+              ? 'Every correct pick earns a point. A correct Banker earns two.'
+              : 'Six fantasy matchups. One double-points Banker. A Sunday deadline.'}
           </p>
         </div>
         <div className="hidden size-12 items-center justify-center rounded-xl border border-primary/15 bg-primary/[0.065] text-primary sm:flex">
@@ -151,6 +153,7 @@ export default async function MatchupsPage({
           matchups: orderMatchupsForDisplay(data.matchups, matchOfTheWeek),
         }}
         matchOfTheWeek={matchOfTheWeek}
+        rivalries={rivalries}
         mode={view}
       />
     </div>

@@ -9,7 +9,11 @@ import {
 } from './use-prediction-member';
 import { formatLockTime, signInErrorMessage } from '@/lib/predictions/rules';
 import { formatScore } from '@/lib/sleeper/scores';
-import { persistPick } from '@/lib/predictions/votes';
+import {
+  persistPick,
+  persistBanker,
+  type BankerRecord,
+} from '@/lib/predictions/votes';
 import {
   Table,
   TableBody,
@@ -59,7 +63,11 @@ import { cn } from '@/lib/utils';
 import { MatchupEditorial } from './matchup-editorial';
 import type { MatchOfTheWeek } from '@/lib/data/match-of-the-week';
 
+import { RivalryStrip } from './rivalry-strip';
+import type { Rivalry } from '@/lib/data/rivalries';
+
 type VoterDisplay = {
+  banker: boolean;
   id: string;
   name: string;
   isCurrentUser: boolean;
@@ -99,7 +107,8 @@ function PredictionTable({
       ) : (
         <Table>
           <caption className="sr-only">
-            {title}. Ranked by correct predictions; equal totals share a rank.
+            {title}. Ranked by points; equal totals share a rank. Bankers earn
+            two points.
           </caption>
           <TableHeader>
             <TableRow>
@@ -108,6 +117,12 @@ function PredictionTable({
               </TableHead>
               <TableHead scope="col" className="text-xs">
                 Manager
+              </TableHead>
+              <TableHead scope="col" className="text-right text-xs">
+                Points
+              </TableHead>
+              <TableHead scope="col" className="text-right text-xs">
+                Bankers
               </TableHead>
               <TableHead scope="col" className="text-right text-xs">
                 Correct
@@ -125,9 +140,7 @@ function PredictionTable({
               >
                 <TableCell className="pl-4 font-mono text-xs text-muted-foreground">
                   {rows.findIndex(
-                    (candidate) =>
-                      candidate.correct_picks === row.correct_picks &&
-                      Number(candidate.accuracy) === Number(row.accuracy),
+                    (candidate) => candidate.points === row.points,
                   ) + 1}
                 </TableCell>
                 <TableCell className="whitespace-normal text-sm font-medium">
@@ -136,7 +149,16 @@ function PredictionTable({
                     <span className="ml-1 text-xs text-primary">(you)</span>
                   )}
                 </TableCell>
-                <TableCell className="text-right font-mono text-sm text-primary">
+                <TableCell className="text-right font-mono text-sm font-bold text-primary">
+                  {row.points}
+                </TableCell>
+                <TableCell
+                  className="text-right font-mono text-sm"
+                  title="Correct Bankers / settled Bankers (ties excluded)"
+                >
+                  {row.correct_bankers}/{row.completed_bankers}
+                </TableCell>
+                <TableCell className="text-right font-mono text-sm text-muted-foreground">
                   {row.correct_picks}/{row.completed_picks}
                 </TableCell>
                 <TableCell className="pr-4 text-right font-mono text-xs text-muted-foreground">
@@ -350,6 +372,11 @@ function TeamChoice({
                   )}
                 >
                   {voter.name}
+                  {voter.banker && (
+                    <span className="font-semibold text-amber-600 dark:text-amber-300">
+                      Banker ×2
+                    </span>
+                  )}
                   {voter.isCurrentUser && (
                     <span className="text-[11px] font-bold uppercase tracking-wide">
                       You
@@ -382,6 +409,11 @@ function MatchupPanel({
   votersReady,
   onPick,
   onRequireLogin,
+  rivalry,
+  bankers,
+  bankerPending,
+  savingPick,
+  onBanker,
 }: {
   matchup: PredictionMatchup;
   lockAt: string;
@@ -397,17 +429,43 @@ function MatchupPanel({
   votersReady: boolean;
   onPick: (matchup: PredictionMatchup, rosterId: number) => void;
   onRequireLogin: () => void;
+  rivalry?: Rivalry;
+  bankers: BankerRecord[];
+  bankerPending: boolean;
+  savingPick: boolean;
+  onBanker: (matchup: PredictionMatchup) => void;
 }) {
   const [lineupsOpen, setLineupsOpen] = useState(false);
   const matchupVotes = votes.filter(
     (vote) => vote.matchup_id === matchup.databaseId,
   );
   const ownVote = matchupVotes.find((vote) => vote.voter_id === user?.id);
+  const isBanker = bankers.some(
+    (b) => b.voter_id === user?.id && b.matchup_id === matchup.databaseId,
+  );
+  const pickedTeam =
+    ownVote?.selected_roster_id === matchup.home.rosterId
+      ? matchup.home
+      : matchup.away;
+  const bankerResult = !finalized
+    ? 'Your Banker · 2 points if correct'
+    : matchup.home.actualScore === matchup.away.actualScore
+      ? 'Banker tied · 0 points'
+      : ownVote?.selected_roster_id ===
+          (matchup.home.actualScore! > matchup.away.actualScore!
+            ? matchup.home.rosterId
+            : matchup.away.rosterId)
+        ? 'Banker landed · 2 points'
+        : 'Banker missed · 0 points';
   const votersFor = (rosterId: number) =>
     matchupVotes
       .filter((vote) => vote.selected_roster_id === rosterId)
       .map((vote) => ({
         id: vote.voter_id,
+        banker: bankers.some(
+          (b) =>
+            b.voter_id === vote.voter_id && b.matchup_id === matchup.databaseId,
+        ),
         name: profileNames.get(vote.voter_id) ?? 'League member',
         isCurrentUser: vote.voter_id === user?.id,
       }))
@@ -503,6 +561,43 @@ function MatchupPanel({
           onPick={pick}
         />
       </div>
+      {user && votersReady && ownVote && (
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-3.5 py-3 sm:px-4">
+          {isBanker && (
+            <p className="text-sm font-semibold text-amber-700 dark:text-amber-300">
+              {bankerResult} · {pickedTeam.ownerName}
+            </p>
+          )}
+          {!locked && (
+            <Button
+              variant="outline"
+              className={cn(
+                'min-h-11 whitespace-normal text-sm',
+                isBanker &&
+                  'border-amber-500/40 text-amber-700 dark:text-amber-300',
+              )}
+              disabled={
+                !databaseReady ||
+                bankerPending ||
+                savingPick ||
+                pendingRoster != null ||
+                isBanker
+              }
+              aria-pressed={isBanker}
+              aria-label={`Make ${pickedTeam.ownerName} your Banker`}
+              onClick={() => onBanker(matchup)}
+            >
+              <Star aria-hidden="true" />
+              {isBanker
+                ? 'Banker saved ×2'
+                : bankerPending
+                  ? 'Saving Banker…'
+                  : 'Make this my Banker ×2'}
+            </Button>
+          )}
+        </div>
+      )}
+      <RivalryStrip rivalry={rivalry} matchup={matchup} />
       {feature && (
         <section className="border-t border-primary/15 bg-primary/[0.045] px-3.5 py-4 sm:px-4">
           <h3 className="text-sm font-semibold text-primary">
@@ -588,10 +683,12 @@ export function PredictionCentre({
   data,
   mode = 'weekly',
   matchOfTheWeek,
+  rivalries = {},
 }: {
   data: PredictionWeekData;
   mode?: PredictionView;
   matchOfTheWeek?: MatchOfTheWeek | null;
+  rivalries?: Record<number, Rivalry>;
 }) {
   const [locked, setLocked] = useState(data.locked);
   const member = usePredictionMember(data, locked);
@@ -616,6 +713,8 @@ export function PredictionCentre({
     Record<number, { text: string; error: boolean }>
   >({});
   const pendingIds = useRef(new Set<number>());
+  const bankerSaving = useRef(false);
+  const [bankerPending, setBankerPending] = useState(false);
   const accountId = useRef<string | null>(null);
   const loginRef = useRef<HTMLDivElement>(null);
   const profileNames = new Map(
@@ -693,7 +792,7 @@ export function PredictionCentre({
   };
 
   const signOut = async () => {
-    if (!supabase || pendingIds.current.size) return;
+    if (!supabase || pendingIds.current.size || bankerSaving.current) return;
     setAuthPending(true);
     try {
       const { error } = await supabase.auth.signOut();
@@ -721,7 +820,8 @@ export function PredictionCentre({
       locked ||
       !available ||
       member.loading ||
-      member.error
+      member.error ||
+      bankerSaving.current
     )
       return;
     const id = matchup.databaseId;
@@ -796,6 +896,76 @@ export function PredictionCentre({
     }
   };
 
+  const chooseBanker = async (matchup: PredictionMatchup) => {
+    if (
+      !supabase ||
+      !user ||
+      !available ||
+      locked ||
+      member.loading ||
+      member.error ||
+      bankerSaving.current ||
+      pendingIds.current.size ||
+      matchup.databaseId == null ||
+      !ownVotes.some((v) => v.matchup_id === matchup.databaseId)
+    )
+      return;
+    if (Date.now() >= new Date(data.lockAt).getTime()) {
+      setLocked(true);
+      return;
+    }
+    const voterId = user.id;
+    const id = matchup.databaseId;
+    if (!navigator.onLine) {
+      setFeedback((current) => ({
+        ...current,
+        [id]: {
+          text: 'You’re offline. Your Banker was not changed.',
+          error: true,
+        },
+      }));
+      return;
+    }
+    bankerSaving.current = true;
+    setBankerPending(true);
+    try {
+      const { saved, locked: serverLocked } = await persistBanker(
+        supabase,
+        id,
+        voterId,
+      );
+      if (accountId.current !== voterId) return;
+      if (!saved) {
+        if (serverLocked || Date.now() >= new Date(data.lockAt).getTime())
+          setLocked(true);
+        throw new Error('Unconfirmed Banker');
+      }
+      member.recordSavedBanker(saved);
+      setFeedback((current) => ({
+        ...current,
+        [id]: {
+          text: 'Banker saved. This replaces any previous Banker for the week. Correct: 2 points. Wrong or tied: 0.',
+          error: false,
+        },
+      }));
+    } catch {
+      if (accountId.current === voterId)
+        setFeedback((current) => ({
+          ...current,
+          [id]: {
+            text:
+              Date.now() >= new Date(data.lockAt).getTime()
+                ? 'The Sunday deadline has passed. Reload to check your locked Banker.'
+                : 'We couldn’t confirm your Banker. Your last confirmed choice is shown. Retry or reload to check.',
+            error: true,
+          },
+        }));
+    } finally {
+      bankerSaving.current = false;
+      setBankerPending(false);
+    }
+  };
+
   const memberEmpty = !user
     ? 'Sign in to see the prediction table.'
     : member.loading
@@ -834,7 +1004,7 @@ export function PredictionCentre({
               </h2>
               <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
                 {viewingStandings ? (
-                  'One point per correct winner. Missing a pick earns no point; tied games are excluded. Equal totals share a rank.'
+                  'One point per correct winner; two for your weekly Banker. Wrong or missing picks earn zero; ties are excluded. Equal points share a rank.'
                 ) : data.lockAt ? (
                   <>
                     {locked ? 'Closed' : 'All six picks close'}{' '}
@@ -877,7 +1047,11 @@ export function PredictionCentre({
                 size="icon"
                 className="size-11"
                 onClick={signOut}
-                disabled={authPending || Object.keys(pending).length > 0}
+                disabled={
+                  authPending ||
+                  bankerPending ||
+                  Object.keys(pending).length > 0
+                }
                 aria-label="Sign out"
               >
                 <LogOut />
@@ -1007,6 +1181,38 @@ export function PredictionCentre({
           </output>
         )}
       </div>
+      {!viewingStandings && available && (
+        <section
+          className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-4"
+          aria-label="Weekly Banker"
+        >
+          <h2 className="flex items-center gap-2 text-base font-semibold">
+            <Star className="size-4 text-amber-600 dark:text-amber-300" />
+            One Banker. Double the bragging rights.
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            Save a winner, then make it your Banker. A correct Banker earns 2
+            points total; other correct picks earn 1. Wrong or tied: 0. Maximum
+            7 points from six games. Your Banker stays private and locks with
+            your picks.
+          </p>
+          {!locked && (
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              Choosing another replaces it. Change the winner in your Banker
+              matchup and the Banker follows your new pick.
+            </p>
+          )}
+          {user && !member.loading && !member.error && (
+            <p className="mt-2 text-sm font-semibold">
+              {member.bankers.some((b) => b.voter_id === user.id)
+                ? 'Your Banker is saved below.'
+                : locked
+                  ? 'No Banker selected for this week.'
+                  : 'You haven’t chosen your Banker yet.'}
+            </p>
+          )}
+        </section>
+      )}
       {viewingStandings ? (
         <PredictionTable
           title={`${data.season} prediction standings`}
@@ -1042,7 +1248,14 @@ export function PredictionCentre({
               user={user}
               votes={votes}
               profileNames={profileNames}
-              databaseReady={available && !member.loading && !member.error}
+              databaseReady={
+                available && !member.loading && !member.error && !bankerPending
+              }
+              rivalry={rivalries[matchup.sleeperMatchupId]}
+              bankers={member.bankers}
+              bankerPending={bankerPending}
+              savingPick={Object.keys(pending).length > 0}
+              onBanker={chooseBanker}
               pendingRoster={
                 matchup.databaseId == null
                   ? null
@@ -1077,7 +1290,7 @@ export function PredictionCentre({
       {!viewingStandings && (
         <PredictionTable
           title={`Week ${data.week} prediction table`}
-          subtitle="One point per correct winner. Missing picks earn no point; tied games are excluded."
+          subtitle="Correct pick: 1 point. Correct Banker: 2 points total. Bankers shows correct / settled; ties are excluded."
           rows={weeklyLeaderboard}
           currentUserId={user?.id}
           emptyMessage={

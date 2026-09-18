@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, mock, test } from 'node:test';
 import { createClient } from '@supabase/supabase-js';
-import { persistPick } from '../lib/predictions/votes.ts';
+import { persistPick, persistBanker } from '../lib/predictions/votes.ts';
 
 const vote = {
   matchup_id: 1,
@@ -71,4 +71,55 @@ void test('network failures cannot be reported as saved picks', async () => {
     throw new TypeError('Failed to fetch');
   });
   assert.equal((await persistPick(client, vote)).saved, null);
+});
+
+void test('Banker saves confirm the exact member and matchup returned by the atomic nomination', async () => {
+  const banker = {
+    prediction_week_id: 4,
+    matchup_id: 1,
+    voter_id: vote.voter_id,
+  };
+  const client = fixture(async (input, options) => {
+    assert.match(String(input), /\/rpc\/set_prediction_banker$/);
+    assert.deepEqual(JSON.parse(options.body), { target_matchup_id: 1 });
+    return Response.json(banker);
+  });
+  assert.deepEqual(
+    (await persistBanker(client, 1, vote.voter_id)).saved,
+    banker,
+  );
+  for (const row of [
+    null,
+    {},
+    { ...banker, matchup_id: 2 },
+    { ...banker, voter_id: 'other' },
+  ]) {
+    assert.equal(
+      (
+        await persistBanker(
+          fixture(async () => Response.json(row)),
+          1,
+          vote.voter_id,
+        )
+      ).saved,
+      null,
+    );
+  }
+});
+
+void test('Banker deadline rejection and network failures never report a saved nomination', async () => {
+  const locked = fixture(async () =>
+    Response.json(
+      { message: 'Predictions are locked for this week' },
+      { status: 400 },
+    ),
+  );
+  assert.deepEqual(await persistBanker(locked, 1, vote.voter_id), {
+    saved: null,
+    locked: true,
+  });
+  const offline = fixture(async () => {
+    throw new TypeError('Failed to fetch');
+  });
+  assert.equal((await persistBanker(offline, 1, vote.voter_id)).saved, null);
 });

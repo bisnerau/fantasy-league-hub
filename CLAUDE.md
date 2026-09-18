@@ -104,6 +104,15 @@ edition's movement compares with the published preseason forecast; subsequent
 editions compare with the previous published weekly ranking. Preserve archived
 editions and show honest gaps. See `docs/weekly-clubhouse.md`.
 
+Weekly Picks also includes verified rivalry strips and one double-points Banker
+per member/week. A correct Banker earns two points total; other winners earn
+one. Banker nominations reference saved votes, stay private until Sunday lock,
+and are enforced by database constraints, RLS and an invoker RPC. Weekly/season
+tables and the homepage rank by points, with equal points sharing a rank.
+Rivalries combine the mapped 2025 regular-season snapshot with prior settled
+2026 results and explicitly label the archive coverage. See
+`docs/bankers-and-rivalries.md` for migration order and isolated database tests.
+
 ## Formatting & linting conventions
 
 - oxfmt: single quotes, 80-char print width

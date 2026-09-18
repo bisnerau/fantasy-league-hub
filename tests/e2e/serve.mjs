@@ -33,6 +33,7 @@ let failVote = false;
 let failRead = false;
 let delayVote = 0;
 let votes = [];
+let bankers = [];
 const now = () =>
   Date.parse(
     mode === 'final'
@@ -115,6 +116,7 @@ async function handle(
       failRead = false;
       delayVote = 0;
       votes = [];
+      bankers = [];
     }
     if (body.mode) mode = body.mode;
     if (body.failVote != null) failVote = body.failVote;
@@ -172,6 +174,9 @@ async function handle(
               display_name: profile.display_name,
               completed_picks: 6,
               correct_picks: 6 - index,
+              points: 6 - index,
+              correct_bankers: 0,
+              completed_bankers: 0,
               accuracy: index ? 83.3 : 100,
             }))
           : profiles.map((profile) => ({
@@ -179,9 +184,38 @@ async function handle(
               display_name: profile.display_name,
               completed_picks: 0,
               correct_picks: 0,
+              points: 0,
+              correct_bankers: 0,
+              completed_bankers: 0,
               accuracy: 0,
             })),
       );
+    if (table === 'prediction_bankers')
+      return json(
+        bankers.filter(
+          (row) =>
+            mode === 'locked' || mode === 'final' || row.voter_id === memberId,
+        ),
+      );
+    if (table === 'set_prediction_banker') {
+      if (mode !== 'open')
+        return json({ message: 'Predictions are locked for this week' }, 400);
+      if (
+        failVote ||
+        !votes.some(
+          (v) =>
+            v.matchup_id === body.target_matchup_id && v.voter_id === memberId,
+        )
+      )
+        return json({ message: 'Could not save Banker' }, 400);
+      const row = {
+        prediction_week_id: 1,
+        matchup_id: body.target_matchup_id,
+        voter_id: memberId,
+      };
+      bankers = [...bankers.filter((b) => b.voter_id !== memberId), row];
+      return json(row);
+    }
     if (table === 'prediction_votes') {
       if (method === 'POST') {
         if (delayVote)
