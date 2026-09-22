@@ -113,3 +113,12 @@ Tests cover exact edition-to-fixture matching, hidden future editions, authored
 underdog calls, read-only pages, settlement gating and a Thursday cron that
 cannot generate or overwrite editorial text. The existing score, vote, timezone
 and factual analysis tests remain in place.
+
+## Week 2 settlement and reviews
+
+All six Week 2 reviews were published on 22 September after the stored results
+settled. `docs/research/2026-week-2-results.json` preserves the public final rows
+and the matching Sleeper totals and recorded starter points. The six Thursday
+previews and their winner calls remain unchanged: Sharpe, Marmion, Horgan and
+Moroney were correct; Ennis and Murray were not. Week 3 ballots were already
+prepared by the cron. Week 3 previews and rankings retain their Thursday workflow.

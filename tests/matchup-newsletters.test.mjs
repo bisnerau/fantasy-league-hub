@@ -59,7 +59,11 @@ void test('all six Week 2 previews match the researched fixtures and preserve th
     assert.equal(p.awayProjection, pair[1].pprTotal);
     assert.ok(pair.some((t) => t.rosterId === p.pickRosterId));
     assert.equal(p.editorial, true);
-    assert.equal(edition.review, undefined);
+    assert.equal(
+      getMatchupNewsletter(edition, undefined, Date.parse(p.publishedAt))
+        .review,
+      null,
+    );
     assert.deepEqual(readPreview(p), p);
     assert.deepEqual(
       getMatchupNewsletter(edition, undefined, Date.parse(p.publishedAt))
