@@ -120,7 +120,9 @@ test('picks save, change, survive reload, and update the clubhouse count', async
     page.getByRole('button', { name: 'Pick Prime Time, saved', exact: true }),
   ).toBeVisible();
   await page.getByRole('link', { name: 'Clubhouse', exact: true }).click();
-  await expect(page.getByText('1 of 6 saved', { exact: true })).toBeVisible();
+  await expect(
+    page.getByText('1 of 6 saved · Choose your Banker', { exact: true }),
+  ).toBeVisible();
 });
 
 test('failed and offline changes preserve the last confirmed pick', async ({
@@ -356,7 +358,9 @@ test('a complete mobile ballot persists and signing out hides member information
     fullPage: true,
   });
   await page.getByRole('link', { name: 'Home', exact: true }).click();
-  await expect(page.getByText('6 of 6 saved', { exact: true })).toBeVisible();
+  await expect(
+    page.getByText('6 of 6 saved · Choose your Banker', { exact: true }),
+  ).toBeVisible();
   await page
     .getByRole('link', { name: 'Review your picks', exact: true })
     .click();
