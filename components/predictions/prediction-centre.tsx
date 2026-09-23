@@ -9,6 +9,7 @@ import {
 } from './use-prediction-member';
 import { formatLockTime, signInErrorMessage } from '@/lib/predictions/rules';
 import { formatScore } from '@/lib/sleeper/scores';
+import { followSpotlight } from '@/components/effects/spotlight';
 import {
   persistPick,
   persistBanker,
@@ -489,8 +490,9 @@ function MatchupPanel({
     <Card
       className={cn(
         'linear-panel scroll-mt-20 gap-0 py-0',
-        feature && 'ring-1 ring-primary/40',
+        feature && 'spotlight-card ring-1 ring-primary/40',
       )}
+      onPointerMove={feature ? followSpotlight : undefined}
       data-matchup-id={matchup.sleeperMatchupId}
       id={`matchup-${matchup.sleeperMatchupId}`}
       data-match-of-the-week={feature ? 'true' : undefined}

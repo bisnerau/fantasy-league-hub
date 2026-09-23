@@ -218,7 +218,9 @@ export default async function DashboardPage() {
                       />
                       <div className="min-w-0">
                         <h3 className="text-xl font-bold tracking-tight">
-                          {champion.teamName}
+                          <span className="shiny-text">
+                            {champion.teamName}
+                          </span>
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground">
                           {champion.ownerName} · {champion.wins}–

@@ -258,6 +258,48 @@ test('reduced motion, skip link, and offline sign-in are usable', async ({
   await context.setOffline(false);
 });
 
+test('record counts and the champion shine settle on true values', async ({
+  page,
+}) => {
+  await page.goto('/records');
+  const stats = page.locator('.record-stat');
+  await expect(stats).toHaveCount(3);
+  for (const stat of await stats.all()) {
+    const truth = await stat.locator('.sr-only').textContent();
+    expect(Number(truth)).toBeGreaterThan(0);
+    await expect(stat.locator('[aria-hidden="true"]')).toHaveText(truth!);
+  }
+  await page.goto('/');
+  expect(
+    await page
+      .locator('.shiny-text')
+      .evaluate((element) => getComputedStyle(element).animationName),
+  ).toBe('shiny-text');
+});
+
+test('reduced motion shows final record counts and a still champion name', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/records');
+  const stat = page.locator('.record-stat').first();
+  await expect(stat.locator('.sr-only')).not.toBeEmpty();
+  // No count runs, so the visible number is final on the first frame.
+  expect(
+    await stat.evaluate(
+      (element) =>
+        element.querySelector('[aria-hidden="true"]')!.textContent ===
+        element.querySelector('.sr-only')!.textContent,
+    ),
+  ).toBe(true);
+  await page.goto('/');
+  expect(
+    await page
+      .locator('.shiny-text')
+      .evaluate((element) => getComputedStyle(element).animationName),
+  ).toBe('none');
+});
+
 test('member read failures disable changes and recover with Retry', async ({
   page,
   request,

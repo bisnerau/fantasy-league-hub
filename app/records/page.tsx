@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Archive, Crown, Medal, Star } from 'lucide-react';
+import { CountUp } from '@/components/effects/count-up';
 import { TeamAvatar } from '@/components/shared/team-avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -85,15 +86,21 @@ export default async function RecordsPage() {
         </div>
         <div className="relative z-10 grid grid-cols-3 gap-2 sm:max-w-md lg:ml-auto lg:w-full">
           <div className="record-stat">
-            <span>{seasons.length}</span>
+            <span>
+              <CountUp value={seasons.length} />
+            </span>
             <small>Seasons</small>
           </div>
           <div className="record-stat">
-            <span>{Math.round(totalGames)}</span>
+            <span>
+              <CountUp value={Math.round(totalGames)} delay={0.1} />
+            </span>
             <small>Games</small>
           </div>
           <div className="record-stat">
-            <span>{leader?.wins ?? 0}</span>
+            <span>
+              <CountUp value={leader?.wins ?? 0} delay={0.2} />
+            </span>
             <small>Win leader</small>
           </div>
         </div>
