@@ -32,16 +32,25 @@ export function PicksSkeleton() {
       aria-label="Loading weekly picks"
       className="space-y-5"
     >
-      <Shimmer className="h-9 w-3/4" />
+      <div className="rounded-xl border border-border p-4 sm:p-7">
+        <Shimmer className="h-3 w-32" />
+        <Shimmer className="mt-3 h-12 w-40" />
+        <Shimmer className="mt-5 h-14 w-56" />
+        <Shimmer className="mt-5 h-9 w-full" />
+      </div>
       <Shimmer className="h-12 w-full" />
-      <Shimmer className="h-28 w-full" />
+      <div className="flex gap-2">
+        {[0, 1, 2].map((chip) => (
+          <Shimmer key={chip} className="h-14 w-16" />
+        ))}
+      </div>
       {[0, 1, 2].map((row) => (
-        <div
-          key={row}
-          className="grid grid-cols-2 gap-3 rounded-xl border border-border p-4"
-        >
-          <Shimmer className="h-36 w-full" />
-          <Shimmer className="h-36 w-full" />
+        <div key={row} className="rounded-xl border border-border p-3">
+          <Shimmer className="h-3 w-24" />
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <Shimmer className="h-40 w-full" />
+            <Shimmer className="h-40 w-full" />
+          </div>
         </div>
       ))}
     </div>

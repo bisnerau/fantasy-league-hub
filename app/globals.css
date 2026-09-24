@@ -1130,3 +1130,714 @@
     transform: none;
   }
 }
+/* Weekly Picks as a bet slip: see components/predictions. */
+@layer components {
+  .picks-with-slip {
+    padding-bottom: 5rem;
+  }
+  .picks-hero .banker-line {
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold;
+  }
+  .banker-info {
+    @apply inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground;
+  }
+  .rapid-trigger {
+    @apply inline-flex min-h-11 items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 text-sm font-semibold text-primary transition-colors hover:bg-primary/15 disabled:opacity-50;
+  }
+
+  /* Season timeline. */
+  .season-rail {
+    gap: 0.5rem;
+  }
+  .week-chip {
+    @apply flex min-h-14 min-w-16 flex-col items-center justify-center gap-0.5 rounded-xl border border-border bg-card px-3 transition-colors hover:border-primary/40;
+  }
+  .week-chip[aria-current='page'] {
+    @apply border-primary bg-primary/10 text-primary;
+  }
+  .week-chip-state {
+    @apply inline-flex min-h-3.5 items-center gap-1 text-[10px] font-semibold text-muted-foreground;
+  }
+  .week-chip[data-state='settled'] .week-chip-state {
+    @apply text-primary;
+  }
+
+  /* Tug-of-war matchup card. */
+  .faceoff-card {
+    @apply relative scroll-mt-24 overflow-hidden rounded-xl border border-border bg-card;
+  }
+  .motw-card {
+    @apply ring-1 ring-primary/40;
+  }
+  .faceoff-header {
+    @apply flex items-start justify-between gap-2 border-b border-border px-3.5 py-2.5;
+  }
+  .faceoff-line {
+    @apply inline-flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-[11px] text-muted-foreground;
+  }
+  .faceoff-line strong {
+    @apply font-mono font-bold text-foreground;
+  }
+  .faceoff-line-result {
+    @apply ml-0.5 rounded-full px-1.5 font-semibold;
+    background: color-mix(in srgb, currentColor 12%, transparent);
+  }
+  .faceoff-line-result[data-result='covered'] {
+    color: var(--primary);
+  }
+  .faceoff-line-result[data-result='upset'] {
+    color: var(--chart-3);
+  }
+  .faceoff {
+    position: relative;
+    display: grid;
+    grid-template-columns:
+      minmax(0, var(--home-share, 1fr)) 0
+      minmax(0, var(--away-share, 1fr));
+    transition: grid-template-columns 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .faceoff-card[data-pick='home'] {
+    --home-share: 1.5fr;
+  }
+  .faceoff-card[data-pick='away'] {
+    --away-share: 1.5fr;
+  }
+  .faceoff-half {
+    @apply relative flex min-w-0 flex-col px-3 pb-3 pt-3.5;
+    --side-color: var(--home-color);
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--side-color) 16%, transparent),
+      transparent 72%
+    );
+    transition:
+      background-color 300ms,
+      opacity 300ms;
+  }
+  .faceoff-half[data-side='away'] {
+    @apply items-end text-right;
+    --side-color: var(--away-color);
+    background: linear-gradient(
+      200deg,
+      color-mix(in srgb, var(--side-color) 16%, transparent),
+      transparent 72%
+    );
+  }
+  .faceoff-half[data-selected] {
+    background-color: color-mix(in srgb, var(--side-color) 12%, transparent);
+    box-shadow: inset 0 -3px 0 var(--side-color);
+  }
+  .faceoff-card[data-pick] .faceoff-half:not([data-selected]) {
+    opacity: 0.82;
+  }
+  .faceoff-team {
+    @apply mt-2 text-sm font-bold leading-snug break-words sm:text-base;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .faceoff-owner {
+    @apply mt-0.5 text-[11px] leading-4 text-muted-foreground;
+  }
+  .faceoff-score {
+    @apply mt-2 font-mono text-2xl font-black tracking-tight sm:text-3xl;
+  }
+  .faceoff-caption {
+    @apply mb-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground;
+  }
+  .faceoff-pick {
+    @apply mt-auto inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-background/70 px-2 text-xs font-semibold transition-colors sm:text-sm;
+  }
+  .faceoff-pick[aria-pressed='true'] {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+  .faceoff-pick:disabled {
+    @apply opacity-60;
+  }
+  /* The whole half is the tap target; the button keeps its own name. */
+  .faceoff-pick::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .faceoff-pick:not(:disabled)::after {
+    cursor: pointer;
+  }
+  .faceoff-divider {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .faceoff-divider::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: -1px;
+    width: 2px;
+    background: color-mix(in srgb, var(--foreground) 22%, transparent);
+    transform: skewX(-10deg);
+  }
+  .faceoff-divider > span {
+    @apply absolute left-0 top-1/2 flex size-7 items-center justify-center rounded-full border border-border bg-card font-mono text-[10px] font-black uppercase text-muted-foreground;
+    translate: -50% -50%;
+  }
+  .faceoff-stamp {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.5rem;
+  }
+  .faceoff-half[data-side='away'] .faceoff-stamp {
+    right: auto;
+    left: 0.5rem;
+  }
+  .faceoff-voters {
+    @apply mt-3 w-full border-t border-border pt-2;
+  }
+  .faceoff-half[data-side='away'] .faceoff-voters ul {
+    @apply justify-end;
+  }
+  .faceoff-voters-note {
+    @apply mt-3 text-[11px] leading-4 text-muted-foreground;
+  }
+  .voter-chip {
+    @apply inline-flex items-center gap-1 rounded-md bg-muted px-1.5 py-0.5 text-[11px] font-medium text-foreground/80;
+  }
+  .voter-chip-you {
+    @apply bg-primary/[0.12] text-primary;
+  }
+  .faceoff-keys {
+    @apply grid grid-cols-2 gap-3 border-t border-border px-3 py-2;
+  }
+  .key-players {
+    @apply min-w-0 space-y-0.5;
+  }
+  .key-players li {
+    @apply flex min-w-0 items-baseline justify-between gap-2 text-[11px] leading-5;
+  }
+  .faceoff-banker {
+    @apply border-t border-border px-3 py-3;
+  }
+  .motw-quote {
+    @apply mx-3.5 mb-3 mt-1 border-l-2 border-primary pl-3 text-sm italic leading-6 text-foreground/85;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .faceoff-footer {
+    @apply flex justify-end border-t border-border px-1.5 py-1;
+  }
+  .programme-trigger {
+    @apply inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/5;
+  }
+  .programme-tabs {
+    @apply h-11 w-full justify-start overflow-x-auto;
+  }
+
+  /* Rubber stamps. */
+  .stamp {
+    @apply pointer-events-none inline-flex items-center rounded-md px-1.5 py-0.5 font-mono text-[10px] font-black uppercase tracking-[0.12em];
+    color: color-mix(in srgb, var(--foreground) 72%, transparent);
+    border: 2px solid currentColor;
+    background: color-mix(in srgb, currentColor 9%, var(--card));
+    rotate: -8deg;
+    animation: stamp-thump 420ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  }
+  .stamp[data-tone='gold'] {
+    color: var(--award);
+  }
+  .stamp[data-tone='win'] {
+    color: var(--primary);
+  }
+  .stamp[data-tone='loss'] {
+    color: var(--muted-foreground);
+  }
+  .stamp[data-tone='muted'] {
+    color: var(--muted-foreground);
+    border-style: dashed;
+  }
+
+  /* Hold to bank it: a kicking-power meter (React Bits HoldButton). */
+  .hold-button {
+    @apply relative flex min-h-12 w-full flex-col items-center justify-center overflow-hidden rounded-lg border px-4 text-sm font-semibold disabled:opacity-55;
+    border-color: color-mix(in srgb, var(--award) 45%, transparent);
+    color: var(--award);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+  }
+  .hold-meter {
+    position: absolute;
+    inset: 0;
+    transform-origin: left;
+    transform: scaleX(var(--hold, 0));
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 calc(10% - 2px),
+        color-mix(in srgb, var(--card) 55%, transparent) calc(10% - 2px) 10%
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--award) 14%, transparent),
+        color-mix(in srgb, var(--award) 42%, transparent)
+      );
+    transition: transform 220ms ease-out;
+  }
+  .hold-button[data-holding] .hold-meter {
+    transition: none;
+  }
+  .hold-hint {
+    @apply relative text-[10px] font-medium text-muted-foreground;
+  }
+  .hold-hint:empty {
+    display: none;
+  }
+  .kick-posts {
+    position: relative;
+    width: 12px;
+    height: 16px;
+    margin-left: 0.25rem;
+    border-inline: 2px solid currentColor;
+    border-bottom: 0;
+    opacity: 0.7;
+  }
+  .kick-posts::after {
+    content: '';
+    position: absolute;
+    inset-inline: -2px;
+    top: 9px;
+    height: 2px;
+    background: currentColor;
+  }
+  .kick-meter::after {
+    content: '';
+    position: absolute;
+    left: 8%;
+    bottom: 8px;
+    width: 12px;
+    height: 8px;
+    border-radius: 50%;
+    background: #8a4b24;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .kick-meter[data-kicked]::after {
+    animation: kick-arc 800ms cubic-bezier(0.3, 0.6, 0.4, 1) both;
+  }
+  .hold-confirm {
+    @apply m-0 flex min-w-0 gap-2 border-0 p-0;
+  }
+  .hold-confirm-yes {
+    @apply min-h-11 flex-1 rounded-lg px-3 text-sm font-semibold;
+    background: var(--award);
+    color: var(--background);
+  }
+  .hold-confirm-no {
+    @apply min-h-11 rounded-lg border border-border px-4 text-sm font-medium;
+  }
+
+  /* The league tug-of-war after lock. */
+  .league-rope {
+    @apply px-3.5 pb-3.5 pt-1;
+  }
+  .rope-track {
+    @apply relative mt-2 h-2 rounded-full;
+    background: repeating-linear-gradient(
+      45deg,
+      #b58f5d 0 4px,
+      #8c6a40 4px 8px
+    );
+  }
+  .rope-knot {
+    @apply absolute top-1/2 size-4 rounded-full border-2 border-card;
+    left: var(--knot);
+    translate: -50% -50%;
+    background: var(--award);
+    animation: rope-pull 900ms cubic-bezier(0.3, 1.3, 0.5, 1) both;
+  }
+
+  /* Bet slip tray and bookie docket. */
+  .bet-slip {
+    position: fixed;
+    z-index: 35;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+  @media (min-width: 1280px) {
+    .bet-slip {
+      left: calc(216px + 1.75rem);
+      right: 1.75rem;
+      bottom: 1rem;
+    }
+  }
+  .bet-slip-bar {
+    @apply flex items-center gap-3 rounded-2xl border bg-card/95 px-3 py-2 shadow-lg backdrop-blur-md;
+    border-color: color-mix(in srgb, var(--award) 35%, var(--border));
+  }
+  .bet-slip-bar[data-complete] {
+    border-color: var(--primary);
+  }
+  .slip-dots {
+    @apply grid shrink-0 grid-cols-3 gap-1;
+  }
+  .slip-dots li {
+    @apply size-2.5 rounded-full border border-foreground/30;
+  }
+  .slip-dots li[data-picked] {
+    border-color: transparent;
+    background: var(--dot, var(--primary));
+  }
+  .slip-dots li[data-banker] {
+    box-shadow: 0 0 0 2px var(--award);
+  }
+  .slip-dots li[data-verdict='lost'] {
+    opacity: 0.35;
+  }
+  .slip-title {
+    @apply flex items-center gap-1 text-sm font-bold;
+  }
+  .slip-meta {
+    @apply truncate text-[11px] text-muted-foreground;
+  }
+  .slip-action {
+    @apply inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground;
+  }
+  .docket {
+    @apply mb-2 max-h-[55dvh] overflow-y-auto;
+    animation: docket-print 560ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .docket-paper {
+    @apply rounded-b-md px-4 pb-4 pt-5 font-mono text-xs shadow-lg;
+    background: #f6f1e4;
+    color: #1d1b16;
+    -webkit-mask: radial-gradient(circle at 7px 0, transparent 5px, #000 5.5px)
+      0 0 / 14px 100% repeat-x;
+    mask: radial-gradient(circle at 7px 0, transparent 5px, #000 5.5px) 0 0 /
+      14px 100% repeat-x;
+  }
+  .docket-head {
+    @apply text-sm font-black uppercase tracking-[0.12em];
+  }
+  .docket-sub {
+    @apply text-[11px] uppercase tracking-[0.1em] opacity-70;
+  }
+  .docket-lines {
+    @apply mt-3;
+  }
+  .docket-lines li {
+    @apply flex items-center justify-between gap-3 py-1.5;
+    border-bottom: 1px dashed rgb(29 27 22 / 0.3);
+  }
+  .docket-banker {
+    color: #856014;
+  }
+  .docket-mark {
+    @apply shrink-0 font-black;
+  }
+  .docket-mark[data-verdict='won'] {
+    color: #1f7a47;
+  }
+  .docket-mark[data-verdict='lost'] {
+    color: #b3261e;
+  }
+  .docket-mark[data-verdict='void'],
+  .docket-mark[data-verdict='pending'] {
+    color: #6b675e;
+  }
+  .docket-total {
+    @apply mt-3 flex justify-between gap-3 pt-2 text-sm font-black uppercase;
+    border-top: 3px double rgb(29 27 22 / 0.6);
+  }
+  .docket-close {
+    @apply inline-flex size-11 shrink-0 items-center justify-center rounded-full hover:bg-black/5;
+  }
+
+  /* Podium leaderboard. */
+  .podium-panel {
+    @apply overflow-hidden rounded-xl border border-border bg-card;
+  }
+  .podium-stage {
+    @apply grid grid-cols-3 items-end gap-2 border-b border-border px-4 pt-5;
+  }
+  .podium-step {
+    @apply flex min-w-0 flex-col items-center gap-0.5 text-center;
+  }
+  .podium-name {
+    @apply max-w-full truncate text-xs font-semibold;
+  }
+  .podium-points {
+    @apply font-mono text-lg font-black;
+  }
+  .podium-block {
+    @apply mt-1 flex w-full items-start justify-center rounded-t-lg pt-2 font-mono text-xl font-black;
+    height: 3rem;
+    transform-origin: bottom;
+    animation: podium-rise 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    background: color-mix(in srgb, var(--medal) 28%, var(--card));
+    border: 1px solid color-mix(in srgb, var(--medal) 55%, transparent);
+    color: color-mix(in srgb, var(--medal) 80%, var(--foreground));
+  }
+  .podium-step[data-medal='gold'] {
+    --medal: var(--award);
+  }
+  .podium-step[data-medal='gold'] .podium-block {
+    height: 5rem;
+    animation-delay: 150ms;
+  }
+  .podium-step[data-medal='silver'] {
+    --medal: #9aa4ab;
+  }
+  .podium-step[data-medal='silver'] .podium-block {
+    height: 3.75rem;
+  }
+  .podium-step[data-medal='bronze'] {
+    --medal: #b87333;
+  }
+  .podium-rows > li + li {
+    @apply border-t border-border;
+  }
+  .podium-row {
+    @apply flex items-center gap-3 px-4 py-2.5;
+  }
+  .podium-row-you {
+    @apply bg-primary/5;
+  }
+  .podium-rank {
+    @apply w-6 shrink-0 font-mono text-xs text-muted-foreground;
+  }
+
+  /* Rapid-fire deck. */
+  .quick-stack {
+    position: relative;
+    isolation: isolate;
+  }
+  .quick-stack[data-left='2']::before,
+  .quick-stack[data-left='3']::before,
+  .quick-stack[data-left='3']::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    transform: translateY(8px) scale(0.96);
+  }
+  .quick-stack[data-left='3']::after {
+    transform: translateY(16px) scale(0.92);
+    z-index: -2;
+  }
+  .swipe-card {
+    @apply rounded-2xl border border-border bg-card p-4 shadow-md;
+    transform: translateX(var(--drag, 0)) rotate(var(--tilt, 0));
+    transition: transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+  .swipe-card[data-dragging] {
+    transition: none;
+    cursor: grabbing;
+  }
+  .quick-team {
+    @apply flex flex-col items-center rounded-xl p-3 text-center transition-colors;
+  }
+  .swipe-card[data-lean='home'] .quick-team[data-side='home'],
+  .swipe-card[data-lean='away'] .quick-team[data-side='away'] {
+    @apply bg-primary/10 ring-2 ring-primary;
+  }
+  .quick-choice {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-border bg-card px-3 text-sm font-semibold transition-colors hover:border-primary disabled:opacity-60;
+  }
+
+  /* ClickSpark. */
+  .click-spark {
+    position: fixed;
+    z-index: 60;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+  .click-spark > span {
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 2px;
+    height: 10px;
+    border-radius: 1px;
+    background: var(--primary);
+    transform-origin: 1px 0;
+    animation: spark-ray 600ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  }
+  .click-spark[data-gold] > span {
+    background: var(--award);
+  }
+}
+@keyframes stamp-thump {
+  from {
+    opacity: 0;
+    scale: 2.2;
+    rotate: -18deg;
+  }
+}
+@keyframes kick-arc {
+  0% {
+    opacity: 1;
+    left: 8%;
+    transform: translateY(0);
+  }
+  55% {
+    transform: translateY(-18px) rotate(-120deg);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: calc(100% - 1.75rem);
+    transform: translateY(-10px) rotate(-240deg) scale(0.6);
+  }
+}
+@keyframes rope-pull {
+  from {
+    left: 50%;
+  }
+}
+@keyframes docket-print {
+  from {
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(12px);
+  }
+  to {
+    clip-path: inset(0);
+    transform: translateY(0);
+  }
+}
+@keyframes podium-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes spark-ray {
+  from {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateY(-8px) scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-36px) scaleY(0.2);
+  }
+}
+@keyframes lights-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+html:has(.bet-slip) {
+  scroll-padding-top: 5rem;
+  scroll-padding-bottom: 10rem;
+}
+/* Pages glide into each other where cross-document view transitions exist. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root) {
+    animation: vt-out 140ms ease-in both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .site-header {
+    view-transition-name: site-header;
+  }
+  .mobile-clubhouse-nav {
+    view-transition-name: mobile-nav;
+  }
+  .week-title {
+    view-transition-name: week-title;
+  }
+  html[data-vt] .page-arrival {
+    animation: none;
+  }
+  @supports (animation-timeline: view()) {
+    .motw-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        100deg,
+        transparent 35%,
+        color-mix(in srgb, var(--award-shine) 16%, transparent) 50%,
+        transparent 65%
+      );
+      animation: lights-sweep linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 45%;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stamp,
+  .rope-knot,
+  .docket,
+  .podium-block,
+  .kick-meter::after {
+    animation: none;
+  }
+  .faceoff {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .faceoff-half[data-selected] {
+    outline: 3px solid Highlight;
+    outline-offset: -3px;
+  }
+  .stamp {
+    color: CanvasText;
+    background: Canvas;
+  }
+  .rope-track {
+    background: CanvasText;
+  }
+  .rope-knot,
+  .slip-dots li[data-picked],
+  .hold-meter {
+    background: Highlight;
+  }
+  .docket-paper {
+    background: Canvas;
+    color: CanvasText;
+  }
+  .podium-block {
+    border: 1px solid CanvasText;
+  }
+  .motw-card::after {
+    display: none;
+  }
+}

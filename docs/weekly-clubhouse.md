@@ -84,6 +84,40 @@ written. The homepage never invents a fresh edition during a publishing gap.
 Tests cover source records, the real preseason baseline, future/foreign editions,
 subsequent weekly movement, report settlement and correct archived-week links.
 
+## Weekly Picks behaviour
+
+`/matchups` is a phone-first bet slip. The points are bragging points, not
+money; the betting look is styling only.
+
+- The hero reuses the homepage stadium board, drive tracker, two-minute warning
+  and Sunday lock reveal. Its h1 is `Week N` and shares a view-transition name
+  with the homepage title, so the two morph where cross-document view
+  transitions are supported. Browsers without them navigate as before.
+- A season timeline of week chips replaces the stepper. Past weeks show a tick
+  and points only when the signed-in member has settled points for them.
+- Each matchup is a tug-of-war card. The whole half is the pick target, but the
+  button inside keeps the `Pick {team}` / `Pick {team}, saved` name. The picked
+  side grows, and stamps mark the pick: Banker ×2 before lock, Locked after, and
+  Called it, Missed or Void (tie) once settled. Cards show three key players,
+  never full lineups; everything else is in the Programme sheet.
+- The line is a spread from the two Sleeper PPR estimates, rounded to half a
+  point (`lib/predictions/line.ts`). It follows the latest projections rather
+  than freezing an opening line and is hidden when either projection is
+  missing. Settled weeks tag Covered, Didn’t cover, Push or Upset.
+- After lock the league’s split is a rope whose knot slides towards the
+  majority; voter chips stay on each side.
+- The bet slip tray (`lib/predictions/slip.ts`) counts selections, names the
+  Banker and shows the most the slip can return (picks plus one for a Banker).
+  “Next pick” jumps to the next unpicked matchup. On settled weeks it prints a
+  bookie docket: won, lost or void per selection, and the return and rank from
+  the weekly leaderboard. It never prints score figures.
+- The Rapid-fire slip deck shows unpicked matchups one at a time: swipe towards
+  a team, tap a button or use the arrow keys. A card only leaves once its pick
+  is verified as saved.
+- The spark after a pick fires only after `lib/predictions/votes.ts` confirms
+  the saved row (gold for a Banker). The prediction tables are a podium plus
+  compact rows, with equal points sharing a rank.
+
 ## Week 3 edition
 
 Published 24 September using fresh lineups, both completed results and current

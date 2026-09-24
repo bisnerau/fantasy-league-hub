@@ -556,3 +556,274 @@ for (const width of [320, 768, 1024, 1440]) {
     });
   }
 }
+
+async function pickAndConfirm(page: Page, team: string) {
+  await page.getByRole('button', { name: `Pick ${team}`, exact: true }).click();
+  await expect(
+    page.getByRole('button', { name: `Pick ${team}, saved`, exact: true }),
+  ).toBeVisible();
+}
+
+test('hold to bank it needs a full hold, and keyboards get a confirm step', async ({
+  page,
+}) => {
+  await page.goto('/matchups');
+  await signIn(page);
+  await pickAndConfirm(page, 'Burns XI');
+  const hold = page.getByRole('button', {
+    name: 'Make Emmet Burns your Banker',
+    exact: true,
+  });
+  await hold.scrollIntoViewIfNeeded();
+  const box = (await hold.boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.clock.runFor(250);
+  await page.mouse.up();
+  await expect(hold).toContainText('Keep holding');
+  await expect(
+    page.getByText('Your Banker · 2 points if correct · Emmet Burns'),
+  ).toHaveCount(0);
+  await page.mouse.down();
+  await page.clock.runFor(900);
+  await page.mouse.up();
+  await expect(
+    page.getByText('Your Banker · 2 points if correct · Emmet Burns'),
+  ).toBeVisible();
+  await expect(page.locator('#matchup-1 .stamp')).toHaveText('Banker ×2');
+
+  await pickAndConfirm(page, 'Mahomes-lander and The Boys');
+  await page
+    .getByRole('button', { name: 'Make Manager 3 your Banker', exact: true })
+    .focus();
+  await page.keyboard.press('Enter');
+  const confirm = page.getByRole('button', {
+    name: 'Bank Manager 3 ×2',
+    exact: true,
+  });
+  await expect(confirm).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(
+    page.getByText('Your Banker · 2 points if correct · Manager 3'),
+  ).toBeVisible();
+  await expect(
+    page.getByText('Your Banker · 2 points if correct · Emmet Burns'),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole('complementary', { name: 'Your bet slip' }),
+  ).toContainText('2/6 selections · Banker: Manager 3 · Returns up to 3 pts');
+});
+
+test('the bet slip counts selections and jumps to the next open pick', async ({
+  page,
+}) => {
+  await page.goto('/matchups');
+  const slip = page.getByRole('complementary', { name: 'Your bet slip' });
+  await expect(slip).toContainText('Sign in to start your slip');
+  await slip.getByRole('button', { name: 'Start your slip' }).click();
+  await expect(
+    page.getByRole('combobox', { name: 'Manager', exact: true }),
+  ).toBeFocused();
+  await page.reload();
+  await signIn(page);
+  await expect(slip).toContainText(
+    '0/6 selections · No Banker yet · Returns up to 0 pts',
+  );
+  await pickAndConfirm(page, 'Burns XI');
+  await expect(slip).toContainText(
+    '1/6 selections · No Banker yet · Returns up to 1 pt',
+  );
+  await slip.getByRole('button', { name: 'Next pick' }).click();
+  await expect(
+    page.getByRole('button', {
+      name: 'Pick Mahomes-lander and The Boys',
+      exact: true,
+    }),
+  ).toBeFocused();
+});
+
+test('the rapid-fire slip picks by swipe, button and arrow key, holding failures', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/matchups');
+  await signIn(page);
+  await page.getByRole('button', { name: 'Rapid-fire slip' }).click();
+  const deck = page.getByRole('dialog');
+  await expect(
+    deck.getByRole('heading', { name: '6 picks to go' }),
+  ).toBeVisible();
+  // Measure once the sheet has finished sliding up.
+  const swipeCard = deck.locator('.swipe-card');
+  await expect
+    .poll(async () => {
+      const before = await swipeCard.boundingBox();
+      await page.waitForTimeout(100);
+      const after = await swipeCard.boundingBox();
+      return before?.y === after?.y;
+    })
+    .toBe(true);
+  const card = (await swipeCard.boundingBox())!;
+  await page.mouse.move(card.x + card.width / 2, card.y + card.height / 2);
+  await page.mouse.down();
+  for (const step of [30, 60, 90, 130])
+    await page.mouse.move(
+      card.x + card.width / 2 - step,
+      card.y + card.height / 2,
+    );
+  await page.mouse.up();
+  await expect(
+    deck.getByRole('heading', { name: '5 picks to go' }),
+  ).toBeVisible();
+  await deck
+    .getByRole('button', {
+      name: 'Pick Mahomes-lander and The Boys',
+      exact: true,
+    })
+    .click();
+  await expect(
+    deck.getByRole('heading', { name: '4 picks to go' }),
+  ).toBeVisible();
+  await deck
+    .getByRole('button', { name: 'Pick Who’s throwing Diggs', exact: true })
+    .focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(
+    deck.getByRole('heading', { name: '3 picks to go' }),
+  ).toBeVisible();
+  await request.post(`${fixture}/__fixture`, { data: { failVote: true } });
+  await deck
+    .getByRole('button', { name: 'Pick Tampa B’AH', exact: true })
+    .click();
+  await expect(
+    deck.getByRole('alert').filter({ hasText: 'couldn’t confirm this change' }),
+  ).toBeVisible();
+  await expect(
+    deck.getByRole('heading', { name: '3 picks to go' }),
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(deck).toHaveCount(0);
+  for (const team of [
+    'Burns XI',
+    'Mahomes-lander and The Boys',
+    'Sauce Pjardner',
+  ])
+    await expect(
+      page.getByRole('button', { name: `Pick ${team}, saved`, exact: true }),
+    ).toBeVisible();
+  await expect(
+    page.getByText('3 of 6 picks saved', { exact: true }),
+  ).toBeVisible();
+});
+
+test('the match programme opens report, history and lineups in a sheet', async ({
+  page,
+}) => {
+  await page.goto('/matchups');
+  await expect(
+    page.getByText('Fixture quarterback 1', { exact: true }),
+  ).toHaveCount(0);
+  const trigger = page.getByRole('button', {
+    name: 'Programme: Emmet Burns v Manager 2',
+    exact: true,
+  });
+  await trigger.click();
+  const sheet = page.getByRole('dialog');
+  await expect(
+    sheet.getByRole('heading', { name: 'Emmet Burns v Manager 2' }),
+  ).toBeVisible();
+  await sheet.getByRole('tab', { name: 'Lineups' }).click();
+  await expect(
+    sheet.getByText('Fixture quarterback 1', { exact: true }),
+  ).toBeVisible();
+  await sheet.getByRole('tab', { name: 'History' }).click();
+  await expect(sheet.getByRole('tabpanel', { name: 'History' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(sheet).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
+test('locked cards stamp your pick and show the league tug-of-war', async ({
+  page,
+  request,
+}) => {
+  await request.post(`${fixture}/__fixture`, { data: { otherVote: true } });
+  await page.goto('/matchups');
+  await signIn(page);
+  await pickAndConfirm(page, 'Burns XI');
+  await request.post(`${fixture}/__fixture`, { data: { mode: 'locked' } });
+  await page.clock.fastForward(
+    new Date('2026-09-13T17:00:01Z').getTime() - start.getTime(),
+  );
+  await expect(
+    page.getByRole('heading', { name: 'Picks locked. Calls on the record.' }),
+  ).toBeVisible();
+  await expect(page.locator('#matchup-1 .stamp')).toHaveText('Locked');
+  await expect(page.locator('#matchup-1')).toContainText('Emmet Burns 50%');
+  await expect(page.getByText('Alan Fixture', { exact: true })).toBeVisible();
+  await expect(page.getByText(/You can change it until/)).toHaveCount(0);
+  await expect(
+    page.getByRole('complementary', { name: 'Your bet slip' }),
+  ).toContainText('Slip locked');
+});
+
+test('settled weeks stamp results, judge the line and print the docket', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/matchups');
+  await signIn(page);
+  await pickAndConfirm(page, 'Burns XI');
+  await pickAndConfirm(page, 'Cooper Kupp Mah Balls');
+  await request.post(`${fixture}/__fixture`, { data: { mode: 'final' } });
+  await page.clock.setFixedTime(new Date('2026-09-16T10:00:00Z'));
+  await page.goto('/matchups?week=1');
+  await expect(
+    page.getByRole('heading', { name: 'Results settled', exact: true }),
+  ).toBeVisible();
+  await expect(page.locator('#matchup-1 .stamp')).toHaveText('Called it');
+  await expect(page.locator('#matchup-2 .stamp')).toHaveText('Missed');
+  await expect(page.locator('#matchup-1 .faceoff-line')).toContainText('Upset');
+  await expect(
+    page.getByRole('link', { name: 'Week 1, settled, 6 points' }),
+  ).toHaveAttribute('aria-current', 'page');
+  const toggle = page.getByRole('button', { name: 'See your docket' });
+  await toggle.click();
+  const docket = page.getByRole('region', { name: 'Your docket' });
+  await expect(docket).toContainText('2 selections');
+  await expect(docket).toContainText('Returned 6 pts');
+  await expect(docket).toContainText('1st of 2');
+  await expect(docket).not.toContainText('110.0');
+  await docket.getByRole('button', { name: 'Tear off the docket' }).click();
+  await expect(docket).toHaveCount(0);
+  await expect(toggle).toBeFocused();
+  await expect(page.getByText('Final score', { exact: true })).toHaveCount(12);
+});
+
+test('reduced motion swaps the hold for a confirm step and keeps stamps still', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/matchups');
+  await signIn(page);
+  await pickAndConfirm(page, 'Burns XI');
+  await expect(page.locator('.click-spark')).toHaveCount(0);
+  await page
+    .getByRole('button', { name: 'Make Emmet Burns your Banker', exact: true })
+    .click();
+  await page
+    .getByRole('button', { name: 'Bank Emmet Burns ×2', exact: true })
+    .click();
+  const stamp = page.locator('#matchup-1 .stamp');
+  await expect(stamp).toHaveText('Banker ×2');
+  expect(
+    await stamp.evaluate((element) => getComputedStyle(element).animationName),
+  ).toBe('none');
+  expect(
+    await page.evaluate(
+      () =>
+        getComputedStyle(document.querySelector('.faceoff')!)
+          .transitionDuration,
+    ),
+  ).not.toBe('0.45s');
+});

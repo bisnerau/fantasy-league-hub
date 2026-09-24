@@ -1,50 +1,20 @@
 'use client';
 
-import { useEffect, useState, useRef, type SyntheticEvent } from 'react';
-import type { User } from '@supabase/supabase-js';
 import {
-  usePredictionMember,
-  type LeaderboardRow,
-  type VoteRecord,
-} from './use-prediction-member';
-import { formatLockTime, signInErrorMessage } from '@/lib/predictions/rules';
-import { formatScore } from '@/lib/sleeper/scores';
-import { followSpotlight } from '@/components/effects/spotlight';
-import {
-  persistPick,
-  persistBanker,
-  type BankerRecord,
-} from '@/lib/predictions/votes';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
-  Check,
-  ChevronDown,
-  LoaderCircle,
-  LockKeyhole,
-  LogIn,
-  LogOut,
-  ShieldCheck,
-  Star,
-  Trophy,
-  Vote,
-} from 'lucide-react';
-import { TeamAvatar } from '@/components/shared/team-avatar';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+  useEffect,
+  useState,
+  useRef,
+  type ReactNode,
+  type SyntheticEvent,
+} from 'react';
+import { LoaderCircle, LogIn, LogOut, ShieldCheck } from 'lucide-react';
+import { usePredictionMember, type VoteRecord } from './use-prediction-member';
+import { signInErrorMessage } from '@/lib/predictions/rules';
+import { persistPick, persistBanker } from '@/lib/predictions/votes';
+import { getSlip } from '@/lib/predictions/slip';
+import { spark } from '@/components/effects/click-spark';
+import { prefersReducedMotion } from '@/lib/motion';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -56,628 +26,31 @@ import {
 import { leagueMembers, memberLoginEmail } from '@/lib/data/member-directory';
 import type {
   PredictionMatchup,
-  PredictionPlayer,
-  PredictionTeam,
   PredictionWeekData,
 } from '@/lib/data/predictions';
-import { cn } from '@/lib/utils';
-import { MatchupEditorial } from './matchup-editorial';
 import type { MatchOfTheWeek } from '@/lib/data/match-of-the-week';
-
-import { RivalryStrip } from './rivalry-strip';
 import type { Rivalry } from '@/lib/data/rivalries';
-
-type VoterDisplay = {
-  banker: boolean;
-  id: string;
-  name: string;
-  isCurrentUser: boolean;
-};
+import { cn } from '@/lib/utils';
+import { BetSlip, type SlipState } from './bet-slip';
+import { MatchupCard } from './matchup-card';
+import { PicksHero } from './picks-hero';
+import { PredictionPodium } from './prediction-podium';
+import { QuickPick } from './quick-pick';
+import { SeasonTimeline } from './season-timeline';
 
 type PredictionView = 'weekly' | 'standings';
 
-function recordFor(team: PredictionTeam) {
-  return `${team.wins}-${team.losses}${team.ties ? `-${team.ties}` : ''}`;
-}
-
-function PredictionTable({
-  title,
-  subtitle,
-  rows,
-  currentUserId,
-  emptyMessage,
-}: {
-  title: string;
-  subtitle: string;
-  rows: LeaderboardRow[];
-  currentUserId?: string;
-  emptyMessage?: string;
-}) {
-  return (
-    <section className="linear-panel overflow-hidden rounded-xl">
-      <div className="border-b border-border px-4 py-4 sm:px-5">
-        <h2 className="text-base font-bold">{title}</h2>
-        <p className="mt-1 text-xs leading-5 text-muted-foreground">
-          {subtitle}
-        </p>
-      </div>
-      {emptyMessage ? (
-        <p className="px-5 py-8 text-sm leading-6 text-muted-foreground">
-          {emptyMessage}
-        </p>
-      ) : (
-        <Table>
-          <caption className="sr-only">
-            {title}. Ranked by points; equal totals share a rank. Bankers earn
-            two points.
-          </caption>
-          <TableHeader>
-            <TableRow>
-              <TableHead scope="col" className="w-12 pl-4 text-xs">
-                Rank
-              </TableHead>
-              <TableHead scope="col" className="text-xs">
-                Manager
-              </TableHead>
-              <TableHead scope="col" className="text-right text-xs">
-                Points
-              </TableHead>
-              <TableHead scope="col" className="text-right text-xs">
-                Bankers
-              </TableHead>
-              <TableHead scope="col" className="text-right text-xs">
-                Correct
-              </TableHead>
-              <TableHead scope="col" className="pr-4 text-right text-xs">
-                Accuracy
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.voter_id}
-                className={row.voter_id === currentUserId ? 'bg-primary/5' : ''}
-              >
-                <TableCell className="pl-4 font-mono text-xs text-muted-foreground">
-                  {rows.findIndex(
-                    (candidate) => candidate.points === row.points,
-                  ) + 1}
-                </TableCell>
-                <TableCell className="whitespace-normal text-sm font-medium">
-                  {row.display_name}
-                  {row.voter_id === currentUserId && (
-                    <span className="ml-1 text-xs text-primary">(you)</span>
-                  )}
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm font-bold text-primary">
-                  {row.points}
-                </TableCell>
-                <TableCell
-                  className="text-right font-mono text-sm"
-                  title="Correct Bankers / settled Bankers (ties excluded)"
-                >
-                  {row.correct_bankers}/{row.completed_bankers}
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm text-muted-foreground">
-                  {row.correct_picks}/{row.completed_picks}
-                </TableCell>
-                <TableCell className="pr-4 text-right font-mono text-xs text-muted-foreground">
-                  {Number(row.accuracy).toFixed(1)}%
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-    </section>
-  );
-}
-
-function PlayerRow({ player }: { player: PredictionPlayer }) {
-  return (
-    <div className="grid grid-cols-[38px_minmax(0,1fr)_auto] items-center gap-2.5 border-b border-border py-2.5 last:border-0">
-      <span className="font-mono text-xs font-bold text-primary">
-        {player.slot.replace('_FLEX', '')}
-      </span>
-      <span className="min-w-0">
-        <span className="block truncate text-xs font-medium">
-          {player.name}
-        </span>
-        <span className="mt-0.5 block text-xs text-muted-foreground">
-          {player.position} · {player.nflTeam}
-        </span>
-      </span>
-      <span className="font-mono text-[11px] text-muted-foreground">
-        {formatScore(player.projectedPoints)}
-      </span>
-    </div>
-  );
-}
-
-function LineupColumn({ team }: { team: PredictionTeam }) {
-  return (
-    <div className="min-w-0 rounded-lg border border-border bg-muted/20 p-3">
-      <div className="mb-2 flex items-center gap-2">
-        <TeamAvatar
-          avatar={team.avatar}
-          name={team.teamName}
-          className="size-7"
-        />
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold">{team.teamName}</p>
-          <p className="text-xs text-muted-foreground">Starting lineup</p>
-        </div>
-      </div>
-      <div>
-        {team.starters.map((player) => (
-          <PlayerRow key={player.id} player={player} />
-        ))}
-      </div>
-      <details className="group mt-2">
-        <summary className="flex cursor-pointer list-none items-center justify-between rounded-md px-1 py-2.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground hover:text-foreground">
-          Bench · {team.bench.length}
-          <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" />
-        </summary>
-        <div>
-          {team.bench.length ? (
-            team.bench.map((player) => (
-              <PlayerRow key={player.id} player={player} />
-            ))
-          ) : (
-            <p className="py-3 text-[11px] text-muted-foreground">
-              No bench players yet.
-            </p>
-          )}
-        </div>
-      </details>
-    </div>
-  );
-}
-
-function TeamChoice({
-  team,
-  matchup,
-  selected,
-  voters,
-  votePercentage,
-  locked,
-  finalized,
-  signedIn,
-  disabled,
-  pending,
-  votersReady,
-  onPick,
-}: {
-  team: PredictionTeam;
-  matchup: PredictionMatchup;
-  selected: boolean;
-  voters: VoterDisplay[];
-  votePercentage: number;
-  locked: boolean;
-  finalized: boolean;
-  signedIn: boolean;
-  disabled: boolean;
-  pending: boolean;
-  votersReady: boolean;
-  onPick: (matchup: PredictionMatchup, rosterId: number) => void;
-}) {
-  return (
-    <div
-      className={cn(
-        'flex min-w-0 flex-col rounded-lg border p-3 transition-colors duration-150 sm:p-4',
-        selected
-          ? 'border-primary bg-primary/5'
-          : 'border-border bg-background',
-      )}
-    >
-      <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 sm:flex sm:gap-2.5">
-        <TeamAvatar
-          avatar={team.avatar}
-          name={team.teamName}
-          className="size-8 sm:size-10"
-        />
-        <div className="col-span-2 mt-2 min-w-0 sm:order-none sm:col-span-1 sm:mt-0 sm:flex-1">
-          <p className="break-words text-sm font-bold leading-snug sm:text-base">
-            {team.teamName}
-          </p>
-          <p className="mt-1 break-words text-xs leading-5 text-muted-foreground">
-            {team.ownerName} · {recordFor(team)}
-          </p>
-        </div>
-        <div
-          className={cn(
-            'shrink-0 text-right sm:order-none sm:col-auto sm:row-auto sm:mt-0',
-            finalized ? 'col-span-2 mt-2' : 'col-start-2 row-start-1',
-          )}
-        >
-          <p
-            className={cn(
-              'font-mono font-bold tracking-tight',
-              (finalized ? team.actualScore : team.projectedScore) == null
-                ? 'text-xs'
-                : 'text-xl sm:text-2xl',
-            )}
-          >
-            {formatScore(
-              finalized ? team.actualScore : team.projectedScore,
-              finalized ? 2 : 1,
-            )}
-          </p>
-          <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground sm:text-xs sm:tracking-[0.12em]">
-            {finalized ? 'Final score' : 'PPR estimate'}
-          </p>
-        </div>
-      </div>
-      <div className="mt-4" />
-      {!locked ? (
-        <Button
-          variant={selected ? 'default' : 'outline'}
-          size="sm"
-          className="mt-auto min-h-11 w-full whitespace-normal px-2 py-2 text-xs sm:text-sm"
-          aria-pressed={selected}
-          aria-busy={pending}
-          aria-label={`Pick ${team.teamName}${selected ? ', saved' : ''}`}
-          disabled={disabled || pending}
-          onClick={() => onPick(matchup, team.rosterId)}
-        >
-          {pending ? (
-            <LoaderCircle className="animate-spin" />
-          ) : selected ? (
-            <Check />
-          ) : (
-            <Vote />
-          )}
-          {pending ? (
-            'Saving…'
-          ) : selected ? (
-            'Saved pick'
-          ) : (
-            <>
-              <span className="sm:hidden">Pick this team</span>
-              <span className="hidden sm:inline">Pick {team.teamName}</span>
-            </>
-          )}
-        </Button>
-      ) : !signedIn ? (
-        <p className="mt-3 border-t border-border pt-3 text-[11px] text-muted-foreground">
-          Sign in to reveal voters
-        </p>
-      ) : !votersReady ? (
-        <p className="mt-3 text-xs text-muted-foreground">
-          Voter details unavailable until member data loads.
-        </p>
-      ) : (
-        <div className="mt-3 border-t border-border pt-3">
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-[11px] font-semibold text-foreground/80">
-              {voters.length} {voters.length === 1 ? 'vote' : 'votes'} ·{' '}
-              {Math.round(votePercentage)}%
-            </p>
-            {selected && (
-              <span className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-1.5 py-1 text-xs font-semibold text-primary">
-                <Check className="size-3" /> Your pick
-              </span>
-            )}
-          </div>
-          {voters.length ? (
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {voters.map((voter) => (
-                <span
-                  key={voter.id}
-                  className={cn(
-                    'inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium',
-                    voter.isCurrentUser
-                      ? 'bg-primary/[0.12] text-primary'
-                      : 'bg-muted text-foreground/75',
-                  )}
-                >
-                  {voter.name}
-                  {voter.banker && (
-                    <span className="font-semibold text-amber-600 dark:text-amber-300">
-                      Banker ×2
-                    </span>
-                  )}
-                  {voter.isCurrentUser && (
-                    <span className="text-[11px] font-bold uppercase tracking-wide">
-                      You
-                    </span>
-                  )}
-                </span>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-2 text-[11px] text-muted-foreground">No picks</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function MatchupPanel({
-  matchup,
-  lockAt,
-  feature,
-  locked,
-  finalized,
-  user,
-  votes,
-  profileNames,
-  databaseReady,
-  pendingRoster,
-  feedback,
-  votersReady,
-  onPick,
-  onRequireLogin,
-  rivalry,
-  bankers,
-  bankerPending,
-  savingPick,
-  onBanker,
-}: {
-  matchup: PredictionMatchup;
-  lockAt: string;
-  feature?: MatchOfTheWeek;
-  locked: boolean;
-  finalized: boolean;
-  user: User | null;
-  votes: VoteRecord[];
-  profileNames: Map<string, string>;
-  databaseReady: boolean;
-  pendingRoster: number | null;
-  feedback?: { text: string; error: boolean };
-  votersReady: boolean;
-  onPick: (matchup: PredictionMatchup, rosterId: number) => void;
-  onRequireLogin: () => void;
-  rivalry?: Rivalry;
-  bankers: BankerRecord[];
-  bankerPending: boolean;
-  savingPick: boolean;
-  onBanker: (matchup: PredictionMatchup) => void;
-}) {
-  const [lineupsOpen, setLineupsOpen] = useState(false);
-  const matchupVotes = votes.filter(
-    (vote) => vote.matchup_id === matchup.databaseId,
-  );
-  const ownVote = matchupVotes.find((vote) => vote.voter_id === user?.id);
-  const isBanker = bankers.some(
-    (b) => b.voter_id === user?.id && b.matchup_id === matchup.databaseId,
-  );
-  const pickedTeam =
-    ownVote?.selected_roster_id === matchup.home.rosterId
-      ? matchup.home
-      : matchup.away;
-  const bankerResult = !finalized
-    ? 'Your Banker · 2 points if correct'
-    : matchup.home.actualScore === matchup.away.actualScore
-      ? 'Banker tied · 0 points'
-      : ownVote?.selected_roster_id ===
-          (matchup.home.actualScore! > matchup.away.actualScore!
-            ? matchup.home.rosterId
-            : matchup.away.rosterId)
-        ? 'Banker landed · 2 points'
-        : 'Banker missed · 0 points';
-  const votersFor = (rosterId: number) =>
-    matchupVotes
-      .filter((vote) => vote.selected_roster_id === rosterId)
-      .map((vote) => ({
-        id: vote.voter_id,
-        banker: bankers.some(
-          (b) =>
-            b.voter_id === vote.voter_id && b.matchup_id === matchup.databaseId,
-        ),
-        name: profileNames.get(vote.voter_id) ?? 'League member',
-        isCurrentUser: vote.voter_id === user?.id,
-      }))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  const homeVoters = votersFor(matchup.home.rosterId);
-  const awayVoters = votersFor(matchup.away.rosterId);
-  const totalVotes = homeVoters.length + awayVoters.length;
-  const homeVotePercentage = totalVotes
-    ? (homeVoters.length / totalVotes) * 100
-    : 0;
-  const awayVotePercentage = totalVotes ? 100 - homeVotePercentage : 0;
-  const pick = (selectedMatchup: PredictionMatchup, rosterId: number) => {
-    if (!user) {
-      onRequireLogin();
-      return;
-    }
-    onPick(selectedMatchup, rosterId);
-  };
-
-  return (
-    <Card
-      className={cn(
-        'linear-panel scroll-mt-20 gap-0 py-0',
-        feature && 'spotlight-card ring-1 ring-primary/40',
-      )}
-      onPointerMove={feature ? followSpotlight : undefined}
-      data-matchup-id={matchup.sleeperMatchupId}
-      id={`matchup-${matchup.sleeperMatchupId}`}
-      data-match-of-the-week={feature ? 'true' : undefined}
-    >
-      <div className="flex items-center justify-between border-b border-border px-3.5 py-2.5 sm:px-4">
-        <div className="flex flex-wrap items-center gap-2">
-          {feature && (
-            <Badge className="h-auto gap-1.5 px-2.5 py-1 text-sm">
-              <Star aria-hidden="true" /> Match of the Week
-            </Badge>
-          )}
-          <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-            Matchup {matchup.sleeperMatchupId}
-          </span>
-        </div>
-        <span className="text-xs font-medium text-muted-foreground">
-          {finalized
-            ? 'Final'
-            : locked
-              ? user && votersReady
-                ? `${totalVotes} ${totalVotes === 1 ? 'vote' : 'votes'}`
-                : 'Locked'
-              : databaseReady
-                ? 'Picks open'
-                : 'Picks unavailable'}
-        </span>
-      </div>
-      <div className="grid grid-cols-[minmax(0,1fr)_12px_minmax(0,1fr)] items-stretch gap-1.5 px-2.5 py-3 sm:grid-cols-[minmax(0,1fr)_20px_minmax(0,1fr)] sm:gap-3 sm:px-4">
-        <TeamChoice
-          team={matchup.home}
-          matchup={matchup}
-          selected={ownVote?.selected_roster_id === matchup.home.rosterId}
-          voters={homeVoters}
-          votePercentage={homeVotePercentage}
-          locked={locked}
-          finalized={finalized}
-          signedIn={Boolean(user)}
-          disabled={
-            !databaseReady ||
-            matchup.databaseId == null ||
-            pendingRoster != null
-          }
-          pending={pendingRoster === matchup.home.rosterId}
-          votersReady={votersReady}
-          onPick={pick}
-        />
-        <div className="flex items-center justify-center">
-          <span className="font-mono text-xs font-black uppercase text-muted-foreground/50">
-            vs
-          </span>
-        </div>
-        <TeamChoice
-          team={matchup.away}
-          matchup={matchup}
-          selected={ownVote?.selected_roster_id === matchup.away.rosterId}
-          voters={awayVoters}
-          votePercentage={awayVotePercentage}
-          locked={locked}
-          finalized={finalized}
-          signedIn={Boolean(user)}
-          disabled={
-            !databaseReady ||
-            matchup.databaseId == null ||
-            pendingRoster != null
-          }
-          pending={pendingRoster === matchup.away.rosterId}
-          votersReady={votersReady}
-          onPick={pick}
-        />
-      </div>
-      {user && votersReady && ownVote && (
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-3.5 py-3 sm:px-4">
-          {isBanker && (
-            <p className="text-sm font-semibold text-amber-700 dark:text-amber-300">
-              {bankerResult} · {pickedTeam.ownerName}
-            </p>
-          )}
-          {!locked && (
-            <Button
-              variant="outline"
-              className={cn(
-                'min-h-11 whitespace-normal text-sm',
-                isBanker &&
-                  'border-amber-500/40 text-amber-700 dark:text-amber-300',
-              )}
-              disabled={
-                !databaseReady ||
-                bankerPending ||
-                savingPick ||
-                pendingRoster != null ||
-                isBanker
-              }
-              aria-pressed={isBanker}
-              aria-label={`Make ${pickedTeam.ownerName} your Banker`}
-              onClick={() => onBanker(matchup)}
-            >
-              <Star aria-hidden="true" />
-              {isBanker
-                ? 'Banker saved ×2'
-                : bankerPending
-                  ? 'Saving Banker…'
-                  : 'Make this my Banker ×2'}
-            </Button>
-          )}
-        </div>
-      )}
-      <RivalryStrip rivalry={rivalry} matchup={matchup} />
-      {feature && (
-        <section className="border-t border-primary/15 bg-primary/[0.045] px-3.5 py-4 sm:px-4">
-          <h3 className="text-sm font-semibold text-primary">
-            {finalized ? 'Why we chose it' : 'Why this one?'}
-          </h3>
-          <p className="mt-2 text-base leading-7">{feature.reason}</p>
-          {!finalized && (
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              {feature.buildUp}
-            </p>
-          )}
-        </section>
-      )}
-      {feedback && (
-        <p
-          role={feedback.error ? 'alert' : 'status'}
-          className={cn(
-            'px-4 pb-3 text-sm leading-5',
-            feedback.error ? 'text-destructive' : 'text-primary',
-          )}
-        >
-          {feedback.text}
-        </p>
-      )}
-      {locked && user && votersReady && totalVotes > 0 && (
-        <div className="px-3.5 pb-3 sm:px-4">
-          <div className="mb-1.5 flex items-center justify-between text-xs font-medium text-muted-foreground">
-            <span>Community split</span>
-            <span>
-              {Math.round(homeVotePercentage)}% ·{' '}
-              {Math.round(awayVotePercentage)}%
-            </span>
-          </div>
-          <div
-            className="flex h-1.5 overflow-hidden rounded-full bg-muted"
-            aria-hidden="true"
-          >
-            <span
-              className="h-full bg-primary transition-[width]"
-              style={{ width: `${homeVotePercentage}%` }}
-            />
-            <span className="h-full flex-1 bg-accent/60" aria-hidden="true" />
-          </div>
-        </div>
-      )}
-      <Accordion className="border-t border-border px-3.5 sm:px-4">
-        <AccordionItem
-          value={`matchup-${matchup.sleeperMatchupId}`}
-          onOpenChange={setLineupsOpen}
-        >
-          <AccordionTrigger className="my-1 w-full px-2 py-2.5 text-[11px] font-semibold uppercase tracking-[0.11em] text-muted-foreground hover:bg-white/[0.03] hover:no-underline hover:text-foreground">
-            {lineupsOpen ? 'Hide lineups' : 'View both lineups'}
-          </AccordionTrigger>
-          <AccordionContent className="pb-4">
-            <div className="grid gap-3 md:grid-cols-2">
-              <LineupColumn team={matchup.home} />
-              <LineupColumn team={matchup.away} />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-      <MatchupEditorial
-        matchup={matchup}
-        featured={Boolean(feature)}
-        lockAt={lockAt}
-        locked={locked}
-        finalized={finalized}
-        receipt={
-          finalized && user && votersReady
-            ? totalVotes === 0
-              ? 'No member picks were recorded for this matchup.'
-              : matchup.home.actualScore === matchup.away.actualScore
-                ? `${totalVotes} managers picked a winner; the tie gives nobody a correct winner pick.`
-                : `${matchup.home.actualScore! > matchup.away.actualScore! ? homeVoters.length : awayVoters.length} of ${totalVotes} voters backed ${matchup.home.actualScore! > matchup.away.actualScore! ? matchup.home.ownerName : matchup.away.ownerName}, the winning side. The original picks stay on the record.`
-            : undefined
-        }
-      />
-    </Card>
+/** Fire the celebration from a card's half, only after a verified save. */
+function sparkHalf(
+  sleeperMatchupId: number,
+  side: 'home' | 'away',
+  gold: boolean,
+) {
+  spark(
+    document.querySelector(
+      `#matchup-${sleeperMatchupId} [data-side="${side}"]`,
+    ),
+    { gold },
   );
 }
 
@@ -686,13 +59,23 @@ export function PredictionCentre({
   mode = 'weekly',
   matchOfTheWeek,
   rivalries = {},
+  tabs,
 }: {
   data: PredictionWeekData;
   mode?: PredictionView;
   matchOfTheWeek?: MatchOfTheWeek | null;
   rivalries?: Record<number, Rivalry>;
+  tabs?: ReactNode;
 }) {
   const [locked, setLocked] = useState(data.locked);
+  const [now, setNow] = useState<number | null>(null);
+  // Set only after a verified save; the effect below fires the spark.
+  const [celebration, setCelebration] = useState<{
+    sleeperMatchupId: number;
+    side: 'home' | 'away';
+    gold: boolean;
+    slip: boolean;
+  } | null>(null);
   const member = usePredictionMember(data, locked);
   const {
     supabase,
@@ -727,16 +110,32 @@ export function PredictionCentre({
   const ownVotes = votes.filter((vote) => vote.voter_id === user?.id);
   const picksMade = new Set(ownVotes.map((vote) => vote.matchup_id)).size;
 
+  // Handlers read the latest saved picks without depending on render values.
+  const ownVotesRef = useRef(ownVotes);
+  useEffect(() => {
+    ownVotesRef.current = ownVotes;
+  });
   useEffect(() => {
     accountId.current = user?.id ?? null;
   }, [user]);
   useEffect(() => {
+    if (!celebration) return;
+    sparkHalf(celebration.sleeperMatchupId, celebration.side, celebration.gold);
+    if (celebration.slip)
+      spark(document.querySelector('.bet-slip-bar'), { gold: true });
+  }, [celebration]);
+  useEffect(() => {
     if (!data.lockAt) return;
-    const tick = () =>
-      setLocked(data.locked || Date.now() >= new Date(data.lockAt).getTime());
+    const tick = () => {
+      const time = Date.now();
+      setNow(time);
+      setLocked(data.locked || time >= new Date(data.lockAt).getTime());
+    };
+    const first = window.setTimeout(tick, 0);
     const timer = window.setInterval(tick, 1000);
     window.addEventListener('focus', tick);
     return () => {
+      window.clearTimeout(first);
       window.clearInterval(timer);
       window.removeEventListener('focus', tick);
     };
@@ -745,9 +144,7 @@ export function PredictionCentre({
   const requireLogin = () => {
     setLoginOpen(true);
     loginRef.current?.scrollIntoView({
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'instant'
-        : 'smooth',
+      behavior: prefersReducedMotion() ? 'instant' : 'smooth',
       block: 'start',
     });
     window.setTimeout(
@@ -843,6 +240,15 @@ export function PredictionCentre({
       }));
       return;
     }
+    const side = selectedRosterId === matchup.home.rosterId ? 'home' : 'away';
+    const gold = member.bankers.some(
+      (b) => b.voter_id === voterId && b.matchup_id === id,
+    );
+    const saved = ownVotesRef.current;
+    const completesSlip =
+      !saved.some((vote) => vote.matchup_id === id) &&
+      new Set(saved.map((vote) => vote.matchup_id)).size + 1 ===
+        data.matchups.length;
     pendingIds.current.add(id);
     setPending((current) => ({ ...current, [id]: selectedRosterId }));
     setFeedback((current) => ({
@@ -872,6 +278,12 @@ export function PredictionCentre({
         return;
       }
       member.recordSavedVote(saved as VoteRecord);
+      setCelebration({
+        sleeperMatchupId: matchup.sleeperMatchupId,
+        side,
+        gold,
+        slip: completesSlip,
+      });
       setFeedback((current) => ({
         ...current,
         [id]: {
@@ -928,6 +340,12 @@ export function PredictionCentre({
       }));
       return;
     }
+    const banked = ownVotesRef.current.find((vote) => vote.matchup_id === id);
+    const bankedSide = !banked
+      ? null
+      : banked.selected_roster_id === matchup.home.rosterId
+        ? 'home'
+        : 'away';
     bankerSaving.current = true;
     setBankerPending(true);
     try {
@@ -943,6 +361,13 @@ export function PredictionCentre({
         throw new Error('Unconfirmed Banker');
       }
       member.recordSavedBanker(saved);
+      if (bankedSide)
+        setCelebration({
+          sleeperMatchupId: matchup.sleeperMatchupId,
+          side: bankedSide,
+          gold: true,
+          slip: false,
+        });
       setFeedback((current) => ({
         ...current,
         [id]: {
@@ -975,57 +400,74 @@ export function PredictionCentre({
       : member.error
         ? 'Prediction standings are unavailable. Use Retry above.'
         : null;
+  const memberReady = Boolean(user) && !member.loading && !member.error;
+  const hasBanker = member.bankers.some((b) => b.voter_id === user?.id);
+  const featured = data.matchups.find(
+    (matchup) => matchup.sleeperMatchupId === matchOfTheWeek?.sleeperMatchupId,
+  );
+  const slip = getSlip(data.matchups, votes, member.bankers, user?.id);
+  const showSlip = !viewingStandings && available && data.matchups.length > 0;
+  const slipState: SlipState = !user
+    ? 'signed-out'
+    : member.loading
+      ? 'loading'
+      : member.error
+        ? 'unavailable'
+        : data.finalized
+          ? 'settled'
+          : locked
+            ? 'locked'
+            : 'open';
+  const databaseReady =
+    available && !member.loading && !member.error && !bankerPending;
+  const jumpTo = (sleeperMatchupId: number) => {
+    const card = document.getElementById(`matchup-${sleeperMatchupId}`);
+    if (!card) return;
+    card.scrollIntoView({
+      behavior: prefersReducedMotion() ? 'instant' : 'smooth',
+      block: 'center',
+    });
+    card
+      .querySelector<HTMLButtonElement>('.faceoff-pick:not(:disabled)')
+      ?.focus({ preventScroll: true });
+  };
+
   return (
-    <div className="space-y-5">
-      <div
-        ref={loginRef}
-        className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"
+    <div className={cn('space-y-5', showSlip && 'picks-with-slip')}>
+      <PicksHero
+        data={data}
+        locked={locked}
+        now={now}
+        standings={viewingStandings}
+        available={available}
+        feature={featured ?? null}
+        votes={votes}
+        signedIn={Boolean(user)}
+        memberReady={memberReady}
+        picksMade={picksMade}
+        hasBanker={hasBanker}
+        actions={
+          // Stays mounted through the member refresh that follows each save.
+          user &&
+          !member.error &&
+          !locked && (
+            <QuickPick
+              matchups={data.matchups}
+              pickedIds={new Set(ownVotes.map((vote) => vote.matchup_id))}
+              pending={pending}
+              feedback={feedback}
+              disabled={!databaseReady}
+              onPick={castVote}
+            />
+          )
+        }
       >
-        <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
-          <div className="flex gap-3">
-            <span className="mt-0.5 text-primary">
-              {viewingStandings ? (
-                <Trophy className="size-5" />
-              ) : locked ? (
-                <LockKeyhole className="size-5" />
-              ) : (
-                <Vote className="size-5" />
-              )}
-            </span>
-            <div>
-              <h2 className="text-base font-semibold">
-                {viewingStandings
-                  ? 'The prediction title'
-                  : !available
-                    ? 'Weekly picks are not open'
-                    : locked
-                      ? data.finalized
-                        ? 'Results settled'
-                        : 'Picks locked. Calls on the record.'
-                      : 'Make your calls'}
-              </h2>
-              <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
-                {viewingStandings ? (
-                  'One point per correct winner; two for your weekly Banker. Wrong or missing picks earn zero; ties are excluded. Equal points share a rank.'
-                ) : data.lockAt ? (
-                  <>
-                    {locked ? 'Closed' : 'All six picks close'}{' '}
-                    <time dateTime={data.lockAt}>
-                      {formatLockTime(data.lockAt)}
-                    </time>
-                    .{' '}
-                    {locked
-                      ? 'Sign in to see the names behind the calls.'
-                      : 'Earlier NFL games do not close voting. Other members can see your picks only after the Sunday deadline.'}
-                  </>
-                ) : (
-                  'This week’s deadline is temporarily unavailable.'
-                )}
-              </p>
-            </div>
-          </div>
+        <div
+          ref={loginRef}
+          className="mt-5 scroll-mt-20 border-t border-border pt-4"
+        >
           {user ? (
-            <div className="flex items-center justify-between gap-4 border-t border-border pt-3 lg:min-w-56 lg:border-0 lg:pt-0">
+            <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold">
                   {profile?.id === user.id
@@ -1074,149 +516,127 @@ export function PredictionCentre({
               {viewingStandings ? 'Sign in to view' : 'Sign in to make picks'}
             </Button>
           )}
-        </div>
-        {loginOpen && !user && (
-          <form
-            onSubmit={signIn}
-            className="mt-5 grid items-end gap-3 border-t border-border pt-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]"
-          >
-            <div>
-              <label
-                htmlFor="pick-manager"
-                className="mb-2 block text-xs font-medium"
-              >
-                Manager
-              </label>
-              <Select
-                value={selectedMember}
-                onValueChange={(value) => setSelectedMember(value ?? '')}
-                items={leagueMembers.map((manager) => ({
-                  value: manager.loginSlug,
-                  label: manager.displayName,
-                }))}
-              >
-                <SelectTrigger id="pick-manager" className="min-h-11 w-full">
-                  <SelectValue placeholder="Choose your manager" />
-                </SelectTrigger>
-                <SelectContent>
-                  {leagueMembers.map((manager) => (
-                    <SelectItem
-                      key={manager.loginSlug}
-                      value={manager.loginSlug}
-                    >
-                      {manager.displayName}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label
-                htmlFor="pick-password"
-                className="mb-2 block text-xs font-medium"
-              >
-                Password
-              </label>
-              <Input
-                id="pick-password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                autoComplete="current-password"
-                className="min-h-11"
-                aria-describedby="sign-in-help"
-              />
-            </div>
-            <Button
-              type="submit"
-              className="min-h-11 px-5"
-              disabled={!selectedMember || !password || authPending}
+          {loginOpen && !user && (
+            <form
+              onSubmit={signIn}
+              className="mt-5 grid items-end gap-3 border-t border-border pt-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]"
             >
-              {authPending && <LoaderCircle className="animate-spin" />}
-              {authPending ? 'Signing in…' : 'Sign in'}
-            </Button>
-            <p
-              id="sign-in-help"
-              className="text-xs leading-5 text-muted-foreground sm:col-span-3"
-            >
-              Use the manager account and password supplied for MAC 12. Need
-              access or a password reset? Ask the commissioner.
-            </p>
-          </form>
-        )}
-        {message && (
-          <p
-            role={message.error ? 'alert' : 'status'}
-            className={cn(
-              'mt-4 text-sm leading-6',
-              message.error ? 'text-destructive' : 'text-muted-foreground',
-            )}
-          >
-            {message.text}
-          </p>
-        )}
-        {member.error && (
-          <div className="mt-4">
-            <p role="alert" className="text-sm text-destructive">
-              {member.error}
-            </p>
-            {user && (
+              <div>
+                <label
+                  htmlFor="pick-manager"
+                  className="mb-2 block text-xs font-medium"
+                >
+                  Manager
+                </label>
+                <Select
+                  value={selectedMember}
+                  onValueChange={(value) => setSelectedMember(value ?? '')}
+                  items={leagueMembers.map((manager) => ({
+                    value: manager.loginSlug,
+                    label: manager.displayName,
+                  }))}
+                >
+                  <SelectTrigger id="pick-manager" className="min-h-11 w-full">
+                    <SelectValue placeholder="Choose your manager" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {leagueMembers.map((manager) => (
+                      <SelectItem
+                        key={manager.loginSlug}
+                        value={manager.loginSlug}
+                      >
+                        {manager.displayName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label
+                  htmlFor="pick-password"
+                  className="mb-2 block text-xs font-medium"
+                >
+                  Password
+                </label>
+                <Input
+                  id="pick-password"
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  autoComplete="current-password"
+                  className="min-h-11"
+                  aria-describedby="sign-in-help"
+                />
+              </div>
               <Button
-                variant="outline"
-                className="mt-3 min-h-11"
-                onClick={member.refresh}
+                type="submit"
+                className="min-h-11 px-5"
+                disabled={!selectedMember || !password || authPending}
               >
-                Retry
+                {authPending && <LoaderCircle className="animate-spin" />}
+                {authPending ? 'Signing in…' : 'Sign in'}
               </Button>
-            )}
-          </div>
-        )}
-        {!supabase && (
-          <output className="mt-4 block text-sm text-muted-foreground">
-            Member sign-in is temporarily unavailable. Please try again later.
-          </output>
-        )}
-        {!viewingStandings && data.matchups.length > 0 && !available && (
-          <output className="mt-4 text-sm leading-6 text-muted-foreground">
-            The matchups are visible, but saving picks is not ready. Please try
-            again after the next sync. Existing picks are not changed.
-          </output>
-        )}
-      </div>
-      {!viewingStandings && available && (
-        <section
-          className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-4"
-          aria-label="Weekly Banker"
-        >
-          <h2 className="flex items-center gap-2 text-base font-semibold">
-            <Star className="size-4 text-amber-600 dark:text-amber-300" />
-            One Banker. Double the bragging rights.
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Save a winner, then make it your Banker. A correct Banker earns 2
-            points total; other correct picks earn 1. Wrong or tied: 0. Maximum
-            7 points from six games. Your Banker stays private and locks with
-            your picks.
-          </p>
-          {!locked && (
-            <p className="mt-1 text-sm leading-6 text-muted-foreground">
-              Choosing another replaces it. Change the winner in your Banker
-              matchup and the Banker follows your new pick.
+              <p
+                id="sign-in-help"
+                className="text-xs leading-5 text-muted-foreground sm:col-span-3"
+              >
+                Use the manager account and password supplied for MAC 12. Need
+                access or a password reset? Ask the commissioner.
+              </p>
+            </form>
+          )}
+          {message && (
+            <p
+              role={message.error ? 'alert' : 'status'}
+              className={cn(
+                'mt-4 text-sm leading-6',
+                message.error ? 'text-destructive' : 'text-muted-foreground',
+              )}
+            >
+              {message.text}
             </p>
           )}
-          {user && !member.loading && !member.error && (
-            <p className="mt-2 text-sm font-semibold">
-              {member.bankers.some((b) => b.voter_id === user.id)
-                ? 'Your Banker is saved below.'
-                : locked
-                  ? 'No Banker selected for this week.'
-                  : 'You haven’t chosen your Banker yet.'}
-            </p>
+          {member.error && (
+            <div className="mt-4">
+              <p role="alert" className="text-sm text-destructive">
+                {member.error}
+              </p>
+              {user && (
+                <Button
+                  variant="outline"
+                  className="mt-3 min-h-11"
+                  onClick={member.refresh}
+                >
+                  Retry
+                </Button>
+              )}
+            </div>
           )}
-        </section>
+          {!supabase && (
+            <output className="mt-4 block text-sm text-muted-foreground">
+              Member sign-in is temporarily unavailable. Please try again later.
+            </output>
+          )}
+          {!viewingStandings && data.matchups.length > 0 && !available && (
+            <output className="mt-4 block text-sm leading-6 text-muted-foreground">
+              The matchups are visible, but saving picks is not ready. Please
+              try again after the next sync. Existing picks are not changed.
+            </output>
+          )}
+        </div>
+      </PicksHero>
+      {tabs}
+      {!viewingStandings && (
+        <SeasonTimeline
+          week={data.week}
+          currentWeek={data.currentWeek}
+          locked={locked}
+          finalized={data.finalized}
+          memberWeeks={member.myWeeks}
+        />
       )}
       {viewingStandings ? (
-        <PredictionTable
+        <PredictionPodium
           title={`${data.season} prediction standings`}
           subtitle="Every settled week counts toward the season title."
           rows={seasonLeaderboard}
@@ -1230,13 +650,8 @@ export function PredictionCentre({
         />
       ) : data.matchups.length ? (
         <div className="space-y-4">
-          <p className="text-xs leading-5 text-muted-foreground">
-            Pick fantasy matchup winners here. Lineups and PPR estimates are
-            reference only; use Sleeper for league-scored projections and live
-            scores.
-          </p>
           {data.matchups.map((matchup) => (
-            <MatchupPanel
+            <MatchupCard
               key={matchup.sleeperMatchupId}
               matchup={matchup}
               lockAt={data.lockAt}
@@ -1250,9 +665,7 @@ export function PredictionCentre({
               user={user}
               votes={votes}
               profileNames={profileNames}
-              databaseReady={
-                available && !member.loading && !member.error && !bankerPending
-              }
+              databaseReady={databaseReady}
               rivalry={rivalries[matchup.sleeperMatchupId]}
               bankers={member.bankers}
               bankerPending={bankerPending}
@@ -1290,7 +703,7 @@ export function PredictionCentre({
         </section>
       )}
       {!viewingStandings && (
-        <PredictionTable
+        <PredictionPodium
           title={`Week ${data.week} prediction table`}
           subtitle="Correct pick: 1 point. Correct Banker: 2 points total. Bankers shows correct / settled; ties are excluded."
           rows={weeklyLeaderboard}
@@ -1303,6 +716,18 @@ export function PredictionCentre({
                 ? 'There are no decided matchups to count this week.'
                 : undefined)
           }
+        />
+      )}
+      {showSlip && (
+        <BetSlip
+          slip={slip}
+          matchups={data.matchups}
+          state={slipState}
+          week={data.week}
+          weeklyRows={weeklyLeaderboard}
+          userId={user?.id}
+          onJump={jumpTo}
+          onSignIn={requireLogin}
         />
       )}
     </div>

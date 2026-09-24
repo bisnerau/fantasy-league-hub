@@ -143,7 +143,7 @@ export function LeagueShell({
         </div>
       </aside>
       <div className="xl:pl-[216px]">
-        <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between gap-3 border-b border-border bg-background/95 px-4 sm:px-7">
+        <header className="site-header sticky top-0 z-30 flex min-h-16 items-center justify-between gap-3 border-b border-border bg-background/95 px-4 sm:px-7">
           <a
             href="/"
             className="flex items-center gap-2.5 xl:hidden"

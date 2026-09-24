@@ -3,6 +3,8 @@ import { getSupabaseAdminClient } from '@/lib/supabase/admin';
 import { getSupabaseReadClient } from '@/lib/supabase/read';
 import { getMatchupNewsletter } from '@/lib/data/matchup-newsletters';
 import { matchupScore } from '@/lib/sleeper/scores';
+import { franchiseColors } from '@/lib/data/historical';
+import { ownerFranchiseMap } from '@/lib/data/verified-history';
 import {
   readPreview,
   storyManagerName,
@@ -49,6 +51,8 @@ export type PredictionTeam = {
   teamName: string;
   ownerName: string;
   avatar: string | null;
+  /** Franchise colour for known owners; the theme takes over otherwise. */
+  color?: string | null;
   wins: number;
   losses: number;
   ties: number;
@@ -220,6 +224,8 @@ function createTeam(
       user?.metadata?.avatar ??
       user?.avatar ??
       null,
+    color:
+      franchiseColors[ownerFranchiseMap[roster.owner_id ?? ''] ?? ''] ?? null,
     wins: roster.settings.wins,
     losses: roster.settings.losses,
     ties: roster.settings.ties,

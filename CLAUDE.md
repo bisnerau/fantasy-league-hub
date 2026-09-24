@@ -28,7 +28,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 - `/` — phone-first matchday clubhouse laid out as a football field: picks countdown hero, league wire, Match of the Week ticket, results scoreboard, stories, rankings deck, champion card and shame sticker, member-only prediction race
 - `/power-rankings` — archived weekly editorial rankings for all twelve managers
 - `/standings` — live standings table with median record
-- `/matchups` — weekly matchup predictions, expandable lineups, authenticated voting, and the season prediction table
+- `/matchups` — Weekly Picks as a bet slip: stadium-board hero, season timeline, tug-of-war matchup cards with the line and result stamps, hold-to-bank Banker, match programme sheet, rapid-fire deck, bet slip tray and bookie docket, authenticated voting, and podium prediction tables
 - `/records` — historical record book (2020–present), franchise all-time records
 - `/managers` — manager profiles and history
 - `/wall-of-shame` — league lowlights
@@ -55,7 +55,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 
 **UI**: shadcn/ui (Base UI + Tailwind CSS 4), with Recharts where needed. `components/ui/` is generated and excluded from oxlint. Charcoal/chalk/crest-green theme, gold for achievements, restrained motion, and global reduced-motion support. Standard anchors are intentional: production QA found the current vinext `next/link` dynamic navigation import throws at runtime. Do not restore that shim without testing the built app's navigation.
 
-**Client components**: Interactive navigation/theme, draft countdown, standings sorting, manager accordions, the prediction centre, and the homepage's member provider (`ClubhouseMemberProvider`, shared by the picks hero and prediction race) plus its small effect islands (flip cards, tear reveals, rankings deck, league wire). `use-prediction-member.ts` shares authenticated reads and guards against stale responses. Page shells and public data remain server-rendered.
+**Client components**: Interactive navigation/theme, draft countdown, standings sorting, manager accordions, the prediction centre, and the homepage's member provider (`ClubhouseMemberProvider`, shared by the picks hero and prediction race) plus its small effect islands (flip cards, tear reveals, rankings deck, league wire), and the Weekly Picks pieces (`matchup-card`, `matchup-programme`, `bet-slip`, `quick-pick`, `season-timeline`, `prediction-podium`). `use-prediction-member.ts` shares authenticated reads and guards against stale responses. Page shells and public data remain server-rendered.
 
 ## Path aliases
 
@@ -109,6 +109,10 @@ generated. Rankings are authored alongside Thursday previews in
 edition's movement compares with the published preseason forecast; subsequent
 editions compare with the previous published weekly ranking. Preserve archived
 editions and show honest gaps. See `docs/weekly-clubhouse.md`.
+
+Weekly Picks follows the same effect rules as a bet slip (see "Weekly Picks
+behaviour" in `docs/weekly-clubhouse.md`). The line, slip and docket are derived
+from real projections, saved picks and the settled leaderboard, never invented.
 
 Weekly Picks also includes verified rivalry strips and one double-points Banker
 per member/week. A correct Banker earns two points total; other winners earn

@@ -6,7 +6,11 @@ Wrong or missing picks earn zero. Tied matchups award zero and are excluded
 from accuracy and the settled Banker denominator. Six wins including the
 Banker earn seven points. No nomination is made automatically or retroactively.
 
-Save a winner, then choose “Make this my Banker ×2”. Choosing another matchup
+Save a winner, then hold “Hold to bank it ×2” until the kicking meter fills
+(about 0.7 seconds); letting go early changes nothing. Keyboard and screen
+reader activation, and reduced motion, show an explicit “Bank … ×2” confirm step
+instead, so nobody has to hold anything. The button keeps the accessible name
+“Make {manager} your Banker”. Choosing another matchup
 atomically replaces the previous nomination. Changing the winner in that
 matchup keeps its Banker status. The Banker shares the existing Sunday lock
 and stays private until then. After lock, member voter badges reveal Bankers;

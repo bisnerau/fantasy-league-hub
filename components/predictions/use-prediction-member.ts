@@ -22,6 +22,11 @@ export type LeaderboardRow = {
   completed_bankers: number;
   correct_bankers: number;
 };
+export type MemberWeek = {
+  week: number;
+  points: number;
+  completed_picks: number;
+};
 
 const empty = {
   profile: null as Profile | null,
@@ -30,6 +35,7 @@ const empty = {
   names: [] as { id: string; display_name: string }[],
   weeklyLeaderboard: [] as LeaderboardRow[],
   seasonLeaderboard: [] as LeaderboardRow[],
+  myWeeks: [] as MemberWeek[],
 };
 
 export function usePredictionMember(data: PredictionWeekData, locked: boolean) {
@@ -117,7 +123,7 @@ export function usePredictionMember(data: PredictionWeekData, locked: boolean) {
             .eq('season', Number(data.season))
             .order('points', { ascending: false })
             .order('display_name');
-        const [profile, votes, names, weekly, season, bankers] =
+        const [profile, votes, names, weekly, season, bankers, myWeeks] =
           await Promise.all([
             supabase
               .from('profiles')
@@ -141,6 +147,13 @@ export function usePredictionMember(data: PredictionWeekData, locked: boolean) {
                   .select('prediction_week_id,matchup_id,voter_id')
                   .in('matchup_id', matchupIds)
               : Promise.resolve({ data: [], error: null }),
+            // Optional: the season timeline simply omits points if this fails.
+            supabase
+              .from('prediction_weekly_leaderboard')
+              .select('voter_id,week,points,completed_picks')
+              .eq('league_id', data.leagueId)
+              .eq('season', Number(data.season))
+              .eq('voter_id', user.id),
           ]);
         if (!active || request !== requestId.current) return;
         if (
@@ -157,6 +170,11 @@ export function usePredictionMember(data: PredictionWeekData, locked: boolean) {
           names: names.data as { id: string; display_name: string }[],
           weeklyLeaderboard: weekly.data as LeaderboardRow[],
           seasonLeaderboard: season.data as LeaderboardRow[],
+          myWeeks: myWeeks.error
+            ? []
+            : (myWeeks.data as (MemberWeek & { voter_id: string })[]).filter(
+                (row) => row.voter_id === user.id,
+              ),
         });
       } catch {
         if (active && request === requestId.current)

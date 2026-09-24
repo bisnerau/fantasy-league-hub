@@ -72,7 +72,7 @@ export type HeroFeature = {
   away: { rosterId: number; ownerName: string };
 };
 
-function leagueSplit(
+export function leagueSplit(
   feature: HeroFeature,
   votes: { matchup_id: number; selected_roster_id: number }[],
 ) {
@@ -128,7 +128,7 @@ export function PicksHero({ feature }: { feature: HeroFeature | null }) {
       </div>
       <h1
         id="weekly-picks-title"
-        className="mt-2 font-heading text-5xl font-black leading-none tracking-[-0.06em] sm:text-7xl"
+        className="week-title mt-2 font-heading text-5xl font-black leading-none tracking-[-0.06em] sm:text-7xl"
       >
         {data.season ? `Week ${data.week}` : 'Weekly picks'}
       </h1>

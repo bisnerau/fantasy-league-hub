@@ -7,8 +7,11 @@ Thursdays**. These are individually researched and written matchup reports.
 There is no scheduled AI author and no automatic template publication. The daily
 cron still prepares ballots and settles results after Tuesday 11am Irish time.
 
-Every matchup in Weekly Picks has Preview and Review tabs, a short summary and
-an expandable full story. A missing edition says it has not been published.
+Every matchup in Weekly Picks has a Programme button that opens a bottom sheet:
+Report (Preview and Review tabs, a short summary and an expandable full story),
+History (the rivalry strip), Lineups, and “Why this one” for the Match of the
+Week. The card itself shows only the first two lines of the Match of the Week
+reason. A missing edition says it has not been published.
 Final games default to Review. Published previews remain available afterwards.
 
 ## Flag on the play

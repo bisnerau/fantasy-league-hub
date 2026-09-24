@@ -63,6 +63,12 @@ export default async function RootLayout({
             __html: `try{var t=localStorage.getItem('fantasy-theme');document.documentElement.classList.toggle('dark',t!=='light')}catch(e){}`,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            // Skip the arrival fade while a cross-document view transition runs.
+            __html: `addEventListener('pagereveal',function(e){var v=e.viewTransition,d=document.documentElement;if(!v)return;d.dataset.vt='';v.finished.finally(function(){delete d.dataset.vt})})`,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

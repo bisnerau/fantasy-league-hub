@@ -166,9 +166,10 @@ async function handle(
       return json({ message: 'Fixture read failure' }, 400);
     if (table === 'profiles')
       return json(url.searchParams.has('id') ? [profiles[0]] : profiles);
-    if (table.endsWith('leaderboard'))
+    if (table.endsWith('leaderboard')) {
+      const voter = url.searchParams.get('voter_id')?.replace('eq.', '');
       return json(
-        mode === 'final'
+        (mode === 'final'
           ? profiles.map((profile, index) => ({
               voter_id: profile.id,
               display_name: profile.display_name,
@@ -188,8 +189,12 @@ async function handle(
               correct_bankers: 0,
               completed_bankers: 0,
               accuracy: 0,
-            })),
+            }))
+        )
+          .map((row) => ({ ...row, week: 1 }))
+          .filter((row) => !voter || row.voter_id === voter),
       );
+    }
     if (table === 'prediction_bankers')
       return json(
         bankers.filter(
