@@ -1,15 +1,15 @@
 import type { PowerRankingEdition } from '../power-rankings';
 
-// Two completed weeks; Week 2 provides the movement baseline.
+// Two completed weeks; order and publication timestamp preserved during prose revision.
 export const weekThreePowerRankings: PowerRankingEdition = {
   leagueId: '1389706813993160704',
   season: '2026',
   week: 3,
   throughWeek: 2,
   publishedAt: '2026-09-24T15:25:09Z',
-  headline: 'Shane goes top. Sharpe requests a different scoring system.',
+  headline: 'Shane tops the table. Burns requests a refund.',
   introduction:
-    'Two completed weeks: current strength, both results and the latest selected rosters. Shane takes first, Alan and Jack climb, and David discovers that unbeaten does not mean unroastable. Movement compares with Week 2; the points shown are each team’s Week 2 score.',
+    'Two completed weeks, twelve managers and a waiver wire with better material than the group chat. Shane leads, Alan and Jack climb, and Burns has paid eight FAAB for a quarterback who barely had time to connect to the Wi-Fi. Movement is versus Week 2; scores shown are from Week 2.',
   entries: [
     {
       rosterId: 10,
@@ -17,7 +17,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '2–0',
       recentPoints: 138.7,
       verdict:
-        'Two wins, the most points and Lamar–Lamb–JSN: first place has actual supporting documents. Shane’s main opponent remains the temptation to stop checking once things are going well.',
+        'Most points, two wins, Lamar–Lamb–JSN and no new acquisition since Tuesday. Shane has finally built a team that rewards leaving it alone. The danger is him applying that policy until December.',
     },
     {
       rosterId: 6,
@@ -25,7 +25,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '1–1',
       recentPoints: 128.48,
       verdict:
-        'Two scores above 128 and a decisive household win move the champion to second. Diggs is starting, Gibbs is dangerous, and Hugo has lost the right to offer breakfast analysis.',
+        'Two strong scores and a derby win put Alan second. He thanked New England for 21 points by dropping them for Detroit. The trophy has clearly gone to the HR department.',
     },
     {
       rosterId: 9,
@@ -33,7 +33,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '1–1',
       recentPoints: 126.62,
       verdict:
-        'Allen, McCaffrey and Henry support the climb after 126.62 dispatched Niall. Pollard needs watching, but Jack has alternatives; third place is even respectable in leagues with more than eight people.',
+        'Allen, McCaffrey and Henry drive the climb; the Giants’ defence and Matt Gay are the new accessories. Jack is servicing a contender while Tommy across the fixture is still assembling the flat-pack instructions.',
     },
     {
       rosterId: 2,
@@ -41,7 +41,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '1–1',
       recentPoints: 88.96,
       verdict:
-        'The running backs keep him fourth, the drop from 169 to 88.96 removes him from first. Evans’ hip limits the depth: the title-to-forfeit specialist remains available in several wildly different settings.',
+        'Fourteen FAAB on Schultz, a new kicker and a new defence after 88.96. The running backs keep Niall fourth. The rest of the team has been switched off and back on again.',
     },
     {
       rosterId: 3,
@@ -49,7 +49,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '2–0',
       recentPoints: 110.92,
       verdict:
-        'Two wins earn a proper rise, with Barkley, Jeanty and Smith giving the revival substance. The scores are solid rather than dominant; no, Andrew, we are not restoring the 2021 commemorative banner yet.',
+        'Two wins and five FAAB on Goff buy fifth place. Barkley, Jeanty and Smith give the comeback substance. Keenan is now dangerously close to having a recent achievement to mention.',
     },
     {
       rosterId: 5,
@@ -57,7 +57,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '1–1',
       recentPoints: 99.44,
       verdict:
-        'Bijan and McBride sustain the case, but 99.44 against Tommy was a recovery, not a declaration of war. Daniels and Jones missing practice add uncertainty. Sixth should generate a concise, seven-page appeal.',
+        'Bijan and McBride keep Karl sixth; Daniels and Jones missing practice temper confidence. No new acquisition since Tuesday: he has reviewed the squad and concluded that the fault must lie elsewhere.',
     },
     {
       rosterId: 8,
@@ -65,7 +65,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '1–1',
       recentPoints: 93.42,
       verdict:
-        'Mahomes is selected and Taylor remains formidable; Bowers’ limited practice leaves a condition attached. Seventh holds after the derby defeat. Progress is real, but apparently so is having to listen to Alan.',
+        'Mahomes starts, Taylor remains the anchor and Bowers needs monitoring. Ten FAAB on Cincinnati’s defence might help on Sunday. For protection from Alan at home, Hugo will need a different product.',
     },
     {
       rosterId: 7,
@@ -73,7 +73,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '0–2',
       recentPoints: 99.26,
       verdict:
-        'The receivers and Hurts keep Joe above the record alone, but 0–2 and Nabers’ shoulder concern demand a discount. Eighth is twice his favourite number, which is probably the nicest available interpretation.',
+        'Hurts and the receivers retain respect, Nabers’ shoulder reduces certainty, and Carolina replaces Baltimore for zero FAAB. Joe has addressed 0–2 by changing the defence. Management has cleared itself of wrongdoing.',
     },
     {
       rosterId: 1,
@@ -81,7 +81,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '1–1',
       recentPoints: 88.4,
       verdict:
-        'Dart’s season-ending surgery and Collins’ missed practice expose the depth despite Chase and Kyren. Shough is selected, the receivers are patched together, and the next trade offer may arrive marked urgent.',
+        'Dart’s season is over and Collins remains a concern. Burns spent 36 FAAB, including eight on Bryce Young before dropping him hours later. Ninth is harsh; charging admission to the roster would be harsher.',
     },
     {
       rosterId: 12,
@@ -89,7 +89,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '0–2',
       recentPoints: 130.46,
       verdict:
-        'A 130.46-point response deserves a climb even in defeat; Cook, Adams and Prescott provide a route out. Hunter Henry has been added. We are treating evidence of midseason management as a promising development.',
+        '130.46 deserves credit. Minnesota, Trey Smack and Hunter Henry arrive as Murphy discovers transactions. Three moves in a morning: Joe should invoice now, before Aidan thinks this support is included.',
     },
     {
       rosterId: 11,
@@ -97,7 +97,7 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '2–0',
       recentPoints: 93.42,
       verdict:
-        'Two wins, but only Tommy has fewer total points. Achane and Hampton give him more to offer; eleventh reflects the evidence so far. David is welcome to lodge an appeal containing a three-digit score.',
+        'Unbeaten with the second-lowest total. Jordan Love arrived for zero and sits behind Maye. David has added a spare quarterback in case the first one accidentally starts scoring enough to attract scrutiny.',
     },
     {
       rosterId: 4,
@@ -105,24 +105,24 @@ export const weekThreePowerRankings: PowerRankingEdition = {
       record: '0–2',
       recentPoints: 72.48,
       verdict:
-        'Two scores below 75, with Puka and Coleman missing Wednesday practice, leave the floor alarmingly close. Stafford changes the quarterback; the scouting department is still waiting for permission to count potential as points.',
+        'Two sub-75 scores, Puka and Coleman missing practice, and sixteen FAAB spent on Boston. Tommy has responded to a shortage of points by ordering more potential. Delivery date remains unspecified.',
     },
   ],
   talkingPoints: [
     {
-      title: 'Identical records. A 114.92-point difference.',
-      text: 'Shane and Sharpe put their unbeaten starts on the line in our Match of the Week. One has been beating good scores; the other has been beating the system.',
-      href: '/matchups?week=3#matchup-1',
-    },
-    {
-      title: 'The commissioner needs a replacement part',
-      text: 'Dart’s season-ending surgery puts Shough in Burns’ selected lineup. Keenan arrives 2–0 and unlikely to offer a sympathetic trade.',
+      title: 'Eight FAAB. Four and a half hours. No forwarding address.',
+      text: 'Burns claimed Bryce Young, then dropped him for Adonai Mitchell by lunchtime. Keenan spent five on Goff and appears willing to keep him for the whole fixture.',
       href: '/matchups?week=3#matchup-2',
     },
     {
-      title: 'The complaints desk cannot take both calls',
-      text: 'Karl and Joe are separated by 0.36 projected points. Ennis needs his first win; Moroney needs somebody else to blame. We have narrowly backed Karl.',
-      href: '/matchups?week=3#matchup-4',
+      title: 'The unbeaten audit',
+      text: 'Shane and Sharpe have matching records and a 114.92-point scoring gap. David has claimed Jordan Love for zero; presumably he asked whether the wins were also complimentary.',
+      href: '/matchups?week=3#matchup-1',
+    },
+    {
+      title: 'Sixteen more reasons Tommy believes in potential',
+      text: 'The week’s highest winning bid buys Denzel Boston a starting spot. Across the fixture, Jack has added a kicker. Their definitions of urgent maintenance differ.',
+      href: '/matchups?week=3#matchup-6',
     },
   ],
   sources: [
@@ -157,6 +157,14 @@ export const weekThreePowerRankings: PowerRankingEdition = {
     {
       label: 'Shanahan’s Wednesday injury update',
       url: 'https://49ers.1rmg.com/transcripts/head-coach-kyle-shanahan-press-conference_9-23-26/',
+    },
+    {
+      label: 'Wednesday waiver claims (Sleeper round 2 feed)',
+      url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/2',
+    },
+    {
+      label: 'Week 3 free-agent moves',
+      url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/3',
     },
   ],
 };

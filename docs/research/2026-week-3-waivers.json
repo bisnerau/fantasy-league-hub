@@ -1,0 +1,406 @@
+{
+  "retrievedAt": "2026-09-24T15:32:36.281Z",
+  "windowStart": "2026-09-22T00:00:00Z",
+  "note": "Completed transactions from both round 2 and round 3 feeds. Wednesday 23 September claims are in round 2; round is not acquisition week. FAAB is league budget, not real money. Unsuccessful bids are excluded.",
+  "transactions": [
+    {
+      "id": "1408348249407918080",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 5,
+      "adds": [
+        {
+          "id": "3163",
+          "name": "Jared Goff",
+          "rosterId": 3
+        }
+      ],
+      "drops": [
+        {
+          "id": "11563",
+          "name": "Bo Nix",
+          "rosterId": 3
+        }
+      ]
+    },
+    {
+      "id": "1408258619127934976",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 0,
+      "adds": [
+        {
+          "id": "13545",
+          "name": "Trey Smack",
+          "rosterId": 12
+        }
+      ],
+      "drops": [
+        {
+          "id": "12015",
+          "name": "Harrison Mevis",
+          "rosterId": 12
+        }
+      ]
+    },
+    {
+      "id": "1408258082126999552",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 1,
+      "adds": [
+        {
+          "id": "MIN",
+          "name": "MIN",
+          "rosterId": 12
+        }
+      ],
+      "drops": [
+        {
+          "id": "DEN",
+          "name": "DEN",
+          "rosterId": 12
+        }
+      ]
+    },
+    {
+      "id": "1408242540603314176",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 0,
+      "adds": [
+        {
+          "id": "CAR",
+          "name": "CAR",
+          "rosterId": 7
+        }
+      ],
+      "drops": [
+        {
+          "id": "BAL",
+          "name": "BAL",
+          "rosterId": 7
+        }
+      ]
+    },
+    {
+      "id": "1408228083579793408",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 7,
+      "adds": [
+        {
+          "id": "11435",
+          "name": "Emanuel Wilson",
+          "rosterId": 1
+        }
+      ],
+      "drops": [
+        {
+          "id": "11628",
+          "name": "Marvin Harrison",
+          "rosterId": 1
+        }
+      ]
+    },
+    {
+      "id": "1408161933026242560",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 10,
+      "adds": [
+        {
+          "id": "CIN",
+          "name": "CIN",
+          "rosterId": 8
+        }
+      ],
+      "drops": [
+        {
+          "id": "GB",
+          "name": "GB",
+          "rosterId": 8
+        }
+      ]
+    },
+    {
+      "id": "1408084255292039168",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 14,
+      "adds": [
+        {
+          "id": "5001",
+          "name": "Dalton Schultz",
+          "rosterId": 2
+        }
+      ],
+      "drops": [
+        {
+          "id": "8676",
+          "name": "Rashid Shaheed",
+          "rosterId": 2
+        }
+      ]
+    },
+    {
+      "id": "1408044126984785920",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 0,
+      "adds": [
+        {
+          "id": "NYG",
+          "name": "NYG",
+          "rosterId": 9
+        }
+      ],
+      "drops": [
+        {
+          "id": "LAC",
+          "name": "LAC",
+          "rosterId": 9
+        }
+      ]
+    },
+    {
+      "id": "1408026914068627456",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 6,
+      "adds": [
+        {
+          "id": "9486",
+          "name": "Dontayvion Wicks",
+          "rosterId": 1
+        }
+      ],
+      "drops": [
+        {
+          "id": "10218",
+          "name": "Xavier Hutchinson",
+          "rosterId": 1
+        }
+      ]
+    },
+    {
+      "id": "1408025345105444864",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 8,
+      "adds": [
+        {
+          "id": "9228",
+          "name": "Bryce Young",
+          "rosterId": 1
+        }
+      ],
+      "drops": [
+        {
+          "id": "13311",
+          "name": "Chris Bell",
+          "rosterId": 1
+        }
+      ]
+    },
+    {
+      "id": "1408020776501731328",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 15,
+      "adds": [
+        {
+          "id": "12545",
+          "name": "Tyler Shough",
+          "rosterId": 1
+        }
+      ],
+      "drops": [
+        {
+          "id": "13296",
+          "name": "Caleb Douglas",
+          "rosterId": 1
+        }
+      ]
+    },
+    {
+      "id": "1407783717656649728",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 16,
+      "adds": [
+        {
+          "id": "13346",
+          "name": "Denzel Boston",
+          "rosterId": 4
+        }
+      ],
+      "drops": [
+        {
+          "id": "13330",
+          "name": "Kenyon Sadiq",
+          "rosterId": 4
+        }
+      ]
+    },
+    {
+      "id": "1407502881778622464",
+      "feedRound": 2,
+      "type": "waiver",
+      "completedAt": "2026-09-23T07:14:33.097Z",
+      "faab": 0,
+      "adds": [
+        {
+          "id": "6804",
+          "name": "Jordan Love",
+          "rosterId": 11
+        }
+      ],
+      "drops": [
+        {
+          "id": "8136",
+          "name": "Rachaad White",
+          "rosterId": 11
+        }
+      ]
+    },
+    {
+      "id": "1408386554795204608",
+      "feedRound": 3,
+      "type": "free_agent",
+      "completedAt": "2026-09-23T07:20:30.522Z",
+      "faab": null,
+      "adds": [
+        {
+          "id": "3214",
+          "name": "Hunter Henry",
+          "rosterId": 12
+        }
+      ],
+      "drops": [
+        {
+          "id": "9508",
+          "name": "Tyjae Spears",
+          "rosterId": 12
+        }
+      ]
+    },
+    {
+      "id": "1408387885370982400",
+      "feedRound": 3,
+      "type": "free_agent",
+      "completedAt": "2026-09-23T07:25:47.755Z",
+      "faab": null,
+      "adds": [
+        {
+          "id": "BUF",
+          "name": "BUF",
+          "rosterId": 2
+        }
+      ],
+      "drops": [
+        {
+          "id": "TB",
+          "name": "TB",
+          "rosterId": 2
+        }
+      ]
+    },
+    {
+      "id": "1408388540311572480",
+      "feedRound": 3,
+      "type": "free_agent",
+      "completedAt": "2026-09-23T07:28:23.906Z",
+      "faab": null,
+      "adds": [
+        {
+          "id": "DET",
+          "name": "DET",
+          "rosterId": 6
+        }
+      ],
+      "drops": [
+        {
+          "id": "NE",
+          "name": "NE",
+          "rosterId": 6
+        }
+      ]
+    },
+    {
+      "id": "1408388546452049920",
+      "feedRound": 3,
+      "type": "free_agent",
+      "completedAt": "2026-09-23T07:28:25.370Z",
+      "faab": null,
+      "adds": [
+        {
+          "id": "12185",
+          "name": "Spencer Shrader",
+          "rosterId": 2
+        }
+      ],
+      "drops": [
+        {
+          "id": "5189",
+          "name": "Eddy Pineiro",
+          "rosterId": 2
+        }
+      ]
+    },
+    {
+      "id": "1408453682533502976",
+      "feedRound": 3,
+      "type": "free_agent",
+      "completedAt": "2026-09-23T11:47:15.022Z",
+      "faab": null,
+      "adds": [
+        {
+          "id": "11625",
+          "name": "Adonai Mitchell",
+          "rosterId": 1
+        }
+      ],
+      "drops": [
+        {
+          "id": "9228",
+          "name": "Bryce Young",
+          "rosterId": 1
+        }
+      ]
+    },
+    {
+      "id": "1408842151571279872",
+      "feedRound": 3,
+      "type": "free_agent",
+      "completedAt": "2026-09-24T13:30:53.257Z",
+      "faab": null,
+      "adds": [
+        {
+          "id": "6083",
+          "name": "Matt Gay",
+          "rosterId": 9
+        }
+      ],
+      "drops": [
+        {
+          "id": "11655",
+          "name": "Tyrone Tracy",
+          "rosterId": 9
+        }
+      ]
+    }
+  ]
+}

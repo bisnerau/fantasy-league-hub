@@ -34,7 +34,7 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
     reason:
       'The only meeting of unbeaten teams this week: Shane has scored 114.92 more points than David, yet both are 2–0. A 3–0 start is at stake, and Sharpe finally faces a manager whose opponents have been putting up a fight.',
     buildUp:
-      'Marmion has beaten Alan and the week’s second-highest scorer. Sharpe has won twice without reaching 100. This is the perfect test of whether form matters or David has found a loophole nobody else can access. Shane brings Lamar, Lamb and JSN; David brings an immaculate record and a request that nobody inspect it too closely.',
+      'Shane brings Lamar, Lamb and JSN. David brings two wins without reaching 100 and a free Jordan Love to sit behind Maye. One has assembled a contender; the other keeps being waved through security without showing a boarding pass. A 3–0 start is waiting. We have asked Shane to check the tickets.',
   },
 ];
 
