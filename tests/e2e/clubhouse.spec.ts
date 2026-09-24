@@ -123,6 +123,11 @@ test('picks save, change, survive reload, and update the clubhouse count', async
   await expect(
     page.getByText('1 of 6 saved · Choose your Banker', { exact: true }),
   ).toBeVisible();
+  await expect(
+    page.getByText('Ball on the own 33 · 5 picks from the end zone', {
+      exact: true,
+    }),
+  ).toBeVisible();
 });
 
 test('failed and offline changes preserve the last confirmed pick', async ({
@@ -300,6 +305,110 @@ test('reduced motion shows final record counts and a still champion name', async
       .locator('.shiny-text')
       .evaluate((element) => getComputedStyle(element).animationName),
   ).toBe('none');
+});
+
+test('the phone homepage leads with the countdown and drive, hiding feeds without data', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Week 1');
+  await expect(page.getByText('Picks close in', { exact: true })).toBeVisible();
+  await expect(
+    page.getByText('Touchback · 80 yards to go', { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: /Sign in to make picks/ }),
+  ).toBeInViewport();
+  // Week 1 has no settled week, authored flag or Match of the Week yet.
+  await expect(page.locator('.league-wire')).toHaveCount(0);
+  await expect(page.locator('.tear-ticket')).toHaveCount(0);
+  await expect(page.locator('.flag-play')).toHaveCount(0);
+  await expect(
+    page.getByRole('heading', { name: 'Week 1 fixtures' }),
+  ).toBeVisible();
+  await expect(page.locator('.scoreboard-rail > li')).toHaveCount(6);
+  await expect(page.locator('.flip-card')).toHaveCount(0);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
+test('the two-minute warning appears in the final two hours before lock', async ({
+  page,
+}) => {
+  await page.clock.setFixedTime(new Date('2026-09-13T16:00:00Z'));
+  await page.goto('/');
+  await expect(page.getByText('Two-minute warning')).toBeVisible();
+  await expect(page.locator('.pick-spotlight')).toHaveClass(/warning-border/);
+});
+
+test('settled weeks flip to their round-up and feed the league wire', async ({
+  page,
+  request,
+}) => {
+  await request.post(`${fixture}/__fixture`, { data: { mode: 'final' } });
+  await page.clock.setFixedTime(new Date('2026-09-16T10:00:00Z'));
+  await page.goto('/');
+  // The latest settled week leads the scoreboard and the wire.
+  const week = (await page.getByRole('heading', { level: 1 }).textContent())!;
+  await expect(
+    page.getByRole('heading', { name: `${week} results` }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('region', { name: `${week} league wire` }),
+  ).toContainText(`${week} high`);
+  const card = page.locator('.flip-card').first();
+  const flip = card.getByRole('button', { name: /Show the round-up for/ });
+  await flip.click();
+  await expect(card).toHaveAttribute('data-flipped', 'true');
+  await expect(
+    card.getByRole('link', { name: 'See the matchup' }),
+  ).toBeFocused();
+  await card.getByRole('button', { name: 'Flip back' }).click();
+  await expect(flip).toBeFocused();
+  await page.getByRole('button', { name: 'Pause the league wire' }).click();
+  await expect(
+    page.getByRole('button', { name: 'Play the league wire' }),
+  ).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('the Wall of Shame sticker peels by tap and by keyboard', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const sticker = page.getByRole('button', { name: /Wooden spoon/ });
+  await expect(sticker).toHaveAttribute('aria-expanded', 'false');
+  await sticker.focus();
+  await page.keyboard.press('Enter');
+  await expect(sticker).toHaveAttribute('aria-expanded', 'true');
+  await expect(
+    page.getByRole('link', { name: 'See the evidence' }),
+  ).toBeFocused();
+});
+
+test('reduced motion keeps the homepage still', async ({ page, request }) => {
+  await request.post(`${fixture}/__fixture`, { data: { mode: 'final' } });
+  await page.clock.setFixedTime(new Date('2026-09-16T10:00:00Z'));
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const animation = (selector: string) =>
+    page
+      .locator(selector)
+      .first()
+      .evaluate((element) => getComputedStyle(element).animationName);
+  expect(await animation('.wire-marquee')).toBe('none');
+  expect(await animation('.holo-sheen')).toBe('none');
+  expect(await animation('.clubhouse-field > section:not(:first-child)')).toBe(
+    'none',
+  );
+  await expect(page.locator('.wire-toggle')).toBeHidden();
+  await page.clock.setFixedTime(new Date('2026-09-12T12:00:00Z'));
+  await request.post(`${fixture}/__fixture`, { data: { mode: 'open' } });
+  await page.goto('/');
+  expect(await animation('.split-flap-cell')).toBe('none');
 });
 
 test('member read failures disable changes and recover with Retry', async ({

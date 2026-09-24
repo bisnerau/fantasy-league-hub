@@ -1,16 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { FlapCountdown } from '@/components/clubhouse/flap-countdown';
+import { getRemaining } from '@/lib/countdown';
 import { formatLockTime } from '@/lib/predictions/rules';
-
-function getRemaining(target: number) {
-  const distance = Math.max(0, target - Date.now());
-  return {
-    days: Math.floor(distance / 86_400_000),
-    hours: Math.floor((distance % 86_400_000) / 3_600_000),
-    minutes: Math.floor((distance % 3_600_000) / 60_000),
-  };
-}
 
 export function DraftCountdown({ startTime }: { startTime: number }) {
   const [remaining, setRemaining] = useState<ReturnType<
@@ -18,8 +11,12 @@ export function DraftCountdown({ startTime }: { startTime: number }) {
   > | null>(null);
   useEffect(() => {
     const tick = () => setRemaining(getRemaining(startTime));
+    const first = window.setTimeout(tick, 0);
     const timer = window.setInterval(tick, 1000);
-    return () => window.clearInterval(timer);
+    return () => {
+      window.clearTimeout(first);
+      window.clearInterval(timer);
+    };
   }, [startTime]);
   if (!startTime)
     return (
@@ -43,22 +40,11 @@ export function DraftCountdown({ startTime }: { startTime: number }) {
           It’s draft time. Open Sleeper for the latest.
         </p>
       ) : (
-        <div
-          className="mt-5 grid grid-cols-3 divide-x divide-border"
-          aria-label="Time until the scheduled draft"
-        >
-          {[
-            ['Days', remaining?.days],
-            ['Hours', remaining?.hours],
-            ['Minutes', remaining?.minutes],
-          ].map(([label, value]) => (
-            <div key={label} className="px-3 first:pl-0">
-              <p className="font-mono text-3xl font-bold tracking-tight">
-                {value == null ? '—' : String(value).padStart(2, '0')}
-              </p>
-              <p className="mt-2 text-xs text-muted-foreground">{label}</p>
-            </div>
-          ))}
+        <div className="mt-5">
+          <FlapCountdown
+            remaining={remaining}
+            until="until the scheduled draft"
+          />
         </div>
       )}
       <p className="mt-5 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">

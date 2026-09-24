@@ -52,6 +52,10 @@
 :root {
   --award: #856014;
   --award-shine: #c4922a;
+  --flag: var(--chart-5);
+  --split-flap-top: #222c26;
+  --split-flap-bottom: #1a221d;
+  --split-flap-ink: #f1efe6;
   --background: #f5f3ed;
   --foreground: #202923;
   --card: #ffffff;
@@ -191,10 +195,6 @@
     @apply relative flex flex-col justify-center overflow-hidden rounded-xl border border-border bg-card p-5 sm:p-6;
   }
 
-  .champion-spotlight {
-    @apply border border-award/35 bg-card;
-    box-shadow: inset 3px 0 0 var(--award);
-  }
   /* Adapted from React Bits ShinyText: an occasional CSS-only sweep of gold. */
   .shiny-text {
     display: inline-block;
@@ -350,18 +350,9 @@
 }
 
 @layer components {
-  .clubhouse-masthead {
-    @apply flex flex-col justify-between gap-3 border-b border-border pb-3 sm:pb-5 sm:flex-row sm:items-end;
-  }
-  .clubhouse-picks-grid {
-    @apply grid gap-4 sm:gap-5 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,1fr)];
-  }
   .pick-spotlight {
     @apply rounded-xl border border-border bg-card p-4 sm:p-7;
     border-top: 3px solid var(--primary);
-  }
-  .clubhouse-headline {
-    @apply whitespace-pre-line text-xl sm:text-[clamp(1.75rem,3.1vw,2.75rem)] font-bold leading-[1.08] tracking-[-0.05em];
   }
   .prediction-race {
     @apply flex flex-col rounded-xl border border-border p-5 sm:p-6;
@@ -371,9 +362,6 @@
   }
   .clubhouse-text-link {
     @apply inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline;
-  }
-  .clubhouse-directory-link {
-    @apply flex min-h-24 items-center gap-4 px-2 py-4 text-sm transition-colors duration-150 hover:bg-muted/50 sm:px-5;
   }
   .mobile-clubhouse-nav {
     @apply fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-border bg-background/95 px-3 pt-2 backdrop-blur-md;
@@ -418,6 +406,660 @@
     -webkit-text-fill-color: currentColor;
   }
 }
+/* The homepage is a football field: see components/clubhouse. */
+@layer components {
+  .section-heading {
+    @apply mb-3 flex flex-wrap items-end justify-between gap-x-4 gap-y-1;
+  }
+  .section-title {
+    @apply mt-1 text-xl font-bold leading-tight tracking-tight sm:text-2xl;
+  }
+  .snap-rail {
+    @apply -mx-4 flex gap-3 overflow-x-auto px-4 pb-1;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+  }
+  .snap-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-rail > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  .scoreboard-rail > li {
+    width: min(78vw, 17rem);
+  }
+  .talking-point {
+    @apply w-[min(78vw,18rem)] rounded-xl border border-border bg-card p-4;
+  }
+  .explore-chip {
+    @apply inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full border border-border bg-card px-4 text-sm font-semibold transition-colors hover:border-primary/40;
+  }
+
+  /* Stadium board digits (React Bits SplitFlapText). */
+  .split-flap {
+    display: inline-flex;
+    gap: 3px;
+    perspective: 400px;
+  }
+  .split-flap-cell {
+    @apply relative inline-flex items-center justify-center rounded-md font-mono font-black;
+    width: clamp(1.75rem, 8.5vw, 2.25rem);
+    height: clamp(2.5rem, 12vw, 3rem);
+    font-size: clamp(1.4rem, 6.5vw, 1.875rem);
+    color: var(--split-flap-ink);
+    background: linear-gradient(
+      var(--split-flap-top) 50%,
+      var(--split-flap-bottom) 50%
+    );
+    box-shadow:
+      inset 0 -1px 0 rgb(0 0 0 / 0.3),
+      0 0 0 1px color-mix(in srgb, var(--foreground) 12%, transparent);
+    animation: flap-in 420ms cubic-bezier(0.3, 0.7, 0.2, 1);
+  }
+  .split-flap-cell::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 1px;
+    background: rgb(0 0 0 / 0.45);
+  }
+  .split-flap-colon {
+    @apply pt-1.5 font-mono text-2xl font-black text-muted-foreground;
+  }
+  @media (min-width: 640px) {
+    .split-flap-cell {
+      width: 3rem;
+      height: 4rem;
+      font-size: 2.75rem;
+    }
+    .split-flap-colon {
+      @apply pt-3 text-4xl;
+    }
+  }
+
+  /* Two-minute warning (React Bits ElectricBorder). */
+  .warning-border {
+    position: relative;
+  }
+  .warning-border::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--warning-angle),
+      transparent 0 55%,
+      var(--award) 75%,
+      var(--award-shine) 82%,
+      transparent 96%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: warning-spin 2.8s linear infinite;
+  }
+  .warning-label {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-award/40 bg-award/10 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-award;
+  }
+
+  /* Drive tracker. */
+  .drive-field {
+    @apply relative flex h-9 overflow-hidden rounded-lg;
+    background: color-mix(in srgb, var(--primary) 14%, var(--card));
+    border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+  .drive-endzone {
+    width: 9%;
+    flex-shrink: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--primary) 30%, transparent) 0 4px,
+      transparent 4px 8px
+    );
+  }
+  .drive-endzone-goal {
+    @apply relative flex items-center justify-center;
+    width: 13%;
+  }
+  .drive-play {
+    position: relative;
+    flex: 1;
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--foreground) 20%, transparent) 0 1px,
+      transparent 1px 10%
+    );
+    border-inline: 2px solid
+      color-mix(in srgb, var(--foreground) 45%, transparent);
+  }
+  .drive-progress {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: calc(var(--ball) - 20%);
+    height: 4px;
+    border-radius: 2px;
+    translate: 0 -50%;
+    background: var(--primary);
+    transition: width 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .drive-ball {
+    position: absolute;
+    top: 50%;
+    left: var(--ball);
+    width: 1.5rem;
+    height: 0.875rem;
+    translate: -50% -50%;
+    color: #8a4b24;
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.35));
+    transition: left 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .drive-two-point {
+    @apply rounded border border-dashed border-current px-1 font-mono text-[9px] font-bold uppercase leading-4 text-muted-foreground;
+  }
+  .drive-two-point[data-good] {
+    @apply border-solid border-award bg-award text-card;
+  }
+
+  /* League wire (React Bits LogoLoop / ScrollVelocity). */
+  .league-wire {
+    @apply flex items-center gap-2 overflow-hidden rounded-lg border border-border bg-card py-1.5 pl-1.5 pr-1;
+  }
+  .wire-badge {
+    @apply shrink-0 rounded-md bg-primary px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-primary-foreground;
+  }
+  .wire-viewport {
+    @apply min-w-0 flex-1 overflow-hidden;
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 1.25rem,
+      #000 calc(100% - 1.25rem),
+      transparent
+    );
+  }
+  .wire-marquee {
+    display: flex;
+    width: max-content;
+    animation: wire-scroll 48s linear infinite;
+  }
+  .league-wire[data-paused] .wire-marquee,
+  .league-wire:hover .wire-marquee,
+  .league-wire:active .wire-marquee {
+    animation-play-state: paused;
+  }
+  .wire-track {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .wire-item {
+    @apply flex shrink-0 items-center gap-1.5 whitespace-nowrap border-r border-border px-3 font-mono text-xs uppercase tracking-[0.05em];
+  }
+  .wire-label {
+    @apply font-bold text-primary;
+  }
+  .wire-toggle {
+    @apply inline-flex size-9 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground;
+  }
+
+  /* Tear and peel reveals (React Bits TearTicket / StickerPeel). */
+  .tear-reveal {
+    position: relative;
+  }
+  .tear-cover {
+    display: block;
+    width: 100%;
+    text-align: left;
+    touch-action: pan-y;
+    cursor: grab;
+    border-radius: var(--radius-xl);
+    transition: transform 240ms ease-out;
+  }
+  .tear-cover[data-dragging] {
+    cursor: grabbing;
+    transition: none;
+  }
+  .tear-ticket .tear-cover {
+    transform-origin: 0 50%;
+    transform: translateX(calc(var(--tear, 0) * 45%))
+      rotate(calc(var(--tear, 0) * 5deg));
+  }
+  .tear-sticker .tear-cover {
+    transform-origin: 0 0;
+    transform: rotate(calc(var(--tear, 0) * -10deg))
+      translate(calc(var(--tear, 0) * -18%), calc(var(--tear, 0) * -6%));
+  }
+  .tear-reveal[data-revealed] .tear-cover {
+    position: absolute;
+    inset: 0 0 auto;
+    pointer-events: none;
+  }
+  .tear-ticket[data-revealed] .tear-cover {
+    animation: tear-away-ticket 420ms ease-in forwards;
+  }
+  .tear-sticker[data-revealed] .tear-cover {
+    animation: tear-away-sticker 420ms ease-in forwards;
+  }
+  .tear-content {
+    animation: tear-content-in 360ms ease-out;
+  }
+  .ticket-stub {
+    @apply relative flex w-full overflow-hidden rounded-xl border border-award/40 bg-card;
+    background-image: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--award) 11%, transparent),
+      transparent 60%
+    );
+  }
+  .ticket-main {
+    @apply flex min-w-0 flex-1 flex-col gap-1.5 p-4;
+  }
+  .ticket-teams {
+    @apply flex flex-wrap items-baseline gap-x-2 font-heading text-2xl font-black leading-tight tracking-tight;
+  }
+  .ticket-versus {
+    @apply font-mono text-sm font-bold text-award;
+  }
+  .ticket-side {
+    @apply relative flex w-18 shrink-0 flex-col items-center justify-center gap-0.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-award;
+    border-left: 2px dashed color-mix(in srgb, var(--award) 45%, transparent);
+  }
+  .ticket-side::before,
+  .ticket-side::after {
+    content: '';
+    position: absolute;
+    left: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--background);
+    border: 1px solid color-mix(in srgb, var(--award) 40%, transparent);
+  }
+  .ticket-side::before {
+    top: -9px;
+  }
+  .ticket-side::after {
+    bottom: -9px;
+  }
+  .ticket-week {
+    @apply mt-1 text-base text-foreground;
+  }
+  .ticket-open {
+    @apply rounded-xl border border-award/30 bg-card p-4;
+  }
+
+  /* Chalkboard play. */
+  .chalk-play {
+    @apply my-3 block h-auto w-full;
+    max-height: 9rem;
+  }
+  .chalk-marks text {
+    fill: color-mix(in srgb, var(--foreground) 70%, transparent);
+  }
+  .chalk-line,
+  .chalk-line-option {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.5;
+  }
+  .chalk-line-option {
+    stroke: color-mix(in srgb, var(--foreground) 28%, transparent);
+    stroke-dasharray: 0.02 0.025;
+  }
+  .chalk-line {
+    stroke: var(--primary);
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: chalk-draw 1s ease-out 250ms forwards;
+  }
+  .chalk-arrow {
+    animation-duration: 250ms;
+    animation-delay: 1.2s;
+  }
+  .chalk-marks .chalk-label {
+    fill: var(--foreground);
+    font-weight: 700;
+  }
+  .chalk-marks .chalk-call {
+    fill: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  /* Results flip cards (React Bits FlipCard). */
+  .flip-card {
+    height: 100%;
+    perspective: 1000px;
+  }
+  .flip-card-inner {
+    display: grid;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .flip-card[data-flipped] .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-face {
+    position: relative;
+    grid-area: 1 / 1;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .flip-face > .score-card {
+    height: 100%;
+  }
+  .flip-face-back {
+    transform: rotateY(180deg);
+  }
+  .flip-hit {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-xl);
+  }
+  .score-card {
+    @apply relative rounded-xl border border-border bg-card p-4;
+  }
+  .score-card-featured .score-card,
+  .score-card.score-card-featured {
+    border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+    background: color-mix(in srgb, var(--card) 72%, transparent);
+  }
+
+  /* Flag on the play (React Bits FallingText). */
+  .flag-play {
+    @apply flex gap-3 rounded-xl border p-4;
+    border-color: color-mix(in srgb, var(--flag) 45%, var(--border));
+    background: color-mix(in srgb, var(--flag) 7%, var(--card));
+  }
+  .flag-icon {
+    @apply h-12 w-10 shrink-0 text-foreground;
+  }
+  .text-flag {
+    color: color-mix(in srgb, var(--flag) 65%, var(--foreground));
+  }
+
+  /* Power rankings deck (React Bits CardSwap / Stack). */
+  .card-deck {
+    position: relative;
+    height: 14rem;
+    max-width: 28rem;
+    touch-action: pan-y;
+  }
+  .deck-card {
+    @apply absolute rounded-xl border border-border bg-card p-4 shadow-sm;
+    inset: 0 0 1.25rem;
+    transform-origin: 50% 100%;
+    transition:
+      transform 380ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      opacity 380ms ease-out;
+  }
+  .deck-card[data-offset='0'] {
+    z-index: 4;
+    cursor: grab;
+    transform: translateX(var(--drag, 0px)) rotate(var(--tilt, 0deg));
+  }
+  .deck-card[data-dragging] {
+    cursor: grabbing;
+    transition: none;
+  }
+  .deck-card[data-offset='1'] {
+    z-index: 3;
+    opacity: 0.85;
+    transform: translateY(10px) scale(0.95);
+  }
+  .deck-card[data-offset='2'] {
+    z-index: 2;
+    opacity: 0.5;
+    transform: translateY(20px) scale(0.9);
+  }
+  .deck-card[data-offset='3'] {
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  .deck-card[data-offset='gone'] {
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-115%) rotate(-8deg);
+  }
+  .deck-rank {
+    @apply font-heading text-4xl font-black leading-none tracking-[-0.06em] text-primary;
+  }
+
+  /* Champion trading card (React Bits ReflectiveCard / ProfileCard). */
+  .trading-card {
+    @apply relative flex h-full flex-col overflow-hidden rounded-xl border-2 border-award/50 bg-card p-3;
+    background-image: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--award) 14%, var(--card)),
+      var(--card) 55%
+    );
+  }
+  .trading-card-foil {
+    @apply inline-flex items-center gap-1 self-start rounded-full border border-award/40 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-award;
+  }
+  .trading-card-stats {
+    @apply mt-auto flex justify-center gap-4 border-t border-award/25 pt-2 font-mono text-[11px] uppercase text-muted-foreground;
+  }
+  .trading-card-stats strong {
+    @apply text-base font-black text-foreground;
+  }
+  .holo-sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.75;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      color-mix(in srgb, var(--award-shine) 30%, transparent) 44%,
+      color-mix(in srgb, var(--primary) 18%, transparent) 50%,
+      color-mix(in srgb, var(--award-shine) 24%, transparent) 56%,
+      transparent 70%
+    );
+    background-size: 250% 100%;
+    background-position: 50% 0;
+  }
+
+  /* Wall of Shame sticker. */
+  .shame-tile {
+    @apply flex h-full flex-col rounded-xl border border-border bg-card p-3;
+  }
+  .shame-sticker {
+    @apply relative flex w-full flex-col items-center justify-center rounded-lg px-3 py-5 text-center;
+    min-height: 11rem;
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--foreground) 6%, var(--muted)) 0 10px,
+      var(--muted) 10px 20px
+    );
+    border: 2px dashed color-mix(in srgb, var(--foreground) 22%, transparent);
+  }
+  .shame-sticker::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 28px;
+    height: 28px;
+    border-top-left-radius: 6px;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--foreground) 18%, var(--card)) 50%,
+      var(--card) 50%
+    );
+    box-shadow: -2px -2px 4px rgb(0 0 0 / 0.18);
+  }
+
+  /* Yard lines and the end zone. */
+  .yard-line {
+    @apply relative -my-1 flex h-4 items-center justify-between font-mono text-[10px] font-bold tracking-[0.2em];
+    color: color-mix(in srgb, var(--foreground) 26%, transparent);
+  }
+  .yard-line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 2.25rem;
+    right: 2.25rem;
+    border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  }
+  .end-zone {
+    @apply relative mt-2 overflow-hidden rounded-xl border border-primary/25 px-4 pb-4 pt-6 text-center;
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--primary) 9%, transparent) 0 14px,
+      transparent 14px 28px
+    );
+  }
+  .end-zone-word {
+    @apply mb-3 block font-heading text-5xl font-black uppercase leading-none tracking-[0.08em] sm:text-7xl;
+    color: color-mix(in srgb, var(--primary) 55%, transparent);
+  }
+
+  @media (min-width: 640px) {
+    .snap-rail {
+      @apply mx-0 flex-wrap overflow-visible px-0;
+    }
+    .scoreboard-rail {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .scoreboard-rail > li,
+    .snap-rail > .talking-point {
+      width: auto;
+    }
+    .snap-rail:has(> .talking-point) {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .scoreboard-rail {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+@property --warning-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes flap-in {
+  from {
+    transform: rotateX(-90deg);
+  }
+  60% {
+    transform: rotateX(14deg);
+  }
+  to {
+    transform: rotateX(0);
+  }
+}
+@keyframes warning-spin {
+  to {
+    --warning-angle: 360deg;
+  }
+}
+@keyframes wire-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes tear-away-ticket {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(110%) rotate(10deg);
+  }
+}
+@keyframes tear-away-sticker {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-40%, -30%) rotate(-28deg);
+  }
+}
+@keyframes tear-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes chalk-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes flag-throw {
+  from {
+    opacity: 0;
+    transform: translate(-28px, -44px) rotate(-70deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes holo-sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+/* React Bits AnimatedContent as scroll-driven CSS: static where unsupported,
+   and never under reduced motion (scroll timelines ignore duration overrides). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .clubhouse-field
+      > :is(section, nav, div):not(.yard-line):not(:first-child) {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+    .flag-icon {
+      animation: flag-throw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+    .holo-sheen {
+      animation: holo-sweep linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@media (forced-colors: active) {
+  .holo-sheen,
+  .spotlight-card::before,
+  .warning-border::after {
+    display: none;
+  }
+  .split-flap-cell {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+}
 @keyframes page-arrival {
   from {
     opacity: 0.6;
@@ -440,8 +1082,46 @@
   .page-arrival,
   .skeleton-shimmer,
   .shiny-text,
-  .live-dot {
+  .live-dot,
+  .split-flap-cell,
+  .wire-marquee,
+  .chalk-line,
+  .tear-content,
+  .flag-icon,
+  .holo-sheen {
     animation: none;
+  }
+  .chalk-line {
+    stroke-dashoffset: 0;
+  }
+  .warning-border::after {
+    animation: none;
+    background: var(--award);
+  }
+  .tear-reveal[data-revealed] .tear-cover {
+    animation: none;
+    visibility: hidden;
+  }
+  .wire-marquee,
+  .wire-track {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    width: 100%;
+    row-gap: 0.25rem;
+  }
+  .wire-track[aria-hidden],
+  .wire-toggle {
+    display: none;
+  }
+  .league-wire {
+    align-items: flex-start;
+  }
+  .wire-item {
+    white-space: normal;
+    border-right: 0;
+  }
+  .wire-viewport {
+    mask-image: none;
   }
   a:hover,
   button:active,

@@ -11,6 +11,15 @@ Every matchup in Weekly Picks has Preview and Review tabs, a short summary and
 an expandable full story. A missing edition says it has not been published.
 Final games default to Review. Published previews remain available afterwards.
 
+## Flag on the play
+
+Optionally, Tuesday's reviews can throw one referee's flag at the week's
+biggest blunder. Add a single entry to `lib/data/flags-on-the-play.ts` for the
+settled week: the manager, a referee's call (“Delay of game”), one or two
+sentences built on a verified Sleeper stat, and a comic penalty. It appears on
+the homepage only after that week settles and its `publishedAt` has passed. Keep
+it friendly slagging, not a pile-on; skip the flag when nothing earns it.
+
 ## Match of the Week
 
 Choose one fixture editorially alongside Thursday's previews, before the first

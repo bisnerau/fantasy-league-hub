@@ -4,22 +4,19 @@ function Shimmer({ className, ...props }: React.ComponentProps<'div'>) {
 
 export function DashboardSkeleton() {
   return (
-    <div aria-busy="true" aria-label="Loading clubhouse" className="space-y-8">
-      <div className="border-b border-border pb-5">
-        <Shimmer className="h-3 w-36" />
-        <Shimmer className="mt-3 h-9 w-64 max-w-full" />
+    <div aria-busy="true" aria-label="Loading clubhouse" className="space-y-6">
+      <div className="pick-spotlight space-y-4">
+        <Shimmer className="h-3 w-32" />
+        <Shimmer className="h-12 w-44" />
+        <Shimmer className="h-16 w-64 max-w-full" />
+        <Shimmer className="h-9 w-full" />
+        <Shimmer className="h-12 w-full sm:w-52" />
       </div>
-      <div className="clubhouse-picks-grid">
-        <div className="pick-spotlight space-y-5">
-          <Shimmer className="h-3 w-32" />
-          <Shimmer className="h-20 w-4/5" />
-          <Shimmer className="h-12 w-full" />
-          <Shimmer className="h-11 w-44" />
-        </div>
-        <div className="prediction-race space-y-5">
-          <Shimmer className="h-7 w-48" />
-          <Shimmer className="h-36 w-full" />
-        </div>
+      <Shimmer className="h-9 w-full" />
+      <div className="flex gap-3 overflow-hidden">
+        {[0, 1, 2].map((card) => (
+          <Shimmer key={card} className="h-36 w-64 shrink-0" />
+        ))}
       </div>
       <Shimmer className="h-7 w-52" />
       <Shimmer className="h-52 w-full" />

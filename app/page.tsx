@@ -1,32 +1,70 @@
-import {
-  ArrowRight,
-  BookOpen,
-  Crown,
-  Skull,
-  Users,
-  BarChart3,
-  NotebookPen,
-  Award,
-  TrendingUp,
-} from 'lucide-react';
-import { MobileDisclosure } from '@/components/shared/mobile-disclosure';
+import type { ReactNode } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { ChampionCard } from '@/components/clubhouse/champion-card';
+import { ExploreStrip } from '@/components/clubhouse/explore-strip';
+import { EndZone, Field } from '@/components/clubhouse/field';
+import { FlagOnThePlayCard } from '@/components/clubhouse/flag-on-the-play';
+import { LeadStory, TalkingPoints } from '@/components/clubhouse/lead-story';
+import { LeagueWire } from '@/components/clubhouse/league-wire';
+import { MatchTicket } from '@/components/clubhouse/match-ticket';
+import { RankingsDeck } from '@/components/clubhouse/rankings-deck';
+import { Scoreboard } from '@/components/clubhouse/scoreboard';
+import { ShameSticker } from '@/components/clubhouse/shame-sticker';
 import { DraftCountdown } from '@/components/draft/draft-countdown';
-import { ClubhousePicks } from '@/components/predictions/clubhouse-picks';
-import { TeamAvatar } from '@/components/shared/team-avatar';
+import {
+  ClubhouseMemberProvider,
+  PicksHero,
+  PredictionRace,
+} from '@/components/predictions/clubhouse-picks';
+import { getClubhouseEditorial } from '@/lib/data/clubhouse-editorial';
 import { getDashboardData } from '@/lib/data/dashboard';
-import { getPredictionWeekData } from '@/lib/data/predictions';
 import { draftRecapContent } from '@/lib/data/draft-recap-content';
+import { getFlagOnThePlay } from '@/lib/data/flags-on-the-play';
+import { getLeagueWire } from '@/lib/data/league-wire';
+import { getMatchOfTheWeek } from '@/lib/data/match-of-the-week';
 import { getLatestAuthoredReviewWeek } from '@/lib/data/matchup-newsletters';
-import { ThisWeek } from '@/components/clubhouse/this-week';
+import {
+  getPredictionWeekData,
+  type PredictionTeam,
+  type PredictionWeekData,
+} from '@/lib/data/predictions';
 
 export const dynamic = 'force-dynamic';
+
+type Section = { key: string; node: ReactNode };
+
+// Only what the lock reveal needs crosses to the client, not whole rosters.
+const pickTeam = ({ rosterId, ownerName }: PredictionTeam) => ({
+  rosterId,
+  ownerName,
+});
+
+/** The most recent settled week in this league season, if there is one. */
+async function getLatestSettledWeek(
+  current: PredictionWeekData,
+  review: PredictionWeekData | null,
+) {
+  if (current.finalized) return current;
+  if (
+    review?.finalized &&
+    review.leagueId === current.leagueId &&
+    review.season === current.season
+  )
+    return review;
+  if (current.week <= 1) return null;
+  const previous = await getPredictionWeekData(current.week - 1);
+  return previous.finalized &&
+    previous.leagueId === current.leagueId &&
+    previous.season === current.season
+    ? previous
+    : null;
+}
 
 export default async function DashboardPage() {
   const [data, predictions] = await Promise.all([
     getDashboardData(),
     getPredictionWeekData(),
   ]);
-  const champion = data.reigningChampion;
   const draft = data.draft;
   const beforeDraft =
     data.leagueStatus === 'pre_draft' || data.leagueStatus === 'drafting';
@@ -42,292 +80,156 @@ export default async function DashboardPage() {
       : latestReviewWeek === predictions.week
         ? predictions
         : await getPredictionWeekData(latestReviewWeek);
+  const inSeason = !beforeDraft && Boolean(predictions.season);
+  const settled = inSeason
+    ? await getLatestSettledWeek(predictions, reviewData)
+    : null;
+  const scoreboardWeek =
+    settled ?? (inSeason && predictions.matchups.length ? predictions : null);
+  const editorial = inSeason
+    ? getClubhouseEditorial(predictions, reviewData)
+    : null;
+  const currentFeature = inSeason ? getMatchOfTheWeek(predictions) : null;
+  const featuredMatchup = currentFeature
+    ? predictions.matchups.find(
+        (m) => m.sleeperMatchupId === currentFeature.sleeperMatchupId,
+      )
+    : undefined;
+  const flag = settled ? getFlagOnThePlay(settled) : null;
+  const avatars = new Map(
+    predictions.matchups.flatMap((m) => [
+      [m.home.rosterId, m.home.avatar] as const,
+      [m.away.rosterId, m.away.avatar] as const,
+    ]),
+  );
+
+  const candidates: (Section | false | null | undefined)[] = [
+    beforeDraft && {
+      key: 'draft',
+      node: (
+        <section
+          aria-labelledby="draft-report-title"
+          className={
+            showCountdown
+              ? 'grid gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]'
+              : ''
+          }
+        >
+          <a href="/draft-recap" className="story-feature group">
+            <p className="ui-kicker text-primary">
+              {draftRecapContent.season} draft report ·{' '}
+              {published ? 'Published' : 'After the final pick'}
+            </p>
+            <h2
+              id="draft-report-title"
+              className="mt-3 text-2xl font-bold leading-tight tracking-tight"
+            >
+              {published
+                ? 'The draft is done. Here’s the verdict.'
+                : 'Good draft. Famous last words.'}
+            </h2>
+            <span className="clubhouse-text-link mt-4">
+              {published ? 'Read the draft report' : 'About the draft report'}{' '}
+              <ArrowRight className="size-4" />
+            </span>
+          </a>
+          {showCountdown && <DraftCountdown startTime={draft.startTime} />}
+        </section>
+      ),
+    },
+    settled && {
+      key: 'wire',
+      node: <LeagueWire week={settled.week} items={getLeagueWire(settled)} />,
+    },
+    currentFeature &&
+      featuredMatchup &&
+      !predictions.finalized && {
+        key: 'ticket',
+        node: (
+          <MatchTicket
+            matchup={featuredMatchup}
+            selection={currentFeature}
+            week={predictions.week}
+            lockAt={predictions.lockAt}
+          />
+        ),
+      },
+    scoreboardWeek && {
+      key: 'scoreboard',
+      node: (
+        <Scoreboard
+          data={scoreboardWeek}
+          feature={getMatchOfTheWeek(scoreboardWeek)}
+        />
+      ),
+    },
+    flag && { key: 'flag', node: <FlagOnThePlayCard flag={flag} /> },
+    editorial && {
+      key: 'story',
+      node: (
+        <div className="space-y-5">
+          <LeadStory lead={editorial.lead} week={predictions.week} />
+          <TalkingPoints points={editorial.talkingPoints} />
+        </div>
+      ),
+    },
+    editorial?.ranking && {
+      key: 'rankings',
+      node: <RankingsDeck ranking={editorial.ranking} avatars={avatars} />,
+    },
+    {
+      key: 'bragging',
+      node: (
+        <section aria-labelledby="bragging-title">
+          <h2 id="bragging-title" className="ui-kicker">
+            Bragging rights. And the opposite.
+          </h2>
+          <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4">
+            <ChampionCard champion={data.reigningChampion} />
+            <ShameSticker />
+          </div>
+        </section>
+      ),
+    },
+    { key: 'race', node: <PredictionRace /> },
+    { key: 'explore', node: <ExploreStrip beforeDraft={beforeDraft} /> },
+  ];
+  const sections = candidates.filter((section): section is Section =>
+    Boolean(section),
+  );
 
   return (
-    <div className="space-y-4 sm:space-y-10">
-      <header className="clubhouse-masthead">
-        <div>
-          <p className="ui-kicker">
-            Est. 2020 <span className="mx-2">/</span>{' '}
-            {data.season ? `${data.season} season` : 'The league companion'}
-          </p>
-          <h1 className="mt-1 text-xl font-bold tracking-[-0.045em] sm:mt-2 sm:text-4xl">
-            The clubhouse.
-          </h1>
-        </div>
-        <p className="hidden max-w-56 text-sm leading-6 text-muted-foreground sm:block">
-          Twelve managers.
-          <br className="hidden sm:block" /> Plenty to answer for.
-        </p>
-      </header>
-      {data.mode === 'unavailable' && (
-        <output className="notice">
-          League details are temporarily unavailable. Your picks and the record
-          book are kept separately—nothing has been replaced with demo data.
-        </output>
-      )}
-      {!beforeDraft && predictions.season && (
-        <ThisWeek data={predictions} reviewData={reviewData} />
-      )}
-      <ClubhousePicks
-        key={`${predictions.season}-${predictions.week}`}
-        data={predictions}
-        mobileNavigation={
-          <div className="space-y-4 sm:hidden">
-            <nav
-              aria-label="Clubhouse shortcuts"
-              className="grid grid-cols-2 gap-2"
-            >
-              {[
-                {
-                  label: beforeDraft ? 'Draft Report' : 'Power Rankings',
-                  href: beforeDraft ? '/draft-recap' : '/power-rankings',
-                  icon: beforeDraft ? NotebookPen : TrendingUp,
-                },
-                {
-                  label: 'Awards & Receipts',
-                  href: '/season-hub',
-                  icon: Award,
-                },
-                { label: 'Standings', href: '/standings', icon: BarChart3 },
-                { label: 'My Season', href: '/my-season', icon: Users },
-                { label: 'Record Book', href: '/records', icon: BookOpen },
-                { label: 'Wall of Shame', href: '/wall-of-shame', icon: Skull },
-              ].map(({ label, href, icon: Icon }) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="flex min-h-16 items-center gap-2 rounded-xl border border-border bg-card px-3 py-3 text-xs font-semibold hover:border-primary/40 focus-visible:outline-2 focus-visible:outline-primary"
-                >
-                  <Icon className="size-4 shrink-0 text-primary" />
-                  <span>{label}</span>
-                </a>
-              ))}
-            </nav>
-            <a
-              href={beforeDraft ? '/draft-recap' : '/power-rankings'}
-              className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/[0.04] p-3"
-            >
-              <span className="min-w-0 flex-1">
-                <span className="ui-kicker text-primary">From the league</span>
-                <span className="mt-1 block text-xs font-semibold">
-                  {beforeDraft
-                    ? 'Draft verdicts and ADP receipts.'
-                    : 'The weekly pecking order. Twelve things to argue about.'}
-                </span>
-              </span>
-              <ArrowRight className="size-4 shrink-0 text-primary" />
-            </a>
-          </div>
-        }
-      />
-      <MobileDisclosure title="League stories & bragging rights">
-        <div className="space-y-6 sm:space-y-10">
-          {beforeDraft && (
-            <section aria-labelledby="league-stories-title">
-              <div className="mb-4 flex items-end justify-between gap-4">
-                <div>
-                  <p className="ui-kicker">From the league</p>
-                  <h2
-                    id="league-stories-title"
-                    className="mt-1 text-xl font-bold tracking-tight"
-                  >
-                    The talking points.
-                  </h2>
-                </div>
-                <span className="hidden text-xs text-muted-foreground sm:block">
-                  The part Sleeper doesn’t do.
-                </span>
-              </div>
-              <div
-                className={
-                  showCountdown
-                    ? 'grid gap-5 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]'
-                    : ''
+    <ClubhouseMemberProvider
+      key={`${predictions.season}-${predictions.week}`}
+      data={predictions}
+    >
+      <div className="clubhouse-field space-y-5 sm:space-y-7">
+        {data.mode === 'unavailable' && (
+          <output className="notice">
+            League details are temporarily unavailable. Your picks and the
+            record book are kept separately—nothing has been replaced with demo
+            data.
+          </output>
+        )}
+        <PicksHero
+          feature={
+            featuredMatchup
+              ? {
+                  databaseId: featuredMatchup.databaseId,
+                  home: pickTeam(featuredMatchup.home),
+                  away: pickTeam(featuredMatchup.away),
                 }
-              >
-                <a href="/draft-recap" className="story-feature group">
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
-                    <span className="ui-kicker text-primary">
-                      {draftRecapContent.season} draft report &amp; season
-                      preview
-                    </span>
-                    <span>
-                      {published
-                        ? 'Published'
-                        : beforeDraft
-                          ? 'After the final pick'
-                          : 'Recap being prepared'}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 max-w-xl text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
-                    {published
-                      ? 'The draft is done. Here’s the verdict.'
-                      : 'Good draft. Famous last words.'}
-                  </h3>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
-                    {published
-                      ? draftRecapContent.overview
-                      : 'Draft grades, team outlooks, and a Leinster comparison for every roster. Written and reviewed after the draft—not published automatically.'}
-                  </p>
-                  <span className="clubhouse-text-link mt-6">
-                    {published
-                      ? 'Read the draft report'
-                      : 'About the draft report'}{' '}
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                </a>
-                {showCountdown && (
-                  <DraftCountdown startTime={draft.startTime} />
-                )}
-              </div>
-            </section>
-          )}
-          <section aria-labelledby="bragging-rights-title">
-            <div className="mb-4">
-              <p className="ui-kicker">Long memories</p>
-              <h2
-                id="bragging-rights-title"
-                className="mt-1 text-xl font-bold tracking-tight"
-              >
-                Bragging rights. And the opposite.
-              </h2>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2">
-              <div className="champion-spotlight rounded-xl p-5 sm:p-6">
-                <div className="flex items-center gap-2 text-award">
-                  <Crown className="size-4" />
-                  <span className="ui-kicker text-award">
-                    Defending champion {champion && ` / ${champion.season}`}
-                  </span>
-                </div>
-                {champion ? (
-                  <>
-                    <a
-                      href={
-                        champion.franchiseId
-                          ? `/managers#${champion.franchiseId}`
-                          : '/managers'
-                      }
-                      className="mt-5 flex items-center gap-4"
-                    >
-                      <TeamAvatar
-                        avatar={champion.avatar}
-                        name={champion.teamName}
-                        className="size-14"
-                      />
-                      <div className="min-w-0">
-                        <h3 className="text-xl font-bold tracking-tight">
-                          <span className="shiny-text">
-                            {champion.teamName}
-                          </span>
-                        </h3>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          {champion.ownerName} · {champion.wins}–
-                          {champion.losses}
-                        </p>
-                      </div>
-                    </a>
-                    <p className="mt-4 text-sm text-muted-foreground">
-                      Still the name everyone is chasing.
-                    </p>
-                  </>
-                ) : (
-                  <p className="mt-5 text-sm text-muted-foreground">
-                    The defending champion is unavailable right now. Past
-                    champions are in the record book.
-                  </p>
-                )}
-              </div>
-              <a
-                href="/wall-of-shame"
-                className="story-feature flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <Skull className="size-4 text-muted-foreground" />
-                    <span className="ui-kicker">Wall of shame</span>
-                  </div>
-                  <h3 className="mt-4 text-2xl font-bold tracking-tight">
-                    The season ends.
-                    <br />
-                    The evidence stays.
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                    Last-place finishes. Real forfeits. A league with a very
-                    long memory.
-                  </p>
-                </div>
-                <span className="clubhouse-text-link mt-5">
-                  See the evidence <ArrowRight className="size-4" />
-                </span>
-              </a>
-            </div>
-            <div className="mt-5 grid divide-y divide-border border-y border-border sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-              {!beforeDraft && (
-                <a href="/draft-recap" className="clubhouse-directory-link">
-                  <NotebookPen className="size-5 text-muted-foreground" />
-                  <span className="flex-1">
-                    <span className="block font-semibold">
-                      The preseason forecast
-                    </span>
-                    <span className="mt-1 block text-xs text-muted-foreground">
-                      Draft grades and the original calls, kept on record.
-                    </span>
-                  </span>
-                  <ArrowRight className="size-4" />
-                </a>
-              )}
-              <a href="/records" className="clubhouse-directory-link">
-                <BookOpen className="size-5 text-muted-foreground" />
-                <span className="flex-1">
-                  <span className="block font-semibold">The record book</span>
-                  <span className="mt-1 block text-xs text-muted-foreground">
-                    Champions, podiums, and the all-time table.
-                  </span>
-                </span>
-                <ArrowRight className="size-4" />
-              </a>
-              <a href="/season-hub" className="clubhouse-directory-link">
-                <ArrowRight className="size-5 text-muted-foreground" />
-                <span className="flex-1">
-                  <span className="block font-semibold">
-                    Awards &amp; Receipts
-                  </span>
-                  <span className="mt-1 block text-xs text-muted-foreground">
-                    Weekly honours, trade returns and prediction reviews.
-                  </span>
-                </span>
-                <ArrowRight className="size-4" />
-              </a>
-              <a href="/my-season" className="clubhouse-directory-link">
-                <Users className="size-5 text-muted-foreground" />
-                <span className="flex-1">
-                  <span className="block font-semibold">My Season</span>
-                  <span className="mt-1 block text-xs text-muted-foreground">
-                    Your pickups, picks and personal receipts.
-                  </span>
-                </span>
-                <ArrowRight className="size-4" />
-              </a>
-              <a href="/managers" className="clubhouse-directory-link">
-                <Users className="size-5 text-muted-foreground" />
-                <span className="flex-1">
-                  <span className="block font-semibold">Meet the managers</span>
-                  <span className="mt-1 block text-xs text-muted-foreground">
-                    The names behind the questionable decisions.
-                  </span>
-                </span>
-                <ArrowRight className="size-4" />
-              </a>
-            </div>
-          </section>
-        </div>
-      </MobileDisclosure>
-      <footer className="pb-2 text-xs leading-5 text-muted-foreground">
-        MAC 12 · An independent league companion. Run your team on Sleeper.
-        Settle the arguments here.
-      </footer>
-    </div>
+              : null
+          }
+        />
+        <Field sections={sections} />
+        <EndZone>
+          <p className="text-xs leading-5 text-muted-foreground">
+            MAC 12 · An independent league companion. Run your team on Sleeper.
+            Settle the arguments here.
+          </p>
+        </EndZone>
+      </div>
+    </ClubhouseMemberProvider>
   );
 }

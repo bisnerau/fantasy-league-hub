@@ -1,11 +1,28 @@
 # Weekly clubhouse and power rankings
 
 The commissioner approved a weekly homepage and weekly editorial power rankings.
-During the season the homepage leads with the current Match of the Week, three
-authored talking points, links to published previews and settled reviews, and a
-top-three ranking summary. Weekly picks, the member prediction race, shortcuts
-and historical content remain accessible. The draft report remains the preseason
-lead and becomes an archive link during the season.
+Most managers use the homepage on their phone, so it is laid out as a football
+field you scroll down: chalk yard lines between sections and a painted MAC 12
+end zone as the footer. One signature effect per section; only the ticker loops.
+
+1. **Picks hero**: “Week N”, a stadium-board countdown to the Sunday lock, a
+   drive tracker (each saved pick moves the ball; the Banker is the two-point
+   try) and one button. The final two hours show a two-minute warning. After
+   lock, signed-in members see the league's Match of the Week split unscramble.
+2. **League wire**: facts from the latest settled week only (high/low score,
+   closest and biggest result, top starter, unbeaten/winless), with a pause.
+3. **Match of the Week ticket**: this week's selection, torn open to reveal the
+   chalkboard play (arrow on our preview call, else the projected favourite).
+4. **Scoreboard**: the latest settled week as flip cards (tap for the round-up);
+   before any settlement, this week's projected fixtures.
+5. **Flag on the play**: optional, authored in `lib/data/flags-on-the-play.ts`.
+6. **Lead report** (headline and a two-line teaser) and talking points.
+7. **Power rankings deck**: all twelve, swipe or buttons/arrow keys.
+8. **Bragging rights**: champion trading card and the wooden-spoon sticker.
+9. **Prediction race** (members), then one Explore strip of destinations.
+
+The draft report and draft countdown lead before the draft. Sections without
+verified data hide themselves; nothing is invented to fill a gap.
 
 ## Power rankings
 

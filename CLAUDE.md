@@ -25,7 +25,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 
 **Routing**: File-based App Router convention under `app/`:
 
-- `/` — current-week stories, power-ranking teaser, weekly picks, member-only prediction race, champion and shame spotlights
+- `/` — phone-first matchday clubhouse laid out as a football field: picks countdown hero, league wire, Match of the Week ticket, results scoreboard, stories, rankings deck, champion card and shame sticker, member-only prediction race
 - `/power-rankings` — archived weekly editorial rankings for all twelve managers
 - `/standings` — live standings table with median record
 - `/matchups` — weekly matchup predictions, expandable lineups, authenticated voting, and the season prediction table
@@ -55,7 +55,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 
 **UI**: shadcn/ui (Base UI + Tailwind CSS 4), with Recharts where needed. `components/ui/` is generated and excluded from oxlint. Charcoal/chalk/crest-green theme, gold for achievements, restrained motion, and global reduced-motion support. Standard anchors are intentional: production QA found the current vinext `next/link` dynamic navigation import throws at runtime. Do not restore that shim without testing the built app's navigation.
 
-**Client components**: Interactive navigation/theme, draft countdown, standings sorting, manager accordions, and the prediction centre/clubhouse member panels. `use-prediction-member.ts` shares authenticated reads and guards against stale responses. Page shells and public data remain server-rendered.
+**Client components**: Interactive navigation/theme, draft countdown, standings sorting, manager accordions, the prediction centre, and the homepage's member provider (`ClubhouseMemberProvider`, shared by the picks hero and prediction race) plus its small effect islands (flip cards, tear reveals, rankings deck, league wire). `use-prediction-member.ts` shares authenticated reads and guards against stale responses. Page shells and public data remain server-rendered.
 
 ## Path aliases
 
@@ -96,9 +96,15 @@ Week 2's inaugural selection is Alan vs Hugo. The Weekly Picks page promotes the
 existing card without changing fixture IDs, voting or the archived selection.
 See `docs/matchup-stories.md` for the agreed criteria.
 
-The in-season homepage leads with “This week in MAC 12”: the featured matchup,
-published previews and settled reviews, three current talking points, and a
-power-ranking teaser. Rankings are authored alongside Thursday previews in
+The in-season homepage leads with the picks hero (stadium-board countdown,
+drive tracker, two-minute warning, Sunday lock reveal), then the league wire and
+scoreboard from the latest settled week, this week's Match of the Week ticket,
+an optional authored Flag on the play, the lead report, talking points and a
+swipeable rankings deck. Effects are CSS-first React Bits adaptations in
+`components/effects/`; each has a tap/keyboard path and honours reduced motion.
+Sections hide themselves rather than show invented data. Flags on the play are
+authored with Tuesday reviews in `lib/data/flags-on-the-play.ts`, never
+generated. Rankings are authored alongside Thursday previews in
 `lib/data/power-rankings/`; cron does not write or reorder them. The first
 edition's movement compares with the published preseason forecast; subsequent
 editions compare with the previous published weekly ranking. Preserve archived
