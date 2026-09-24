@@ -108,7 +108,10 @@ money; the betting look is styling only.
   majority; voter chips stay on each side.
 - The bet slip tray (`lib/predictions/slip.ts`) counts selections, names the
   Banker and shows the most the slip can return (picks plus one for a Banker).
-  “Next pick” jumps to the next unpicked matchup. On settled weeks it prints a
+  “Next pick” jumps to the next unpicked matchup. Tapping the slip opens it
+  during the week: every matchup with your pick or “No pick yet”, the Banker
+  and the maximum return, and each line jumps to its card. After lock it lists
+  the locked selections. On settled weeks it prints a
   bookie docket: won, lost or void per selection, and the return and rank from
   the weekly leaderboard. It never prints score figures.
 - The Rapid-fire slip deck shows unpicked matchups one at a time: swipe towards

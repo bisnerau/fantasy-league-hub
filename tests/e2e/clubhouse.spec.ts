@@ -633,6 +633,22 @@ test('the bet slip counts selections and jumps to the next open pick', async ({
   await expect(slip).toContainText(
     '1/6 selections · No Banker yet · Returns up to 1 pt',
   );
+  await slip.getByRole('button', { name: /^Your slip/ }).click();
+  const open = page.getByRole('region', { name: 'Your slip' });
+  await expect(open).toContainText('1 selection of 6');
+  await expect(open).toContainText('Emmet Burns');
+  await expect(open.getByText('No pick yet')).toHaveCount(5);
+  await expect(open).toContainText('Returns up to 1 pt');
+  await open
+    .getByRole('button', { name: 'No pick yet. Pick Manager 3 v Manager 4' })
+    .click();
+  await expect(open).toHaveCount(0);
+  await expect(
+    page.getByRole('button', {
+      name: 'Pick Mahomes-lander and The Boys',
+      exact: true,
+    }),
+  ).toBeFocused();
   await slip.getByRole('button', { name: 'Next pick' }).click();
   await expect(
     page.getByRole('button', {
@@ -762,9 +778,14 @@ test('locked cards stamp your pick and show the league tug-of-war', async ({
   await expect(page.locator('#matchup-1')).toContainText('Emmet Burns 50%');
   await expect(page.getByText('Alan Fixture', { exact: true })).toBeVisible();
   await expect(page.getByText(/You can change it until/)).toHaveCount(0);
-  await expect(
-    page.getByRole('complementary', { name: 'Your bet slip' }),
-  ).toContainText('Slip locked');
+  const slip = page.getByRole('complementary', { name: 'Your bet slip' });
+  await expect(slip).toContainText('Slip locked');
+  await slip.getByRole('button', { name: 'View slip' }).click();
+  const locked = page.getByRole('region', { name: 'Your slip' });
+  await expect(locked).toContainText('1 selection · locked');
+  await expect(locked).toContainText('Emmet Burns');
+  await locked.getByRole('button', { name: 'Close your slip' }).click();
+  await expect(slip.getByRole('button', { name: 'View slip' })).toBeFocused();
 });
 
 test('settled weeks stamp results, judge the line and print the docket', async ({

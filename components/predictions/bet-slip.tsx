@@ -1,7 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { ArrowDown, Check, LockKeyhole, ReceiptText, X } from 'lucide-react';
+import {
+  ArrowDown,
+  Check,
+  ChevronUp,
+  LockKeyhole,
+  ReceiptText,
+  X,
+} from 'lucide-react';
 import type { PredictionMatchup } from '@/lib/data/predictions';
 import type { Slip, Verdict } from '@/lib/predictions/slip';
 import type { LeaderboardRow } from './use-prediction-member';
@@ -35,34 +42,58 @@ function ordinal(value: number) {
   return `${value}${suffix}`;
 }
 
-/** The settled slip printed like a bookmaker's docket; no score figures. */
+type PanelMode = 'open' | 'locked' | 'settled';
+
+/**
+ * The slip printed like a bookmaker's docket. During the week it lists every
+ * matchup and each line jumps to its card; once settled it shows the results.
+ * It never prints score figures.
+ */
 function Docket({
+  mode,
   slip,
+  matchups,
   week,
   row,
   rows,
+  onJump,
   onClose,
 }: {
+  mode: PanelMode;
   slip: Slip;
+  matchups: PredictionMatchup[];
   week: number;
   row?: LeaderboardRow;
   rows: LeaderboardRow[];
+  onJump: (sleeperMatchupId: number) => void;
   onClose: () => void;
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
   useEffect(() => closeRef.current?.focus(), []);
+  const settled = mode === 'settled';
   const rank = row
     ? rows.findIndex((candidate) => candidate.points === row.points) + 1
     : 0;
+  const picked = new Map(
+    slip.selections.map((selection) => [selection.sleeperMatchupId, selection]),
+  );
   return (
-    <section id="bookie-docket" className="docket" aria-label="Your docket">
+    <section
+      id="bookie-docket"
+      className="docket"
+      aria-label={settled ? 'Your docket' : 'Your slip'}
+    >
       <div className="docket-paper">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="docket-head">MAC 12 · WK {week}</p>
+            <p className="docket-head">
+              {settled ? 'MAC 12' : 'Your slip'} · WK {week}
+            </p>
             <p className="docket-sub">
               {slip.selections.length}{' '}
               {slip.selections.length === 1 ? 'selection' : 'selections'}
+              {mode === 'open' && ` of ${slip.total}`}
+              {mode === 'locked' && ' · locked'}
             </p>
           </div>
           <button
@@ -70,37 +101,95 @@ function Docket({
             type="button"
             className="docket-close"
             onClick={onClose}
-            aria-label="Tear off the docket"
+            aria-label={settled ? 'Tear off the docket' : 'Close your slip'}
           >
             <X className="size-4" aria-hidden="true" />
           </button>
         </div>
-        <ol className="docket-lines">
-          {slip.selections.map((selection) => (
-            <li key={selection.matchupId}>
-              <span className="min-w-0 truncate">
-                {selection.team.ownerName}
-                {selection.banker && (
-                  <span className="docket-banker"> ★ Banker ×2</span>
-                )}
-              </span>
-              <span
-                className="docket-mark"
-                data-verdict={selection.verdict ?? 'pending'}
-              >
-                <span aria-hidden="true">
-                  {selection.verdict ? verdictMark[selection.verdict] : '—'}
+        {mode === 'open' ? (
+          <ol className="docket-lines">
+            {matchups.map((matchup) => {
+              const selection = picked.get(matchup.sleeperMatchupId);
+              const fixture = `${matchup.home.ownerName} v ${matchup.away.ownerName}`;
+              return (
+                <li key={matchup.sleeperMatchupId} className="docket-line-open">
+                  <button
+                    type="button"
+                    className="docket-line-button"
+                    aria-label={
+                      selection
+                        ? `${selection.team.ownerName}${selection.banker ? ', Banker' : ''}. Change your pick in ${fixture}`
+                        : `No pick yet. Pick ${fixture}`
+                    }
+                    onClick={() => onJump(matchup.sleeperMatchupId)}
+                  >
+                    <span className="min-w-0">
+                      <span
+                        className={
+                          selection
+                            ? 'block truncate'
+                            : 'block truncate opacity-60'
+                        }
+                      >
+                        {selection ? selection.team.ownerName : 'No pick yet'}
+                        {selection?.banker && (
+                          <span className="docket-banker"> ★ Banker ×2</span>
+                        )}
+                      </span>
+                      <span className="block truncate text-[10px] opacity-60">
+                        {fixture}
+                      </span>
+                    </span>
+                    <span className="docket-jump">
+                      {selection ? 'Change' : 'Pick'}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <ol className="docket-lines">
+            {slip.selections.map((selection) => (
+              <li key={selection.matchupId}>
+                <span className="min-w-0 truncate">
+                  {selection.team.ownerName}
+                  {selection.banker && (
+                    <span className="docket-banker"> ★ Banker ×2</span>
+                  )}
                 </span>
-                <span className="sr-only">
-                  {selection.verdict
-                    ? verdictWord[selection.verdict]
-                    : 'awaiting both scores'}
+                <span
+                  className="docket-mark"
+                  data-verdict={selection.verdict ?? 'pending'}
+                >
+                  <span aria-hidden="true">
+                    {selection.verdict
+                      ? verdictMark[selection.verdict]
+                      : settled
+                        ? '—'
+                        : 'LOCKED'}
+                  </span>
+                  <span className="sr-only">
+                    {selection.verdict
+                      ? verdictWord[selection.verdict]
+                      : settled
+                        ? 'awaiting both scores'
+                        : 'locked, awaiting results'}
+                  </span>
                 </span>
-              </span>
-            </li>
-          ))}
-        </ol>
-        {row ? (
+              </li>
+            ))}
+          </ol>
+        )}
+        {mode === 'open' ? (
+          <p className="docket-total">
+            <span>
+              Returns up to {slip.maxReturn}{' '}
+              {slip.maxReturn === 1 ? 'pt' : 'pts'}
+            </span>
+            <span>{slip.banker ? '★ Banked' : 'No Banker'}</span>
+          </p>
+        ) : settled && row ? (
           <p className="docket-total">
             <span>Returned {row.points} pts</span>
             <span>
@@ -109,7 +198,9 @@ function Docket({
           </p>
         ) : (
           <p className="docket-sub mt-3">
-            The return appears once the week’s table is settled.
+            {settled
+              ? 'The return appears once the week’s table is settled.'
+              : 'Results are graded after Tuesday’s settlement.'}
           </p>
         )}
       </div>
@@ -138,6 +229,15 @@ export function BetSlip({
   onSignIn: () => void;
 }) {
   const [docketOpen, setDocketOpen] = useState(false);
+  const panelMode: PanelMode | null =
+    state === 'open' || state === 'locked' || state === 'settled'
+      ? state
+      : null;
+  const canOpen =
+    panelMode === 'open'
+      ? slip.total > 0
+      : panelMode != null && slip.selections.length > 0;
+  const toggle = () => setDocketOpen((open) => !open);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const picked = new Map(
     slip.selections.map((selection) => [selection.sleeperMatchupId, selection]),
@@ -165,14 +265,42 @@ export function BetSlip({
               .filter(Boolean)
               .join(' · ');
 
+  const summary = (
+    <>
+      <span className="slip-title">
+        {state === 'locked' ? (
+          <>
+            <LockKeyhole className="size-3.5" aria-hidden="true" /> Slip locked
+          </>
+        ) : complete && state === 'open' ? (
+          <>
+            <Check className="size-3.5" aria-hidden="true" /> Slip complete
+          </>
+        ) : (
+          'Your slip'
+        )}
+        {canOpen && (
+          <ChevronUp className="slip-chevron size-3.5" aria-hidden="true" />
+        )}
+      </span>
+      <span className="slip-meta">{meta}</span>
+    </>
+  );
+
   return (
     <aside className="bet-slip" aria-label="Your bet slip">
-      {docketOpen && state === 'settled' && (
+      {docketOpen && panelMode && canOpen && (
         <Docket
+          mode={panelMode}
           slip={slip}
+          matchups={matchups}
           week={week}
           row={row}
           rows={weeklyRows}
+          onJump={(id) => {
+            setDocketOpen(false);
+            onJump(id);
+          }}
           onClose={() => {
             setDocketOpen(false);
             toggleRef.current?.focus();
@@ -198,23 +326,22 @@ export function BetSlip({
             );
           })}
         </ol>
-        <div className="min-w-0 flex-1">
-          <p className="slip-title">
-            {state === 'locked' ? (
-              <>
-                <LockKeyhole className="size-3.5" aria-hidden="true" /> Slip
-                locked
-              </>
-            ) : complete && state === 'open' ? (
-              <>
-                <Check className="size-3.5" aria-hidden="true" /> Slip complete
-              </>
-            ) : (
-              'Your slip'
-            )}
-          </p>
-          <p className="slip-meta">{meta}</p>
-        </div>
+        {canOpen ? (
+          <button
+            ref={
+              state === 'open' && slip.nextOpen != null ? toggleRef : undefined
+            }
+            type="button"
+            className="slip-summary"
+            aria-expanded={docketOpen}
+            aria-controls={docketOpen ? 'bookie-docket' : undefined}
+            onClick={toggle}
+          >
+            {summary}
+          </button>
+        ) : (
+          <div className="slip-summary">{summary}</div>
+        )}
         {state === 'signed-out' ? (
           <button type="button" className="slip-action" onClick={onSignIn}>
             Start your slip
@@ -227,17 +354,23 @@ export function BetSlip({
           >
             Next pick <ArrowDown className="size-4" aria-hidden="true" />
           </button>
-        ) : state === 'settled' && slip.selections.length > 0 ? (
+        ) : canOpen ? (
           <button
             ref={toggleRef}
             type="button"
             className="slip-action"
             aria-expanded={docketOpen}
             aria-controls={docketOpen ? 'bookie-docket' : undefined}
-            onClick={() => setDocketOpen((open) => !open)}
+            onClick={toggle}
           >
             <ReceiptText className="size-4" aria-hidden="true" />
-            {docketOpen ? 'Hide docket' : 'See your docket'}
+            {state === 'settled'
+              ? docketOpen
+                ? 'Hide docket'
+                : 'See your docket'
+              : docketOpen
+                ? 'Hide slip'
+                : 'View slip'}
           </button>
         ) : null}
       </div>

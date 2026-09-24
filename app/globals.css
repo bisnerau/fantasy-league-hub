@@ -1500,8 +1500,17 @@
   .slip-dots li[data-verdict='lost'] {
     opacity: 0.35;
   }
+  .slip-summary {
+    @apply flex min-h-11 min-w-0 flex-1 flex-col justify-center text-left;
+  }
   .slip-title {
     @apply flex items-center gap-1 text-sm font-bold;
+  }
+  .slip-chevron {
+    @apply text-muted-foreground transition-transform;
+  }
+  .slip-summary[aria-expanded='true'] .slip-chevron {
+    rotate: 180deg;
   }
   .slip-meta {
     @apply truncate text-[11px] text-muted-foreground;
@@ -1534,6 +1543,15 @@
   .docket-lines li {
     @apply flex items-center justify-between gap-3 py-1.5;
     border-bottom: 1px dashed rgb(29 27 22 / 0.3);
+  }
+  .docket-lines li.docket-line-open {
+    @apply p-0;
+  }
+  .docket-line-button {
+    @apply flex min-h-11 w-full items-center justify-between gap-3 py-1 text-left;
+  }
+  .docket-jump {
+    @apply shrink-0 text-[11px] font-bold uppercase tracking-[0.08em] underline underline-offset-4;
   }
   .docket-banker {
     color: #856014;
