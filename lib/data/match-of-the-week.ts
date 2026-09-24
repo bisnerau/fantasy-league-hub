@@ -23,6 +23,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
     buildUp:
       'Hugo can send the champion to 0–2 and turn every ordinary household encounter into a post-match interview. Alan can level their records and resume bringing the trophy into unrelated conversations. Most managers get to put their phone down when the slagging starts. These two would have to move out. That deserves top billing.',
   },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 3,
+    sleeperMatchupId: 1,
+    homeRosterId: 10,
+    awayRosterId: 11,
+    selectedAt: '2026-09-24T15:25:09Z',
+    reason:
+      'The only meeting of unbeaten teams this week: Shane has scored 114.92 more points than David, yet both are 2–0. A 3–0 start is at stake, and Sharpe finally faces a manager whose opponents have been putting up a fight.',
+    buildUp:
+      'Marmion has beaten Alan and the week’s second-highest scorer. Sharpe has won twice without reaching 100. This is the perfect test of whether form matters or David has found a loophole nobody else can access. Shane brings Lamar, Lamb and JSN; David brings an immaculate record and a request that nobody inspect it too closely.',
+  },
 ];
 
 function matchesFixture(matchup: PredictionMatchup, selection: MatchOfTheWeek) {

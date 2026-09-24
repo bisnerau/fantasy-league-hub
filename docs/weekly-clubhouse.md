@@ -83,3 +83,11 @@ written. The homepage never invents a fresh edition during a publishing gap.
 
 Tests cover source records, the real preseason baseline, future/foreign editions,
 subsequent weekly movement, report settlement and correct archived-week links.
+
+## Week 3 edition
+
+Published 24 September using fresh lineups, both completed results and current
+practice reports. Shane–Sharpe is Match of the Week: the only fixture between
+unbeaten teams, with a 114.92-point scoring gap. Shane leads the rankings,
+followed by Alan and Jack. Movement compares with the frozen Week 2 edition.
+See `research/2026-week-3.md` and its Sleeper snapshot for evidence and calls.
