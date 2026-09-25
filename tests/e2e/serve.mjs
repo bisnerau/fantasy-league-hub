@@ -34,6 +34,8 @@ let failRead = false;
 let delayVote = 0;
 let votes = [];
 let bankers = [];
+// Opt-in: two completed weeks with roster records that match the matchups.
+let standings = null;
 const now = () =>
   Date.parse(
     mode === 'final'
@@ -60,6 +62,65 @@ const rosters = names.map((_name, index) => ({
     fpts_decimal: 5,
   },
 }));
+const playedWeeks = [
+  [
+    120.5, 98.2, 110.1, 131.4, 88.9, 102.3, 125, 93.7, 107.6, 115.2, 99.8,
+    118.4,
+  ],
+  [
+    95.1, 128.6, 112.3, 101.9, 133.2, 90.4, 117.7, 108.8, 97.5, 104.2, 121.3,
+    111,
+  ],
+];
+// Week 1 pairs neighbours; week 2 pairs 1 v 12, 2 v 11 and so on.
+const pairing = [
+  (rosterId) => Math.ceil(rosterId / 2),
+  (rosterId) => Math.min(rosterId, 13 - rosterId),
+];
+const playedMatchups = (week) =>
+  playedWeeks[week - 1].map((points, index) => ({
+    roster_id: index + 1,
+    matchup_id: pairing[week - 1](index + 1),
+    points,
+    players: [`player-${index + 1}`],
+    starters: [`player-${index + 1}`],
+  }));
+const split = (total) => {
+  const whole = Math.floor(total);
+  return [whole, Math.round((total - whole) * 100)];
+};
+const playedRosters = () =>
+  rosters.map((roster) => {
+    const record = { wins: 0, losses: 0, ties: 0, pf: 0, pa: 0 };
+    for (const week of [1, 2]) {
+      const games = playedMatchups(week);
+      const own = games.find((game) => game.roster_id === roster.roster_id);
+      const other = games.find(
+        (game) =>
+          game.matchup_id === own.matchup_id &&
+          game.roster_id !== own.roster_id,
+      );
+      record.pf += own.points;
+      record.pa += other.points;
+      if (own.points > other.points) record.wins += 1;
+      else if (own.points < other.points) record.losses += 1;
+      else record.ties += 1;
+    }
+    const [fpts, fptsDecimal] = split(record.pf);
+    const [against, againstDecimal] = split(record.pa);
+    return {
+      ...roster,
+      settings: {
+        wins: record.wins,
+        losses: record.losses,
+        ties: record.ties,
+        fpts,
+        fpts_decimal: fptsDecimal,
+        fpts_against: against,
+        fpts_against_decimal: againstDecimal,
+      },
+    };
+  });
 const users = names.map((name, index) => ({
   user_id: `manager-${index + 1}`,
   display_name: index === 0 ? 'Emmet Burns' : `Manager ${index + 1}`,
@@ -117,7 +178,9 @@ async function handle(
       delayVote = 0;
       votes = [];
       bankers = [];
+      standings = null;
     }
+    if (body.standings !== undefined) standings = body.standings;
     if (body.mode) mode = body.mode;
     if (body.failVote != null) failVote = body.failVote;
     if (body.failRead != null) failRead = body.failRead;
@@ -257,14 +320,22 @@ const fixtureFetch = async (input, options = {}) => {
   if (url.hostname === 'api.sleeper.app') {
     if (url.pathname === '/v1/state/nfl')
       return json({
-        week: mode === 'final' ? 2 : 1,
+        week: standings === 'played' ? 3 : mode === 'final' ? 2 : 1,
         season: '2026',
         season_type: 'regular',
       });
     if (url.pathname.endsWith('/users')) return json(users);
-    if (url.pathname.endsWith('/rosters')) return json(rosters);
+    if (url.pathname.endsWith('/rosters'))
+      return json(standings === 'played' ? playedRosters() : rosters);
     if (url.pathname.includes('/matchups/'))
-      return json(mode === 'predraft' ? [] : matchups());
+      return json(
+        mode === 'predraft'
+          ? []
+          : standings === 'played' &&
+              playedWeeks[Number(url.pathname.split('/').at(-1)) - 1]
+            ? playedMatchups(Number(url.pathname.split('/').at(-1)))
+            : matchups(),
+      );
     if (url.pathname.endsWith('/drafts'))
       return json([
         {
@@ -296,7 +367,11 @@ const fixtureFetch = async (input, options = {}) => {
           ? null
           : 'fixture-history',
         roster_positions: ['QB', 'BN'],
-        settings: { playoff_week_start: 15, last_scored_leg: 14 },
+        settings: {
+          playoff_week_start: 15,
+          last_scored_leg: 14,
+          ...(standings === 'played' && { playoff_teams: 6 }),
+        },
         metadata: { latest_league_winner_roster_id: '1' },
         scoring_settings: { rec: 1 },
       });

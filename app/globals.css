@@ -1833,3 +1833,258 @@ html:has(.bet-slip) {
     display: none;
   }
 }
+/* Standings as the cut line: see components/standings. */
+@layer components {
+  .cut-board {
+    @apply rounded-xl border border-border bg-card p-4 sm:p-6;
+    border-top: 3px solid var(--primary);
+  }
+  .cut-divider {
+    @apply relative my-3 flex items-center justify-between px-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-primary;
+  }
+  .cut-divider::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    border-top: 2px dashed color-mix(in srgb, var(--primary) 60%, transparent);
+  }
+  .cut-divider span {
+    @apply relative bg-card px-2;
+  }
+  .cut-divider span:last-child {
+    @apply text-muted-foreground;
+  }
+  .cut-seed {
+    @apply w-6 shrink-0 font-mono text-sm font-black text-muted-foreground;
+  }
+  .cut-flap .split-flap-cell {
+    width: 1.6rem;
+    height: 2.25rem;
+    font-size: 1.25rem;
+  }
+  @media (max-width: 374px) {
+    .cut-seed {
+      @apply w-4;
+    }
+    .cut-flap {
+      gap: 2px;
+    }
+    .cut-flap .split-flap-cell {
+      width: 1.25rem;
+      height: 1.85rem;
+      font-size: 1rem;
+    }
+  }
+  @media (min-width: 640px) {
+    .cut-flap .split-flap-cell {
+      width: 2.1rem;
+      height: 2.9rem;
+      font-size: 1.7rem;
+    }
+  }
+
+  .sort-chips {
+    @apply m-0 mb-3 flex min-w-0 gap-1.5 border-0 p-0;
+  }
+  .sort-chip {
+    @apply inline-flex min-h-11 items-center whitespace-nowrap rounded-full border border-border bg-card px-3 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground;
+  }
+  .sort-chip[aria-pressed='true'] {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+  .replay-button {
+    @apply inline-flex min-h-11 items-center gap-1.5 text-xs font-semibold text-primary underline-offset-4 hover:underline disabled:opacity-50;
+  }
+
+  /* React Bits AnimatedList as a FLIP reorder: see effects/reorder-list. */
+  .standings-head,
+  .standings-row-button {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) 2.75rem 4rem 1rem;
+    align-items: center;
+    column-gap: 0.5rem;
+  }
+  @media (max-width: 374px) {
+    .standings-head,
+    .standings-row-button {
+      grid-template-columns: 1.5rem minmax(0, 1fr) 2.25rem 3.25rem;
+      column-gap: 0.375rem;
+      padding-inline: 0.625rem;
+    }
+    .standings-head > :last-child,
+    .standings-chevron {
+      display: none;
+    }
+    .standings-tape {
+      padding-left: 2.5rem;
+    }
+  }
+  .standings-head {
+    @apply px-3 pb-1.5 text-right font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground;
+  }
+  .standings-head > :first-child {
+    @apply text-center;
+  }
+  .standings-wide {
+    display: none;
+  }
+  .standings-list {
+    @apply relative overflow-hidden rounded-xl border border-border bg-card;
+  }
+  .standings-row {
+    @apply relative border-b border-border bg-card last:border-b-0;
+  }
+  .standings-row:has(+ .table-line) {
+    @apply border-b-0;
+  }
+  .standings-row-button {
+    @apply min-h-14 w-full px-3 py-2 text-left transition-colors hover:bg-muted/40;
+  }
+  .standings-rank {
+    @apply flex flex-col items-center font-mono text-sm font-black leading-tight text-muted-foreground;
+  }
+  .standings-row[data-top] .standings-rank {
+    @apply text-foreground;
+  }
+  .standings-move {
+    @apply inline-flex items-center font-mono text-[10px] font-bold text-muted-foreground;
+  }
+  .standings-value {
+    @apply text-right font-mono text-xs font-bold tabular-nums;
+  }
+  .standings-row-button > .standings-value:nth-child(3) {
+    @apply text-sm font-black;
+  }
+  .standings-chevron {
+    @apply justify-self-end text-muted-foreground transition-transform;
+  }
+  .standings-row[data-open] .standings-chevron {
+    transform: rotate(180deg);
+  }
+  .standings-tape {
+    @apply border-t border-dashed border-border px-3 pb-3 pt-3;
+    padding-left: 3rem;
+  }
+  .standings-tape-grid {
+    @apply mt-2 grid grid-cols-3 gap-x-3 gap-y-3;
+  }
+  .standings-row[data-move] {
+    z-index: 2;
+  }
+  .standings-row[data-move='up'] {
+    animation: standings-rise 1.6s ease-out both;
+  }
+  .standings-row[data-move='down'] {
+    animation: standings-sink 1.6s ease-out both;
+  }
+  .table-line {
+    @apply relative flex h-5 items-center border-b border-border bg-card px-3 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground;
+  }
+  .table-line::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    border-top: 1px dashed
+      color-mix(in srgb, var(--foreground) 28%, transparent);
+  }
+  .table-line[data-tone='cut'] {
+    @apply text-primary;
+  }
+  .table-line[data-tone='cut']::before {
+    border-top: 2px solid color-mix(in srgb, var(--primary) 70%, transparent);
+  }
+  .table-line span {
+    @apply relative ml-9 bg-card px-2;
+  }
+  @media (min-width: 768px) {
+    .standings-head,
+    .standings-row-button {
+      grid-template-columns: 2.5rem minmax(
+          0,
+          1fr
+        ) 3.25rem 4rem 3.75rem 3.25rem 4.5rem 1rem;
+    }
+    .standings-wide {
+      display: block;
+    }
+    .standings-tape-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    .standings-tape {
+      padding-left: 3.5rem;
+    }
+  }
+
+  .points-race {
+    @apply space-y-1.5 rounded-xl border border-border bg-card p-4;
+  }
+  .points-race-row {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr) 3.25rem;
+    align-items: center;
+    column-gap: 0.625rem;
+  }
+  .points-race-track {
+    @apply block h-2.5 overflow-hidden rounded-full bg-muted;
+  }
+  .points-race-bar {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: color-mix(in srgb, var(--primary) 55%, transparent);
+    transform-origin: left;
+    transition: transform 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 45ms);
+  }
+  .points-race-bar[data-leader] {
+    background: var(--primary);
+  }
+  .points-race[data-armed]:not([data-grown]) .points-race-bar {
+    transform: scaleX(0);
+  }
+  @media (min-width: 640px) {
+    .points-race-row {
+      grid-template-columns: 11rem minmax(0, 1fr) 3.5rem;
+    }
+  }
+}
+@keyframes standings-rise {
+  from {
+    background: color-mix(in srgb, var(--primary) 18%, var(--card));
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
+  }
+}
+@keyframes standings-sink {
+  from {
+    background: color-mix(in srgb, var(--muted-foreground) 14%, var(--card));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .standings-row[data-move] {
+    animation: none;
+  }
+  .replay-button {
+    display: none;
+  }
+  .points-race-bar {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .sort-chip[aria-pressed='true'] {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+  .cut-divider::before,
+  .table-line::before {
+    border-color: CanvasText;
+  }
+  .points-race-bar {
+    background: CanvasText;
+  }
+  .standings-row[data-move] {
+    animation: none;
+  }
+}

@@ -565,6 +565,96 @@ for (const width of [320, 768, 1024, 1440]) {
   }
 }
 
+test('standings replay last week, sort by chip and open the tale of the tape', async ({
+  page,
+  request,
+}) => {
+  await request.post(`${fixture}/__fixture`, { data: { standings: 'played' } });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/standings');
+  const board = page.getByRole('region', { name: /^The cut line/ });
+  await expect(board).toContainText('Manager 5');
+  await expect(board).toContainText('Manager 10');
+  await expect(board).toContainText('Level on wins · 2.7 PF apart');
+
+  const list = page.getByRole('list', { name: 'League table' });
+  const rows = list.getByRole('listitem');
+  await list.scrollIntoViewIfNeeded();
+  await expect(list).toHaveAttribute('aria-busy', 'true');
+  await expect(list).not.toHaveAttribute('aria-busy', /.*/, {
+    timeout: 8000,
+  });
+  await expect(rows).toHaveCount(12);
+  await expect(rows.first()).toContainText('Manager 7');
+  await expect(rows.first()).toContainText('up 1 place since last week');
+  await expect(page.getByText('Bye', { exact: true })).toBeVisible();
+  await expect(page.getByText('Playoff line', { exact: true })).toBeVisible();
+
+  await page.getByRole('button', { name: 'Points', exact: true }).click();
+  await expect(
+    page.getByRole('button', { name: 'Points', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(rows.nth(6)).toContainText('Manager 11');
+  await expect(page.getByText('Playoff line', { exact: true })).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Table', exact: true }).click();
+  await expect(rows.nth(6)).toContainText('Manager 10');
+  const leader = rows.first().getByRole('button');
+  await leader.focus();
+  await page.keyboard.press('Enter');
+  await expect(leader).toHaveAttribute('aria-expanded', 'true');
+  const tape = rows.first().locator('.standings-tape');
+  await expect(tape).toBeVisible();
+  await expect(tape).toContainText('18-4');
+  await expect(tape).toContainText('W W');
+
+  await page.getByRole('button', { name: 'Replay Week 2' }).click();
+  await expect(list).toHaveAttribute('aria-busy', 'true');
+  await expect(rows.first()).toContainText('Manager 4');
+  await expect(list).not.toHaveAttribute('aria-busy', /.*/, {
+    timeout: 8000,
+  });
+  await expect(rows.first()).toContainText('Manager 7');
+  await expect(
+    page.getByRole('region', { name: 'Superlatives' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('region', { name: 'The points race' }),
+  ).toBeVisible();
+
+  for (const width of [320, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+      `/standings should fit ${width}px`,
+    ).toBe(true);
+  }
+  await expect(page.locator('body')).not.toContainText('NaN');
+});
+
+test('standings under reduced motion render the final table without replay', async ({
+  page,
+  request,
+}) => {
+  await request.post(`${fixture}/__fixture`, { data: { standings: 'played' } });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/standings');
+  const list = page.getByRole('list', { name: 'League table' });
+  const rows = list.getByRole('listitem');
+  await list.scrollIntoViewIfNeeded();
+  await expect(
+    page.getByRole('button', { name: 'Replay Week 2' }),
+  ).toBeHidden();
+  await expect(rows.first()).toContainText('Manager 7');
+  await expect(list).not.toHaveAttribute('aria-busy', /.*/);
+  await page.getByRole('button', { name: 'Points', exact: true }).click();
+  await expect(rows.nth(6)).toContainText('Manager 11');
+  await expect(list).not.toHaveAttribute('aria-busy', /.*/);
+});
+
 async function pickAndConfirm(page: Page, team: string) {
   await page.getByRole('button', { name: `Pick ${team}`, exact: true }).click();
   await expect(

@@ -120,6 +120,18 @@ money; the betting look is styling only.
   the saved row (gold for a Banker). The prediction tables are a podium plus
   compact rows, with equal points sharing a rank.
 
+## Standings behaviour
+
+`/standings` is a phone-first league table, built from `lib/data/standings.ts`:
+
+- **The cut line.** A stadium board shows the last playoff seed against the first team out, with the gap in wins, or in points when level. It hides until games are played. The playoff places come from Sleeper's `playoff_teams` setting, falling back to the league's six-team bracket.
+- **The table.** Compact rows show seed, movement, owner, team, record and one stat that follows the sort chip (Table, Points, All-play, Median). A dashed Bye line sits after seed 2 in a six-team bracket, and the Playoff line after the last seed. Both show only in table order.
+- **Tale of the tape.** Tapping a row, or pressing Enter on it, discloses PA, median record, all-play record, streak, plain-letter form and the manager link. One row is open at a time.
+- **Movement and replay.** Movement is recalculated from the weekly matchups. It shows only when replaying every week reproduces Sleeper's current order and records exactly, and it's hidden before two completed weeks. The first time the table scrolls into view, the rows jump to last week's order and glide to this week's order (a FLIP reorder in `components/effects/reorder-list.tsx`). "Replay Week N" repeats it. Reduced motion skips the replay, and sort changes reorder instantly.
+- **Below the table.** A superlatives rail (top scorer, toughest schedule, luckiest against all-play) and a points race whose bars grow once into view. A missing score is shown as "—", never zero, and each card hides without its inputs.
+
+The e2e fixture's opt-in `standings: 'played'` flag serves two completed weeks with matching roster records.
+
 ## Week 3 edition
 
 Published 24 September using fresh lineups, both completed results and current

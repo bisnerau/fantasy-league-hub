@@ -27,7 +27,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 
 - `/` — phone-first matchday clubhouse laid out as a football field: picks countdown hero, league wire, Match of the Week ticket, results scoreboard, stories, rankings deck, champion card and shame sticker, member-only prediction race
 - `/power-rankings` — archived weekly editorial rankings for all twelve managers
-- `/standings` — live standings table with median record
+- `/standings` — the playoff race: cut-line stadium board, compact league table with sort chips, bye/playoff lines, tap-to-open tale of the tape, verified rank movement with a weekly replay, superlatives rail and points race (see "Standings behaviour" in `docs/weekly-clubhouse.md`)
 - `/matchups` — Weekly Picks as a bet slip: stadium-board hero, season timeline, tug-of-war matchup cards with the line and result stamps, hold-to-bank Banker, match programme sheet, rapid-fire deck, bet slip tray and bookie docket, authenticated voting, and podium prediction tables
 - `/records` — historical record book (2020–present), franchise all-time records
 - `/managers` — manager profiles and history
@@ -43,6 +43,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 - `lib/sleeper/history.ts` — `crawlLeagueHistory()` walks `previous_league_id` chain to archive full seasons
 - `lib/sleeper/projections.ts` — unofficial Sleeper projections/stats feed
 - `lib/data/dashboard.ts` — assembles standings, draft status and reigning champion; optional feed failures do not discard available standings
+- `lib/data/standings.ts` — pure standings maths: median, all-play, form, verified previous rank, sort chips, cut line and superlatives
 - `lib/data/historical.ts` — hardcoded 2020–2024 season results with franchise color mapping
 - `lib/data/verified-history.ts` — merges hardcoded history with Sleeper-verified seasons by walking the league chain
 - `lib/data/predictions.ts` — separate read-only weekly picks and cron-only metadata/result synchronization paths
@@ -55,7 +56,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 
 **UI**: shadcn/ui (Base UI + Tailwind CSS 4), with Recharts where needed. `components/ui/` is generated and excluded from oxlint. Charcoal/chalk/crest-green theme, gold for achievements, restrained motion, and global reduced-motion support. Standard anchors are intentional: production QA found the current vinext `next/link` dynamic navigation import throws at runtime. Do not restore that shim without testing the built app's navigation.
 
-**Client components**: Interactive navigation/theme, draft countdown, standings sorting, manager accordions, the prediction centre, and the homepage's member provider (`ClubhouseMemberProvider`, shared by the picks hero and prediction race) plus its small effect islands (flip cards, tear reveals, rankings deck, league wire), and the Weekly Picks pieces (`matchup-card`, `matchup-programme`, `bet-slip`, `quick-pick`, `season-timeline`, `prediction-podium`). `use-prediction-member.ts` shares authenticated reads and guards against stale responses. Page shells and public data remain server-rendered.
+**Client components**: Interactive navigation/theme, draft countdown, the standings table (`league-table`, sort chips and replay) and points race, manager accordions, the prediction centre, and the homepage's member provider (`ClubhouseMemberProvider`, shared by the picks hero and prediction race) plus its small effect islands (flip cards, tear reveals, rankings deck, league wire), and the Weekly Picks pieces (`matchup-card`, `matchup-programme`, `bet-slip`, `quick-pick`, `season-timeline`, `prediction-podium`). `use-prediction-member.ts` shares authenticated reads and guards against stale responses. Page shells and public data remain server-rendered.
 
 ## Path aliases
 

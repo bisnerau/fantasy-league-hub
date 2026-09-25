@@ -8,31 +8,19 @@ import {
   getMatchups,
   getNFLState,
 } from '@/lib/sleeper/client';
-import { matchupScore, rosterScore } from '@/lib/sleeper/scores';
+import {
+  compareStandings,
+  getWeeklyPerformance,
+  type TeamStanding,
+} from '@/lib/data/standings';
+import { rosterScore } from '@/lib/sleeper/scores';
 import type {
   SleeperLeague,
-  SleeperMatchup,
   SleeperRoster,
   SleeperUser,
 } from '@/lib/sleeper/types';
 
-export type TeamStanding = {
-  rosterId: number;
-  ownerId: string;
-  franchiseId: string | null;
-  teamName: string;
-  ownerName: string;
-  avatar: string | null;
-  wins: number;
-  losses: number;
-  ties: number;
-  pointsFor: number | null;
-  pointsAgainst: number | null;
-  medianWins: number;
-  medianLosses: number;
-  streak: string;
-  rank: number;
-};
+export type { TeamStanding } from '@/lib/data/standings';
 
 export type MatchupCard = {
   matchupId: number;
@@ -51,6 +39,8 @@ export type DashboardData = {
   leagueStatus: SleeperLeague['status'] | null;
   standings: TeamStanding[];
   weeklyHistoryAvailable: boolean;
+  /** Playoff places; Sleeper's setting, else the league's six-team bracket. */
+  playoffTeams: number;
   draft: {
     id: string;
     startTime: number;
@@ -114,73 +104,14 @@ function createStandings(
         medianWins: 0,
         medianLosses: 0,
         streak: '—',
+        form: [],
+        allPlay: null,
+        previousRank: null,
         rank: 0,
       };
     })
-    .sort(
-      (a, b) =>
-        b.wins - a.wins ||
-        b.ties - a.ties ||
-        (b.pointsFor ?? -Infinity) - (a.pointsFor ?? -Infinity) ||
-        a.rosterId - b.rosterId,
-    )
+    .sort(compareStandings)
     .map((team, index) => ({ ...team, rank: index + 1 }));
-}
-
-function addWeeklyPerformance(
-  standings: TeamStanding[],
-  weeks: SleeperMatchup[][],
-) {
-  return standings.map((team) => {
-    let medianWins = 0;
-    let medianLosses = 0;
-    const results: string[] = [];
-    for (const week of weeks) {
-      const valid = week.filter(
-        (entry) => entry.matchup_id != null && matchupScore(entry) != null,
-      );
-      const own = valid.find((entry) => entry.roster_id === team.rosterId);
-      if (!own) continue;
-      const points = matchupScore(own)!;
-      const scores = valid
-        .map((entry) => matchupScore(entry)!)
-        .sort((a, b) => a - b);
-      const middle = Math.floor(scores.length / 2);
-      const median =
-        scores.length % 2
-          ? scores[middle]
-          : (scores[middle - 1] + scores[middle]) / 2;
-      if (points >= median) medianWins += 1;
-      else medianLosses += 1;
-      const opponent = valid.find(
-        (entry) =>
-          entry.matchup_id === own.matchup_id &&
-          entry.roster_id !== own.roster_id,
-      );
-      if (opponent)
-        results.push(
-          points === matchupScore(opponent)
-            ? 'T'
-            : points > matchupScore(opponent)!
-              ? 'W'
-              : 'L',
-        );
-    }
-    const last = results.at(-1);
-    let streak = 0;
-    for (
-      let index = results.length - 1;
-      index >= 0 && results[index] === last;
-      index -= 1
-    )
-      streak += 1;
-    return {
-      ...team,
-      medianWins,
-      medianLosses,
-      streak: last ? `${last}${streak}` : '—',
-    };
-  });
 }
 
 async function getReigningChampion(
@@ -226,6 +157,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     leagueStatus: null,
     standings: [],
     weeklyHistoryAvailable: false,
+    playoffTeams: 6,
     draft: null,
     reigningChampion: null,
   };
@@ -271,11 +203,15 @@ export async function getDashboardData(): Promise<DashboardData> {
       season: league.season,
       week,
       leagueStatus: league.status,
-      standings: addWeeklyPerformance(
+      standings: getWeeklyPerformance(
         createStandings(rosters, users),
         completedWeeks ?? [],
       ),
       weeklyHistoryAvailable: completedWeeks != null,
+      playoffTeams:
+        Number(league.settings.playoff_teams) > 0
+          ? Number(league.settings.playoff_teams)
+          : 6,
       draft: draft
         ? {
             id: draft.draft_id,
