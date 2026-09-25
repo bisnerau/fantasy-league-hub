@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { ChampionCard } from '@/components/clubhouse/champion-card';
-import { ExploreStrip } from '@/components/clubhouse/explore-strip';
 import { EndZone, Field } from '@/components/clubhouse/field';
 import { FlagOnThePlayCard } from '@/components/clubhouse/flag-on-the-play';
 import { LeadStory, TalkingPoints } from '@/components/clubhouse/lead-story';
@@ -11,12 +10,16 @@ import { RankingsDeck } from '@/components/clubhouse/rankings-deck';
 import { Scoreboard } from '@/components/clubhouse/scoreboard';
 import { ShameSticker } from '@/components/clubhouse/shame-sticker';
 import { DraftCountdown } from '@/components/draft/draft-countdown';
+import { CutLineHero } from '@/components/standings/cut-line-hero';
 import {
   ClubhouseMemberProvider,
   PicksHero,
   PredictionRace,
 } from '@/components/predictions/clubhouse-picks';
-import { getClubhouseEditorial } from '@/lib/data/clubhouse-editorial';
+import {
+  getClubhouseEditorial,
+  getLeadBesideTicket,
+} from '@/lib/data/clubhouse-editorial';
 import { getDashboardData } from '@/lib/data/dashboard';
 import { draftRecapContent } from '@/lib/data/draft-recap-content';
 import { getFlagOnThePlay } from '@/lib/data/flags-on-the-play';
@@ -28,15 +31,16 @@ import {
   type PredictionTeam,
   type PredictionWeekData,
 } from '@/lib/data/predictions';
+import { gamesPlayed, getCutLine } from '@/lib/data/standings';
 
 export const dynamic = 'force-dynamic';
 
 type Section = { key: string; node: ReactNode };
 
 // Only what the lock reveal needs crosses to the client, not whole rosters.
-const pickTeam = ({ rosterId, ownerName }: PredictionTeam) => ({
+const pickTeam = ({ rosterId, teamName }: PredictionTeam) => ({
   rosterId,
-  ownerName,
+  teamName,
 });
 
 /** The most recent settled week in this league season, if there is one. */
@@ -96,12 +100,26 @@ export default async function DashboardPage() {
       )
     : undefined;
   const flag = settled ? getFlagOnThePlay(settled) : null;
-  const avatars = new Map(
-    predictions.matchups.flatMap((m) => [
-      [m.home.rosterId, m.home.avatar] as const,
-      [m.away.rosterId, m.away.avatar] as const,
-    ]),
+  const teams = new Map(
+    predictions.matchups.flatMap((m) =>
+      [m.home, m.away].map(
+        ({ rosterId, teamName, avatar }) =>
+          [rosterId, { teamName, avatar }] as const,
+      ),
+    ),
   );
+  const showTicket = Boolean(
+    currentFeature && featuredMatchup && !predictions.finalized,
+  );
+  // The ticket opens onto the featured preview, so it is not told twice.
+  const lead =
+    editorial && showTicket ? getLeadBesideTicket(editorial) : editorial?.lead;
+  const leadOnTicket = Boolean(editorial?.lead) && !lead;
+  const cut =
+    inSeason && data.mode !== 'unavailable'
+      ? getCutLine(data.standings, data.playoffTeams)
+      : null;
+  const played = Math.max(0, ...data.standings.map(gamesPlayed));
 
   const candidates: (Section | false | null | undefined)[] = [
     beforeDraft && {
@@ -141,9 +159,9 @@ export default async function DashboardPage() {
       key: 'wire',
       node: <LeagueWire week={settled.week} items={getLeagueWire(settled)} />,
     },
-    currentFeature &&
-      featuredMatchup &&
-      !predictions.finalized && {
+    showTicket &&
+      currentFeature &&
+      featuredMatchup && {
         key: 'ticket',
         node: (
           <MatchTicket
@@ -163,19 +181,33 @@ export default async function DashboardPage() {
         />
       ),
     },
-    flag && { key: 'flag', node: <FlagOnThePlayCard flag={flag} /> },
-    editorial && {
-      key: 'story',
+    cut && {
+      key: 'cut',
       node: (
-        <div className="space-y-5">
-          <LeadStory lead={editorial.lead} week={predictions.week} />
-          <TalkingPoints points={editorial.talkingPoints} />
+        <div>
+          <CutLineHero cut={cut} week={played} />
+          <a href="/standings" className="clubhouse-text-link mt-1 min-h-11">
+            Full table <ArrowRight className="size-4" />
+          </a>
         </div>
       ),
     },
+    flag && { key: 'flag', node: <FlagOnThePlayCard flag={flag} /> },
+    editorial &&
+      (!leadOnTicket || editorial.talkingPoints.length > 0) && {
+        key: 'story',
+        node: (
+          <div className="space-y-5">
+            {!leadOnTicket && (
+              <LeadStory lead={lead ?? null} week={predictions.week} />
+            )}
+            <TalkingPoints points={editorial.talkingPoints} />
+          </div>
+        ),
+      },
     editorial?.ranking && {
       key: 'rankings',
-      node: <RankingsDeck ranking={editorial.ranking} avatars={avatars} />,
+      node: <RankingsDeck ranking={editorial.ranking} teams={teams} />,
     },
     {
       key: 'bragging',
@@ -192,7 +224,6 @@ export default async function DashboardPage() {
       ),
     },
     { key: 'race', node: <PredictionRace /> },
-    { key: 'explore', node: <ExploreStrip beforeDraft={beforeDraft} /> },
   ];
   const sections = candidates.filter((section): section is Section =>
     Boolean(section),

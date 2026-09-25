@@ -25,7 +25,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 
 **Routing**: File-based App Router convention under `app/`:
 
-- `/` — phone-first matchday clubhouse laid out as a football field: picks countdown hero, league wire, Match of the Week ticket, results scoreboard, stories, rankings deck, champion card and shame sticker, member-only prediction race
+- `/` — phone-first matchday clubhouse laid out as a football field: picks countdown hero (with the signed-in member's own matchup), league wire, Match of the Week ticket, results scoreboard, the standings cut line, stories, rankings deck, champion card and shame sticker, member-only prediction race; team names lead throughout (see "Homepage behaviour" in `docs/weekly-clubhouse.md`)
 - `/power-rankings` — archived weekly editorial rankings as market movers: exchange board (No.1, stock up/down), split-flap rank roll, tap-to-open verdicts, member "your team" chip, market report rail, rank history bump chart and talking points (see "Power rankings behaviour" in `docs/weekly-clubhouse.md`)
 - `/standings` — the playoff race: cut-line stadium board, compact league table with sort chips, bye/playoff lines, tap-to-open tale of the tape, verified rank movement with a weekly replay, superlatives rail and points race (see "Standings behaviour" in `docs/weekly-clubhouse.md`)
 - `/matchups` — Weekly Picks as a bet slip: stadium-board hero, season timeline, tug-of-war matchup cards with the line and result stamps, hold-to-bank Banker, match programme sheet, rapid-fire deck, bet slip tray and bookie docket, authenticated voting, and podium prediction tables
@@ -99,10 +99,12 @@ existing card without changing fixture IDs, voting or the archived selection.
 See `docs/matchup-stories.md` for the agreed criteria.
 
 The in-season homepage leads with the picks hero (stadium-board countdown,
-drive tracker, two-minute warning, Sunday lock reveal), then the league wire and
-scoreboard from the latest settled week, this week's Match of the Week ticket,
-an optional authored Flag on the play, the lead report, talking points and a
-swipeable rankings deck. Effects are CSS-first React Bits adaptations in
+drive tracker, two-minute warning, Sunday lock reveal, your matchup), then the
+league wire, this week's Match of the Week ticket, the scoreboard from the
+latest settled week, the standings cut line, an optional authored Flag on the
+play, the lead report, talking points and a swipeable rankings deck. While the
+ticket is showing, the lead report is a different preview so Match of the Week
+is told once. Effects are CSS-first React Bits adaptations in
 `components/effects/`; each has a tap/keyboard path and honours reduced motion.
 Sections hide themselves rather than show invented data. Flags on the play are
 authored with Tuesday reviews in `lib/data/flags-on-the-play.ts`, never

@@ -40,16 +40,16 @@ export function getLeagueWire(data: PredictionWeekData): WireItem[] {
   const unbeaten = teams.filter((t) => t.wins > 0 && !t.losses && !t.ties);
   const winless = teams.filter((t) => t.losses > 0 && !t.wins && !t.ties);
   const names = (list: PredictionTeam[]) =>
-    list.map((team) => team.ownerName).join(', ');
+    list.map((team) => team.teamName).join(', ');
 
   const items: WireItem[] = [
     {
       label: `Week ${data.week} high`,
-      text: `${byScore[0].ownerName} ${score(byScore[0])}`,
+      text: `${byScore[0].teamName} ${score(byScore[0])}`,
     },
     {
       label: `Week ${data.week} low`,
-      text: `${byScore.at(-1)!.ownerName} ${score(byScore.at(-1)!)}`,
+      text: `${byScore.at(-1)!.teamName} ${score(byScore.at(-1)!)}`,
     },
   ];
   if (results.length) {
@@ -57,19 +57,19 @@ export function getLeagueWire(data: PredictionWeekData): WireItem[] {
     const biggest = results.at(-1)!;
     items.push({
       label: 'Closest call',
-      text: `${closest.winner.ownerName} by ${formatScore(closest.margin, 2)} over ${closest.loser.ownerName}`,
+      text: `${closest.winner.teamName} by ${formatScore(closest.margin, 2)} over ${closest.loser.teamName}`,
     });
     if (biggest !== closest)
       items.push({
         label: 'Biggest win',
-        text: `${biggest.winner.ownerName} by ${formatScore(biggest.margin, 2)} over ${biggest.loser.ownerName}`,
+        text: `${biggest.winner.teamName} by ${formatScore(biggest.margin, 2)} over ${biggest.loser.teamName}`,
       });
   }
   if (starters.length) {
     const { player, team } = starters[0];
     items.push({
       label: 'Top starter',
-      text: `${player.name} ${formatScore(player.actualPoints, 2)} for ${team.ownerName}`,
+      text: `${player.name} ${formatScore(player.actualPoints, 2)} for ${team.teamName}`,
     });
   }
   if (unbeaten.length) items.push({ label: 'Unbeaten', text: names(unbeaten) });

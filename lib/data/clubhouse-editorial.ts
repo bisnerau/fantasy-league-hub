@@ -59,3 +59,25 @@ export function getClubhouseEditorial(
     talkingPoints: ranking?.week === data.week ? ranking.talkingPoints : [],
   };
 }
+
+/**
+ * The lead story when the Match of the Week ticket is already on the page. The
+ * ticket opens onto the featured preview, so another preview leads instead,
+ * or none if the featured one is the only preview published.
+ */
+export function getLeadBesideTicket(
+  editorial: ReturnType<typeof getClubhouseEditorial>,
+) {
+  const { lead, previews } = editorial;
+  if (!lead?.featured || lead.kind !== 'preview') return lead;
+  const next = previews.find((matchup) => matchup !== lead.matchup);
+  return next?.preview
+    ? {
+        story: next.preview,
+        matchup: next,
+        week: lead.week,
+        kind: 'preview' as const,
+        featured: false,
+      }
+    : null;
+}

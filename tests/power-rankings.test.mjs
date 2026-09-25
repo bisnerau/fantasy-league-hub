@@ -13,7 +13,10 @@ import {
   parseRecord,
 } from '../lib/data/power-rankings.ts';
 import { draftRecapContent } from '../lib/data/draft-recap-content.ts';
-import { getClubhouseEditorial } from '../lib/data/clubhouse-editorial.ts';
+import {
+  getClubhouseEditorial,
+  getLeadBesideTicket,
+} from '../lib/data/clubhouse-editorial.ts';
 import { getLatestAuthoredReviewWeek } from '../lib/data/matchup-newsletters.ts';
 import { weekTwoReports } from '../lib/data/newsletters/2026-week-2.ts';
 
@@ -162,6 +165,44 @@ void test('a later week uses the actual archived report week and does not recycl
   assert.equal(final.lead.week, 2);
   assert.equal(final.lead.kind, 'review');
   assert.equal(final.lead.featured, true);
+});
+
+void test('beside the Match of the Week ticket, another preview leads', () => {
+  const home = getClubhouseEditorial(data, reviewData, now);
+  const lead = getLeadBesideTicket(home);
+  assert.notEqual(lead.matchup.sleeperMatchupId, 4);
+  assert.equal(
+    lead.matchup.sleeperMatchupId,
+    home.previews[0].sleeperMatchupId,
+  );
+  assert.equal(lead.featured, false);
+  assert.equal(lead.kind, 'preview');
+  assert.equal(lead.week, 2);
+  assert.equal(lead.story, lead.matchup.preview);
+  // With only the featured preview published, no second lead is invented.
+  const alone = getClubhouseEditorial(
+    {
+      ...data,
+      matchups: data.matchups.map((m) =>
+        m.sleeperMatchupId === 4 ? m : { ...m, preview: undefined },
+      ),
+    },
+    reviewData,
+    now,
+  );
+  assert.equal(alone.lead.featured, true);
+  assert.equal(getLeadBesideTicket(alone), null);
+  // Reviews and archived leads are never swapped.
+  const final = getClubhouseEditorial(
+    {
+      ...data,
+      finalized: true,
+      matchups: data.matchups.map((m) => ({ ...m, review })),
+    },
+    reviewData,
+    now,
+  );
+  assert.equal(getLeadBesideTicket(final), final.lead);
 });
 
 const weekThree = powerRankingEditions.find((e) => e.week === 3);

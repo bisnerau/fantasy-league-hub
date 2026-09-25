@@ -68,8 +68,8 @@ export function ClubhouseMemberProvider({
 
 export type HeroFeature = {
   databaseId: number | null;
-  home: { rosterId: number; ownerName: string };
-  away: { rosterId: number; ownerName: string };
+  home: { rosterId: number; teamName: string };
+  away: { rosterId: number; teamName: string };
 };
 
 export function leagueSplit(
@@ -85,7 +85,7 @@ export function leagueSplit(
   if (home === away)
     return `Match of the Week: the league is split ${home}–${away}.`;
   const leader = home > away ? feature.home : feature.away;
-  return `Match of the Week: the league backs ${leader.ownerName} ${Math.max(home, away)}–${Math.min(home, away)}.`;
+  return `Match of the Week: the league backs ${leader.teamName} ${Math.max(home, away)}–${Math.min(home, away)}.`;
 }
 
 export function PicksHero({ feature }: { feature: HeroFeature | null }) {
@@ -98,6 +98,18 @@ export function PicksHero({ feature }: { feature: HeroFeature | null }) {
   const complete = available && picksMade === data.matchups.length;
   const hasBanker = member.bankers.some((b) => b.voter_id === member.user?.id);
   const memberReady = Boolean(member.user) && !member.loading && !member.error;
+  const rosterId = memberReady ? member.profile?.roster_id : null;
+  const mine =
+    rosterId == null
+      ? undefined
+      : data.matchups.find(
+          (m) => m.home.rosterId === rosterId || m.away.rosterId === rosterId,
+        );
+  const [you, opponent] = !mine
+    ? []
+    : mine.home.rosterId === rosterId
+      ? [mine.home, mine.away]
+      : [mine.away, mine.home];
   const warning =
     available &&
     !locked &&
@@ -194,6 +206,15 @@ export function PicksHero({ feature }: { feature: HeroFeature | null }) {
           banker={memberReady && hasBanker}
         />
       )}
+      {you && opponent && (
+        <p className="mt-3 truncate text-sm text-muted-foreground">
+          <span className="ui-kicker mr-1.5 text-primary">Your matchup</span>
+          <span className="font-semibold text-foreground">
+            {you.teamName}
+          </span>{' '}
+          v {opponent.teamName}
+        </p>
+      )}
       <div className="mt-5 flex flex-wrap items-center gap-3 sm:gap-4">
         <a
           href="/matchups"
@@ -243,6 +264,25 @@ export function PredictionRace() {
   const hasResults = member.seasonLeaderboard.some(
     (row) => row.completed_picks > 0,
   );
+  if (!member.loading && !member.user)
+    return (
+      <section
+        className="prediction-race"
+        aria-labelledby="prediction-race-title"
+      >
+        <p className="ui-kicker">The other title</p>
+        <h2
+          id="prediction-race-title"
+          className="mt-1 text-xl font-bold tracking-tight"
+        >
+          Who calls it best?
+        </h2>
+        <p className="mt-2 flex gap-2 text-sm leading-6 text-muted-foreground">
+          <LockKeyhole className="mt-1 size-4 shrink-0" aria-hidden="true" />
+          For league members. Sign in through Weekly picks to see the table.
+        </p>
+      </section>
+    );
   return (
     <section
       className="prediction-race"
@@ -268,13 +308,6 @@ export function PredictionRace() {
             <div className="skeleton-shimmer h-5 w-4/5" />
             <div className="skeleton-shimmer h-5 w-3/5" />
             <div className="skeleton-shimmer h-5 w-4/5" />
-          </div>
-        ) : !member.user ? (
-          <div className="flex gap-3 text-sm leading-6 text-muted-foreground">
-            <LockKeyhole className="mt-1 size-4 shrink-0" />
-            <p>
-              For league members. Sign in through Weekly picks to see the table.
-            </p>
           </div>
         ) : member.error ? (
           <div>

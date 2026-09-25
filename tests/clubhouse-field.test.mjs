@@ -70,13 +70,13 @@ const week = (overrides = {}) => ({
 void test('the league wire reports only settled facts and skips missing scores', () => {
   const items = getLeagueWire(week());
   assert.deepEqual(items, [
-    { label: 'Week 2 high', text: 'Alan 128.48' },
-    { label: 'Week 2 low', text: 'Hugo 93.42' },
-    { label: 'Closest call', text: 'David by 0.30 over Emmet' },
-    { label: 'Biggest win', text: 'Alan by 35.06 over Hugo' },
-    { label: 'Top starter', text: 'Lamb 31.20 for Alan' },
-    { label: 'Unbeaten', text: 'David' },
-    { label: 'Still winless', text: 'Emmet' },
+    { label: 'Week 2 high', text: 'Alan FC 128.48' },
+    { label: 'Week 2 low', text: 'Hugo FC 93.42' },
+    { label: 'Closest call', text: 'David FC by 0.30 over Emmet FC' },
+    { label: 'Biggest win', text: 'Alan FC by 35.06 over Hugo FC' },
+    { label: 'Top starter', text: 'Lamb 31.20 for Alan FC' },
+    { label: 'Unbeaten', text: 'David FC' },
+    { label: 'Still winless', text: 'Emmet FC' },
   ]);
   // Niall's 140 is excluded because his opponent has no score.
   assert.ok(!items.some((item) => item.text.includes('Niall')));

@@ -111,6 +111,21 @@ are excluded. Old talking points disappear when the active week advances; the
 latest ranking remains linked under its actual edition week until a new one is
 written. The homepage never invents a fresh edition during a publishing gap.
 
+While this week's Match of the Week ticket is on the page (before settlement),
+the ticket opens onto the featured preview, so the lead report is the first
+other published preview instead (`getLeadBesideTicket`). If the featured
+preview is the only one, no lead is shown and the talking points stand alone;
+the "previews still to come" line appears only when nothing is published.
+
+Team names lead on the ticket, scoreboard, league wire, rankings deck and lock
+reveal, with the manager underneath, as on Standings and Power Rankings. The
+standings cut line (`CutLineHero`, from the standings already loaded for the
+page) follows the scoreboard once results are recorded, with a link to the
+full table. Signed-in members see their own fixture under the drive tracker,
+from the member profile's roster and this week's matchups; it hides while
+loading, on errors or without a roster. Signed out, the prediction race is a
+single lock line. The League menu covers the other destinations.
+
 Tests cover source records, the real preseason baseline, future/foreign editions,
 subsequent weekly movement, report settlement and correct archived-week links.
 

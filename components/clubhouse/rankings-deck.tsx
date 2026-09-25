@@ -10,10 +10,10 @@ import {
 /** All twelve managers as a swipeable deck, labelled with the real edition. */
 export function RankingsDeck({
   ranking,
-  avatars,
+  teams,
 }: {
   ranking: PowerRankingEdition;
-  avatars: Map<number, string | null>;
+  teams: Map<number, { teamName: string; avatar: string | null }>;
 }) {
   const comparison = getPowerRankingComparison(ranking);
   return (
@@ -27,41 +27,46 @@ export function RankingsDeck({
             {ranking.headline}
           </h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            Movement {comparison.label}
+            Movement {comparison.label} · Points from Week {ranking.throughWeek}
           </p>
         </div>
       </div>
       <CardDeck
         label={`Week ${ranking.week} power rankings`}
-        items={ranking.entries.map((entry, index) => ({
-          key: String(entry.rosterId),
-          content: (
-            <div className="flex h-full flex-col">
-              <div className="flex items-center gap-3">
-                <span className="deck-rank">{index + 1}</span>
-                <TeamAvatar
-                  avatar={avatars.get(entry.rosterId) ?? null}
-                  name={entry.manager}
-                  className="size-11"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-bold">{entry.manager}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {entry.record} · {entry.recentPoints} pts in Week{' '}
-                    {ranking.throughWeek}
-                  </p>
+        items={ranking.entries.map((entry, index) => {
+          const team = teams.get(entry.rosterId);
+          return {
+            key: String(entry.rosterId),
+            content: (
+              <div className="flex h-full flex-col">
+                <div className="flex items-center gap-3">
+                  <span className="deck-rank">{index + 1}</span>
+                  <TeamAvatar
+                    avatar={team?.avatar ?? null}
+                    name={team?.teamName ?? entry.manager}
+                    className="size-11"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-bold">
+                      {team?.teamName ?? entry.manager}
+                    </p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {team && `${entry.manager} · `}
+                      {entry.record} · {entry.recentPoints} pts
+                    </p>
+                  </div>
+                  <RankMovement
+                    rank={index + 1}
+                    previousRank={comparison.ranks.get(entry.rosterId)}
+                  />
                 </div>
-                <RankMovement
-                  rank={index + 1}
-                  previousRank={comparison.ranks.get(entry.rosterId)}
-                />
+                <p className="mt-3 line-clamp-4 text-sm leading-6 text-muted-foreground">
+                  {entry.verdict}
+                </p>
               </div>
-              <p className="mt-3 line-clamp-4 text-sm leading-6 text-muted-foreground">
-                {entry.verdict}
-              </p>
-            </div>
-          ),
-        }))}
+            ),
+          };
+        })}
       />
       <a
         href={`/power-rankings?season=${ranking.season}&week=${ranking.week}`}

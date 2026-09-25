@@ -41,8 +41,13 @@ function TeamRow({
         name={team.teamName}
         className="size-8"
       />
-      <span className="min-w-0 flex-1 truncate text-sm font-semibold">
-        {team.ownerName}
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-sm font-semibold">
+          {team.teamName}
+        </span>
+        <span className="block truncate text-[11px] text-muted-foreground">
+          {team.ownerName}
+        </span>
       </span>
       <span
         className={cn(
@@ -116,7 +121,7 @@ export function Scoreboard({
         {matchups.map((matchup) => {
           const featured =
             feature?.sleeperMatchupId === matchup.sleeperMatchupId;
-          const title = `${matchup.home.ownerName} v ${matchup.away.ownerName}`;
+          const title = `${matchup.home.teamName} v ${matchup.away.teamName}`;
           if (!settled)
             return (
               <li key={matchup.sleeperMatchupId}>
@@ -186,11 +191,11 @@ export function Scoreboard({
                     </p>
                     <p className="mt-2 line-clamp-3 pr-8 text-base font-bold leading-snug tracking-tight">
                       {matchup.review?.headline ??
-                        (winner ? `${winner.ownerName} takes it.` : title)}
+                        (winner ? `${winner.teamName} take it.` : title)}
                     </p>
                     {winner && margin != null && (
                       <p className="mt-1 text-xs text-muted-foreground">
-                        {winner.ownerName} by {formatScore(margin, 2)}
+                        {winner.teamName} by {formatScore(margin, 2)}
                       </p>
                     )}
                     <a

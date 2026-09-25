@@ -128,6 +128,10 @@ test('picks save, change, survive reload, and update the clubhouse count', async
       exact: true,
     }),
   ).toBeVisible();
+  // The member's own fixture, team names first.
+  await expect(page.locator('.pick-spotlight')).toContainText(
+    'Your matchupBurns XI v Prime Time',
+  );
 });
 
 test('failed and offline changes preserve the last confirmed pick', async ({
@@ -450,11 +454,33 @@ test('the phone homepage leads with the countdown and drive, hiding feeds withou
   ).toBeVisible();
   await expect(page.locator('.scoreboard-rail > li')).toHaveCount(6);
   await expect(page.locator('.flip-card')).toHaveCount(0);
+  // Team names lead the scoreboard, managers sit underneath.
+  await expect(page.locator('.scoreboard-rail > li').first()).toContainText(
+    'Burns XIEmmet Burns',
+  );
+  // No results yet, so no cut line and no member-only information.
+  await expect(page.locator('.cut-board')).toHaveCount(0);
+  await expect(page.getByText('Your matchup')).toHaveCount(0);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+});
+
+test('the homepage shows the cut line once results are recorded', async ({
+  page,
+  request,
+}) => {
+  await request.post(`${fixture}/__fixture`, { data: { standings: 'played' } });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const board = page.getByRole('region', { name: /^The cut line/ });
+  await expect(board).toContainText('Level on wins · 2.7 PF apart');
+  await expect(page.getByRole('link', { name: 'Full table' })).toHaveAttribute(
+    'href',
+    '/standings',
+  );
 });
 
 test('the two-minute warning appears in the final two hours before lock', async ({

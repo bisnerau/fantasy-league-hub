@@ -41,7 +41,7 @@ export function MatchTicket({
   return (
     <section aria-labelledby="ticket-title">
       <h2 id="ticket-title" className="sr-only">
-        Match of the Week: {matchup.home.ownerName} v {matchup.away.ownerName}
+        Match of the Week: {matchup.home.teamName} v {matchup.away.teamName}
       </h2>
       <TearReveal
         variant="ticket"
@@ -53,9 +53,12 @@ export function MatchTicket({
                 Week
               </span>
               <span className="ticket-teams">
-                {matchup.home.ownerName}
+                {matchup.home.teamName}
                 <span className="ticket-versus">v</span>
-                {matchup.away.ownerName}
+                {matchup.away.teamName}
+              </span>
+              <span className="truncate text-xs font-medium text-muted-foreground">
+                {matchup.home.ownerName} v {matchup.away.ownerName}
               </span>
               <span className="text-[11px] text-muted-foreground">
                 {Number.isFinite(lock)
