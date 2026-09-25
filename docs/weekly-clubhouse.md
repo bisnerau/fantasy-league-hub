@@ -46,6 +46,36 @@ ranking. Later editions compare against the preceding published weekly edition
 in the same league and season. With no comparison, display “New”. Arrows have
 text alternatives and do not depend solely on colour.
 
+## Power rankings behaviour
+
+`/power-rankings` is a phone-first exchange board ("market movers"). One
+signature effect: each rank split-flaps from its previous edition's place to
+this one the first time its row scrolls into view. The server renders the real
+rank, so no-JS, reduced motion, new entries and unchanged places stay still.
+
+1. **Header**: the edition headline, introduction and publication time.
+2. **Market board**: No.1, then Stock up (biggest riser) and Stock down
+   (heaviest faller) against the edition's comparison. Ties go to the better
+   current rank; a line hides when nobody moved that way.
+3. **Edition chips**: the archive, unchanged in behaviour.
+4. **Pecking order**: Sleeper team name leads, the edition's frozen manager name
+   underneath (the frozen name also stands in when Sleeper is unavailable).
+   The verdict teases in one line; tap anywhere on the row or press Enter to
+   open it. Signed-in members get a read-only "Your team" chip that jumps to
+   and highlights their row.
+5. **Market report**: Biggest riser, Heaviest faller, "Unbeaten, unconvinced"
+   (lowest-ranked unbeaten, only when a team with a loss ranks above it) and
+   "Winless, respected" (highest-ranked winless, only when a team with a win
+   ranks below it). Derived from the edition alone; cards hide when untrue.
+6. **Rank history**: a bump chart from the preseason forecast (when the first
+   edition used it) through every published edition. One team in primary, the
+   rest grey; buttons pick the team. Unpublished weeks between editions show as
+   labelled gaps. A screen-reader table carries the same data.
+7. **Talking points**, then the method and sources in a disclosure.
+
+Browser fixtures use another league, so they cover the honest waiting states;
+the populated page is checked read-only against the real league.
+
 ## Week 2 evidence
 
 The compact `docs/research/2026-week-2-power-rankings.json` records the fresh

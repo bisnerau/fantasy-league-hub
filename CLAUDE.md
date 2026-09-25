@@ -26,7 +26,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 **Routing**: File-based App Router convention under `app/`:
 
 - `/` — phone-first matchday clubhouse laid out as a football field: picks countdown hero, league wire, Match of the Week ticket, results scoreboard, stories, rankings deck, champion card and shame sticker, member-only prediction race
-- `/power-rankings` — archived weekly editorial rankings for all twelve managers
+- `/power-rankings` — archived weekly editorial rankings as market movers: exchange board (No.1, stock up/down), split-flap rank roll, tap-to-open verdicts, member "your team" chip, market report rail, rank history bump chart and talking points (see "Power rankings behaviour" in `docs/weekly-clubhouse.md`)
 - `/standings` — the playoff race: cut-line stadium board, compact league table with sort chips, bye/playoff lines, tap-to-open tale of the tape, verified rank movement with a weekly replay, superlatives rail and points race (see "Standings behaviour" in `docs/weekly-clubhouse.md`)
 - `/matchups` — Weekly Picks as a bet slip: stadium-board hero, season timeline, tug-of-war matchup cards with the line and result stamps, hold-to-bank Banker, match programme sheet, rapid-fire deck, bet slip tray and bookie docket, authenticated voting, and podium prediction tables
 - `/records` — historical record book (2020–present), franchise all-time records

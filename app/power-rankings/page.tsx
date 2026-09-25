@@ -1,13 +1,26 @@
 import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
 import { leagueConfig } from '@/lib/config/league.config';
+import { TalkingPoints } from '@/components/clubhouse/lead-story';
+import { MarketBoard } from '@/components/power-rankings/market-board';
+import { MarketReport } from '@/components/power-rankings/market-report';
+import { RankHistory } from '@/components/power-rankings/rank-history';
 import {
+  RankingsList,
+  type RankingRow,
+} from '@/components/power-rankings/rankings-list';
+import { getTeamIdentities } from '@/lib/data/dashboard';
+import {
+  getMarketMovers,
+  getMarketReport,
   getPowerRankingComparison,
   getPowerRankingEditions,
+  getRankHistory,
+  getRankMoves,
+  type RankMove,
 } from '@/lib/data/power-rankings';
 import { leagueMembers } from '@/lib/data/member-directory';
 import { formatLockTime } from '@/lib/predictions/rules';
-import { RankMovement } from '@/components/power-rankings/rank-movement';
 
 export const metadata: Metadata = {
   title: 'Power Rankings',
@@ -45,20 +58,51 @@ export default async function PowerRankingsPage({
       </section>
     );
   const comparison = getPowerRankingComparison(edition);
+  const moves = getRankMoves(edition, comparison);
+  const identities = await getTeamIdentities(edition.leagueId);
+  const rows: RankingRow[] = edition.entries.map((entry, index) => {
+    const identity = identities.get(entry.rosterId);
+    const franchiseId =
+      identity?.franchiseId ??
+      leagueMembers.find((member) => member.rosterId === entry.rosterId)
+        ?.franchiseId;
+    return {
+      rosterId: entry.rosterId,
+      rank: index + 1,
+      previousRank: moves[index].previousRank,
+      teamName: identity?.teamName ?? entry.manager,
+      manager: entry.manager,
+      avatar: identity?.avatar ?? null,
+      record: entry.record,
+      points: entry.recentPoints,
+      verdict: entry.verdict,
+      href: franchiseId ? `/managers#${franchiseId}` : '/managers',
+    };
+  });
+  const row = (move?: RankMove) =>
+    move && rows.find((candidate) => candidate.rosterId === move.rosterId);
+  const { riser, faller } = getMarketMovers(moves);
+  const history = getRankHistory(edition.leagueId, edition.season);
+  const historySeries = rows.map((r) => ({
+    rosterId: r.rosterId,
+    teamName: r.teamName,
+    ranks: history.series.get(r.rosterId) ?? [],
+  }));
+  const allEditions = getPowerRankingEditions(leagueConfig.sleeperLeagueId);
+
   return (
-    <div className="space-y-6">
-      <header className="space-y-3">
+    <div className="space-y-8">
+      <header>
         <p className="ui-kicker text-primary">
-          Week {edition.week} · {edition.season} · Editorial rankings
+          Week {edition.week} · {edition.season} · Power rankings
         </p>
-        <h1 className="text-3xl font-bold tracking-[-0.04em] sm:text-4xl">
-          Power rankings
+        <h1 className="mt-2 font-heading text-3xl font-black leading-[1.05] tracking-[-0.04em] sm:text-5xl">
+          {edition.headline}
         </h1>
-        <h2 className="text-xl font-semibold">{edition.headline}</h2>
-        <p className="max-w-3xl text-base leading-7 text-muted-foreground">
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
           {edition.introduction}
         </p>
-        <p className="text-sm text-muted-foreground">
+        <p className="mt-2 text-xs text-muted-foreground">
           Published{' '}
           <time dateTime={edition.publishedAt}>
             {formatLockTime(edition.publishedAt)}
@@ -66,107 +110,95 @@ export default async function PowerRankingsPage({
           · Results through Week {edition.throughWeek}
         </p>
       </header>
-      <nav aria-label="Power ranking editions" className="flex flex-wrap gap-2">
-        {getPowerRankingEditions(leagueConfig.sleeperLeagueId).map((e) => (
+
+      <MarketBoard
+        week={edition.week}
+        label={comparison.label}
+        top={rows[0]}
+        riser={row(riser)}
+        faller={row(faller)}
+      />
+
+      <nav aria-label="Power ranking editions" className="snap-rail">
+        {allEditions.map((e) => (
           <a
             key={`${e.season}-${e.week}`}
             href={`/power-rankings?season=${e.season}&week=${e.week}`}
             aria-current={e === edition ? 'page' : undefined}
-            className={`rounded-lg border px-3 py-2 text-sm ${e === edition ? 'border-primary/30 bg-primary/10 text-primary' : 'border-border text-muted-foreground'}`}
+            className="edition-chip"
           >
             {e.season} · Week {e.week}
           </a>
         ))}
       </nav>
-      <div className="rounded-xl border border-border bg-card">
-        <div className="flex flex-wrap justify-between gap-2 border-b border-border px-4 py-3 text-sm text-muted-foreground sm:px-5">
-          <span>The pecking order · All {edition.entries.length} managers</span>
+
+      <section aria-labelledby="order-title">
+        <div className="section-heading">
+          <div>
+            <p className="ui-kicker text-primary">The pecking order</p>
+            <h2 id="order-title" className="section-title">
+              All {edition.entries.length} managers
+            </h2>
+          </div>
           {comparison.href ? (
-            <a className="underline underline-offset-4" href={comparison.href}>
+            <a className="replay-button" href={comparison.href}>
               Movement {comparison.label}
             </a>
           ) : (
-            <span>{comparison.label}</span>
+            <span className="text-xs text-muted-foreground">
+              {comparison.label}
+            </span>
           )}
         </div>
-        <ol className="divide-y divide-border">
-          {edition.entries.map((entry, index) => {
-            const manager = leagueMembers.find(
-              (member) => member.rosterId === entry.rosterId,
-            );
-            return (
-              <li
-                key={entry.rosterId}
-                data-power-roster={entry.rosterId}
-                className="grid grid-cols-[2rem_minmax(0,1fr)_2.75rem] gap-x-3 px-4 py-5 sm:grid-cols-[3rem_minmax(0,1fr)_4rem] sm:px-5"
-              >
-                <span
-                  className={`font-mono text-xl font-semibold ${index === 0 ? 'text-primary' : 'text-muted-foreground'}`}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <div className="min-w-0">
-                  <a
-                    href={`/managers#${manager?.franchiseId ?? ''}`}
-                    className="text-base font-semibold hover:text-primary sm:text-lg"
-                  >
-                    {entry.manager}
-                  </a>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {entry.record} head-to-head ·{' '}
-                    {entry.recentPoints.toFixed(2)} points in Week{' '}
-                    {edition.throughWeek}
-                  </p>
-                  <p className="mt-2 text-base leading-7">{entry.verdict}</p>
-                </div>
-                <div className="text-right">
-                  <RankMovement
-                    rank={index + 1}
-                    previousRank={comparison.ranks.get(entry.rosterId)}
-                  />
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-      <section
-        className="space-y-2 text-sm leading-6 text-muted-foreground"
-        aria-labelledby="ranking-method"
-      >
-        <h2
-          id="ranking-method"
-          className="text-base font-semibold text-foreground"
-        >
-          How we choose the order
-        </h2>
-        <p>
-          Recent scoring, results, roster strength and availability inform an
-          editorial judgment of each team’s current strength. With one completed
-          week, the first edition balances that opener against the roster rather
-          than treating every win equally. Future editions consider up to three
-          completed weeks of form.
-        </p>
-        <p>
-          The first arrows compare with the published preseason finishing
-          forecast; later arrows compare with the previous weekly edition. These
-          are separate from league standings. Each published list stays in the
-          archive.
-        </p>
-        <div className="flex flex-wrap gap-x-4 gap-y-2">
-          {edition.sources.map((source) => (
-            <a
-              key={source.url}
-              href={source.url}
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4"
-            >
-              {source.label}
-            </a>
-          ))}
-        </div>
+        <RankingsList
+          rows={rows}
+          caption={`Points from Week ${edition.throughWeek}. Tap a team for the verdict.`}
+        />
       </section>
+
+      <MarketReport items={getMarketReport(edition, moves)} rows={rows} />
+
+      {history.columns.length > 1 && (
+        <RankHistory
+          columns={history.columns}
+          series={historySeries}
+          size={edition.entries.length}
+        />
+      )}
+
+      <TalkingPoints points={edition.talkingPoints} />
+
+      <details className="ranking-method">
+        <summary>How we choose the order</summary>
+        <div className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
+          <p>
+            Recent scoring, results, roster strength and availability inform an
+            editorial judgment of each team’s current strength. With one
+            completed week, the first edition balances that opener against the
+            roster rather than treating every win equally. Future editions
+            consider up to three completed weeks of form.
+          </p>
+          <p>
+            The first arrows compare with the published preseason finishing
+            forecast; later arrows compare with the previous weekly edition.
+            These are separate from league standings. Each published list stays
+            in the archive.
+          </p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {edition.sources.map((source) => (
+              <a
+                key={source.url}
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4"
+              >
+                {source.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </details>
     </div>
   );
 }

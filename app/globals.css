@@ -56,6 +56,7 @@
   --split-flap-top: #222c26;
   --split-flap-bottom: #1a221d;
   --split-flap-ink: #f1efe6;
+  --split-flap-gold: #e0b454;
   --background: #f5f3ed;
   --foreground: #202923;
   --card: #ffffff;
@@ -2086,5 +2087,235 @@ html:has(.bet-slip) {
   }
   .standings-row[data-move] {
     animation: none;
+  }
+}
+/* Power rankings as market movers: see components/power-rankings. */
+@layer components {
+  .market-board {
+    @apply rounded-xl border border-border bg-card p-4 sm:p-6;
+    border-top: 3px solid var(--primary);
+  }
+  .market-flap .split-flap-cell,
+  .rank-flap .split-flap-cell {
+    width: 1.35rem;
+    height: 1.9rem;
+    font-size: 1.05rem;
+  }
+  .market-flap .split-flap-cell {
+    color: var(--split-flap-gold);
+  }
+  .market-flap .split-flap,
+  .market-flap {
+    gap: 2px;
+  }
+  .market-divider {
+    justify-content: flex-start;
+  }
+  .market-divider span:last-child {
+    @apply text-primary;
+  }
+  .market-mover {
+    @apply flex min-w-0 items-center gap-3;
+  }
+  .market-mover-label {
+    @apply w-[3.25rem] shrink-0 font-mono text-[9px] font-bold uppercase leading-tight tracking-[0.14em] text-muted-foreground;
+  }
+  .market-mover[data-tone='up'] .market-mover-label {
+    @apply text-primary;
+  }
+  .market-mover-ranks {
+    @apply shrink-0 font-mono text-sm font-black tabular-nums;
+  }
+  @media (min-width: 640px) {
+    .market-flap .split-flap-cell {
+      width: 1.9rem;
+      height: 2.6rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  .edition-chip {
+    @apply inline-flex min-h-11 items-center whitespace-nowrap rounded-full border border-border bg-card px-4 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground;
+  }
+  .edition-chip[aria-current='page'] {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+  .mine-chip {
+    @apply mb-3 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-primary/40 bg-primary/10 px-4 transition-colors hover:border-primary;
+  }
+
+  .rankings-list {
+    @apply overflow-hidden rounded-xl border border-border bg-card;
+  }
+  .ranking-row {
+    @apply relative border-b border-border transition-colors last:border-b-0;
+  }
+  .ranking-row:not([data-open]):hover {
+    @apply bg-muted/40;
+  }
+  .ranking-row[data-mine] {
+    background: color-mix(in srgb, var(--primary) 7%, var(--card));
+    box-shadow: inset 3px 0 0 var(--primary);
+  }
+  .ranking-row-button {
+    display: grid;
+    grid-template-columns: 2.9rem minmax(0, 1fr) auto 1rem;
+    align-items: center;
+    column-gap: 0.625rem;
+    @apply w-full px-3 pb-1 pt-3 text-left;
+  }
+  /* Collapsed, the whole row (teaser included) is the button's hit area. */
+  .ranking-row:not([data-open]) .ranking-row-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .ranking-row[data-top] .rank-flap .split-flap-cell {
+    color: var(--split-flap-gold);
+  }
+  .ranking-chevron {
+    @apply justify-self-end text-muted-foreground transition-transform;
+  }
+  .ranking-row[data-open] .ranking-chevron {
+    transform: rotate(180deg);
+  }
+  .ranking-verdict {
+    @apply pb-3 pr-3 text-sm leading-6;
+    padding-left: 4.275rem;
+  }
+  .ranking-row:not([data-open]) .ranking-verdict p {
+    @apply text-muted-foreground;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+  @media (max-width: 374px) {
+    .ranking-row-button {
+      grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+      column-gap: 0.5rem;
+      padding-inline: 0.625rem;
+    }
+    .ranking-chevron {
+      display: none;
+    }
+    .rank-flap .split-flap {
+      gap: 2px;
+    }
+    .rank-flap .split-flap-cell {
+      width: 1.15rem;
+      height: 1.65rem;
+      font-size: 0.9rem;
+    }
+    .ranking-verdict {
+      padding-left: 3.625rem;
+      padding-right: 0.625rem;
+    }
+  }
+
+  .market-report-rail {
+    display: flex;
+  }
+  @media (min-width: 640px) {
+    .snap-rail.market-report-rail:has(> .talking-point) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .snap-rail.market-report-rail:has(> .talking-point) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .rank-history {
+    @apply rounded-xl border border-border bg-card p-3 sm:p-4;
+  }
+  .rank-history-grid line {
+    stroke: color-mix(in srgb, var(--foreground) 10%, transparent);
+    stroke-width: 1;
+  }
+  .rank-history-grid text,
+  .rank-history-axis {
+    fill: var(--muted-foreground);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 10px;
+  }
+  .rank-history-axis[data-gap] {
+    opacity: 0.6;
+  }
+  .rank-history-series polyline {
+    fill: none;
+    stroke: color-mix(in srgb, var(--muted-foreground) 32%, transparent);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .rank-history-series > circle {
+    fill: color-mix(in srgb, var(--muted-foreground) 45%, transparent);
+  }
+  .rank-history-series[data-active] polyline {
+    stroke: var(--primary);
+    stroke-width: 2.5;
+  }
+  .rank-history-series[data-active] circle {
+    fill: var(--primary);
+    stroke: var(--card);
+    stroke-width: 2;
+  }
+  .rank-history-series[data-active] text {
+    fill: var(--foreground);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .history-chips {
+    @apply m-0 mt-3 min-w-0 gap-1.5 border-0 p-0;
+  }
+  .history-chips.snap-rail {
+    margin-inline: -0.75rem;
+    padding-inline: 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .history-chips.snap-rail {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+
+  .ranking-method {
+    @apply rounded-xl border border-border px-4 py-3;
+  }
+  .ranking-method summary {
+    @apply flex min-h-11 cursor-pointer items-center text-sm font-semibold;
+  }
+}
+@media (forced-colors: active) {
+  .ranking-row[data-mine] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+  .edition-chip[aria-current='page'],
+  .history-chips .sort-chip[aria-pressed='true'] {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+  .rank-history-grid line,
+  .rank-history-series polyline {
+    stroke: GrayText;
+  }
+  .rank-history-series > circle {
+    fill: GrayText;
+  }
+  .rank-history-series[data-active] polyline {
+    stroke: Highlight;
+  }
+  .rank-history-series[data-active] circle {
+    fill: Highlight;
+    stroke: Canvas;
+  }
+  .rank-history-grid text,
+  .rank-history-axis,
+  .rank-history-series[data-active] text {
+    fill: CanvasText;
   }
 }

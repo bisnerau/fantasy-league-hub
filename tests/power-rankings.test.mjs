@@ -5,6 +5,12 @@ import {
   powerRankingEditions,
   getPowerRankingEditions,
   getPowerRankingComparison,
+  getMarketMovers,
+  getMarketReport,
+  getRankHistory,
+  getRankMoves,
+  ordinal,
+  parseRecord,
 } from '../lib/data/power-rankings.ts';
 import { draftRecapContent } from '../lib/data/draft-recap-content.ts';
 import { getClubhouseEditorial } from '../lib/data/clubhouse-editorial.ts';
@@ -156,4 +162,136 @@ void test('a later week uses the actual archived report week and does not recycl
   assert.equal(final.lead.week, 2);
   assert.equal(final.lead.kind, 'review');
   assert.equal(final.lead.featured, true);
+});
+
+const weekThree = powerRankingEditions.find((e) => e.week === 3);
+const movesFor = (e, editions = powerRankingEditions) =>
+  getRankMoves(e, getPowerRankingComparison(e, editions));
+
+void test('records and ordinals parse the edition formats', () => {
+  assert.deepEqual(parseRecord('2–0'), { wins: 2, losses: 0, ties: 0 });
+  assert.deepEqual(parseRecord('1-1-1'), { wins: 1, losses: 1, ties: 1 });
+  assert.deepEqual(parseRecord('0–0'), { wins: 0, losses: 0, ties: 0 });
+  assert.deepEqual([1, 2, 3, 4, 11, 12, 13, 21, 22].map(ordinal), [
+    '1st',
+    '2nd',
+    '3rd',
+    '4th',
+    '11th',
+    '12th',
+    '13th',
+    '21st',
+    '22nd',
+  ]);
+});
+
+void test('movement follows the comparison: preseason for Week 2, Week 2 for Week 3', () => {
+  const two = movesFor(edition);
+  assert.deepEqual(two[0], {
+    rosterId: 2,
+    rank: 1,
+    previousRank: 5,
+    change: 4,
+  });
+  const three = movesFor(weekThree);
+  const jack = three.find((m) => m.rosterId === 9);
+  assert.equal(jack.previousRank, 8);
+  assert.equal(jack.change, 5);
+  const first = getRankMoves(edition, { ranks: new Map() });
+  assert.ok(first.every((m) => m.previousRank === undefined));
+  assert.deepEqual(getMarketMovers(first), {
+    riser: undefined,
+    faller: undefined,
+  });
+});
+
+void test('market movers break ties by the better current rank', () => {
+  // Niall (5th to 1st) and Hugo (11th to 7th) both rose four places.
+  const { riser, faller } = getMarketMovers(movesFor(edition));
+  assert.equal(riser.rosterId, 2);
+  assert.equal(faller.rosterId, 7);
+  const unchanged = getRankMoves(edition, {
+    ranks: new Map(edition.entries.map((e, i) => [e.rosterId, i + 1])),
+  });
+  assert.deepEqual(getMarketMovers(unchanged), {
+    riser: undefined,
+    faller: undefined,
+  });
+});
+
+void test('the Week 3 market report uses only edition records and movement', () => {
+  const report = getMarketReport(weekThree, movesFor(weekThree));
+  assert.deepEqual(
+    report.map((item) => [item.key, item.rosterId]),
+    [
+      ['riser', 9],
+      ['faller', 1],
+      ['unbeaten', 11],
+      ['winless', 7],
+    ],
+  );
+  assert.equal(report[2].value, '2–0 and ranked 11th');
+  assert.equal(report[3].value, '0–2 and ranked 8th');
+});
+
+void test('record cards hide when the order already agrees with the records', () => {
+  const sorted = {
+    ...weekThree,
+    entries: [...weekThree.entries].sort(
+      (a, b) => parseRecord(b.record).wins - parseRecord(a.record).wins,
+    ),
+  };
+  const keys = getMarketReport(
+    sorted,
+    getRankMoves(sorted, { ranks: new Map() }),
+  ).map((item) => item.key);
+  assert.deepEqual(keys, []);
+  const unplayed = {
+    ...weekThree,
+    entries: weekThree.entries.map((e) => ({ ...e, record: '0–0' })),
+  };
+  assert.deepEqual(
+    getMarketReport(unplayed, getRankMoves(unplayed, { ranks: new Map() })),
+    [],
+  );
+});
+
+void test('rank history starts at the preseason forecast and leaves unpublished weeks as gaps', () => {
+  const at = Date.parse('2026-10-20T00:00:00Z');
+  const history = getRankHistory(edition.leagueId, '2026', at);
+  assert.deepEqual(
+    history.columns.map((c) => c.label),
+    ['Pre', 'W2', 'W3'],
+  );
+  assert.deepEqual(history.series.get(1), [2, 4, 9]);
+  const five = {
+    ...weekThree,
+    week: 5,
+    publishedAt: '2026-10-08T10:00:00Z',
+  };
+  const gapped = getRankHistory(edition.leagueId, '2026', at, [
+    edition,
+    weekThree,
+    five,
+  ]);
+  assert.deepEqual(
+    gapped.columns.map((c) => [c.label, c.published]),
+    [
+      ['Pre', true],
+      ['W2', true],
+      ['W3', true],
+      ['W4', false],
+      ['W5', true],
+    ],
+  );
+  assert.deepEqual(gapped.series.get(1), [2, 4, 9, null, 9]);
+  assert.deepEqual(
+    getRankHistory(
+      edition.leagueId,
+      '2026',
+      Date.parse(edition.publishedAt) - 1,
+    ).columns,
+    [],
+  );
+  assert.equal(getRankHistory('other-league', '2026', at).columns.length, 0);
 });

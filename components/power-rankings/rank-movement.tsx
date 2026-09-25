@@ -21,7 +21,7 @@ export function RankMovement({
       }
     >
       <Icon className="size-4" aria-hidden="true" />
-      {change === 0 ? '—' : Math.abs(change)}
+      {change !== 0 && Math.abs(change)}
     </span>
   );
 }

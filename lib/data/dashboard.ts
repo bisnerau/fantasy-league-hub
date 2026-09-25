@@ -70,6 +70,28 @@ function teamNameFor(user: SleeperUser | undefined, roster: SleeperRoster) {
   );
 }
 
+export type TeamIdentity = Pick<
+  TeamStanding,
+  'teamName' | 'ownerName' | 'avatar' | 'franchiseId'
+>;
+
+function identityFor(
+  user: SleeperUser | undefined,
+  roster: SleeperRoster,
+): TeamIdentity {
+  const ownerId = roster.owner_id ?? '';
+  return {
+    franchiseId: ownerFranchiseMap[ownerId] ?? null,
+    teamName: teamNameFor(user, roster),
+    ownerName: user?.display_name ?? 'Unassigned',
+    avatar:
+      leagueConfig.teamAvatarOverrides[ownerId] ??
+      user?.metadata?.avatar ??
+      user?.avatar ??
+      null,
+  };
+}
+
 function createStandings(
   rosters: SleeperRoster[],
   users: SleeperUser[],
@@ -78,18 +100,10 @@ function createStandings(
   return rosters
     .map((roster) => {
       const ownerId = roster.owner_id ?? '';
-      const user = userById.get(ownerId);
       return {
         rosterId: roster.roster_id,
         ownerId,
-        franchiseId: ownerFranchiseMap[ownerId] ?? null,
-        teamName: teamNameFor(user, roster),
-        ownerName: user?.display_name ?? 'Unassigned',
-        avatar:
-          leagueConfig.teamAvatarOverrides[ownerId] ??
-          user?.metadata?.avatar ??
-          user?.avatar ??
-          null,
+        ...identityFor(userById.get(ownerId), roster),
         wins: roster.settings.wins,
         losses: roster.settings.losses,
         ties: roster.settings.ties,
@@ -144,6 +158,28 @@ async function getReigningChampion(
     };
   } catch {
     return null;
+  }
+}
+
+/** Current Sleeper team names and avatars by roster; empty when unavailable. */
+export async function getTeamIdentities(
+  leagueId = leagueConfig.sleeperLeagueId,
+): Promise<Map<number, TeamIdentity>> {
+  if (!leagueId) return new Map();
+  try {
+    const [users, rosters] = await Promise.all([
+      getLeagueUsers(leagueId),
+      getLeagueRosters(leagueId),
+    ]);
+    const userById = new Map(users.map((user) => [user.user_id, user]));
+    return new Map(
+      rosters.map((roster) => [
+        roster.roster_id,
+        identityFor(userById.get(roster.owner_id ?? ''), roster),
+      ]),
+    );
+  } catch {
+    return new Map();
   }
 }
 

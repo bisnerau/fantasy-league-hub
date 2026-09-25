@@ -634,6 +634,28 @@ test('standings replay last week, sort by chip and open the tale of the tape', a
   await expect(page.locator('body')).not.toContainText('NaN');
 });
 
+test('power rankings for another league show honest waiting states', async ({
+  page,
+}) => {
+  // Editions belong to the real league; the fixture league has none, so the
+  // page must never substitute another league's list.
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/power-rankings');
+  await expect(
+    page.getByText('The first weekly power rankings are still to come.'),
+  ).toBeVisible();
+  await expect(page.locator('.ranking-row')).toHaveCount(0);
+  await page.goto('/power-rankings?season=2026&week=3');
+  await expect(
+    page.getByText('No published power rankings for this week.'),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
 test('standings under reduced motion render the final table without replay', async ({
   page,
   request,
