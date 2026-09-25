@@ -1933,6 +1933,12 @@ html:has(.bet-slip) {
   @view-transition {
     navigation: auto;
   }
+  /* Quick off the line, a beat at midfield so the ball can be seen, quick
+     into the end zone. */
+  :root {
+    --vt-duration: 550ms;
+    --vt-ease: cubic-bezier(0.3, 0.7, 0.7, 0.3);
+  }
   @media (width >= 80rem) {
     :root {
       --vt-start: 216px;
@@ -1943,10 +1949,10 @@ html:has(.bet-slip) {
     mix-blend-mode: normal;
   }
   ::view-transition-old(root) {
-    animation: vt-dim 380ms ease-in both;
+    animation: vt-dim var(--vt-duration) ease-in both;
   }
   ::view-transition-new(root) {
-    animation: vt-wipe 380ms cubic-bezier(0.65, 0, 0.35, 1) both;
+    animation: vt-wipe var(--vt-duration) var(--vt-ease) both;
   }
   html[data-vt='back']::view-transition-new(root) {
     animation-name: vt-wipe-back;
@@ -1961,16 +1967,16 @@ html:has(.bet-slip) {
     view-transition-name: vt-ball;
   }
   ::view-transition-group(vt-chalk) {
-    animation: vt-chalk-run 380ms cubic-bezier(0.65, 0, 0.35, 1) both;
+    animation: vt-chalk-run var(--vt-duration) var(--vt-ease) both;
   }
   ::view-transition-group(vt-ball) {
-    animation: vt-ball-run 380ms cubic-bezier(0.65, 0, 0.35, 1) both;
+    animation: vt-ball-run var(--vt-duration) var(--vt-ease) both;
   }
   ::view-transition-new(vt-chalk) {
     animation: none;
   }
   ::view-transition-new(vt-ball) {
-    animation: vt-spin 380ms linear both;
+    animation: vt-spin var(--vt-duration) linear both;
   }
   html[data-vt='back']::view-transition-group(vt-chalk) {
     animation-name: vt-chalk-run-back;
