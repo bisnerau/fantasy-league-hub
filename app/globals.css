@@ -569,6 +569,88 @@
     @apply border-solid border-award bg-award text-card;
   }
 
+  /* Page transitions: the yard line leads the wipe (only shown and named
+     while html[data-vt] marks an arriving view transition). */
+  .vt-field {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+  }
+  /* The wipe runs on the pitch: below the header, above the tab bar and
+     right of the desktop sidebar (--vt-start). */
+  .vt-field {
+    --vt-top: 4rem;
+    --vt-bottom: calc(3.5625rem + max(0.5rem, env(safe-area-inset-bottom)));
+  }
+  @media (width >= 80rem) {
+    .vt-field {
+      --vt-bottom: 0px;
+    }
+  }
+  /* Both sit at the viewport origin, so the group keyframes that carry
+     them across the pitch replace no browser-computed position. */
+  .vt-chalk {
+    position: fixed;
+    inset-block: 0;
+    left: 0;
+    width: 4px;
+    background: linear-gradient(
+      transparent var(--vt-top),
+      var(--primary) var(--vt-top) calc(100% - var(--vt-bottom)),
+      transparent calc(100% - var(--vt-bottom))
+    );
+    filter: drop-shadow(
+      0 0 6px color-mix(in srgb, var(--primary) 55%, transparent)
+    );
+  }
+  .vt-ball {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1.75rem;
+    height: 1rem;
+    color: #8a4b24;
+    filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.35));
+  }
+
+  /* The snap: a thin drive track under the header while a page loads. */
+  .snap-track {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 0.75rem;
+    pointer-events: none;
+    opacity: 0;
+    border-bottom: 2px solid var(--primary);
+    background: repeating-linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--foreground) 25%, transparent) 0 1px,
+        transparent 1px 10%
+      )
+      bottom / 100% 5px no-repeat;
+    transition: opacity 150ms ease-out;
+  }
+  .snap-track[data-snap] {
+    opacity: 1;
+  }
+  .snap-ball {
+    position: absolute;
+    bottom: 1px;
+    left: 4%;
+    width: 1.25rem;
+    height: 0.75rem;
+    translate: -50% 0;
+    color: #8a4b24;
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.35));
+  }
+  .snap-track[data-snap] .snap-ball {
+    animation:
+      snap-run 2.4s cubic-bezier(0.15, 0.7, 0.2, 1) forwards,
+      snap-spin 0.7s linear infinite;
+  }
+
   /* League wire (React Bits LogoLoop / ScrollVelocity). */
   .league-wire {
     @apply flex items-center gap-2 overflow-hidden rounded-lg border border-border bg-card py-1.5 pl-1.5 pr-1;
@@ -1089,8 +1171,12 @@
   .chalk-line,
   .tear-content,
   .flag-icon,
-  .holo-sheen {
+  .holo-sheen,
+  .snap-track[data-snap] .snap-ball {
     animation: none;
+  }
+  .snap-ball {
+    left: 50%;
   }
   .chalk-line {
     stroke-dashoffset: 0;
@@ -1738,35 +1824,181 @@
     transform: translateX(100%);
   }
 }
-@keyframes vt-out {
+@keyframes snap-run {
   to {
-    opacity: 0;
-    transform: translateY(-6px);
+    left: 88%;
   }
 }
-@keyframes vt-in {
+@keyframes snap-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes vt-dim {
+  to {
+    opacity: 0.6;
+  }
+}
+@keyframes vt-wipe {
   from {
+    clip-path: inset(0 calc(100% - var(--vt-start, 0px)) 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes vt-wipe-back {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+/* The chalk and ball run on their view-transition groups; the ball spins
+   (and floats towards the camera, like a punt) on its image inside. */
+@keyframes vt-chalk-run {
+  from {
+    transform: translateX(calc(var(--vt-start, 0px) - 2px));
+  }
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(calc(100vw - 2px));
     opacity: 0;
-    transform: translateY(10px);
+  }
+}
+@keyframes vt-chalk-run-back {
+  from {
+    transform: translateX(calc(100vw - 2px));
+  }
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(calc(var(--vt-start, 0px) - 2px));
+    opacity: 0;
+  }
+}
+@keyframes vt-ball-run {
+  from {
+    transform: translate(calc(var(--vt-start, 0px) - 0.875rem), 55vh);
+  }
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(calc(100vw - 0.875rem), 55vh);
+    opacity: 0;
+  }
+}
+@keyframes vt-ball-run-back {
+  from {
+    transform: translate(calc(100vw - 0.875rem), 55vh);
+  }
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(calc(var(--vt-start, 0px) - 0.875rem), 55vh);
+    opacity: 0;
+  }
+}
+@keyframes vt-spin {
+  50% {
+    transform: rotate(270deg) scale(1.45);
+  }
+  to {
+    transform: rotate(540deg);
+  }
+}
+@keyframes vt-spin-back {
+  50% {
+    transform: rotate(-270deg) scale(1.45);
+  }
+  to {
+    transform: rotate(-540deg);
   }
 }
 html:has(.bet-slip) {
   scroll-padding-top: 5rem;
   scroll-padding-bottom: 10rem;
 }
-/* Pages glide into each other where cross-document view transitions exist. */
+/* The yard-line wipe: where cross-document view transitions exist, the
+   arriving page sweeps in behind a chalk line with the football riding its
+   edge. data-vt (set by the head script) points it forward or back through
+   the navigation order. The header, tab bar and sidebar stay put. */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition {
     navigation: auto;
   }
+  @media (width >= 80rem) {
+    :root {
+      --vt-start: 216px;
+    }
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+  }
   ::view-transition-old(root) {
-    animation: vt-out 140ms ease-in both;
+    animation: vt-dim 380ms ease-in both;
   }
   ::view-transition-new(root) {
-    animation: vt-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation: vt-wipe 380ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  html[data-vt='back']::view-transition-new(root) {
+    animation-name: vt-wipe-back;
+  }
+  html[data-vt] .vt-field {
+    display: block;
+  }
+  html[data-vt] .vt-chalk {
+    view-transition-name: vt-chalk;
+  }
+  html[data-vt] .vt-ball {
+    view-transition-name: vt-ball;
+  }
+  ::view-transition-group(vt-chalk) {
+    animation: vt-chalk-run 380ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  ::view-transition-group(vt-ball) {
+    animation: vt-ball-run 380ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  ::view-transition-new(vt-chalk) {
+    animation: none;
+  }
+  ::view-transition-new(vt-ball) {
+    animation: vt-spin 380ms linear both;
+  }
+  html[data-vt='back']::view-transition-group(vt-chalk) {
+    animation-name: vt-chalk-run-back;
+  }
+  html[data-vt='back']::view-transition-group(vt-ball) {
+    animation-name: vt-ball-run-back;
+  }
+  html[data-vt='back']::view-transition-new(vt-ball) {
+    animation-name: vt-spin-back;
+  }
+  /* The frame swaps at once, like a native tab bar, rather than
+     cross-fading (which dims it mid-way in WebKit). */
+  ::view-transition-old(site-header),
+  ::view-transition-old(site-sidebar),
+  ::view-transition-old(mobile-nav) {
+    animation: none;
+    opacity: 0;
+  }
+  ::view-transition-new(site-header),
+  ::view-transition-new(site-sidebar),
+  ::view-transition-new(mobile-nav) {
+    animation: none;
   }
   .site-header {
     view-transition-name: site-header;
+  }
+  .site-sidebar {
+    view-transition-name: site-sidebar;
   }
   .mobile-clubhouse-nav {
     view-transition-name: mobile-nav;
@@ -2864,5 +3096,18 @@ html:has(.bet-slip) {
   .ballot-row[data-mine] {
     outline: 2px solid Highlight;
     outline-offset: -2px;
+  }
+}
+@media (forced-colors: active) {
+  .vt-field {
+    display: none !important;
+  }
+  .snap-track {
+    border-bottom-color: Highlight;
+    background: none;
+  }
+  .snap-ball {
+    color: CanvasText;
+    filter: none;
   }
 }

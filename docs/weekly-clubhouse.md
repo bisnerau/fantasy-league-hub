@@ -114,6 +114,37 @@ written. The homepage never invents a fresh edition during a publishing gap.
 Tests cover source records, the real preseason baseline, future/foreign editions,
 subsequent weekly movement, report settlement and correct archived-week links.
 
+## Page transitions
+
+Every page-to-page link on the site is a full navigation. Where cross-document
+view transitions exist, the arriving page sweeps in behind a chalk yard line
+with the drive-tracker football riding its edge.
+
+- The sweep follows the navigation order in `lib/config/navigation.ts`. Moving
+  further along it sweeps left to right, and returning towards Home sweeps
+  right to left, so the Back button reverses it. Nested pages count as their
+  section; unknown pages sweep forward. `lib/navigation/transition.ts` decides
+  this, and the head script in `app/layout.tsx` inlines it and marks
+  `<html data-vt="forward|back">` for the transition.
+- The header, tab bar and desktop sidebar keep their own transition names and
+  swap at once, like a native tab bar, so only the pitch between them is
+  wiped. The `Week N` title still morphs between the homepage and Weekly Picks.
+- The chalk and ball (`components/effects/yard-line.tsx`) are shown and named
+  only while a transition runs, so they never appear on a settled page.
+- The snap (`components/effects/snap-tracker.tsx`): when an ordinary link is
+  clicked and the next page takes more than 150ms, a ball runs along a thin
+  drive track under the header. It never reaches the end zone; the page's
+  arrival is the finish. In-page, new-tab, modified and cross-site links are
+  ignored, and the ball clears on a back/forward cache restore or after 12
+  seconds.
+- Reduced motion keeps navigation instant with no wipe, and the snap ball
+  waits still at midfield. Forced colours drop the chalk and ball and draw the
+  track in system colours. Browsers without cross-document view transitions
+  navigate as before.
+- Playwright's headless WebKit does not paint named view-transition elements
+  in screenshots (even a plain test box), so check the chalk and ball on a
+  real iPhone.
+
 ## Weekly Picks behaviour
 
 `/matchups` is a phone-first bet slip. The points are bragging points, not
@@ -122,7 +153,7 @@ money; the betting look is styling only.
 - The hero reuses the homepage stadium board, drive tracker, two-minute warning
   and Sunday lock reveal. Its h1 is `Week N` and shares a view-transition name
   with the homepage title, so the two morph where cross-document view
-  transitions are supported. Browsers without them navigate as before.
+  transitions are supported (see "Page transitions").
 - A season timeline of week chips replaces the stepper. Past weeks show a tick
   and points only when the signed-in member has settled points for them.
 - Each matchup is a tug-of-war card. The whole half is the pick target, but the

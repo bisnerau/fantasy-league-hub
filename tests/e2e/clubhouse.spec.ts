@@ -236,6 +236,127 @@ test('mobile league menu supports keyboard dismissal and working navigation', as
   ).toBe(true);
 });
 
+// Records each arrival's view transition (and the sweep direction the head
+// script chose) so a test can read it back from the next page.
+const recordPageReveal = () => {
+  addEventListener('pagereveal', (event) => {
+    const transition = (event as Event & { viewTransition?: ViewTransition })
+      .viewTransition;
+    const record = (value: string) => {
+      try {
+        sessionStorage.setItem('test-vt', value);
+      } catch {}
+    };
+    if (!transition) return record('none');
+    void transition.ready.then(
+      () => record(document.documentElement.dataset.vt ?? 'unmarked'),
+      () => record('skipped'),
+    );
+  });
+};
+const lastPageReveal = (page: Page) =>
+  page.evaluate(() => sessionStorage.getItem('test-vt'));
+
+test('the yard line sweeps forward along the navigation and back on Back', async ({
+  page,
+}) => {
+  await page.addInitScript(recordPageReveal);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page
+    .getByRole('navigation', { name: 'Mobile navigation' })
+    .getByRole('link', { name: 'Picks' })
+    .click();
+  await expect(page).toHaveURL(/matchups/);
+  await expect.poll(() => lastPageReveal(page)).toBe('forward');
+  // The chalk and ball only appear while a transition runs.
+  await expect(page.locator('.vt-field')).toBeHidden();
+
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect.poll(() => lastPageReveal(page)).toBe('back');
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
+test('reduced motion navigates without a page transition', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.addInitScript(recordPageReveal);
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto('/');
+  await page
+    .getByRole('navigation', { name: 'Mobile navigation' })
+    .getByRole('link', { name: 'Picks' })
+    .click();
+  await expect(page).toHaveURL(/matchups/);
+  await expect.poll(() => lastPageReveal(page)).toBe('none');
+});
+
+test('the snap ball runs only while a slow page is on its way', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const track = page.locator('.snap-track');
+  await expect(track).toBeAttached();
+  // Hold the navigation after the tracker has seen an ordinary link click.
+  await page.evaluate(() =>
+    addEventListener('click', (event) => event.preventDefault()),
+  );
+
+  // In-page and new-tab links never start the snap.
+  await page.getByRole('link', { name: 'Skip to content' }).focus();
+  await page.keyboard.press('Enter');
+  await page.clock.runFor(300);
+  await expect(track).not.toHaveAttribute('data-snap');
+
+  const picks = page
+    .getByRole('navigation', { name: 'Mobile navigation' })
+    .getByRole('link', { name: 'Picks' });
+  await picks.click();
+  await page.clock.runFor(100);
+  await expect(track).not.toHaveAttribute('data-snap');
+  await page.clock.runFor(100);
+  await expect(track).toHaveAttribute('data-snap');
+  await expect(track.locator('.snap-ball')).toHaveCSS(
+    'animation-name',
+    'snap-run, snap-spin',
+  );
+  // A navigation that never arrives does not leave the ball running.
+  await page.clock.runFor(12_000);
+  await expect(track).not.toHaveAttribute('data-snap');
+});
+
+test('under reduced motion the snap ball waits still at midfield', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto('/');
+  await page.evaluate(() =>
+    addEventListener('click', (event) => event.preventDefault()),
+  );
+  await page
+    .getByRole('navigation', { name: 'Mobile navigation' })
+    .getByRole('link', { name: 'Picks' })
+    .click();
+  await page.clock.runFor(200);
+  const ball = page.locator('.snap-track[data-snap] .snap-ball');
+  await expect(ball).toHaveCSS('animation-name', 'none');
+  expect(
+    await ball.evaluate((el) => {
+      const track = el.parentElement!.getBoundingClientRect();
+      const box = el.getBoundingClientRect();
+      return Math.round(
+        box.left + box.width / 2 - track.left - track.width / 2,
+      );
+    }),
+  ).toBe(0);
+});
+
 test('reduced motion, skip link, and offline sign-in are usable', async ({
   page,
   context,

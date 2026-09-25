@@ -4,6 +4,8 @@ import './globals.css';
 import { LeagueShell } from '@/components/shared/league-shell';
 import { QueryProvider } from '@/components/shared/query-provider';
 import { leagueConfig } from '@/lib/config/league.config';
+import { navigationOrder } from '@/lib/config/navigation';
+import { transitionDirection } from '@/lib/navigation/transition';
 import { getLeague } from '@/lib/sleeper/client';
 
 const geistSans = Geist({
@@ -46,6 +48,12 @@ export const metadata: Metadata = {
   },
 };
 
+// Marks the arrival of a cross-document view transition with its sweep
+// direction (data-vt="forward|back"), which skips the arrival fade and points
+// the yard-line wipe. The page being left is remembered for browsers without
+// navigation.activation, so Back still reverses the sweep.
+const pageRevealScript = `(function(){var o=${JSON.stringify(navigationOrder)},k='vt-from',dir=${String(transitionDirection)};function keep(){try{sessionStorage.setItem(k,location.pathname)}catch(x){}}addEventListener('pageswap',keep);addEventListener('pagehide',keep);addEventListener('pagereveal',function(e){var v=e.viewTransition,d=document.documentElement,f=null;if(!v)return;try{var a=window.navigation&&navigation.activation,u=a&&a.from&&a.from.url;if(u){var p=new URL(u);if(p.origin===location.origin)f=p.pathname}if(!f)f=sessionStorage.getItem(k)}catch(x){}d.dataset.vt=dir(f,location.pathname,o);v.finished.finally(function(){delete d.dataset.vt})})})()`;
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -65,8 +73,7 @@ export default async function RootLayout({
         />
         <script
           dangerouslySetInnerHTML={{
-            // Skip the arrival fade while a cross-document view transition runs.
-            __html: `addEventListener('pagereveal',function(e){var v=e.viewTransition,d=document.documentElement;if(!v)return;d.dataset.vt='';v.finished.finally(function(){delete d.dataset.vt})})`,
+            __html: pageRevealScript,
           }}
         />
       </head>

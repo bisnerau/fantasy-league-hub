@@ -12,6 +12,7 @@ import {
   Users,
   Vote,
   TrendingUp,
+  type LucideIcon,
 } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -23,35 +24,29 @@ import {
   SheetTitle,
   SheetDescription,
 } from '@/components/ui/sheet';
+import { SnapTracker } from '@/components/effects/snap-tracker';
+import { YardLine } from '@/components/effects/yard-line';
 import { leagueConfig } from '@/lib/config/league.config';
+import { navigation as navigationItems } from '@/lib/config/navigation';
 import { cn } from '@/lib/utils';
 
-const navigation = [
-  { label: 'Clubhouse', shortLabel: 'Home', href: '/', icon: Home },
-  { label: 'Weekly picks', shortLabel: 'Picks', href: '/matchups', icon: Vote },
-  {
-    label: 'My Season',
-    shortLabel: 'My Season',
-    href: '/my-season',
-    icon: Users,
-  },
-  {
-    label: 'Record book',
-    shortLabel: 'Records',
-    href: '/records',
-    icon: BookOpen,
-  },
-  { label: 'League standings', href: '/standings', icon: BarChart3 },
-  { label: 'Power rankings', href: '/power-rankings', icon: TrendingUp },
-  { label: 'Managers', href: '/managers', icon: Users },
-  { label: 'Awards & Receipts', href: '/season-hub', icon: BookOpen },
-  { label: 'Wall of shame', href: '/wall-of-shame', icon: Skull },
-  {
-    label: 'Draft Report & Season Preview',
-    href: '/draft-recap',
-    icon: NotebookPen,
-  },
-];
+const icons: Record<string, LucideIcon> = {
+  '/': Home,
+  '/matchups': Vote,
+  '/my-season': Users,
+  '/records': BookOpen,
+  '/standings': BarChart3,
+  '/power-rankings': TrendingUp,
+  '/managers': Users,
+  '/season-hub': BookOpen,
+  '/wall-of-shame': Skull,
+  '/draft-recap': NotebookPen,
+};
+
+const navigation = navigationItems.map((item) => ({
+  ...item,
+  icon: icons[item.href] ?? BookOpen,
+}));
 
 export function LeagueShell({
   children,
@@ -88,7 +83,8 @@ export function LeagueShell({
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[216px] flex-col border-r border-border bg-sidebar px-4 py-6 xl:flex">
+      <YardLine />
+      <aside className="site-sidebar fixed inset-y-0 left-0 z-40 hidden w-[216px] flex-col border-r border-border bg-sidebar px-4 py-6 xl:flex">
         <a
           href="/"
           className="flex items-center gap-3"
@@ -172,6 +168,7 @@ export function LeagueShell({
             <span className="hidden xl:block">{sleeperLink}</span>
             <ThemeToggle />
           </div>
+          <SnapTracker />
         </header>
         <main
           id="main-content"

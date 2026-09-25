@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { Football } from '@/components/effects/football';
 
 /** Saved picks as a drive from a touchback; the Banker is the two-point try. */
 export function DriveTracker({
@@ -37,15 +38,7 @@ export function DriveTracker({
         <span className="drive-play">
           <span className="drive-progress" />
           <span className="drive-ball">
-            <svg viewBox="0 0 24 14" className="size-full">
-              <ellipse cx="12" cy="7" rx="11" ry="6.5" fill="currentColor" />
-              <path
-                d="M7 7h10M9.5 5.2v3.6M12 5.2v3.6M14.5 5.2v3.6"
-                stroke="var(--card)"
-                strokeWidth="1.1"
-                strokeLinecap="round"
-              />
-            </svg>
+            <Football className="size-full" />
           </span>
         </span>
         <span className="drive-endzone drive-endzone-goal">
