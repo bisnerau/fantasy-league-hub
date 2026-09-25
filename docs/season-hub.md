@@ -98,3 +98,45 @@ The personal season log excludes unpaired weeks from best/lowest-week calculatio
 and reports missing matchup scores separately. Server activity props contain only
 the score fields used by this log, not raw weekly lineups or transaction history.
 Trade links open the matching receipt automatically using a numeric trade ID hash.
+
+### My Season behaviour
+
+The page is a season ticket (see `components/season/`). Signed in, it reads top to
+bottom:
+
+- **Ticket**: the Sleeper team name leads, with the username under it. The record
+  shows on gold split-flap digits, followed by points, calls and awards. The stub
+  is the page's one action, the week's picks.
+- **Sticky chips**: jump links that mark the section in view.
+- **Tale of the tape**: you against this week's opponent, from live standings. It
+  adds the verified rivalry record, and the league's picks on the game once the
+  week locks. It hides without an opponent.
+- **Form guide** (the signature effect): one tile per week. Tiles flip in once when
+  first seen. Tap or press a tile to read that week. Best and lowest weeks are
+  stamped. Missing scores show as "–", never zero. Underneath, the **luck meter**
+  compares the real record with the all-play record (`getLuck`), and hides without
+  all-play.
+- **How the league rates you**: other managers' picks on your games once each week
+  has locked. Your own pick is left out, and so is a pick for neither side. It
+  names the biggest believer and chief doubter, which need at least two picks on
+  your games (ties are noted as "+n tied"). It lists the weeks you proved them
+  wrong, and Bankers on or against you. The section hides until there is a locked
+  pick. If the votes cannot be read it says so, and nothing else changes. Missing
+  Banker rows only hide the Banker counts.
+- **Pickups**: ranked return bars, sorted by most points by default. The first
+  five are shown. Returns that are unavailable get a hatched bar, and pickups still
+  waiting for settled weeks get no bar.
+- **Transfer window**: each trade's scoreline is the starter points each side has
+  had from the players it received, over the verified review weeks. Any unknown
+  week makes it "Score unavailable". It shows "Too early to call" before the first
+  full week after the trade.
+- **Trophy cabinet**: weekly awards and Against the Room on one shelf.
+- **Calls**:
+  - the hit-rate ring
+  - the turnstile, showing every locked week where you saved each pick
+  - your preseason ballot against the current table, with your row and the
+    biggest miss first and every line folded underneath
+  - the draft verdict
+
+Every effect has a tap and keyboard path, and respects reduced motion and forced
+colours.

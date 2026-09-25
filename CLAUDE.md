@@ -33,6 +33,7 @@ See `docs/clubhouse-verification.md` for fixture isolation, coverage, and releas
 - `/managers` — manager profiles and history
 - `/wall-of-shame` — league lowlights
 - `/draft-recap` — commissioner-prepared draft report, published only after review
+- `/my-season` — signed-in member season ticket: split-flap record and picks stub, sticky section chips, tale of the tape with rivalry, form-guide tiles (signature flip) with luck meter, how the league rates you (locked picks, believers/doubters, Bankers), pickup return bars, trade scoreboard, trophy cabinet, hit-rate ring, picks turnstile and ballot v table (see "My Season behaviour" in `docs/season-hub.md`)
 
 **Data flow**: Pages are async RSCs. Sleeper data is fetched server-side through `lib/data/` and `lib/sleeper/client.ts`, with caching hints and bounded fetch timeouts. Supabase stores prediction metadata, votes, member profiles, and leaderboards. Public page reads use a sessionless publishable-key client. Only the authenticated cron sync uses the server secret; visiting any page must never seed or grade predictions. Browser member reads and saves retain the existing Supabase authentication and RLS contract.
 

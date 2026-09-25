@@ -2319,3 +2319,550 @@ html:has(.bet-slip) {
     fill: CanvasText;
   }
 }
+/* My Season as a season ticket: see components/season. */
+@layer components {
+  .season-panel {
+    @apply rounded-xl border border-border bg-card p-4 sm:p-5;
+    scroll-margin-top: 8.5rem;
+  }
+  .season-note {
+    @apply text-xs leading-5 text-foreground;
+    border-left: 3px solid var(--chart-5);
+    padding-left: 0.625rem;
+  }
+  .season-link {
+    @apply inline-flex min-h-11 items-center gap-1.5 text-xs font-semibold text-primary underline-offset-4 hover:underline;
+  }
+  .season-fold summary {
+    @apply flex min-h-11 cursor-pointer items-center text-xs font-semibold text-primary;
+  }
+
+  /* The ticket: perforated stub, punched notches, gold board digits. */
+  .season-ticket,
+  .gate-ticket {
+    @apply relative overflow-hidden rounded-xl border border-award/40 bg-card;
+    background-image: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--award) 12%, transparent),
+      transparent 55%
+    );
+  }
+  .season-ticket {
+    display: flex;
+  }
+  .season-ticket-main {
+    @apply min-w-0 flex-1 p-4 sm:p-6;
+  }
+  .season-ticket-kicker {
+    @apply font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-award;
+  }
+  .season-ticket-record {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .season-ticket-record .split-flap {
+    gap: 2px;
+  }
+  .season-ticket-record .split-flap-cell {
+    width: 1.9rem;
+    height: 2.6rem;
+    font-size: 1.5rem;
+    color: var(--split-flap-gold);
+  }
+  .season-ticket-dash {
+    @apply font-mono text-xl font-black text-muted-foreground;
+  }
+  .season-ticket-stats {
+    @apply mt-4 grid grid-cols-3 gap-2;
+  }
+  .season-ticket-stats dt {
+    @apply text-[9px] font-semibold uppercase leading-tight tracking-[0.12em] text-muted-foreground;
+  }
+  .season-ticket-stats dd {
+    @apply mt-0.5 font-mono text-sm font-black;
+  }
+  .season-ticket-stub {
+    @apply relative flex w-[5.75rem] shrink-0 flex-col items-center justify-center gap-1 px-2 py-4 text-center font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-award transition-colors hover:bg-award/10;
+    border-left: 2px dashed color-mix(in srgb, var(--award) 45%, transparent);
+  }
+  .season-ticket-stub::before,
+  .season-ticket-stub::after,
+  .gate-ticket-band::before,
+  .gate-ticket-band::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--background);
+    border: 1px solid color-mix(in srgb, var(--award) 40%, transparent);
+  }
+  .season-ticket-stub::before {
+    top: -10px;
+    left: -10px;
+  }
+  .season-ticket-stub::after {
+    bottom: -10px;
+    left: -10px;
+  }
+  .season-ticket-stub-week {
+    @apply text-xs text-foreground;
+  }
+  .season-ticket-stub-count {
+    @apply flex flex-col items-center leading-tight text-muted-foreground;
+  }
+  .season-ticket-stub-action {
+    @apply mt-1 inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-1.5 font-sans text-[11px] font-semibold normal-case tracking-normal text-primary-foreground;
+  }
+  .season-ticket-stub-lock {
+    @apply font-sans text-[10px] font-medium normal-case tracking-normal text-muted-foreground;
+  }
+  @media (max-width: 374px) {
+    .season-ticket-main {
+      @apply p-3;
+    }
+    .season-ticket-stub {
+      @apply w-[5rem];
+    }
+    .season-ticket-record .split-flap-cell {
+      width: 1.55rem;
+      height: 2.2rem;
+      font-size: 1.25rem;
+    }
+  }
+  @media (min-width: 640px) {
+    .season-ticket-stub {
+      @apply w-36 gap-1.5;
+    }
+    .season-ticket-record .split-flap-cell {
+      width: 2.4rem;
+      height: 3.3rem;
+      font-size: 2rem;
+    }
+    .season-ticket-stats dd {
+      @apply text-lg;
+    }
+  }
+  .gate-ticket-band {
+    @apply relative flex items-center justify-between px-4 py-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-award;
+    background: color-mix(in srgb, var(--award) 9%, transparent);
+    border-bottom: 2px dashed color-mix(in srgb, var(--award) 45%, transparent);
+  }
+  .gate-ticket-band::before {
+    bottom: -10px;
+    left: -10px;
+  }
+  .gate-ticket-band::after {
+    bottom: -10px;
+    right: -10px;
+  }
+
+  /* Sticky section chips. */
+  .season-chips {
+    @apply sticky top-16 z-20 -mx-4 border-b border-border bg-background/95 py-2 backdrop-blur sm:-mx-7;
+  }
+  .season-chips .snap-rail {
+    @apply mx-0 gap-2 px-4 pb-0 sm:px-7;
+    scroll-snap-type: none;
+  }
+  .season-chip {
+    @apply inline-flex min-h-11 items-center whitespace-nowrap rounded-full border border-border bg-card px-4 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground;
+  }
+  .season-chip[aria-current] {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+
+  /* Tale of the tape. */
+  .tape-teams {
+    @apply mt-4 grid items-start gap-2;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+  .tape-team {
+    @apply flex min-w-0 flex-col items-start;
+  }
+  .tape-team[data-align='end'] {
+    @apply items-end text-right;
+  }
+  .tape-versus {
+    @apply self-center font-mono text-sm font-black text-award;
+  }
+  .tape-rows {
+    @apply mt-3 border-t border-border;
+  }
+  .tape-row {
+    @apply grid items-center gap-2 border-b border-border py-2 font-mono text-sm;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+  .tape-row dt {
+    @apply font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .tape-row dd:nth-of-type(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .tape-row dd:nth-of-type(2) {
+    @apply text-right;
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .tape-row dd[data-lead] {
+    @apply font-black text-primary;
+  }
+  .tape-note {
+    @apply mt-3 text-xs leading-5 text-muted-foreground;
+  }
+
+  /* The form guide (React Bits FlipText / AnimatedList as a CSS flip). */
+  .form-strip {
+    @apply mt-3 grid gap-1.5;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    perspective: 600px;
+  }
+  @media (min-width: 640px) {
+    .form-strip {
+      grid-template-columns: repeat(auto-fit, minmax(2.75rem, 1fr));
+    }
+  }
+  .form-tile {
+    @apply flex aspect-square w-full flex-col items-center justify-center rounded-lg border border-border bg-card font-mono;
+    transition:
+      transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 300ms ease-out;
+    transition-delay: calc(var(--i, 0) * 55ms);
+  }
+  .form-tile-mark {
+    @apply text-base font-black leading-none sm:text-lg;
+  }
+  .form-tile-week {
+    @apply mt-0.5 text-[9px] font-bold leading-none opacity-70;
+  }
+  .form-tile[data-state='W'] {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+  .form-tile[data-state='L'] {
+    @apply bg-muted text-muted-foreground;
+  }
+  .form-tile[data-state='T'] {
+    @apply border-award text-award;
+  }
+  .form-tile[data-state='bye'] {
+    @apply border-dashed text-muted-foreground;
+  }
+  .form-tile[data-state='missing'] {
+    @apply text-muted-foreground;
+    background-image: repeating-linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--muted-foreground) 16%, transparent) 0 4px,
+      transparent 4px 8px
+    );
+  }
+  .form-tile[data-state='upcoming'] {
+    @apply border-dashed bg-transparent text-muted-foreground opacity-60;
+  }
+  .form-tile[data-best] {
+    box-shadow: 0 0 0 2px var(--award);
+  }
+  .form-tile[data-lowest] {
+    outline: 2px dashed var(--muted-foreground);
+    outline-offset: 1px;
+  }
+  button.form-tile[aria-pressed='true'] {
+    transform: translateY(-3px);
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--foreground);
+  }
+  button.form-tile[data-best][aria-pressed='true'] {
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--award);
+  }
+  .form-strip[data-armed]:not([data-shown]) .form-tile {
+    transform: rotateY(90deg);
+    opacity: 0;
+    transition: none;
+  }
+  .form-detail {
+    @apply mt-3 flex min-h-11 flex-wrap items-center gap-x-2 gap-y-1 rounded-lg bg-muted/50 px-3 py-2 text-xs font-semibold;
+  }
+
+  .luck-meter {
+    @apply mt-5 border-t border-border pt-4;
+  }
+  .luck-track {
+    @apply relative mt-3 h-2 rounded-full;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--muted-foreground) 45%, transparent),
+      var(--muted) 50%,
+      color-mix(in srgb, var(--award) 70%, transparent)
+    );
+  }
+  .luck-track::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--border);
+  }
+  .luck-marker {
+    @apply absolute top-1/2 size-4 rounded-full border-2 border-card bg-foreground;
+    translate: -50% -50%;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+  }
+  .luck-scale {
+    @apply mt-1.5 flex justify-between font-mono text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground;
+  }
+
+  /* How the league rates you. */
+  .faith-meter {
+    @apply mt-3 flex items-center gap-3;
+  }
+  .faith-split,
+  .faith-bar {
+    @apply block overflow-hidden rounded-full;
+    background: color-mix(in srgb, var(--muted-foreground) 22%, transparent);
+  }
+  .faith-split {
+    @apply mt-3 h-2.5;
+  }
+  .faith-bar {
+    @apply mt-1.5 h-1.5;
+  }
+  .faith-split > span,
+  .faith-bar > span {
+    @apply block h-full rounded-full bg-primary;
+  }
+  .faith-people {
+    @apply mt-4 grid grid-cols-2 gap-2;
+  }
+  .faith-person {
+    @apply min-w-0 rounded-lg border border-border p-3;
+  }
+  .faith-weeks {
+    @apply mt-4 space-y-3;
+  }
+
+  /* Pickup returns. */
+  .returns-total {
+    @apply mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground;
+  }
+  .returns-total strong {
+    @apply font-mono text-sm font-black text-foreground;
+  }
+  .returns-list {
+    @apply overflow-hidden rounded-xl border border-border;
+  }
+  .return-row {
+    @apply border-b border-border last:border-b-0;
+  }
+  .returns-list > li:last-child .return-row {
+    @apply border-b-0;
+  }
+  .return-row summary {
+    @apply block cursor-pointer list-none px-3 py-2.5 transition-colors hover:bg-muted/40;
+  }
+  .return-row summary::-webkit-details-marker {
+    display: none;
+  }
+  .return-track {
+    @apply my-1.5 block h-2 overflow-hidden rounded-full bg-muted;
+  }
+  .return-track[data-unavailable] {
+    background-image: repeating-linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--muted-foreground) 30%, transparent) 0 4px,
+      transparent 4px 8px
+    );
+  }
+  .return-bar {
+    @apply block h-full rounded-full bg-primary;
+  }
+  .return-evidence {
+    @apply space-y-2 px-3 pb-3 text-xs text-muted-foreground;
+  }
+  .return-weeks {
+    @apply flex flex-wrap gap-1.5;
+  }
+  .return-weeks li {
+    @apply rounded-md border border-border px-2 py-1;
+  }
+  .return-weeks li[data-started] {
+    @apply border-primary/40 text-foreground;
+  }
+
+  /* Transfer window. */
+  .deal-card {
+    @apply block rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/40;
+    border-top: 3px solid var(--award);
+  }
+  .deal-kicker {
+    @apply flex justify-between font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-award;
+  }
+  .deal-score {
+    @apply mt-2 grid items-end gap-2 font-mono text-2xl font-black;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+  .deal-score > span:last-child {
+    @apply text-right;
+  }
+  .deal-score [data-lead] {
+    @apply text-primary;
+  }
+  .deal-score-label {
+    @apply block truncate font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground;
+  }
+  .deal-score-dash {
+    @apply text-muted-foreground;
+  }
+
+  /* Trophy cabinet. */
+  .trophy-shelf {
+    @apply mt-3 grid gap-2 sm:grid-cols-2;
+  }
+  .trophy {
+    @apply rounded-lg border border-border p-3;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--award) 8%, var(--card)),
+      var(--card)
+    );
+    border-bottom: 3px solid color-mix(in srgb, var(--award) 55%, transparent);
+  }
+
+  /* Calls. */
+  .hit-rate {
+    @apply mt-3 flex items-center gap-4;
+  }
+  .hit-ring {
+    @apply relative size-24 shrink-0;
+  }
+  .hit-ring svg {
+    @apply size-full -rotate-90;
+  }
+  .hit-ring circle {
+    fill: none;
+    stroke-width: 7;
+  }
+  .hit-ring-track {
+    stroke: var(--muted);
+  }
+  .hit-ring-value {
+    stroke: var(--primary);
+    stroke-linecap: round;
+    animation: ring-draw 1100ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .hit-ring-label {
+    @apply absolute inset-0 flex flex-col items-center justify-center leading-none;
+  }
+  .turnstile {
+    @apply mt-2 flex flex-wrap gap-1.5;
+  }
+  .turnstile-token {
+    @apply flex min-w-14 flex-col whitespace-nowrap items-center gap-0.5 rounded-md border border-dashed border-border px-1 py-1.5 text-muted-foreground;
+  }
+  .turnstile-token[data-full] {
+    @apply border-solid border-primary text-primary;
+    background: color-mix(in srgb, var(--primary) 10%, var(--card));
+  }
+  .ballot-list {
+    @apply mt-2 overflow-hidden rounded-xl border border-border;
+  }
+  .ballot-row {
+    @apply grid items-center gap-2 border-b border-border px-3 py-2 last:border-b-0;
+    grid-template-columns: 2rem minmax(0, 1fr) auto 2.5rem;
+  }
+  .ballot-row[data-mine] {
+    background: color-mix(in srgb, var(--primary) 7%, var(--card));
+    box-shadow: inset 3px 0 0 var(--primary);
+  }
+  .ballot-move {
+    @apply text-right font-mono text-xs font-black;
+  }
+  .ballot-move[data-tone='up'] {
+    @apply text-primary;
+  }
+  .ballot-move[data-tone='down'] {
+    @apply text-muted-foreground;
+  }
+  .ballot-move[data-tone='even'] {
+    @apply text-award;
+  }
+  .verdict-card {
+    @apply mt-5 flex items-center gap-3 rounded-xl border border-award/40 p-3 transition-colors hover:border-award;
+  }
+  .verdict-grade {
+    @apply flex size-14 shrink-0 items-center justify-center rounded-full border-2 border-award font-heading text-xl font-black text-award;
+  }
+}
+@keyframes ring-draw {
+  from {
+    stroke-dasharray: 0 999;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-tile {
+    transition: none;
+  }
+  .hit-ring-value {
+    animation: none;
+  }
+}
+@media (forced-colors: active) {
+  .season-ticket,
+  .gate-ticket,
+  .deal-card,
+  .trophy {
+    border: 1px solid CanvasText;
+  }
+  .season-ticket-stub,
+  .gate-ticket-band {
+    border-color: CanvasText;
+  }
+  .season-chip[aria-current],
+  button.form-tile[aria-pressed='true'] {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+  .form-tile {
+    border: 1px solid CanvasText;
+    forced-color-adjust: none;
+    background: Canvas;
+    color: CanvasText;
+  }
+  .form-tile[data-state='W'] {
+    background: Highlight;
+    color: HighlightText;
+  }
+  .form-tile[data-best] {
+    outline: 2px solid CanvasText;
+  }
+  .faith-split > span,
+  .faith-bar > span,
+  .return-bar,
+  .luck-marker {
+    background: CanvasText;
+  }
+  .faith-split,
+  .faith-bar,
+  .return-track,
+  .luck-track {
+    border: 1px solid CanvasText;
+  }
+  .hit-ring-track {
+    stroke: GrayText;
+  }
+  .hit-ring-value {
+    stroke: Highlight;
+  }
+  .turnstile-token[data-full],
+  .ballot-row[data-mine] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useMemo, useState, type SyntheticEvent } from 'react';
-import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -13,21 +12,45 @@ import {
 } from '@/components/ui/select';
 import { getBrowserSupabaseClient } from '@/lib/supabase/browser';
 import { leagueMembers, memberLoginEmail } from '@/lib/data/member-directory';
-import { formatLockTime, signInErrorMessage } from '@/lib/predictions/rules';
+import { signInErrorMessage } from '@/lib/predictions/rules';
 import { isCompleteForecast } from '@/lib/predictions/season-consensus';
 import {
   againstTheRoom,
-  awardNames,
+  compareForecast,
   type AwardVote,
   type FinalPickGame,
 } from '@/lib/season/features';
-import { acquisitionSummary, personalResults } from '@/lib/season/my-season';
+import {
+  acquisitionSummary,
+  formGuide,
+  leagueFaith,
+  personalResults,
+  pickAttendance,
+} from '@/lib/season/my-season';
 import { formatScore, rosterScore } from '@/lib/sleeper/scores';
+import {
+  formatRecord,
+  gamesPlayed,
+  getLuck,
+  type TeamStanding,
+} from '@/lib/data/standings';
 import type { SeasonHubData } from '@/lib/data/season-hub';
 import type { PredictionWeekData } from '@/lib/data/predictions';
+import type { Rivalry } from '@/lib/data/rivalries';
 import type { SleeperRoster } from '@/lib/sleeper/types';
+import { CallsPanel } from './calls-panel';
+import { FormGuide } from './form-guide';
+import { LeagueFaith } from './league-faith';
+import { PickupReturns } from './pickup-returns';
+import { GateTicket, SeasonTicket } from './season-ticket';
+import { SectionChips } from './section-chips';
+import { TaleOfTape } from './tale-of-tape';
+import { TradeScoreboard } from './trade-scoreboard';
+import { TrophyCabinet } from './trophy-cabinet';
 
-type Game = FinalPickGame & { status: string };
+/** `locked` is judged when the member data loads; a focus refresh updates it. */
+type Game = FinalPickGame & { status: string; locked: boolean };
+type Profile = { id: string; roster_id: number; display_name: string };
 type Member = {
   status: 'loading' | 'signed-out' | 'ready' | 'error';
   id: string | null;
@@ -37,6 +60,11 @@ type Member = {
   finalVotes: AwardVote[];
   awardsReady: boolean;
   forecast: number[] | null;
+  /** Everyone's picks on your games once each week locked. */
+  roomVotes: AwardVote[];
+  roomReady: boolean;
+  bankers: { matchup_id: number; voter_id: string }[] | null;
+  profiles: Profile[];
 };
 const empty = {
   id: null,
@@ -46,6 +74,10 @@ const empty = {
   finalVotes: [],
   awardsReady: true,
   forecast: null,
+  roomVotes: [],
+  roomReady: true,
+  bankers: null,
+  profiles: [],
 };
 export type PersonalDraft = {
   rosterId: number;
@@ -59,11 +91,15 @@ export function MySeason({
   picks,
   rosters,
   drafts,
+  standings,
+  rivalries,
 }: {
   data: SeasonHubData;
   picks: PredictionWeekData | null;
   rosters: SleeperRoster[] | null;
   drafts: PersonalDraft[];
+  standings: TeamStanding[] | null;
+  rivalries: Record<number, Rivalry>;
 }) {
   const client = useMemo(() => getBrowserSupabaseClient(), []);
   const [member, setMember] = useState<Member>({ status: 'loading', ...empty });
@@ -72,7 +108,6 @@ export function MySeason({
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const [pickupSort, setPickupSort] = useState('recent');
   const [locked, setLocked] = useState(picks?.locked ?? true);
   useEffect(() => {
     if (!picks) return;
@@ -125,7 +160,7 @@ export function MySeason({
           client
             .from('prediction_matchups')
             .select(
-              'id,status,home_roster_id,away_roster_id,winner_roster_id,prediction_weeks!inner(week,league_id,season)',
+              'id,status,home_roster_id,away_roster_id,winner_roster_id,prediction_weeks!inner(week,locks_at,league_id,season)',
             )
             .eq('prediction_weeks.league_id', data.leagueId)
             .eq('prediction_weeks.season', 2026),
@@ -147,14 +182,21 @@ export function MySeason({
           )
         )
           throw Error('Forecast unavailable');
-        const mapped: Game[] = (games.data ?? []).map((g) => ({
-          id: g.id,
-          status: g.status,
-          home: g.home_roster_id,
-          away: g.away_roster_id,
-          winner: g.winner_roster_id,
-          week: (g.prediction_weeks as unknown as { week: number }).week,
-        }));
+        const mapped: Game[] = (games.data ?? []).map((g) => {
+          const week = g.prediction_weeks as unknown as {
+            week: number;
+            locks_at: string;
+          };
+          return {
+            id: g.id,
+            status: g.status,
+            home: g.home_roster_id,
+            away: g.away_roster_id,
+            winner: g.winner_roster_id,
+            week: week.week,
+            locked: Date.parse(week.locks_at) <= Date.now(),
+          };
+        });
         const settled = mapped.filter(
           (g) =>
             g.status === 'final' &&
@@ -183,6 +225,38 @@ export function MySeason({
           awardsReady = false;
           finalVotes.length = 0;
         }
+        // The league's picks on your games are readable once each week locks.
+        // Failures here hide the room section only.
+        const rosterId = profile.data.roster_id;
+        const roomIds = mapped
+          .filter(
+            (g) => (g.home === rosterId || g.away === rosterId) && g.locked,
+          )
+          .map((g) => g.id);
+        let roomVotes: AwardVote[] = [];
+        let roomReady = true;
+        let bankers: Member['bankers'] = null;
+        let profiles: Profile[] = [];
+        if (roomIds.length)
+          try {
+            const [room, banked, people] = await Promise.all([
+              client
+                .from('prediction_votes')
+                .select('matchup_id,voter_id,selected_roster_id')
+                .in('matchup_id', roomIds),
+              client
+                .from('prediction_bankers')
+                .select('matchup_id,voter_id')
+                .in('matchup_id', roomIds),
+              client.from('profiles').select('id,roster_id,display_name'),
+            ]);
+            if (room.error) roomReady = false;
+            else roomVotes = room.data;
+            if (!banked.error) bankers = banked.data;
+            if (!people.error) profiles = people.data;
+          } catch {
+            roomReady = false;
+          }
         if (alive && version === request)
           setMember({
             status: 'ready',
@@ -193,6 +267,10 @@ export function MySeason({
             finalVotes,
             awardsReady,
             forecast: forecast.data?.rankings ?? null,
+            roomVotes,
+            roomReady,
+            bankers,
+            profiles,
           });
       } catch {
         if (alive && version === request)
@@ -275,114 +353,135 @@ export function MySeason({
   }
   const title = (
     <header>
-      <p className="ui-kicker">Your MAC 12 · 2026</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight">My Season</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Your picks, pickups, trades and the receipts that follow them.
+      <p className="ui-kicker text-primary">Your MAC 12 · 2026</p>
+      <h1 className="mt-2 font-heading text-3xl font-black leading-[1.05] tracking-[-0.04em] sm:text-5xl">
+        My Season
+      </h1>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">
+        Your form, your pickups, your trades and what the league really thinks
+        of you.
       </p>
     </header>
   );
   if (member.status === 'loading')
     return (
-      <div className="space-y-4">
+      <div className="space-y-5">
         {title}
-        <output className="linear-panel block rounded-xl p-4 text-sm">
-          Loading your season…
+        <output className="gate-ticket block" aria-live="polite">
+          <span className="gate-ticket-band" aria-hidden="true">
+            <span>Admit one</span>
+            <span>MAC 12 · 2026</span>
+          </span>
+          <span className="block p-4 text-sm text-muted-foreground sm:p-5">
+            Loading your season…
+          </span>
         </output>
       </div>
     );
   if (member.status === 'error')
     return (
-      <div className="space-y-4">
+      <div className="space-y-5">
         {title}
-        <section className="linear-panel rounded-xl p-4">
-          <p role="alert" className="text-sm">
+        <GateTicket title="Ticket not recognised">
+          <p role="alert" className="mt-2 text-sm">
             Your member details could not be loaded. Please retry.
           </p>
-          <Button className="mt-3" onClick={() => setReload((r) => r + 1)}>
+          <Button
+            className="mt-3 min-h-11"
+            onClick={() => setReload((r) => r + 1)}
+          >
             Retry
           </Button>
-        </section>
+        </GateTicket>
       </div>
     );
   if (member.status === 'signed-out')
     return (
-      <div className="space-y-4">
+      <div className="space-y-5">
         {title}
-        <section className="linear-panel max-w-lg rounded-xl p-4 sm:p-5">
-          <h2 className="text-lg font-semibold">Sign in to your season</h2>
-          <p className="mt-2 text-xs leading-6 text-muted-foreground">
-            Use your usual MAC 12 manager account. See which pickups paid off,
-            your weekly calls and the progress of your team.
-          </p>
-          <form className="mt-4 space-y-3" onSubmit={signIn}>
-            <label
-              htmlFor="my-season-manager"
-              className="block text-xs font-medium"
-            >
-              Manager
-            </label>
-            <Select
-              value={slug}
-              onValueChange={(value) => {
-                if (value) setSlug(value);
-              }}
-            >
-              <SelectTrigger
-                id="my-season-manager"
-                className="w-full"
-                disabled={busy}
+        <div className="max-w-lg">
+          <GateTicket>
+            <p className="mt-2 text-xs leading-6 text-muted-foreground">
+              Use your usual MAC 12 manager account to see your form, which
+              pickups paid off and how the league rates you.
+            </p>
+            <form className="mt-4 space-y-3" onSubmit={signIn}>
+              <label
+                htmlFor="my-season-manager"
+                className="block text-xs font-medium"
               >
-                <SelectValue>
-                  {leagueMembers.find((m) => m.loginSlug === slug)?.displayName}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                {leagueMembers.map((m) => (
-                  <SelectItem key={m.loginSlug} value={m.loginSlug}>
-                    {m.displayName}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <label
-              htmlFor="my-season-password"
-              className="block text-xs font-medium"
-            >
-              Password
-            </label>
-            <Input
-              id="my-season-password"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={busy}
-              required
-            />
-            {loginError && (
-              <p role="alert" className="text-xs text-destructive">
-                {loginError}
-              </p>
-            )}
-            <Button
-              type="submit"
-              className="min-h-11 w-full"
-              disabled={busy || !client}
-            >
-              {busy ? 'Signing in…' : 'Open My Season'}
-            </Button>
-          </form>
-        </section>
+                Manager
+              </label>
+              <Select
+                value={slug}
+                onValueChange={(value) => {
+                  if (value) setSlug(value);
+                }}
+              >
+                <SelectTrigger
+                  id="my-season-manager"
+                  className="w-full"
+                  disabled={busy}
+                >
+                  <SelectValue>
+                    {
+                      leagueMembers.find((m) => m.loginSlug === slug)
+                        ?.displayName
+                    }
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {leagueMembers.map((m) => (
+                    <SelectItem key={m.loginSlug} value={m.loginSlug}>
+                      {m.displayName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <label
+                htmlFor="my-season-password"
+                className="block text-xs font-medium"
+              >
+                Password
+              </label>
+              <Input
+                id="my-season-password"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={busy}
+                required
+              />
+              {loginError && (
+                <p role="alert" className="text-xs text-destructive">
+                  {loginError}
+                </p>
+              )}
+              <Button
+                type="submit"
+                className="min-h-11 w-full"
+                disabled={busy || !client}
+              >
+                {busy ? 'Signing in…' : 'Open My Season'}
+              </Button>
+            </form>
+          </GateTicket>
+        </div>
       </div>
     );
   const id = member.profile!.roster_id;
-  const name = (rosterId: number) =>
+  const standing = (rosterId: number) =>
+    standings?.find((t) => t.rosterId === rosterId);
+  const manager = (rosterId: number) =>
     data.managers.find((m) => m.rosterId === rosterId)?.name ??
     `Roster ${rosterId}`;
+  const team = (rosterId: number) =>
+    standing(rosterId)?.teamName ?? manager(rosterId);
   const player = (playerId: string) =>
     data.names[playerId] ?? `Player ${playerId}`;
   const roster = rosters?.find((r) => r.roster_id === id);
+  const me = standing(id);
   const currentMatch = picks?.matchups.find(
     (m) => m.home.rosterId === id || m.away.rosterId === id,
   );
@@ -391,28 +490,42 @@ export function MySeason({
       ? currentMatch.away
       : currentMatch.home
     : null;
+  const ownSide = currentMatch
+    ? currentMatch.home.rosterId === id
+      ? currentMatch.home
+      : currentMatch.away
+    : null;
   const saved = member.votes.filter((v) =>
     picks?.matchups.some((m) => m.databaseId === v.matchup_id),
   );
-  const available = picks?.availability === 'ready' && picks.databaseReady;
+  const available = Boolean(
+    picks && picks.availability === 'ready' && picks.databaseReady,
+  );
   const finished = member.games.filter(
     (g) => g.status === 'final' && data.completedWeeks.includes(g.week),
   );
   const decisions = finished.filter((g) => g.winner !== null);
-  const correct = decisions.filter((g) =>
+  const picked = (g: Game) =>
     member.votes.some(
       (v) => v.matchup_id === g.id && v.selected_roster_id === g.winner,
-    ),
-  ).length;
+    );
+  const correct = decisions.filter(picked).length;
   const submitted = decisions.filter((g) =>
     member.votes.some((v) => v.matchup_id === g.id),
   ).length;
+  const weekly = [...new Set(finished.map((g) => g.week))]
+    .sort((a, b) => b - a)
+    .map((week) => {
+      const games = decisions.filter((g) => g.week === week);
+      return {
+        week,
+        correct: games.filter(picked).length,
+        games: games.length,
+      };
+    });
   const adds =
     data.activity?.acquisitions?.filter((a) => a.rosterId === id) ?? null;
   const summary = adds ? acquisitionSummary(adds) : null;
-  const best = adds
-    ?.filter((a) => a.points !== null && a.points > 0)
-    .sort((a, b) => b.points! - a.points!)[0];
   const trades = data.receipts.filter((r) => r.trade.roster_ids.includes(id));
   const honours = data.awards.flatMap(
     (w) =>
@@ -424,9 +537,10 @@ export function MySeason({
     finished.filter((g) => g.week <= 14),
     member.finalVotes,
   ).filter((c) => c.voterId === member.id);
-  const awardsPartial =
-    !member.awardsReady ||
-    data.awards.some((w) => !w.result || !w.result.waiverReady);
+  const scheduleIncomplete = data.awards.some(
+    (w) => !w.result || !w.result.waiverReady,
+  );
+  const awardsPartial = !member.awardsReady || scheduleIncomplete;
   const awardCount =
     new Set(honours.map((a) => `${a.week}:${a.kind}`)).size +
     new Set(minority.map((a) => a.week)).size;
@@ -435,15 +549,42 @@ export function MySeason({
     id,
     data.completedWeeks,
   );
-  const logs = results.games;
-  const sortedAdds = [...(adds ?? [])].sort((a, b) =>
-    pickupSort === 'points'
-      ? (b.points ?? -Infinity) - (a.points ?? -Infinity) ||
-        b.acquired - a.acquired
-      : b.acquired - a.acquired,
+  const tiles = formGuide(results, data.completedWeeks);
+  const bestWeek = [...results.games].sort((a, b) => b.points - a.points)[0];
+  const lowestWeek = [...results.games].sort((a, b) => a.points - b.points)[0];
+  const luck = me ? getLuck(me) : null;
+  const room = leagueFaith(
+    member.games
+      .filter((g) => g.locked)
+      .map((g) => ({
+        ...g,
+        settled: g.status === 'final' && data.completedWeeks.includes(g.week),
+      })),
+    member.roomVotes,
+    id,
+    member.id!,
+    member.bankers,
   );
-  const bestWeek = [...logs].sort((a, b) => b.points - a.points)[0];
-  const worstWeek = [...logs].sort((a, b) => a.points - b.points)[0];
+  const profileTeam = (voterId: string) => {
+    const profile = member.profiles.find((p) => p.id === voterId);
+    if (!profile) return null;
+    return {
+      teamName: team(profile.roster_id),
+      ownerName: standing(profile.roster_id)?.ownerName ?? profile.display_name,
+    };
+  };
+  const attendance = pickAttendance(member.games, member.votes);
+  const table =
+    standings && standings.length === 12
+      ? [...standings].sort((a, b) => a.rank - b.rank).map((t) => t.rosterId)
+      : null;
+  const tableWeek = standings?.length
+    ? Math.max(...standings.map(gamesPlayed))
+    : 0;
+  const ballot =
+    member.forecast && table && tableWeek
+      ? compareForecast(member.forecast, table)
+      : null;
   const draft = drafts.find((d) => d.rosterId === id);
   const date = (value: number) =>
     new Intl.DateTimeFormat('en-IE', {
@@ -451,520 +592,187 @@ export function MySeason({
       month: 'short',
       timeZone: 'Europe/Dublin',
     }).format(new Date(value));
+  const tapeSide = (side: NonNullable<typeof opponent>) => {
+    const row = standing(side.rosterId);
+    return {
+      teamName: row?.teamName ?? side.teamName,
+      ownerName: row?.ownerName ?? side.ownerName,
+      avatar: row?.avatar ?? side.avatar,
+      record: formatRecord(row ?? side),
+      pointsFor: row?.pointsFor ?? null,
+      form: row?.form ?? [],
+    };
+  };
+  const winShare = (r: { wins: number; losses: number; ties: number }) =>
+    (r.wins + r.ties / 2) / Math.max(1, r.wins + r.losses + r.ties);
+  const rivalry = currentMatch
+    ? rivalries[currentMatch.sleeperMatchupId]
+    : null;
+  const home = currentMatch?.home.rosterId === id;
+  const thisWeekRoom = currentMatch
+    ? room.weeks.find((w) => w.matchupId === currentMatch.databaseId)
+    : undefined;
+  const sections = [
+    opponent && ['my-week', 'This week'],
+    ['my-log', 'Form'],
+    room.total > 0 || !member.roomReady ? ['my-faith', 'The room'] : null,
+    ['my-waivers', 'Waivers'],
+    ['my-trades', 'Trades'],
+    ['my-awards', 'Trophies'],
+    ['my-predictions', 'Calls'],
+  ]
+    .filter((item): item is string[] => Array.isArray(item))
+    .map(([sectionId, label]) => ({ id: sectionId, label }));
   return (
-    <div className="space-y-4 sm:space-y-5">
+    <div className="space-y-5">
       {title}
-      <section className="linear-panel rounded-xl p-4 sm:p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-xl font-semibold">
-            {member.profile!.display_name}
-          </h2>
-          <a
-            href="/my-season"
-            className="flex min-h-11 items-center text-xs font-semibold text-primary"
-          >
+      <div>
+        <SeasonTicket
+          team={{
+            teamName: me?.teamName ?? manager(id),
+            ownerName: me?.ownerName ?? member.profile!.display_name,
+            avatar: me?.avatar ?? null,
+          }}
+          record={roster ? roster.settings : null}
+          points={
+            roster
+              ? formatScore(
+                  rosterScore(
+                    roster.settings.fpts,
+                    roster.settings.fpts_decimal,
+                  ),
+                )
+              : '—'
+          }
+          calls={correct}
+          awards={`${awardCount}${awardsPartial ? '+' : ''}`}
+          stub={
+            picks
+              ? {
+                  week: picks.week,
+                  saved: saved.length,
+                  total: picks.matchups.length,
+                  available,
+                  locked,
+                  lockAt: picks.lockAt,
+                }
+              : null
+          }
+        />
+        <p className="mt-2 flex flex-wrap gap-x-4 px-1">
+          <a href="/my-season" className="season-link">
             Refresh all results
           </a>
           <a
             href="https://sleeper.com/leagues/1389706813993160704"
-            className="text-xs font-semibold text-primary"
+            className="season-link"
           >
             Manage team in Sleeper ↗
           </a>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {[
-            {
-              label: 'League record',
-              value: roster
-                ? `${roster.settings.wins}–${roster.settings.losses}–${roster.settings.ties}`
-                : 'Unavailable',
-            },
-            {
-              label: 'Points scored',
-              value: roster
-                ? formatScore(
-                    rosterScore(
-                      roster.settings.fpts,
-                      roster.settings.fpts_decimal,
-                    ),
-                  )
-                : 'Unavailable',
-            },
-            { label: 'Prediction points', value: `${correct}` },
-            {
-              label: 'Weekly awards',
-              value: `${awardCount}${awardsPartial ? '+' : ''}`,
-            },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className="rounded-lg border border-white/10 p-3"
-            >
-              <p className="text-[10px] text-muted-foreground">{s.label}</p>
-              <p className="mt-1 font-mono text-lg font-semibold">{s.value}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-2 text-[10px] text-muted-foreground">
-          Record is W–L–T. Prediction points and awards use settled results;
-          league totals come from Sleeper.
-          {awardsPartial &&
-            ' The awards total is partial while some award data is unavailable.'}
         </p>
-      </section>
-      <section className="linear-panel rounded-xl border-primary/20 p-4 sm:p-5">
-        <p className="ui-kicker">Your next action</p>
-        <h2 className="mt-2 text-lg font-semibold">
-          Weekly picks {picks ? `· Week ${picks.week}` : ''}
-        </h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {available
-            ? `${saved.length} of ${picks!.matchups.length} picks saved${locked ? ' · locked' : ''}.`
-            : 'The weekly ballot is not available right now.'}
-        </p>
-        {picks && (
-          <p className="mt-2 text-xs text-muted-foreground">
-            {locked ? 'Closed' : 'Deadline'}: {formatLockTime(picks.lockAt)}
-          </p>
-        )}
-        <a
-          href="/matchups"
-          className="mt-3 flex min-h-11 items-center justify-between rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground"
-        >
-          {!available
-            ? 'Open Weekly picks'
-            : locked
-              ? 'View the picks'
-              : saved.length === picks!.matchups.length
-                ? 'Review your picks'
-                : 'Finish your picks'}
-          <ArrowRight className="size-4" />
-        </a>
-        <p className="mt-3 text-xs text-muted-foreground">
-          {opponent
-            ? `${picks?.finalized ? 'Last matchup' : 'This week’s opponent'}: ${opponent.ownerName} · ${opponent.teamName}.`
-            : 'Your current opponent will appear when the matchup is confirmed.'}
-        </p>
-      </section>
-      <nav
-        aria-label="My Season sections"
-        className="flex flex-wrap gap-2 text-xs font-semibold text-primary"
-      >
-        {[
-          ['Waiver wire', '#my-waivers'],
-          ['Trades', '#my-trades'],
-          ['Awards', '#my-awards'],
-          ['Season log', '#my-log'],
-          ['Predictions', '#my-predictions'],
-        ].map(([label, href]) => (
-          <a
-            key={href}
-            href={href}
-            className="min-h-11 rounded-lg border border-primary/20 px-3 py-3"
-          >
-            {label}
-          </a>
-        ))}
-      </nav>
-      <section
-        id="my-waivers"
-        className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"
-      >
-        <h2 className="text-lg font-semibold">
-          Your waiver wire · did the pickups pay?
-        </h2>
-        <p className="mt-2 text-xs leading-6 text-muted-foreground">
-          Completed waiver and free-agent additions, with the fantasy points
-          actually used in your starting lineup.
-        </p>
-        {!summary ? (
-          <p className="mt-3 text-sm text-amber-200">
-            Transaction history is incomplete. Pickup returns are unavailable.
-          </p>
-        ) : (
-          <>
-            <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {[
-                { label: 'Players added', value: summary.additions },
-                { label: 'Points used', value: formatScore(summary.points) },
-                { label: 'Starts recorded', value: summary.starts },
-                {
-                  label: 'FAAB on successful claims',
-                  value: summary.faab ?? 'Unknown',
-                },
-              ].map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-lg border border-white/10 p-3"
-                >
-                  <p className="text-[10px] text-muted-foreground">{s.label}</p>
-                  <p className="mt-1 font-mono text-lg">{s.value}</p>
-                </div>
-              ))}
-            </div>
-            {best && (
-              <p className="mt-3 text-sm">
-                Top verified pickup: <strong>{player(best.playerId)}</strong> ·{' '}
-                {best.points!.toFixed(2)} points used.
-              </p>
-            )}
-            {adds!.length === 0 && (
-              <p className="mt-4 text-sm text-muted-foreground">
-                No completed pickups yet. Your first addition will start the
-                receipt book.
-              </p>
-            )}
-            {!!adds!.length && (
-              <div className="mt-4 flex items-center justify-between gap-3">
-                <label htmlFor="pickup-sort" className="text-xs font-medium">
-                  Sort pickups
-                </label>
-                <Select
-                  value={pickupSort}
-                  onValueChange={(value) => {
-                    if (value) setPickupSort(value);
-                  }}
-                >
-                  <SelectTrigger id="pickup-sort" className="w-40">
-                    <SelectValue>
-                      {pickupSort === 'points'
-                        ? 'Most points used'
-                        : 'Most recent'}
-                    </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="recent">Most recent</SelectItem>
-                    <SelectItem value="points">Most points used</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-            {sortedAdds.map((a) => (
-              <details
-                key={a.id}
-                className="mt-3 rounded-lg border border-white/10 p-3"
-              >
-                <summary className="cursor-pointer text-sm font-semibold">
-                  {player(a.playerId)}
-                  <span className="mt-1 block text-[11px] font-normal text-muted-foreground">
-                    {date(a.acquired)} ·{' '}
-                    {a.type === 'waiver'
-                      ? `Waiver · ${a.faab === null ? 'FAAB unknown' : `${a.faab} FAAB`}`
-                      : 'Free agent'}{' '}
-                    ·{' '}
-                    {a.evidence === null
-                      ? 'Return unavailable'
-                      : a.evidence.length
-                        ? `${formatScore(a.points)} points used`
-                        : 'Waiting for settled weeks'}{' '}
-                    ·{' '}
-                    {roster?.players?.includes(a.playerId)
-                      ? 'On your roster'
-                      : roster
-                        ? 'Off your roster'
-                        : 'Roster status unavailable'}
-                  </span>
-                </summary>
-                <p className="mt-3 text-xs text-muted-foreground">
-                  {a.starts} starts recorded for this acquisition.
-                  {a.drops.length
-                    ? ` Released: ${a.drops.map(player).join(', ')}.`
-                    : ''}
-                  {a.exited
-                    ? ' This ownership spell ended; later points are excluded.'
-                    : ''}
-                </p>
-                {a.evidence === null ? (
-                  <p className="mt-2 text-xs text-muted-foreground">
-                    Acquisition timing or ownership history could not be
-                    verified.
-                  </p>
-                ) : a.evidence.length ? (
-                  <ul className="mt-3 space-y-2 text-xs">
-                    {a.evidence.map((e) => (
-                      <li key={e.week}>
-                        Week {e.week} ·{' '}
-                        {e.excluded
-                          ? 'Excluded: moved on'
-                          : e.points === null
-                            ? 'Points unavailable'
-                            : e.started
-                              ? `${e.points.toFixed(2)} starter points`
-                              : 'Not started · 0 points used'}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </details>
-            ))}
-          </>
-        )}
-        <details className="mt-4">
-          <summary className="cursor-pointer text-xs font-semibold text-primary">
-            How pickup returns are measured
-          </summary>
-          <p className="mt-2 text-[11px] leading-5 text-muted-foreground">
-            Settled scoring weeks only. The acquisition week counts if Sleeper
-            records the player in your starting lineup; later bench weeks
-            contribute zero used points. Exclude any departure week, then stop
-            counting that ownership spell. Re-additions have separate receipts.
-            Missing timing, ownership or score data stays unavailable, not zero.
-            Starts are recorded starts, not proof of a good decision at the
-            time. A player may have been injured or on bye; no cause is inferred
-            from a zero. FAAB counts completed waiver claims once per
-            transaction, not failed bids or FAAB sent in trades.
-          </p>
-        </details>
-      </section>
-      <section
-        id="my-trades"
-        className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"
-      >
-        <h2 className="text-lg font-semibold">Your trades</h2>
-        {!data.transactionReady && (
-          <p className="mt-3 text-xs text-amber-200">
-            Transaction history is incomplete; this list may be partial.
-          </p>
-        )}
-        {!trades.length && data.transactionReady && (
-          <p className="mt-3 text-sm text-muted-foreground">
-            No completed 2026 trades yet. A peaceful start for the negotiations
-            department.
-          </p>
-        )}
-        {trades.map(({ trade, review }) => (
-          <a
-            key={trade.transaction_id}
-            href={`/season-hub#trade-${trade.transaction_id}`}
-            className="mt-3 block rounded-lg border border-white/10 p-3 hover:border-primary/40"
-          >
-            <p className="text-sm font-semibold">
-              {trade.roster_ids
-                .filter((r) => r !== id)
-                .map(name)
-                .join(' / ')}{' '}
-              · {date(trade.status_updated ?? trade.created)}
-            </p>
-            <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Received:{' '}
-              {Object.entries(trade.adds ?? {})
-                .filter(([, owner]) => owner === id)
-                .map(([playerId]) => player(playerId))
-                .join(', ') || 'See picks / FAAB in receipt'}
-              .
-            </p>
-            <p className="mt-2 text-xs text-primary">
-              {review?.initialReady
-                ? 'First three-week review ready'
-                : review
-                  ? `${review.weeks.length} full scoring weeks settled`
-                  : 'Review waiting for verified history'}{' '}
-              · Open trade receipt →
-            </p>
-          </a>
-        ))}
-      </section>
-      <section
-        id="my-awards"
-        className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"
-      >
-        <h2 className="text-lg font-semibold">Your trophy cabinet</h2>
-        {data.awards.some((w) => !w.result || !w.result.waiverReady) && (
-          <p className="mt-3 text-xs text-amber-200">
-            Some schedule or waiver awards are awaiting complete data. The total
-            shows confirmed awards only.
-          </p>
-        )}
-        {!member.awardsReady && (
-          <p className="mt-3 text-xs text-amber-200">
-            Against the Room results are temporarily unavailable. Other awards
-            remain below.
-          </p>
-        )}
-        {!awardCount && !awardsPartial && (
-          <p className="mt-3 text-sm text-muted-foreground">
-            No settled awards yet. The season has plenty of opportunities to
-            provide evidence.
-          </p>
-        )}
-        {honours.map((a) => (
-          <article
-            key={`${a.week}:${a.kind}:${a.playerId ?? ''}`}
-            className="mt-3 rounded-lg border border-primary/20 p-3"
-          >
-            <h3 className="text-sm font-semibold">
-              Week {a.week} · {awardNames[a.kind]}
-            </h3>
-            <p className="mt-2 text-xs leading-6 text-muted-foreground">
-              {a.playerId ? `${player(a.playerId)}. ` : ''}
-              {a.detail}
-            </p>
-          </article>
-        ))}
-        {minority.map((a) => (
-          <p
-            key={`${a.week}:${a.winner}`}
-            className="mt-3 rounded-lg border border-primary/20 p-3 text-xs"
-          >
-            Week {a.week} · Against the Room: backed {name(a.winner)}, with{' '}
-            {a.backers} of {a.voters} voters.
-          </p>
-        ))}
-        <a
-          href="/season-hub#weekly-awards"
-          className="mt-3 inline-block text-xs text-primary underline"
-        >
-          All awards and rules
-        </a>
-      </section>
-      <section
-        id="my-log"
-        className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"
-      >
-        <h2 className="text-lg font-semibold">Your season log</h2>
-        {!logs.length ? (
-          <p className="mt-3 text-sm text-muted-foreground">
-            Settled matchup results will appear here after Week 1.
-          </p>
-        ) : (
-          <>
-            {bestWeek && (
-              <p className="mt-3 text-xs text-muted-foreground">
-                Best recorded week: {bestWeek.week} ·{' '}
-                {bestWeek.points.toFixed(2)} points. Lowest: Week{' '}
-                {worstWeek.week} · {worstWeek.points.toFixed(2)}.
-              </p>
-            )}
-            <details className="mt-3">
-              <summary className="cursor-pointer text-xs font-semibold text-primary">
-                Every completed matchup
-              </summary>
-              <ul className="mt-3 space-y-2 text-xs">
-                {[...logs].reverse().map((g) => (
-                  <li
-                    key={g.week}
-                    className="rounded-lg border border-white/10 p-3"
-                  >
-                    Week {g.week} ·{' '}
-                    {g.opponent ? name(g.opponent) : 'No paired opponent'} ·{' '}
-                    {g.points.toFixed(2)}
-                    {g.against !== null
-                      ? `–${g.against.toFixed(2)} · ${g.points > g.against ? 'Win' : g.points < g.against ? 'Loss' : 'Tie'}`
-                      : ''}
-                  </li>
-                ))}
-              </ul>
-            </details>
-          </>
-        )}
-        {!!results.byes.length && (
-          <p className="mt-3 text-xs text-muted-foreground">
-            No paired matchup in Weeks {results.byes.join(', ')} (including
-            playoff byes). These are excluded from best and lowest weeks.
-          </p>
-        )}
-        {results.missing.length > 0 && (
-          <p className="mt-3 text-xs text-amber-200">
-            Some historical scores are unavailable. Best and lowest weeks use
-            the available results only.
-          </p>
-        )}
-      </section>
-      <section
-        id="my-predictions"
-        className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"
-      >
-        <h2 className="text-lg font-semibold">
-          Your calls and preseason receipts
-        </h2>
-        <p className="mt-3 text-sm">
-          {correct} correct winners from {decisions.length} settled, decisive
-          matchups.
-        </p>
-        <p className="mt-2 text-xs text-muted-foreground">
-          {submitted} submitted · {decisions.length - submitted} missed ·{' '}
-          {decisions.length
-            ? `${((100 * correct) / decisions.length).toFixed(1)}%`
-            : 'No settled accuracy yet'}
-          . Missed picks count against accuracy; tied matchups are excluded.
-        </p>
-        {!!finished.length && (
-          <details className="mt-3">
-            <summary className="cursor-pointer text-xs font-semibold text-primary">
-              Weekly prediction results
-            </summary>
-            <ul className="mt-3 space-y-2 text-xs">
-              {[...new Set(finished.map((g) => g.week))]
-                .sort((a, b) => b - a)
-                .map((week) => {
-                  const games = decisions.filter((g) => g.week === week);
-                  const wins = games.filter((g) =>
-                    member.votes.some(
-                      (v) =>
-                        v.matchup_id === g.id &&
-                        v.selected_roster_id === g.winner,
-                    ),
-                  ).length;
-                  return (
-                    <li key={week}>
-                      Week {week} · {wins} of {games.length} correct winners
-                    </li>
-                  );
-                })}
-            </ul>
-          </details>
-        )}
-        {member.forecast ? (
-          <details className="mt-4 rounded-lg border border-white/10 p-3">
-            <summary className="cursor-pointer text-sm font-semibold">
-              Your submitted final table
-            </summary>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-xs">
-              {member.forecast.map((r) => (
-                <li key={r}>
-                  {name(r)}
-                  {r === id ? ' (you)' : ''}
-                </li>
-              ))}
-            </ol>
-          </details>
-        ) : (
-          <p className="mt-4 text-sm text-muted-foreground">
-            You have not submitted a final-table prediction.
-          </p>
-        )}
-        <a
-          href="/draft-recap"
-          className="mt-3 inline-block text-xs text-primary underline"
-        >
-          Open season predictions
-        </a>
-        <a
-          href="/season-hub#prediction-reviews"
-          className="ml-4 mt-3 inline-block text-xs text-primary underline"
-        >
-          Halfway and final reviews
-        </a>
-        {draft && (
-          <a
-            href={`/draft-recap#roster-${id}`}
-            className="mt-4 block rounded-lg border border-primary/20 p-3"
-          >
-            <p className="ui-kicker">The preseason verdict</p>
-            <p className="mt-2 text-sm font-semibold">
-              {draft.grade} · {draft.gradeScore}/100 · predicted #
-              {draft.predictedFinish}
-            </p>
-            <p className="mt-2 text-xs text-muted-foreground">
-              {draft.headline}
-            </p>
-            <span className="mt-2 block text-xs text-primary">
-              Full report, draft personality and schedule →
-            </span>
-          </a>
-        )}
-      </section>
+      </div>
+      <SectionChips items={sections} />
+      {picks && opponent && ownSide && (
+        <TaleOfTape
+          week={picks.week}
+          finalized={picks.finalized}
+          me={tapeSide(ownSide)}
+          them={tapeSide(opponent)}
+          recordEdge={
+            winShare(standing(id) ?? ownSide) -
+            winShare(standing(opponent.rosterId) ?? opponent)
+          }
+          href={`/matchups?week=${picks.week}#matchup-${currentMatch!.sleeperMatchupId}`}
+          rivalry={
+            rivalry
+              ? {
+                  meetings: rivalry.meetings,
+                  mine: home ? rivalry.homeWins : rivalry.awayWins,
+                  theirs: home ? rivalry.awayWins : rivalry.homeWins,
+                  ties: rivalry.ties,
+                  last: rivalry.last && {
+                    season: rivalry.last.season,
+                    week: rivalry.last.week,
+                    mine: home
+                      ? rivalry.last.homePoints
+                      : rivalry.last.awayPoints,
+                    theirs: home
+                      ? rivalry.last.awayPoints
+                      : rivalry.last.homePoints,
+                  },
+                  scope: rivalry.scope,
+                  partial: rivalry.partial,
+                }
+              : null
+          }
+          room={thisWeekRoom ?? null}
+        />
+      )}
+      <FormGuide
+        tiles={tiles}
+        name={team}
+        best={bestWeek?.week ?? null}
+        lowest={
+          lowestWeek && lowestWeek.week !== bestWeek?.week
+            ? lowestWeek.week
+            : null
+        }
+        luck={
+          me && luck !== null && me.allPlay
+            ? {
+                value: luck,
+                allPlay: formatRecord(me.allPlay),
+                record: formatRecord(me),
+              }
+            : null
+        }
+      />
+      <LeagueFaith
+        room={room}
+        ready={member.roomReady}
+        voter={profileTeam}
+        team={team}
+      />
+      <PickupReturns
+        adds={adds}
+        summary={summary}
+        rostered={(playerId) =>
+          roster ? Boolean(roster.players?.includes(playerId)) : null
+        }
+        player={player}
+        date={date}
+      />
+      <TradeScoreboard
+        trades={trades}
+        ready={data.transactionReady}
+        rosterId={id}
+        team={team}
+        player={player}
+        date={date}
+      />
+      <TrophyCabinet
+        honours={honours}
+        minority={minority}
+        count={awardCount}
+        partial={awardsPartial}
+        scheduleIncomplete={scheduleIncomplete}
+        roomUnavailable={!member.awardsReady}
+        team={team}
+        player={player}
+      />
+      <CallsPanel
+        correct={correct}
+        decided={decisions.length}
+        submitted={submitted}
+        weekly={weekly}
+        attendance={attendance}
+        forecast={member.forecast}
+        ballot={ballot}
+        tableWeek={tableWeek || null}
+        rosterId={id}
+        team={team}
+        draft={draft}
+      />
     </div>
   );
 }

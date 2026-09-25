@@ -565,6 +565,42 @@ for (const width of [320, 768, 1024, 1440]) {
   }
 }
 
+// The stand-in league cannot build the member season, so this covers the
+// gate states; the signed-in page is checked read-only against the real league.
+for (const width of [320, 390]) {
+  for (const theme of ['dark', 'light']) {
+    test(`my season gate fits ${width}px in ${theme} mode`, async ({
+      page,
+    }, testInfo) => {
+      await page.setViewportSize({ width, height: 844 });
+      await page.addInitScript(
+        (value) => localStorage.setItem('fantasy-theme', value),
+        theme,
+      );
+      await page.goto('/my-season');
+      await expect(
+        page.getByRole('heading', { level: 1, name: 'My Season' }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole('heading', {
+          level: 2,
+          name: /ticket at the gate|gates are closed/,
+        }),
+      ).toBeVisible();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+      await expect(page.locator('body')).not.toContainText('NaN');
+      await page.screenshot({
+        path: testInfo.outputPath(`my-season-${width}-${theme}.png`),
+        fullPage: true,
+      });
+    });
+  }
+}
+
 test('standings replay last week, sort by chip and open the tale of the tape', async ({
   page,
   request,
