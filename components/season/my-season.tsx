@@ -65,6 +65,7 @@ type Member = {
   roomReady: boolean;
   bankers: { matchup_id: number; voter_id: string }[] | null;
   profiles: Profile[];
+  timedOut?: boolean;
 };
 const empty = {
   id: null,
@@ -79,6 +80,25 @@ const empty = {
   bankers: null,
   profiles: [],
 };
+/** Member reads must settle: a hung request becomes a visible Retry, never an endless load. */
+const readLimit = 15000;
+class TimedOut extends Error {}
+function limit<T>(request: PromiseLike<T>, ms = readLimit) {
+  return new Promise<T>((resolve, reject) => {
+    const timer = window.setTimeout(() => reject(new TimedOut()), ms);
+    Promise.resolve(request).then(
+      (value) => {
+        window.clearTimeout(timer);
+        resolve(value);
+      },
+      (error: unknown) => {
+        window.clearTimeout(timer);
+        reject(error instanceof Error ? error : new Error(String(error)));
+      },
+    );
+  });
+}
+
 export type PersonalDraft = {
   rosterId: number;
   grade: string;
@@ -136,35 +156,40 @@ export function MySeason({
       );
       if (!client || !id) return;
       try {
-        const [profile, forecast, votes, games] = await Promise.all([
-          client
-            .from('profiles')
-            .select('display_name,roster_id')
-            .eq('id', id)
-            .single(),
-          client
-            .from('season_forecasts')
-            .select('rankings')
-            .eq('voter_id', id)
-            .eq('league_id', data.leagueId)
-            .eq('season', 2026)
-            .maybeSingle(),
-          client
-            .from('prediction_votes')
-            .select(
-              'matchup_id,voter_id,selected_roster_id,prediction_matchups!inner(prediction_weeks!inner(league_id,season))',
-            )
-            .eq('voter_id', id)
-            .eq('prediction_matchups.prediction_weeks.league_id', data.leagueId)
-            .eq('prediction_matchups.prediction_weeks.season', 2026),
-          client
-            .from('prediction_matchups')
-            .select(
-              'id,status,home_roster_id,away_roster_id,winner_roster_id,prediction_weeks!inner(week,locks_at,league_id,season)',
-            )
-            .eq('prediction_weeks.league_id', data.leagueId)
-            .eq('prediction_weeks.season', 2026),
-        ]);
+        const [profile, forecast, votes, games] = await limit(
+          Promise.all([
+            client
+              .from('profiles')
+              .select('display_name,roster_id')
+              .eq('id', id)
+              .single(),
+            client
+              .from('season_forecasts')
+              .select('rankings')
+              .eq('voter_id', id)
+              .eq('league_id', data.leagueId)
+              .eq('season', 2026)
+              .maybeSingle(),
+            client
+              .from('prediction_votes')
+              .select(
+                'matchup_id,voter_id,selected_roster_id,prediction_matchups!inner(prediction_weeks!inner(league_id,season))',
+              )
+              .eq('voter_id', id)
+              .eq(
+                'prediction_matchups.prediction_weeks.league_id',
+                data.leagueId,
+              )
+              .eq('prediction_matchups.prediction_weeks.season', 2026),
+            client
+              .from('prediction_matchups')
+              .select(
+                'id,status,home_roster_id,away_roster_id,winner_roster_id,prediction_weeks!inner(week,locks_at,league_id,season)',
+              )
+              .eq('prediction_weeks.league_id', data.leagueId)
+              .eq('prediction_weeks.season', 2026),
+          ]),
+        );
         if (
           profile.error ||
           forecast.error ||
@@ -207,13 +232,15 @@ export function MySeason({
         let awardsReady = true;
         try {
           for (let i = 0; i < settled.length; i += 40) {
-            const result = await client
-              .from('prediction_votes')
-              .select('matchup_id,voter_id,selected_roster_id')
-              .in(
-                'matchup_id',
-                settled.slice(i, i + 40).map((g) => g.id),
-              );
+            const result = await limit(
+              client
+                .from('prediction_votes')
+                .select('matchup_id,voter_id,selected_roster_id')
+                .in(
+                  'matchup_id',
+                  settled.slice(i, i + 40).map((g) => g.id),
+                ),
+            );
             if (result.error) {
               awardsReady = false;
               finalVotes.length = 0;
@@ -239,17 +266,19 @@ export function MySeason({
         let profiles: Profile[] = [];
         if (roomIds.length)
           try {
-            const [room, banked, people] = await Promise.all([
-              client
-                .from('prediction_votes')
-                .select('matchup_id,voter_id,selected_roster_id')
-                .in('matchup_id', roomIds),
-              client
-                .from('prediction_bankers')
-                .select('matchup_id,voter_id')
-                .in('matchup_id', roomIds),
-              client.from('profiles').select('id,roster_id,display_name'),
-            ]);
+            const [room, banked, people] = await limit(
+              Promise.all([
+                client
+                  .from('prediction_votes')
+                  .select('matchup_id,voter_id,selected_roster_id')
+                  .in('matchup_id', roomIds),
+                client
+                  .from('prediction_bankers')
+                  .select('matchup_id,voter_id')
+                  .in('matchup_id', roomIds),
+                client.from('profiles').select('id,roster_id,display_name'),
+              ]),
+            );
             if (room.error) roomReady = false;
             else roomVotes = room.data;
             if (!banked.error) bankers = banked.data;
@@ -272,9 +301,13 @@ export function MySeason({
             bankers,
             profiles,
           });
-      } catch {
+      } catch (error) {
         if (alive && version === request)
-          setMember({ status: 'error', ...empty });
+          setMember({
+            status: 'error',
+            ...empty,
+            timedOut: error instanceof TimedOut,
+          });
       }
     }
     if (!client) {
@@ -285,8 +318,7 @@ export function MySeason({
         alive = false;
       };
     }
-    void client.auth
-      .getSession()
+    void limit(client.auth.getSession())
       .then(({ data: session, error }) => {
         if (!alive || authEvent) return;
         if (error) {
@@ -295,18 +327,30 @@ export function MySeason({
         }
         void load(session.session?.user.id ?? null);
       })
-      .catch(() => {
-        if (alive && !authEvent) setMember({ status: 'error', ...empty });
+      .catch((error: unknown) => {
+        if (alive && !authEvent)
+          setMember({
+            status: 'error',
+            ...empty,
+            timedOut: error instanceof TimedOut,
+          });
       });
+    // Supabase advises dispatching other client calls from the auth callback
+    // with a timer, so no read starts while the client is still handling the
+    // event (a microtask can land inside it).
+    const timers: number[] = [];
     const { data: listener } = client.auth.onAuthStateChange(
       (_event, session) => {
         authEvent = true;
-        void Promise.resolve().then(() => load(session?.user.id ?? null));
+        timers.push(
+          window.setTimeout(() => void load(session?.user.id ?? null), 0),
+        );
       },
     );
     return () => {
       alive = false;
       version++;
+      for (const timer of timers) window.clearTimeout(timer);
       listener.subscription.unsubscribe();
     };
   }, [client, data, reload]);
@@ -384,7 +428,9 @@ export function MySeason({
         {title}
         <GateTicket title="Ticket not recognised">
           <p role="alert" className="mt-2 text-sm">
-            Your member details could not be loaded. Please retry.
+            {member.timedOut
+              ? 'Your season took too long to load. Please retry.'
+              : 'Your member details could not be loaded. Please retry.'}
           </p>
           <Button
             className="mt-3 min-h-11"
