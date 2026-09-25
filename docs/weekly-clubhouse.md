@@ -106,14 +106,13 @@ money; the betting look is styling only.
   missing. Settled weeks tag Covered, Didn’t cover, Push or Upset.
 - After lock the league’s split is a rope whose knot slides towards the
   majority; voter chips stay on each side.
-- The bet slip tray (`lib/predictions/slip.ts`) counts selections, names the
-  Banker and shows the most the slip can return (picks plus one for a Banker).
-  “Next pick” jumps to the next unpicked matchup. Tapping the slip opens it
-  during the week: every matchup with your pick or “No pick yet”, the Banker
-  and the maximum return, and each line jumps to its card. After lock it lists
-  the locked selections. On settled weeks it prints a
-  bookie docket: won, lost or void per selection, and the return and rank from
-  the weekly leaderboard. It never prints score figures.
+- The bet slip bar (`lib/predictions/slip.ts`) stays plain: “n/6 picks saved”,
+  the Banker, and one View slip button. The opened slip lists every matchup
+  with your pick or “No pick yet”, the Banker and the maximum return (picks
+  plus one for a Banker); each line jumps to its card. After lock it lists the
+  locked selections. On settled weeks See your docket prints a bookie docket:
+  won, lost or void per selection, and the return and rank from the weekly
+  leaderboard. It never prints score figures.
 - The Rapid-fire slip deck shows unpicked matchups one at a time: swipe towards
   a team, tap a button or use the arrow keys. A card only leaves once its pick
   is verified as saved.

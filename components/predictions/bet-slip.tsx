@@ -1,14 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import {
-  ArrowDown,
-  Check,
-  ChevronUp,
-  LockKeyhole,
-  ReceiptText,
-  X,
-} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ReceiptText, X } from 'lucide-react';
 import type { PredictionMatchup } from '@/lib/data/predictions';
 import type { Slip, Verdict } from '@/lib/predictions/slip';
 import type { LeaderboardRow } from './use-prediction-member';
@@ -239,69 +232,29 @@ export function BetSlip({
       : panelMode != null && slip.selections.length > 0;
   const toggle = () => setDocketOpen((open) => !open);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const picked = new Map(
-    slip.selections.map((selection) => [selection.sleeperMatchupId, selection]),
-  );
-  const complete = slip.selections.length === slip.total && slip.total > 0;
   const row = weeklyRows.find((candidate) => candidate.voter_id === userId);
-  const firstName = (name: string) => name.split(' ')[0];
-  const bankerText = slip.banker
-    ? `Banker: ${firstName(slip.banker.team.ownerName)}`
-    : 'No Banker yet';
-  const nextPick = state === 'open' && slip.nextOpen != null;
   const rank = row
     ? weeklyRows.findIndex((candidate) => candidate.points === row.points) + 1
     : 0;
-  const meta =
+  const count = `${slip.selections.length}/${slip.total} picks saved`;
+  const banker = slip.banker
+    ? `Banker: ${slip.banker.team.ownerName}`
+    : state === 'open'
+      ? 'No Banker yet'
+      : 'No Banker';
+  const [headline, detail] =
     state === 'signed-out'
-      ? 'Sign in to start your slip'
+      ? ['Your slip', 'Sign in to start your slip']
       : state === 'loading'
-        ? 'Checking your slip…'
+        ? ['Your slip', 'Checking your slip…']
         : state === 'unavailable'
-          ? 'Your slip is unavailable right now'
-          : state === 'settled'
-            ? row
-              ? `Returned ${row.points} pts · ${ordinal(rank)} of ${weeklyRows.length}`
-              : `${slip.selections.length} ${slip.selections.length === 1 ? 'selection' : 'selections'}`
-            : state === 'locked'
-              ? `${slip.selections.length}/${slip.total} picked · ${bankerText}`
-              : complete
-                ? `${bankerText} · up to ${slip.maxReturn} pts`
-                : `${slip.selections.length}/${slip.total} picked · ${bankerText}`;
-
-  const title =
-    state === 'settled' ? (
-      'Your docket'
-    ) : state === 'locked' ? (
-      <>
-        <LockKeyhole className="size-3.5" aria-hidden="true" /> Slip locked
-      </>
-    ) : complete && state === 'open' ? (
-      <>
-        <Check className="size-3.5" aria-hidden="true" /> Slip complete
-      </>
-    ) : (
-      'Your slip'
-    );
-  const summary = (
-    <>
-      <span className="slip-text">
-        <span className="slip-title">
-          {title}
-          {canOpen && nextPick && (
-            <ChevronUp className="slip-chevron size-3.5" aria-hidden="true" />
-          )}
-        </span>
-        <span className="slip-meta">{meta}</span>
-      </span>
-      {canOpen && !nextPick && (
-        <span className="slip-cue" aria-hidden="true">
-          <ReceiptText className="size-4" />
-          <ChevronUp className="slip-chevron size-4" />
-        </span>
-      )}
-    </>
-  );
+          ? ['Your slip', 'Your slip is unavailable right now']
+          : state === 'settled' && row
+            ? [
+                `Returned ${row.points} pts · ${ordinal(rank)} of ${weeklyRows.length}`,
+                banker,
+              ]
+            : [state === 'locked' ? `${count} · locked` : count, banker];
 
   return (
     <aside className="bet-slip" aria-label="Your bet slip">
@@ -323,50 +276,32 @@ export function BetSlip({
           }}
         />
       )}
-      <div className="bet-slip-bar" data-complete={complete || undefined}>
-        <ol className="slip-dots" aria-hidden="true">
-          {matchups.map((matchup) => {
-            const selection = picked.get(matchup.sleeperMatchupId);
-            return (
-              <li
-                key={matchup.sleeperMatchupId}
-                data-picked={selection ? '' : undefined}
-                data-banker={selection?.banker || undefined}
-                data-verdict={selection?.verdict ?? undefined}
-                style={
-                  selection?.team.color
-                    ? ({ '--dot': selection.team.color } as CSSProperties)
-                    : undefined
-                }
-              />
-            );
-          })}
-        </ol>
-        {canOpen ? (
-          <button
-            ref={toggleRef}
-            type="button"
-            className="slip-summary"
-            aria-expanded={docketOpen}
-            aria-controls={docketOpen ? 'bookie-docket' : undefined}
-            onClick={toggle}
-          >
-            {summary}
-          </button>
-        ) : (
-          <div className="slip-summary">{summary}</div>
-        )}
+      <div className="bet-slip-bar">
+        <div className="slip-text">
+          <p className="slip-title">{headline}</p>
+          <p className="slip-meta">{detail}</p>
+        </div>
         {state === 'signed-out' ? (
           <button type="button" className="slip-action" onClick={onSignIn}>
             Start your slip
           </button>
-        ) : nextPick ? (
+        ) : canOpen ? (
           <button
+            ref={toggleRef}
             type="button"
             className="slip-action"
-            onClick={() => onJump(slip.nextOpen!)}
+            aria-expanded={docketOpen}
+            aria-controls={docketOpen ? 'bookie-docket' : undefined}
+            onClick={toggle}
           >
-            Next pick <ArrowDown className="size-4" aria-hidden="true" />
+            <ReceiptText className="size-4" aria-hidden="true" />
+            {state === 'settled'
+              ? docketOpen
+                ? 'Hide docket'
+                : 'See your docket'
+              : docketOpen
+                ? 'Hide slip'
+                : 'View slip'}
           </button>
         ) : null}
       </div>

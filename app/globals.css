@@ -1481,42 +1481,11 @@
     @apply flex items-center gap-3 rounded-2xl border bg-card/95 px-3 py-2 shadow-lg backdrop-blur-md;
     border-color: color-mix(in srgb, var(--award) 35%, var(--border));
   }
-  .bet-slip-bar[data-complete] {
-    border-color: var(--primary);
-  }
-  .slip-dots {
-    @apply grid shrink-0 grid-cols-3 gap-1;
-  }
-  .slip-dots li {
-    @apply size-2.5 rounded-full border border-foreground/30;
-  }
-  .slip-dots li[data-picked] {
-    border-color: transparent;
-    background: var(--dot, var(--primary));
-  }
-  .slip-dots li[data-banker] {
-    box-shadow: 0 0 0 2px var(--award);
-  }
-  .slip-dots li[data-verdict='lost'] {
-    opacity: 0.35;
-  }
-  .slip-summary {
-    @apply flex min-h-11 min-w-0 flex-1 items-center gap-2 overflow-hidden text-left;
-  }
   .slip-text {
     @apply flex min-w-0 flex-1 flex-col justify-center;
   }
-  .slip-cue {
-    @apply inline-flex shrink-0 items-center gap-0.5 rounded-lg bg-primary/10 px-2 py-2 text-primary;
-  }
   .slip-title {
     @apply flex items-center gap-1 text-sm font-bold;
-  }
-  .slip-chevron {
-    @apply text-muted-foreground transition-transform;
-  }
-  .slip-summary[aria-expanded='true'] .slip-chevron {
-    rotate: 180deg;
   }
   .slip-meta {
     @apply block max-w-full truncate text-[11px] text-muted-foreground;
@@ -1850,7 +1819,6 @@ html:has(.bet-slip) {
     background: CanvasText;
   }
   .rope-knot,
-  .slip-dots li[data-picked],
   .hold-meter {
     background: Highlight;
   }
