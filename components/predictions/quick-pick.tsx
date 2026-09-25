@@ -1,6 +1,6 @@
 'use client';
 
-import type { KeyboardEvent } from 'react';
+import { useState, type KeyboardEvent } from 'react';
 import { ArrowLeft, ArrowRight, Check, Zap } from 'lucide-react';
 import { SwipePick, type SwipeSide } from '@/components/effects/swipe-pick';
 import { TeamAvatar } from '@/components/shared/team-avatar';
@@ -37,6 +37,7 @@ export function QuickPick({
   disabled: boolean;
   onPick: (matchup: PredictionMatchup, rosterId: number) => void;
 }) {
+  const [sheetOpen, setSheetOpen] = useState(false);
   const open = matchups.filter(
     (matchup) =>
       matchup.databaseId != null && !pickedIds.has(matchup.databaseId),
@@ -53,9 +54,12 @@ export function QuickPick({
     if (event.key === 'ArrowRight') choose('away');
   };
   const line = current ? getLine(current) : null;
+  // Nothing left to pick: hide the button, but keep an open deck on screen
+  // so it can show "Slip complete".
+  if (!current && !sheetOpen) return null;
 
   return (
-    <Drawer>
+    <Drawer open={sheetOpen} onOpenChange={setSheetOpen}>
       <DrawerTrigger className="rapid-trigger" disabled={disabled}>
         <Zap className="size-4" aria-hidden="true" /> Rapid-fire slip
       </DrawerTrigger>

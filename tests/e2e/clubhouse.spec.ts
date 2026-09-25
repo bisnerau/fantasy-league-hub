@@ -462,6 +462,12 @@ test('a complete mobile ballot persists and signing out hides member information
       page.getByText(`${index + 1} of 6 picks saved`, { exact: true }),
     ).toBeVisible();
   }
+  await expect(
+    page.getByRole('button', { name: /^Slip complete/ }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Rapid-fire slip' }),
+  ).toHaveCount(0);
   await page.screenshot({
     path: testInfo.outputPath('complete-mobile-ballot.png'),
     fullPage: true,
@@ -611,7 +617,7 @@ test('hold to bank it needs a full hold, and keyboards get a confirm step', asyn
   ).toHaveCount(0);
   await expect(
     page.getByRole('complementary', { name: 'Your bet slip' }),
-  ).toContainText('2/6 selections · Banker: Manager 3 · Returns up to 3 pts');
+  ).toContainText('2/6 picked · Banker: Manager');
 });
 
 test('the bet slip counts selections and jumps to the next open pick', async ({
@@ -626,13 +632,9 @@ test('the bet slip counts selections and jumps to the next open pick', async ({
   ).toBeFocused();
   await page.reload();
   await signIn(page);
-  await expect(slip).toContainText(
-    '0/6 selections · No Banker yet · Returns up to 0 pts',
-  );
+  await expect(slip).toContainText('0/6 picked · No Banker yet');
   await pickAndConfirm(page, 'Burns XI');
-  await expect(slip).toContainText(
-    '1/6 selections · No Banker yet · Returns up to 1 pt',
-  );
+  await expect(slip).toContainText('1/6 picked · No Banker yet');
   await slip.getByRole('button', { name: /^Your slip/ }).click();
   const open = page.getByRole('region', { name: 'Your slip' });
   await expect(open).toContainText('1 selection of 6');
@@ -780,12 +782,14 @@ test('locked cards stamp your pick and show the league tug-of-war', async ({
   await expect(page.getByText(/You can change it until/)).toHaveCount(0);
   const slip = page.getByRole('complementary', { name: 'Your bet slip' });
   await expect(slip).toContainText('Slip locked');
-  await slip.getByRole('button', { name: 'View slip' }).click();
+  await slip.getByRole('button', { name: /^Slip locked/ }).click();
   const locked = page.getByRole('region', { name: 'Your slip' });
   await expect(locked).toContainText('1 selection · locked');
   await expect(locked).toContainText('Emmet Burns');
   await locked.getByRole('button', { name: 'Close your slip' }).click();
-  await expect(slip.getByRole('button', { name: 'View slip' })).toBeFocused();
+  await expect(
+    slip.getByRole('button', { name: /^Slip locked/ }),
+  ).toBeFocused();
 });
 
 test('settled weeks stamp results, judge the line and print the docket', async ({
@@ -808,7 +812,7 @@ test('settled weeks stamp results, judge the line and print the docket', async (
   await expect(
     page.getByRole('link', { name: 'Week 1, settled, 6 points' }),
   ).toHaveAttribute('aria-current', 'page');
-  const toggle = page.getByRole('button', { name: 'See your docket' });
+  const toggle = page.getByRole('button', { name: /^Your docket/ });
   await toggle.click();
   const docket = page.getByRole('region', { name: 'Your docket' });
   await expect(docket).toContainText('2 selections');

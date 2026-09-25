@@ -1501,7 +1501,13 @@
     opacity: 0.35;
   }
   .slip-summary {
-    @apply flex min-h-11 min-w-0 flex-1 flex-col justify-center text-left;
+    @apply flex min-h-11 min-w-0 flex-1 items-center gap-2 overflow-hidden text-left;
+  }
+  .slip-text {
+    @apply flex min-w-0 flex-1 flex-col justify-center;
+  }
+  .slip-cue {
+    @apply inline-flex shrink-0 items-center gap-0.5 rounded-lg bg-primary/10 px-2 py-2 text-primary;
   }
   .slip-title {
     @apply flex items-center gap-1 text-sm font-bold;
@@ -1513,7 +1519,7 @@
     rotate: 180deg;
   }
   .slip-meta {
-    @apply truncate text-[11px] text-muted-foreground;
+    @apply block max-w-full truncate text-[11px] text-muted-foreground;
   }
   .slip-action {
     @apply inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground;

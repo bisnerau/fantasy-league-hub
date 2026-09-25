@@ -244,6 +244,14 @@ export function BetSlip({
   );
   const complete = slip.selections.length === slip.total && slip.total > 0;
   const row = weeklyRows.find((candidate) => candidate.voter_id === userId);
+  const firstName = (name: string) => name.split(' ')[0];
+  const bankerText = slip.banker
+    ? `Banker: ${firstName(slip.banker.team.ownerName)}`
+    : 'No Banker yet';
+  const nextPick = state === 'open' && slip.nextOpen != null;
+  const rank = row
+    ? weeklyRows.findIndex((candidate) => candidate.points === row.points) + 1
+    : 0;
   const meta =
     state === 'signed-out'
       ? 'Sign in to start your slip'
@@ -251,39 +259,47 @@ export function BetSlip({
         ? 'Checking your slip…'
         : state === 'unavailable'
           ? 'Your slip is unavailable right now'
-          : [
-              `${slip.selections.length}/${slip.total} selections`,
-              slip.banker
-                ? `Banker: ${slip.banker.team.ownerName}`
-                : state === 'open'
-                  ? 'No Banker yet'
-                  : null,
-              state === 'open'
-                ? `Returns up to ${slip.maxReturn} ${slip.maxReturn === 1 ? 'pt' : 'pts'}`
-                : null,
-            ]
-              .filter(Boolean)
-              .join(' · ');
+          : state === 'settled'
+            ? row
+              ? `Returned ${row.points} pts · ${ordinal(rank)} of ${weeklyRows.length}`
+              : `${slip.selections.length} ${slip.selections.length === 1 ? 'selection' : 'selections'}`
+            : state === 'locked'
+              ? `${slip.selections.length}/${slip.total} picked · ${bankerText}`
+              : complete
+                ? `${bankerText} · up to ${slip.maxReturn} pts`
+                : `${slip.selections.length}/${slip.total} picked · ${bankerText}`;
 
+  const title =
+    state === 'settled' ? (
+      'Your docket'
+    ) : state === 'locked' ? (
+      <>
+        <LockKeyhole className="size-3.5" aria-hidden="true" /> Slip locked
+      </>
+    ) : complete && state === 'open' ? (
+      <>
+        <Check className="size-3.5" aria-hidden="true" /> Slip complete
+      </>
+    ) : (
+      'Your slip'
+    );
   const summary = (
     <>
-      <span className="slip-title">
-        {state === 'locked' ? (
-          <>
-            <LockKeyhole className="size-3.5" aria-hidden="true" /> Slip locked
-          </>
-        ) : complete && state === 'open' ? (
-          <>
-            <Check className="size-3.5" aria-hidden="true" /> Slip complete
-          </>
-        ) : (
-          'Your slip'
-        )}
-        {canOpen && (
-          <ChevronUp className="slip-chevron size-3.5" aria-hidden="true" />
-        )}
+      <span className="slip-text">
+        <span className="slip-title">
+          {title}
+          {canOpen && nextPick && (
+            <ChevronUp className="slip-chevron size-3.5" aria-hidden="true" />
+          )}
+        </span>
+        <span className="slip-meta">{meta}</span>
       </span>
-      <span className="slip-meta">{meta}</span>
+      {canOpen && !nextPick && (
+        <span className="slip-cue" aria-hidden="true">
+          <ReceiptText className="size-4" />
+          <ChevronUp className="slip-chevron size-4" />
+        </span>
+      )}
     </>
   );
 
@@ -328,9 +344,7 @@ export function BetSlip({
         </ol>
         {canOpen ? (
           <button
-            ref={
-              state === 'open' && slip.nextOpen != null ? toggleRef : undefined
-            }
+            ref={toggleRef}
             type="button"
             className="slip-summary"
             aria-expanded={docketOpen}
@@ -346,31 +360,13 @@ export function BetSlip({
           <button type="button" className="slip-action" onClick={onSignIn}>
             Start your slip
           </button>
-        ) : state === 'open' && slip.nextOpen != null ? (
+        ) : nextPick ? (
           <button
             type="button"
             className="slip-action"
             onClick={() => onJump(slip.nextOpen!)}
           >
             Next pick <ArrowDown className="size-4" aria-hidden="true" />
-          </button>
-        ) : canOpen ? (
-          <button
-            ref={toggleRef}
-            type="button"
-            className="slip-action"
-            aria-expanded={docketOpen}
-            aria-controls={docketOpen ? 'bookie-docket' : undefined}
-            onClick={toggle}
-          >
-            <ReceiptText className="size-4" aria-hidden="true" />
-            {state === 'settled'
-              ? docketOpen
-                ? 'Hide docket'
-                : 'See your docket'
-              : docketOpen
-                ? 'Hide slip'
-                : 'View slip'}
           </button>
         ) : null}
       </div>
