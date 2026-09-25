@@ -47,6 +47,7 @@ import { SectionChips } from './section-chips';
 import { TaleOfTape } from './tale-of-tape';
 import { TradeScoreboard } from './trade-scoreboard';
 import { TrophyCabinet } from './trophy-cabinet';
+import { formatIrishTime } from '@/lib/format/irish-time';
 
 /** `locked` is judged when the member data loads; a focus refresh updates it. */
 type Game = FinalPickGame & { status: string; locked: boolean };
@@ -632,12 +633,7 @@ export function MySeason({
       ? compareForecast(member.forecast, table)
       : null;
   const draft = drafts.find((d) => d.rosterId === id);
-  const date = (value: number) =>
-    new Intl.DateTimeFormat('en-IE', {
-      day: 'numeric',
-      month: 'short',
-      timeZone: 'Europe/Dublin',
-    }).format(new Date(value));
+  const date = (value: number) => formatIrishTime(value);
   const tapeSide = (side: NonNullable<typeof opponent>) => {
     const row = standing(side.rosterId);
     return {

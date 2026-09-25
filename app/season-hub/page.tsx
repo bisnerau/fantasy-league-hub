@@ -1,6 +1,7 @@
 import { OpenLinkedReceipt } from '@/components/season/open-linked-receipt';
 import type { Metadata } from 'next';
 import { getSeasonHubData } from '@/lib/data/season-hub';
+import { formatIrishTime } from '@/lib/format/irish-time';
 import { awardNames } from '@/lib/season/features';
 import { MemberReceipts } from '@/components/season/member-receipts';
 
@@ -92,11 +93,10 @@ export default async function SeasonHubPage() {
       >
         <h2 className="text-lg font-semibold">Weekly awards</h2>
         <p className="mt-2 text-xs leading-6 text-muted-foreground">
-          Regular season, Weeks 1–14. Results are available from Tuesday at
-          11am Irish time, once the NFL week has advanced. No qualifying
-          performance means no award.
-          Ties share the honour; each manager earns at most one of each award
-          per week.
+          Regular season, Weeks 1–14. Results are available from Tuesday at 11am
+          Irish time, once the NFL week has advanced. No qualifying performance
+          means no award. Ties share the honour; each manager earns at most one
+          of each award per week.
         </p>
         <details className="mt-3 rounded-lg border border-white/10 p-3">
           <summary className="cursor-pointer text-xs font-semibold">
@@ -267,14 +267,9 @@ export default async function SeasonHubPage() {
               <summary className="cursor-pointer text-sm font-semibold">
                 {trade.roster_ids.map(name).join(' ↔ ')}
                 <span className="mt-1 block text-[11px] font-normal text-muted-foreground">
-                  {new Intl.DateTimeFormat('en-IE', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                    timeZone: 'Europe/Dublin',
-                  }).format(
-                    new Date(trade.status_updated ?? trade.created),
-                  )}{' '}
+                  {formatIrishTime(trade.status_updated ?? trade.created, {
+                    year: true,
+                  })}{' '}
                   ·{' '}
                   {final
                     ? 'Final review ready'

@@ -3,16 +3,7 @@ import { TearReveal } from '@/components/effects/tear-reveal';
 import { ChalkPlay } from '@/components/clubhouse/chalk-play';
 import type { MatchOfTheWeek } from '@/lib/data/match-of-the-week';
 import type { PredictionMatchup } from '@/lib/data/predictions';
-
-const shortLock = new Intl.DateTimeFormat('en-IE', {
-  weekday: 'short',
-  day: 'numeric',
-  month: 'short',
-  hour: '2-digit',
-  minute: '2-digit',
-  hourCycle: 'h23',
-  timeZone: 'Europe/Dublin',
-});
+import { formatIrishTime } from '@/lib/format/irish-time';
 
 function getCall(matchup: PredictionMatchup) {
   const { home, away, preview } = matchup;
@@ -68,7 +59,7 @@ export function MatchTicket({
               </span>
               <span className="text-[11px] text-muted-foreground">
                 {Number.isFinite(lock)
-                  ? `Picks close ${shortLock.format(lock)}`
+                  ? `Picks close ${formatIrishTime(lock, { weekday: 'short', time: true })}`
                   : `Week ${week}`}{' '}
                 · Tear to open →
               </span>

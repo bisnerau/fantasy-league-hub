@@ -1,3 +1,5 @@
+import { formatIrishTime } from '@/lib/format/irish-time';
+
 export function sundayKickoffForWeek(season: number, week: number) {
   const date = new Date(Date.UTC(season, 8, 7));
   while (date.getUTCDay() !== 0) date.setUTCDate(date.getUTCDate() + 1);
@@ -15,7 +17,7 @@ export function sundayKickoffForWeek(season: number, week: number) {
 }
 
 export function formatLockTime(value: string) {
-  return `${new Intl.DateTimeFormat('en-IE', { weekday: 'long', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Dublin' }).format(new Date(value))} · Irish time`;
+  return `${formatIrishTime(value, { weekday: 'long', time: true })} · Irish time`;
 }
 
 export function settlementTimeForLock(lockAt: string) {

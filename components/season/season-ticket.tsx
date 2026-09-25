@@ -2,14 +2,7 @@ import type { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { SplitFlap } from '@/components/effects/split-flap';
 import { TeamAvatar } from '@/components/shared/team-avatar';
-
-const shortLock = new Intl.DateTimeFormat('en-IE', {
-  weekday: 'short',
-  hour: '2-digit',
-  minute: '2-digit',
-  hourCycle: 'h23',
-  timeZone: 'Europe/Dublin',
-});
+import { formatIrishTime } from '@/lib/format/irish-time';
 
 export type TicketStub = {
   week: number;
@@ -121,7 +114,12 @@ export function SeasonTicket({
           </span>
           {Number.isFinite(lock) && (
             <span className="season-ticket-stub-lock">
-              {stub.locked ? 'Closed' : 'Locks'} {shortLock.format(lock)}
+              {stub.locked ? 'Closed' : 'Locks'}{' '}
+              {formatIrishTime(lock, {
+                weekday: 'short',
+                date: false,
+                time: true,
+              })}
             </span>
           )}
         </a>

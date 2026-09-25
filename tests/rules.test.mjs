@@ -69,9 +69,9 @@ void test('invalid lock times cannot become eligible for settlement', () => {
   assert.equal(isGradingEligible('invalid'), false);
 });
 void test('deadline formatting uses an explicit Irish timezone and locale', () => {
-  assert.match(
+  assert.equal(
     formatLockTime('2026-09-13T17:00:00Z'),
-    /Sunday.*13.*Sept.*18:00.*Irish time/,
+    'Sunday 13 Sep, 18:00 · Irish time',
   );
 });
 void test('offline and service failures do not accuse the member of a wrong password', () => {

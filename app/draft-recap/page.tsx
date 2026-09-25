@@ -22,6 +22,7 @@ import { TeamAvatar } from '@/components/shared/team-avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { draftRecapContent } from '@/lib/data/draft-recap-content';
+import { formatIrishTime } from '@/lib/format/irish-time';
 import { getSeasonForecastSettings } from '@/lib/data/season-forecasts';
 import { cn } from '@/lib/utils';
 
@@ -221,10 +222,10 @@ export default async function DraftRecapPage() {
                   {draftRecapContent.generatedAt && (
                     <p className="mt-1 text-[9px] text-muted-foreground">
                       Research updated{' '}
-                      {new Intl.DateTimeFormat('en-IE', {
-                        dateStyle: 'medium',
-                        timeStyle: 'short',
-                      }).format(new Date(draftRecapContent.generatedAt))}
+                      {formatIrishTime(draftRecapContent.generatedAt, {
+                        year: true,
+                        time: true,
+                      })}
                     </p>
                   )}
                   <p className="mt-2 text-xs leading-6 text-muted-foreground">
