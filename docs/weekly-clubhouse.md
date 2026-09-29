@@ -33,7 +33,9 @@ by `lib/data/power-rankings.ts`. Editions include all twelve roster IDs, frozen
 head-to-head records and recent scoring, one pointed verdict per manager, source
 links, three talking points and an actual publication timestamp.
 
-Write alongside Thursday's previews when prompted. Assess current strength with
+Refresh on Tuesday alongside the settled roundups when prompted to update the site.
+Publish as the upcoming week's edition, using results through the completed week.
+Thursday previews and Match of the Week remain a separate step. Assess current strength with
 up to three completed weeks of scoring, results, roster quality, depth and
 availability. Week 2 has only one completed week, so do not invent a longer trend.
 The order is an editorial judgment, not a calculated probability or league table.
@@ -215,3 +217,23 @@ practice reports. Shane–Sharpe is Match of the Week: the only fixture between
 unbeaten teams, with a 114.92-point scoring gap. Shane leads the rankings,
 followed by Alan and Jack. Movement compares with the frozen Week 2 edition.
 See `research/2026-week-3.md` and its Sleeper snapshot for evidence and calls.
+
+## Tuesday update checklist
+
+The commissioner clarified on 29 September that a Tuesday website update includes
+power rankings, not just roundups. Before calling the site updated:
+
+1. Verify all six settled results, current records and the next week's ballot.
+2. Publish all six reviews, retaining the original previews and winner calls.
+3. Add the new upcoming-week rankings edition, with scores and records through
+   the settled week, fresh verdicts and homepage talking points. Preserve archives.
+4. Consider one verified Flag on the play and check the homepage lead and scores.
+5. Audit standings, prediction tables, weekly awards and the My Season data path.
+   Historical records, draft forecasts and forfeits remain dated archives.
+6. Run tests, lint and build; deploy and verify current pages on production.
+
+The Week 4 rankings were published Tuesday 29 September through Week 3. Shane
+leads Alan and Jack; Burns and Murphy rise three places; Niall falls four.
+Sharpe's league-low total puts him twelfth despite two wins. The evidence is
+in `research/2026-week-4-power-rankings.json`. Week 4 previews and the next
+Match of the Week remain Thursday's editorial work.

@@ -302,9 +302,9 @@ void test('rank history starts at the preseason forecast and leaves unpublished 
   const history = getRankHistory(edition.leagueId, '2026', at);
   assert.deepEqual(
     history.columns.map((c) => c.label),
-    ['Pre', 'W2', 'W3'],
+    ['Pre', 'W2', 'W3', 'W4'],
   );
-  assert.deepEqual(history.series.get(1), [2, 4, 9]);
+  assert.deepEqual(history.series.get(1), [2, 4, 9, 6]);
   const five = {
     ...weekThree,
     week: 5,
@@ -335,4 +335,37 @@ void test('rank history starts at the preseason forecast and leaves unpublished 
     [],
   );
   assert.equal(getRankHistory('other-league', '2026', at).columns.length, 0);
+});
+
+void test('the Tuesday rankings use all settled Week 3 records and refresh the Week 4 homepage', () => {
+  const snapshot = JSON.parse(
+    readFileSync(
+      new URL(
+        '../docs/research/2026-week-4-power-rankings.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  );
+  const next = powerRankingEditions.find((e) => e.week === 4);
+  assert.equal(next.throughWeek, 3);
+  assert.equal(next.entries.length, 12);
+  assert.equal(new Set(next.entries.map((e) => e.rosterId)).size, 12);
+  assert.ok(Date.parse(next.publishedAt) >= Date.parse(snapshot.retrievedAt));
+  for (const entry of next.entries) {
+    const source = snapshot.rows.find((r) => r.rosterId === entry.rosterId);
+    assert.equal(entry.record, source.record);
+    assert.equal(entry.recentPoints, source.recentPoints);
+    assert.equal(source.scores.length, 3);
+  }
+  assert.equal(getPowerRankingComparison(next).label, 'vs Week 3');
+  const home = getClubhouseEditorial(
+    { ...data, week: 4, matchups: [] },
+    { ...reviewData, week: 3 },
+    Date.parse(next.publishedAt),
+  );
+  assert.equal(home.ranking, next);
+  assert.deepEqual(home.talkingPoints, next.talkingPoints);
+  assert.equal(home.lead.week, 3);
+  assert.equal(home.lead.kind, 'review');
 });
