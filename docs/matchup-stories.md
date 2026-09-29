@@ -134,3 +134,15 @@ and the matching Sleeper totals and recorded starter points. The six Thursday
 previews and their winner calls remain unchanged: Sharpe, Marmion, Horgan and
 Moroney were correct; Ennis and Murray were not. Week 3 ballots were already
 prepared by the cron. Week 3 previews and rankings retain their Thursday workflow.
+
+## Week 3 settlement and reviews
+
+All six Week 3 reviews were approved for publication on 29 September after the
+commissioner reviewed the Burns–Keenan sample. The settled Supabase scores match
+Sleeper for all twelve teams; `research/2026-week-3-results.json` preserves the
+result rows and recorded starter points. The Thursday previews, estimates and
+winner calls remain unchanged. Five calls were correct; Murphy beat our Hugo
+pick. Shane–Sharpe remains the archived Match of the Week, with its review
+revisiting both the call and the one-sided result. Sharpe receives the week's
+Flag on the play for a third sub-100 score ending his unbeaten start. Thursday's
+Week 4 previews and power rankings retain their usual workflow.
