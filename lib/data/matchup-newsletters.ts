@@ -2,6 +2,7 @@ import type { MatchupPreview, MatchupStory } from '@/lib/predictions/stories';
 import { weekOneNewsletters } from './newsletters/2026-week-1';
 import { weekTwoReports } from './newsletters/2026-week-2';
 import { weekThreeReports } from './newsletters/2026-week-3';
+import { weekFourReports } from './newsletters/2026-week-4';
 
 export type NewsletterKey = {
   leagueId: string;
@@ -24,6 +25,7 @@ export const matchupNewsletters: readonly MatchupNewsletter[] = [
   ...weekOneNewsletters,
   ...weekTwoReports,
   ...weekThreeReports,
+  ...weekFourReports,
 ];
 
 // A candidate only: callers still load the week and require settled results

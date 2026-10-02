@@ -148,3 +148,14 @@ Flag on the play for a third sub-100 score ending his unbeaten start. The
 commissioner clarified that the Tuesday update must also include rankings:
 Week 4 rankings and homepage talking points now use the completed Week 3 results.
 Week 4 previews and Match of the Week remain Thursday's work.
+
+## Week 4 Friday exception
+
+The commissioner requested the edition on Friday 2 October, after PIT–CLE.
+All six reports are explicitly Friday outlooks, with Friday winner calls and
+actual timestamps. Joe–Jack is the disclosed Friday Match of the Week. The
+Thursday points already scored are included as context, kept separate from
+full-lineup PPR estimates. This does not reconstruct pre-kickoff predictions.
+See `research/2026-week-4.md` and its frozen Sleeper snapshot. Friday homepage
+talking points live in `lib/data/preview-talking-points.ts`, leaving the Tuesday
+ranking archive intact; they disappear on settlement or week advancement.

@@ -237,3 +237,12 @@ leads Alan and Jack; Burns and Murphy rise three places; Niall falls four.
 Sharpe's league-low total puts him twelfth despite two wins. The evidence is
 in `research/2026-week-4-power-rankings.json`. Week 4 previews and the next
 Match of the Week remain Thursday's editorial work.
+
+## Friday Week 4 update — 2 October
+
+All six Week 4 outlooks and Joe–Jack as Match of the Week were authored at the
+commissioner's Friday request, explicitly after Thursday's game. The homepage
+uses fresh preview talking points from `lib/data/preview-talking-points.ts` until
+settlement; the published Tuesday ranking edition and its archive remain intact.
+The override requires the exact league, season, active week and publication time,
+and stops on settlement. Research is in `research/2026-week-4.md`.

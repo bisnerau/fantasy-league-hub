@@ -1,6 +1,7 @@
 import type { PredictionWeekData } from './predictions';
 import { getMatchOfTheWeek } from './match-of-the-week';
 import { getPowerRankingEditions } from './power-rankings';
+import { getPreviewTalkingPoints } from './preview-talking-points';
 
 export function getClubhouseEditorial(
   data: PredictionWeekData,
@@ -56,7 +57,9 @@ export function getClubhouseEditorial(
     previews,
     reviews,
     ranking,
-    talkingPoints: ranking?.week === data.week ? ranking.talkingPoints : [],
+    talkingPoints:
+      getPreviewTalkingPoints(data, now) ??
+      (ranking?.week === data.week ? ranking.talkingPoints : []),
   };
 }
 

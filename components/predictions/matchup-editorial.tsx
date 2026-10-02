@@ -141,7 +141,7 @@ export function MatchupEditorial({
             <>
               {featured && matchup.preview && (
                 <p className="mt-3 text-sm font-medium text-primary">
-                  Our pregame call:{' '}
+                  Our preview call:{' '}
                   {matchup.preview.pickRosterId === matchup.home.rosterId
                     ? matchup.home.ownerName
                     : matchup.away.ownerName}

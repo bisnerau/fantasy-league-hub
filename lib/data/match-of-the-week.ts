@@ -7,7 +7,8 @@ export type MatchOfTheWeek = NewsletterKey & {
   buildUp: string;
 };
 
-// One editorial selection per league/week, chosen before the opening NFL game.
+// One editorial selection per league/week. Normally chosen before kickoff;
+// late editions explicitly disclose their actual Friday selection in the copy.
 // Preserve selections in the archive; never derive them from votes or results.
 export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
   {
@@ -35,6 +36,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'The only meeting of unbeaten teams this week: Shane has scored 114.92 more points than David, yet both are 2–0. A 3–0 start is at stake, and Sharpe finally faces a manager whose opponents have been putting up a fight.',
     buildUp:
       'Shane brings Lamar, Lamb and JSN. David brings two wins without reaching 100 and a free Jordan Love to sit behind Maye. One has assembled a contender; the other keeps being waved through security without showing a boarding pass. A 3–0 start is waiting. We have asked Shane to check the tickets.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 4,
+    sleeperMatchupId: 5,
+    homeRosterId: 7,
+    awayRosterId: 9,
+    selectedAt: '2026-10-02T10:18:00Z',
+    reason:
+      'Friday selection, after Thursday’s NFL game: Joe’s $31 Gordon bid, the trade offers and the threat of 0–4 meet Jack’s established core. Only 0.41 separates the current PPR estimates; neither team has starter points banked yet.',
+    buildUp:
+      'The group chat has already reviewed Joe’s purchase. Jack gets to review the team. Ennis needs his first win before the rescue operation becomes a clearance sale; Ringrose can reach 3–1 without having to explain the size of the league when he won his trophy. This is a Friday outlook, with the call made now rather than before the week began.',
   },
 ];
 
