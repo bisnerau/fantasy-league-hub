@@ -36,13 +36,16 @@ let votes = [];
 let bankers = [];
 // Opt-in: two completed weeks with roster records that match the matchups.
 let standings = null;
+// Opt-in clock for dated editorial; reset preserves existing fixture behaviour.
+let editorialNow = null;
 const now = () =>
   Date.parse(
-    mode === 'final'
-      ? '2026-09-16T10:00:00Z'
-      : mode === 'locked'
-        ? lock
-        : '2026-09-12T12:00:00Z',
+    editorialNow ??
+      (mode === 'final'
+        ? '2026-09-16T10:00:00Z'
+        : mode === 'locked'
+          ? lock
+          : '2026-09-12T12:00:00Z'),
   );
 Date.now = now;
 const profiles = [
@@ -179,8 +182,10 @@ async function handle(
       votes = [];
       bankers = [];
       standings = null;
+      editorialNow = null;
     }
     if (body.standings !== undefined) standings = body.standings;
+    if (body.editorialNow !== undefined) editorialNow = body.editorialNow;
     if (body.mode) mode = body.mode;
     if (body.failVote != null) failVote = body.failVote;
     if (body.failRead != null) failRead = body.failRead;

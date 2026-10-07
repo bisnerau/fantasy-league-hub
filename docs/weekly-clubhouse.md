@@ -17,12 +17,53 @@ end zone as the footer. One signature effect per section; only the ticker loops.
    before any settlement, this week's projected fixtures.
 5. **Flag on the play**: optional, authored in `lib/data/flags-on-the-play.ts`.
 6. **Lead report** (headline and a two-line teaser) and talking points.
-7. **Power rankings deck**: all twelve, swipe or buttons/arrow keys.
-8. **Bragging rights**: champion trading card and the wooden-spoon sticker.
-9. **Prediction race** (members), then one Explore strip of destinations.
+7. **Return of the Mac Mondays**: latest published recording at the broadcast
+   desk; ON AIR illuminates only during playback.
+8. **Power rankings deck**: all twelve, swipe or buttons/arrow keys.
+9. **Bragging rights**: champion trading card and the wooden-spoon sticker.
+10. **Prediction race** (members), then one Explore strip of destinations.
 
 The draft report and draft countdown lead before the draft. Sections without
 verified data hide themselves; nothing is invented to fill a gap.
+
+## Return of the Mac Mondays
+
+The series archive is `/return-of-the-mac`; each episode has a permanent slug
+under it. The homepage and episode page share the same audio player. Playback
+requires a tap or keyboard activation, uses metadata-only preload, and stops on
+page navigation. ON AIR follows actual playback, switching off on pause,
+buffering, completion or error. The portrait is uncropped on every screen size.
+The homepage feature and Explore area link to the archive; mobile tabs are unchanged.
+
+Episodes are authored in `lib/data/return-of-the-mac.ts`. Publication timestamps
+control visibility on all three surfaces, with the most recently published
+episode on the homepage. Publication is manual; no cron, ElevenLabs generation,
+or live league-data lookup supplies episode content. A future timestamp hides
+an entry until that time but does not schedule a build or deployment.
+
+Weekly publishing steps:
+
+1. Write the script and generate the recording. For Monday editions with games
+   still outstanding, explicitly say **results through Sunday** in both the
+   recording and the episode's context label.
+2. Check names, episode context and spoken content against the intended script.
+   Measure the final recording's duration. Keep manager/team names as recorded.
+3. Add the MP3 under `public/audio/return-of-the-mac/` with a new permanent
+   filename, then add one record with a unique slug, publication timestamp,
+   recording date, season/week, manager, team, context, duration and portrait.
+   Reuse the approved portrait or add a separately named optimised image.
+4. Preserve old entries and asset filenames. A transcript may be supplied as
+   plain-text paragraphs; only episodes with content show the transcript link.
+5. Check the homepage, archive and episode URL, play/pause/seeking, both themes
+   and phone layout. Run unit tests, lint, build and the audio Playwright suite.
+   Check real iPhone Safari playback/seeking before release, then deploy through
+   the existing workflow when authorised.
+
+The first edition is **Week 4 preview/pilot · Recorded 2 October 2026**, featuring
+Joe Ennis and Donta Fourmore. It uses the 2:06 ElevenLabs export timestamped
+`20_10_52`, unchanged, and portrait v9. No transcript is included at launch;
+the recording has not been verified against a final script. Keep the dated
+preview label after Week 4 rather than presenting the episode as a fresh review.
 
 ## Power rankings
 

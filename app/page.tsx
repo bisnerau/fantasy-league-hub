@@ -9,6 +9,8 @@ import { MatchTicket } from '@/components/clubhouse/match-ticket';
 import { RankingsDeck } from '@/components/clubhouse/rankings-deck';
 import { Scoreboard } from '@/components/clubhouse/scoreboard';
 import { ShameSticker } from '@/components/clubhouse/shame-sticker';
+import { MacHomepageFeature } from '@/components/return-of-the-mac/broadcast';
+import { getMacEpisodes } from '@/lib/data/return-of-the-mac';
 import { DraftCountdown } from '@/components/draft/draft-countdown';
 import { CutLineHero } from '@/components/standings/cut-line-hero';
 import {
@@ -120,6 +122,7 @@ export default async function DashboardPage() {
       ? getCutLine(data.standings, data.playoffTeams)
       : null;
   const played = Math.max(0, ...data.standings.map(gamesPlayed));
+  const macEpisodes = getMacEpisodes();
 
   const candidates: (Section | false | null | undefined)[] = [
     beforeDraft && {
@@ -205,6 +208,10 @@ export default async function DashboardPage() {
           </div>
         ),
       },
+    macEpisodes.length > 0 && {
+      key: 'return-of-the-mac',
+      node: <MacHomepageFeature episodes={macEpisodes} />,
+    },
     editorial?.ranking && {
       key: 'rankings',
       node: <RankingsDeck ranking={editorial.ranking} teams={teams} />,
@@ -224,6 +231,29 @@ export default async function DashboardPage() {
       ),
     },
     { key: 'race', node: <PredictionRace /> },
+    {
+      key: 'explore',
+      node: (
+        <nav aria-label="Explore" className="border-t border-border pt-4">
+          <h2 className="ui-kicker">Explore</h2>
+          <div className="mt-2 flex flex-wrap gap-x-6">
+            <a
+              href="/return-of-the-mac"
+              className="clubhouse-text-link min-h-11"
+            >
+              Return of the Mac Mondays{' '}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+            <a href="/records" className="clubhouse-text-link min-h-11">
+              Record book <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+            <a href="/managers" className="clubhouse-text-link min-h-11">
+              Managers <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+          </div>
+        </nav>
+      ),
+    },
   ];
   const sections = candidates.filter((section): section is Section =>
     Boolean(section),
