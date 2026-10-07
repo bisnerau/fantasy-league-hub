@@ -65,3 +65,17 @@ void test('audio timestamps handle metadata fractions and unavailable values', (
   assert.equal(formatAudioTime(Number.NaN), '0:00');
   assert.equal(formatAudioTime(-1), '0:00');
 });
+
+void test('the Burns XI Week 4 review leads once published and keeps the pilot archived', () => {
+  const burns = macEpisodes.find((e) => e.slug === '2026-week-4-burns-xi');
+  assert.equal(burns.context, 'Week 4 review');
+  assert.equal(burns.manager, 'Emmet Burns');
+  assert.ok(existsSync(`public${burns.audio}`));
+  assert.ok(existsSync(`public${burns.portrait}`));
+  const at = Date.parse(burns.publishedAt);
+  assert.deepEqual(
+    getMacEpisodes(at).map((e) => e.slug),
+    ['2026-week-4-burns-xi', '2026-week-4-donta-fourmore'],
+  );
+  assert.equal(getMacEpisode(burns.slug, at - 1), undefined);
+});

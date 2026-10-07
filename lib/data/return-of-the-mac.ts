@@ -37,6 +37,20 @@ export const macEpisodes: readonly MacEpisode[] = [
     durationSeconds: 126,
     portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
   },
+  {
+    slug: '2026-week-4-burns-xi',
+    title: 'Burns XI: the record says one and three.',
+    publishedAt: '2026-10-07T12:01:00Z',
+    recordedOn: '2026-10-07',
+    season: '2026',
+    week: 4,
+    manager: 'Emmet Burns',
+    team: 'Burns XI',
+    context: 'Week 4 review',
+    audio: '/audio/return-of-the-mac/2026-week-4-burns-xi.mp3',
+    durationSeconds: 125,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+  },
 ];
 
 export function getMacEpisodes(
