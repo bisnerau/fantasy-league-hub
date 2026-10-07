@@ -302,9 +302,9 @@ void test('rank history starts at the preseason forecast and leaves unpublished 
   const history = getRankHistory(edition.leagueId, '2026', at);
   assert.deepEqual(
     history.columns.map((c) => c.label),
-    ['Pre', 'W2', 'W3', 'W4'],
+    ['Pre', 'W2', 'W3', 'W4', 'W5'],
   );
-  assert.deepEqual(history.series.get(1), [2, 4, 9, 6]);
+  assert.deepEqual(history.series.get(1), [2, 4, 9, 6, 7]);
   const five = {
     ...weekThree,
     week: 5,

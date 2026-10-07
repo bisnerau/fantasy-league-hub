@@ -1,4 +1,5 @@
 import type { PredictionWeekData } from './predictions';
+import { weekFourReviewPublishedAt } from './newsletters/2026-week-4';
 
 export type FlagOnThePlay = {
   leagueId: string;
@@ -28,6 +29,18 @@ export const flagsOnThePlay: readonly FlagOnThePlay[] = [
     text: 'Sharpe started 2–0 without reaching 100, then brought 80.16 to Shane’s 157.90. The unbeaten record has been recalled after failing its first proper inspection.',
     penalty: '77.74 yards and surrender of the unbeaten badge',
     publishedAt: '2026-09-29T14:46:33Z',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 4,
+    rosterId: 1,
+    manager: 'Emmet Burns',
+    call: 'Illegal substitution',
+    text: 'Burns benched Carnell Tate (21.50) for Wicks (4.80) and left Saturday pickup Emanuel Wilson (27.00) behind Swift (7.40). That is 36.30 points of bench in a 28.62-point defeat to Karl.',
+    penalty:
+      '28.62 yards and a lineup inquiry led by the commissioner, who is also the defendant',
+    publishedAt: weekFourReviewPublishedAt,
   },
 ];
 

@@ -159,3 +159,14 @@ full-lineup PPR estimates. This does not reconstruct pre-kickoff predictions.
 See `research/2026-week-4.md` and its frozen Sleeper snapshot. Friday homepage
 talking points live in `lib/data/preview-talking-points.ts`, leaving the Tuesday
 ranking archive intact; they disappear on settlement or week advancement.
+
+## Week 4 settlement
+
+The commissioner requested the update on Wednesday 7 October. All six Week 4
+results had settled on 6 October and match Sleeper. Six reviews revisit the
+Friday calls: five were correct, and the Joe–Jack Match of the Week call was
+wrong. Burns receives the Flag on the play for 36.30 bench points in a
+28.62-point defeat. The Week 5 power rankings and homepage talking points use
+all four completed weeks. The commissioner deferred the Week 5 previews and
+Match of the Week to Thursday so they can use later injury news. See
+`research/2026-week-5.md`.
