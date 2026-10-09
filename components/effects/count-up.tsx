@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { prefersReducedMotion } from '@/lib/motion';
 
-const formatter = new Intl.NumberFormat('en-IE', { maximumFractionDigits: 0 });
+const formatter = new Intl.NumberFormat('en-IE', { maximumFractionDigits: 2 });
 
 // Adapted from React Bits CountUp (MIT + Commons Clause) without the motion
 // dependency. The server renders the final value, assistive technology only

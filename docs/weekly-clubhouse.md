@@ -227,8 +227,9 @@ money; the betting look is styling only.
   majority; voter chips stay on each side.
 - The bet slip bar (`lib/predictions/slip.ts`) stays plain: “n/6 picks saved”,
   the Banker, and one View slip button. The opened slip lists every matchup
-  with your pick or “No pick yet”, the Banker and the maximum return (picks
-  plus one for a Banker); each line jumps to its card. After lock it lists the
+  with your pick or “No pick yet”, its price on priced weeks, the Banker and the
+  maximum return (the sum of each pick's return, with the Banker doubled; on
+  unpriced weeks, picks plus one); each line jumps to its card. After lock it lists the
   locked selections. On settled weeks See your docket prints a bookie docket:
   won, lost or void per selection, and the return and rank from the weekly
   leaderboard. It never prints score figures.

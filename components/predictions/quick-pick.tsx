@@ -107,6 +107,11 @@ export function QuickPick({
                           <p className="mt-2 font-mono text-lg font-bold">
                             {formatScore(team.projectedScore, 1)}
                           </p>
+                          {team.price && (
+                            <p className="mt-1 font-mono text-sm font-black text-award">
+                              {team.price.label}
+                            </p>
+                          )}
                         </div>
                       );
                     })}
@@ -122,7 +127,9 @@ export function QuickPick({
                       key={side}
                       type="button"
                       className="quick-choice"
-                      aria-label={`Pick ${team.teamName}`}
+                      aria-label={`Pick ${team.teamName}${
+                        team.price ? ` at ${team.price.label}` : ''
+                      }`}
                       aria-busy={busy}
                       disabled={disabled || saving != null}
                       onClick={() => choose(side)}

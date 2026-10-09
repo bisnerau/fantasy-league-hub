@@ -12,6 +12,7 @@ import { usePredictionMember, type VoteRecord } from './use-prediction-member';
 import { signInErrorMessage } from '@/lib/predictions/rules';
 import { persistPick, persistBanker } from '@/lib/predictions/votes';
 import { getSlip } from '@/lib/predictions/slip';
+import { isPricedWeek } from '@/lib/predictions/fractional-odds';
 import { spark } from '@/components/effects/click-spark';
 import { prefersReducedMotion } from '@/lib/motion';
 import { Button } from '@/components/ui/button';
@@ -371,7 +372,11 @@ export function PredictionCentre({
       setFeedback((current) => ({
         ...current,
         [id]: {
-          text: 'Banker saved. This replaces any previous Banker for the week. Correct: 2 points. Wrong or tied: 0.',
+          text: `Banker saved. This replaces any previous Banker for the week. ${
+            isPricedWeek(data.matchups)
+              ? 'Correct: double its odds return.'
+              : 'Correct: 2 points.'
+          } Wrong or tied: 0.`,
           error: false,
         },
       }));
@@ -705,7 +710,11 @@ export function PredictionCentre({
       {!viewingStandings && (
         <PredictionPodium
           title={`Week ${data.week} prediction table`}
-          subtitle="Correct pick: 1 point. Correct Banker: 2 points total. Bankers shows correct / settled; ties are excluded."
+          subtitle={`${
+            isPricedWeek(data.matchups)
+              ? 'Correct picks return their odds; a correct Banker pays double.'
+              : 'Correct pick: 1 point. Correct Banker: 2 points total.'
+          } Bankers shows correct / settled; ties are excluded.`}
           rows={weeklyLeaderboard}
           currentUserId={user?.id}
           emptyMessage={

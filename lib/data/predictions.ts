@@ -24,6 +24,10 @@ import {
   getPlayers,
 } from '@/lib/sleeper/client';
 import { getWeeklyProjections } from '@/lib/sleeper/projections';
+import {
+  priceFromFraction,
+  type TeamPrice,
+} from '@/lib/predictions/fractional-odds';
 import type {
   SleeperLeague,
   SleeperNFLState,
@@ -58,6 +62,8 @@ export type PredictionTeam = {
   ties: number;
   projectedScore: number | null;
   actualScore: number | null;
+  /** The frozen published price; absent for weeks scored 1 point per winner. */
+  price?: TeamPrice | null;
   starters: PredictionPlayer[];
   bench: PredictionPlayer[];
 };
@@ -97,6 +103,13 @@ type StoredMatchup = {
   away_final: number | string | null;
   status: 'scheduled' | 'locked' | 'final';
   preview_story?: unknown;
+};
+
+type StoredPrice = {
+  matchup_id: number;
+  roster_id: number;
+  numerator: number;
+  denominator: number;
 };
 
 const STORED_FIELDS =
@@ -394,7 +407,14 @@ async function loadPredictionSource(
 function withStoredMatchups(
   data: PredictionWeekData,
   rows: StoredMatchup[],
+  prices: StoredPrice[] = [],
 ): PredictionWeekData {
+  const priceFor = (matchupId: number, rosterId: number) => {
+    const price = prices.find(
+      (p) => p.matchup_id === matchupId && p.roster_id === rosterId,
+    );
+    return price ? priceFromFraction(price.numerator, price.denominator) : null;
+  };
   const byId = new Map(rows.map((row) => [row.sleeper_matchup_id, row]));
   const complete =
     data.sourceComplete &&
@@ -439,6 +459,7 @@ function withStoredMatchups(
           : null,
         home: {
           ...matchup.home,
+          price: priceFor(row.id, matchup.home.rosterId),
           actualScore:
             row.status === 'final' && row.home_final != null
               ? Number(row.home_final)
@@ -446,6 +467,7 @@ function withStoredMatchups(
         },
         away: {
           ...matchup.away,
+          price: priceFor(row.id, matchup.away.rosterId),
           actualScore:
             row.status === 'final' && row.away_final != null
               ? Number(row.away_final)
@@ -484,6 +506,15 @@ export async function getPredictionWeekData(
       .select(STORED_FIELDS)
       .eq('prediction_week_id', weekRow.id);
     if (error || !rows) return { ...data, availability: 'unavailable' };
+    // Prices are optional: unpriced weeks (and a database without the table)
+    // keep the original one-point scoring rather than failing the page.
+    const { data: priceRows, error: priceError } = await readClient
+      .from('prediction_prices')
+      .select('matchup_id,roster_id,numerator,denominator')
+      .in(
+        'matchup_id',
+        (rows as StoredMatchup[]).map((row) => row.id),
+      );
     const result = withStoredMatchups(
       {
         ...data,
@@ -491,6 +522,7 @@ export async function getPredictionWeekData(
         locked: Date.now() >= new Date(weekRow.locks_at).getTime(),
       },
       rows as StoredMatchup[],
+      priceError ? [] : ((priceRows ?? []) as StoredPrice[]),
     );
     result.matchups = result.matchups.map((matchup) => {
       const edition = getMatchupNewsletter({

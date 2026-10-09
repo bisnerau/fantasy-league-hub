@@ -119,8 +119,13 @@ behaviour" in `docs/weekly-clubhouse.md`). The line, slip and docket are derived
 from real projections, saved picks and the settled leaderboard, never invented.
 
 Weekly Picks also includes verified rivalry strips and one double-points Banker
-per member/week. A correct Banker earns two points total; other winners earn
-one. Banker nominations reference saved votes, stay private until Sunday lock,
+per member/week. From 2026 Week 5, picks are scored at fractional odds: a
+correct pick returns its frozen price (1 + the fraction, so 3/1 pays 4), a
+correct Banker returns double, and wrong or tied picks earn zero. Prices are
+priced on each team's best possible lineup, published after Thursday's game with
+`npm run odds:publish` and frozen by the database; unpriced weeks (1–4) keep
+1 point per winner and 2 for a correct Banker. See "Fractional odds" in
+`docs/bankers-and-rivalries.md`. Banker nominations reference saved votes, stay private until Sunday lock,
 and are enforced by database constraints, RLS and an invoker RPC. Weekly/season
 tables and the homepage rank by points, with equal points sharing a rank.
 Rivalries combine the mapped 2025 regular-season snapshot with prior settled

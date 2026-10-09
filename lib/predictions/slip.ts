@@ -1,5 +1,6 @@
 import type { PredictionMatchup, PredictionTeam } from '@/lib/data/predictions';
 import type { BankerRecord, VoteRecord } from '@/lib/predictions/votes';
+import { pickReturn } from '@/lib/predictions/fractional-odds';
 
 export type Verdict = 'won' | 'lost' | 'void';
 
@@ -8,6 +9,8 @@ export type Selection = {
   sleeperMatchupId: number;
   team: PredictionTeam;
   banker: boolean;
+  /** Points if this pick wins: its price (or 1 when unpriced), doubled for a Banker. */
+  returns: number;
   /** Null until both final scores exist; missing is never a loss. */
   verdict: Verdict | null;
 };
@@ -16,7 +19,7 @@ export type Slip = {
   selections: Selection[];
   total: number;
   banker: Selection | null;
-  /** Picks plus one for a Banker: the most this slip can return. */
+  /** Sum of every selection's return: the most this slip can earn. */
   maxReturn: number;
   /** The first matchup without a saved pick, in display order. */
   nextOpen: number | null;
@@ -55,16 +58,17 @@ export function getSlip(
           ? matchup.away
           : null;
     if (!team) return [];
+    const isBanker = bankers.some(
+      (banker) =>
+        banker.voter_id === voterId && banker.matchup_id === matchup.databaseId,
+    );
     return [
       {
         matchupId: matchup.databaseId,
         sleeperMatchupId: matchup.sleeperMatchupId,
         team,
-        banker: bankers.some(
-          (banker) =>
-            banker.voter_id === voterId &&
-            banker.matchup_id === matchup.databaseId,
-        ),
+        banker: isBanker,
+        returns: pickReturn(team.price, isBanker),
         verdict: verdictFor(matchup, team.rosterId),
       },
     ];
@@ -75,7 +79,8 @@ export function getSlip(
     selections,
     total: matchups.length,
     banker,
-    maxReturn: selections.length + (banker ? 1 : 0),
+    maxReturn:
+      Math.round(selections.reduce((sum, s) => sum + s.returns, 0) * 100) / 100,
     nextOpen:
       matchups.find((matchup) => !picked.has(matchup.sleeperMatchupId))
         ?.sleeperMatchupId ?? null,

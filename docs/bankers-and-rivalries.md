@@ -1,7 +1,9 @@
 # Weekly Bankers and rivalry strips
 
 Each member can nominate one saved winner pick as their Banker each week.
-Correct picks earn one point; a correct Banker earns two points **total**.
+Through Week 4 of 2026, correct picks earn one point and a correct Banker earns
+two points **total**. From Week 5, picks are scored at fractional odds (see
+below) and a correct Banker returns double its price.
 Wrong or missing picks earn zero. Tied matchups award zero and are excluded
 from accuracy and the settled Banker denominator. Six wins including the
 Banker earn seven points. No nomination is made automatically or retroactively.
@@ -50,3 +52,33 @@ The runner creates a disposable database, applies the initial prediction and
 Banker migrations, exercises real PostgreSQL constraints, RLS, deadline checks,
 and leaderboard calculations, and drops that database afterwards. `npm test`
 covers rivalry calculations and confirmed/failed Banker saves without a database.
+
+## Fractional odds (from 2026 Week 5)
+
+Every team in a priced week has one frozen price. A correct pick returns 1 plus
+the fraction (3/1 returns 4, Evens returns 2, 4/6 returns 1.67); a correct
+Banker returns double. Wrong, missing or tied picks earn zero. Weekly and season
+tables show returns to two decimals. Weeks without published prices keep the
+original 1 point per winner and 2 for a correct Banker, so earlier totals are
+unchanged.
+
+Prices come from `scripts/build-odds-snapshot.mjs`: MAC 12 scoring on Sleeper
+projections, each team's best possible lineup (so benching players cannot move
+a price), an opponent adjustment, and a 20-point logistic win chance rounded to
+a familiar fraction. Starters whose game has finished keep their recorded
+points. The commissioner builds the snapshot after Thursday's game, commits it,
+then publishes once:
+
+```
+node scripts/build-odds-snapshot.mjs 5
+npm run odds:publish -- 5             # dry run
+npm run odds:publish -- 5 --publish   # needs SUPABASE_SECRET_KEY locally
+```
+
+`20261009100000_add_prediction_prices.sql` adds `prediction_prices`: public
+read, server-key insert only, and a trigger that rejects any update, delete,
+team outside the matchup, or price once the week has locked. It recreates the
+weekly and season leaderboard views with two-decimal `points`. Apply it with the
+linked Supabase CLI before deploying the code; the site shows no prices (and
+keeps 1-point wording) until a week is published. `tests/prices-db.sql` runs
+with the isolated Banker checks via `tests/bankers-db.mjs`.

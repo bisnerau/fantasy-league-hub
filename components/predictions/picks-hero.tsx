@@ -16,6 +16,7 @@ import { formatLockTime } from '@/lib/predictions/rules';
 import type { VoteRecord } from '@/lib/predictions/votes';
 import { cn } from '@/lib/utils';
 import { leagueSplit, type HeroFeature } from './clubhouse-picks';
+import { isPricedWeek } from '@/lib/predictions/fractional-odds';
 
 /** The Weekly Picks scoreboard: the same stadium board as the homepage. */
 export function PicksHero({
@@ -48,6 +49,7 @@ export function PicksHero({
   actions?: ReactNode;
 }) {
   const complete = picksMade === data.matchups.length;
+  const priced = isPricedWeek(data.matchups);
   const warning =
     !standings &&
     available &&
@@ -102,7 +104,8 @@ export function PicksHero({
       </div>
       {standings ? (
         <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
-          One point per correct winner; two for your weekly Banker. Wrong or
+          Correct picks return their odds: 3/1 pays 4 points. A correct Banker
+          pays double. Weeks 1–4 paid 1 point a winner, 2 for a Banker. Wrong or
           missing picks earn zero; ties are excluded. Equal points share a rank.
         </p>
       ) : (
@@ -180,9 +183,10 @@ export function PicksHero({
                 </PopoverTrigger>
                 <PopoverContent className="w-72 text-sm leading-6">
                   <p>
-                    Save a winner, then hold it to make it your Banker. A
-                    correct Banker earns 2 points total; other correct picks
-                    earn 1. Wrong or tied: 0. Maximum 7 points from six games.
+                    Save a winner, then hold it to make it your Banker.{' '}
+                    {priced
+                      ? 'A correct Banker pays double its odds: a 3/1 Banker returns 8 points instead of 4. Wrong or tied: 0.'
+                      : 'A correct Banker earns 2 points total; other correct picks earn 1. Wrong or tied: 0. Maximum 7 points from six games.'}
                   </p>
                   <p className="mt-2 text-muted-foreground">
                     Your Banker stays private and locks with your picks.

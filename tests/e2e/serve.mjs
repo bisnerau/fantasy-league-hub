@@ -38,6 +38,8 @@ let bankers = [];
 let standings = null;
 // Opt-in clock for dated editorial; reset preserves existing fixture behaviour.
 let editorialNow = null;
+// Opt-in published odds: home 4/6, away 6/4 in every fixture.
+let prices = false;
 const now = () =>
   Date.parse(
     editorialNow ??
@@ -183,9 +185,11 @@ async function handle(
       bankers = [];
       standings = null;
       editorialNow = null;
+      prices = false;
     }
     if (body.standings !== undefined) standings = body.standings;
     if (body.editorialNow !== undefined) editorialNow = body.editorialNow;
+    if (body.prices !== undefined) prices = body.prices;
     if (body.mode) mode = body.mode;
     if (body.failVote != null) failVote = body.failVote;
     if (body.failRead != null) failRead = body.failRead;
@@ -228,6 +232,25 @@ async function handle(
       ]);
     if (table === 'prediction_matchups')
       return json(mode === 'predraft' ? [] : rows());
+    if (table === 'prediction_prices')
+      return json(
+        prices
+          ? rows().flatMap((row) => [
+              {
+                matchup_id: row.id,
+                roster_id: row.home_roster_id,
+                numerator: 4,
+                denominator: 6,
+              },
+              {
+                matchup_id: row.id,
+                roster_id: row.away_roster_id,
+                numerator: 6,
+                denominator: 4,
+              },
+            ])
+          : [],
+      );
     if (!authenticated)
       return json({ message: 'Fixture sign-in required' }, 401);
     if (failRead && method === 'GET')
@@ -243,7 +266,8 @@ async function handle(
               display_name: profile.display_name,
               completed_picks: 6,
               correct_picks: 6 - index,
-              points: 6 - index,
+              // Priced fixtures: every correct home pick at 4/6 returns 1.67.
+              points: prices ? Math.round((6 - index) * 167) / 100 : 6 - index,
               correct_bankers: 0,
               completed_bankers: 0,
               accuracy: index ? 83.3 : 100,

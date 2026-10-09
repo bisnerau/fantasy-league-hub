@@ -16,6 +16,7 @@ import { usePredictionMember } from './use-prediction-member';
 import type { PredictionWeekData } from '@/lib/data/predictions';
 import { getRemaining, isTwoMinuteWarning } from '@/lib/countdown';
 import { formatLockTime } from '@/lib/predictions/rules';
+import { formatPoints } from '@/lib/predictions/fractional-odds';
 import { cn } from '@/lib/utils';
 
 type Clubhouse = {
@@ -296,7 +297,8 @@ export function PredictionRace() {
         Who calls it best?
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        One point per correct winner. Two for a correct Banker.
+        Correct picks return their odds; a correct Banker pays double. Weeks 1–4
+        paid a point a winner.
       </p>
       <div className="my-4 flex-1 border-y border-border py-4">
         {member.loading ? (
@@ -343,7 +345,7 @@ export function PredictionRace() {
                   )}
                 </span>
                 <span className="font-mono text-primary">
-                  {row.points}
+                  {formatPoints(Number(row.points))}
                   <span className="ml-1 text-xs text-muted-foreground">
                     pts
                   </span>

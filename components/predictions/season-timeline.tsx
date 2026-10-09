@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { Check, LockKeyhole } from 'lucide-react';
 import type { MemberWeek } from './use-prediction-member';
+import { formatPoints } from '@/lib/predictions/fractional-odds';
 
 type WeekState = 'settled' | 'open' | 'locked' | 'past' | 'live';
 
@@ -29,7 +30,7 @@ export function SeasonTimeline({
   const points = new Map(
     memberWeeks
       .filter((row) => row.completed_picks > 0)
-      .map((row) => [row.week, row.points]),
+      .map((row) => [row.week, Number(row.points)]),
   );
 
   useEffect(() => {
@@ -74,14 +75,14 @@ export function SeasonTimeline({
                 className="week-chip"
                 data-state={state}
                 aria-current={value === week ? 'page' : undefined}
-                aria-label={`Week ${value}, ${words[state]}${score == null ? '' : `, ${score} ${score === 1 ? 'point' : 'points'}`}`}
+                aria-label={`Week ${value}, ${words[state]}${score == null ? '' : `, ${formatPoints(score)} ${score === 1 ? 'point' : 'points'}`}`}
               >
                 <span className="font-mono text-sm font-black">W{value}</span>
                 <span className="week-chip-state" aria-hidden="true">
                   {state === 'settled' ? (
                     <>
                       <Check className="size-3" />
-                      {score != null && `${score} pts`}
+                      {score != null && `${formatPoints(score)} pts`}
                     </>
                   ) : state === 'locked' ? (
                     <LockKeyhole className="size-3" />

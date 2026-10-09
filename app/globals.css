@@ -1420,6 +1420,12 @@
   .faceoff-caption {
     @apply mb-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground;
   }
+  .faceoff-price {
+    @apply -mt-1 mb-3 flex flex-wrap items-baseline gap-x-1.5 text-[11px] font-semibold text-muted-foreground;
+  }
+  .faceoff-price-label {
+    @apply font-mono text-base font-black text-award;
+  }
   .faceoff-pick {
     @apply mt-auto inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-background/70 px-2 text-xs font-semibold transition-colors sm:text-sm;
   }
@@ -1470,6 +1476,9 @@
     @apply mt-3 w-full border-t border-border pt-2;
   }
   .faceoff-half[data-side='away'] .faceoff-voters ul {
+    @apply justify-end;
+  }
+  .faceoff-half[data-side='away'] .faceoff-price {
     @apply justify-end;
   }
   .faceoff-voters-note {
@@ -1704,6 +1713,9 @@
   }
   .docket-banker {
     color: #856014;
+  }
+  .docket-price {
+    @apply font-mono font-bold text-award;
   }
   .docket-mark {
     @apply shrink-0 font-black;

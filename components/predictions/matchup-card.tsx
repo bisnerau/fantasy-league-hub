@@ -17,6 +17,7 @@ import {
   lineResultLabels,
 } from '@/lib/predictions/line';
 import { verdictFor } from '@/lib/predictions/slip';
+import { formatPoints, pickReturn } from '@/lib/predictions/fractional-odds';
 import type { BankerRecord, VoteRecord } from '@/lib/predictions/votes';
 import { formatScore } from '@/lib/sleeper/scores';
 import { cn } from '@/lib/utils';
@@ -131,6 +132,12 @@ function TeamHalf({
       <p className="faceoff-caption">
         {finalized ? 'Final score' : 'PPR estimate'}
       </p>
+      {team.price && (
+        <p className="faceoff-price">
+          <span className="faceoff-price-label">{team.price.label}</span>
+          <span>returns {formatPoints(team.price.payout)} pts</span>
+        </p>
+      )}
       {stamp && (
         <Stamp tone={stamp.tone} className="faceoff-stamp">
           {stamp.text}
@@ -142,7 +149,9 @@ function TeamHalf({
           className="faceoff-pick"
           aria-pressed={selected}
           aria-busy={pending}
-          aria-label={`Pick ${team.teamName}${selected ? ', saved' : ''}`}
+          aria-label={`Pick ${team.teamName}${
+            team.price ? ` at ${team.price.label}` : ''
+          }${selected ? ', saved' : ''}`}
           disabled={disabled || pending}
           onClick={() => onPick(matchup, team.rosterId)}
         >
@@ -151,7 +160,13 @@ function TeamHalf({
           ) : selected ? (
             <Check className="size-4" />
           ) : null}
-          {pending ? 'Saving…' : selected ? 'Saved pick' : 'Pick'}
+          {pending
+            ? 'Saving…'
+            : selected
+              ? 'Saved pick'
+              : team.price
+                ? `Pick ${team.price.label}`
+                : 'Pick'}
         </button>
       ) : !signedIn ? (
         <p className="faceoff-voters-note">Sign in to reveal voters</p>
@@ -258,12 +273,13 @@ export function MatchupCard({
   const verdict = ownVote
     ? verdictFor(matchup, ownVote.selected_roster_id)
     : null;
+  const bankerPoints = formatPoints(pickReturn(pickedTeam.price, true));
   const bankerResult = !finalized
-    ? 'Your Banker · 2 points if correct'
+    ? `Your Banker · ${bankerPoints} points if correct`
     : verdict === 'void'
       ? 'Banker tied · 0 points'
       : verdict === 'won'
-        ? 'Banker landed · 2 points'
+        ? `Banker landed · ${bankerPoints} points`
         : verdict === 'lost'
           ? 'Banker missed · 0 points'
           : 'Banker awaiting both scores';

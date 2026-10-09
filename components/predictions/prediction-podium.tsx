@@ -1,6 +1,7 @@
 import { CountUp } from '@/components/effects/count-up';
 import { cn } from '@/lib/utils';
 import type { LeaderboardRow } from './use-prediction-member';
+import { formatPoints } from '@/lib/predictions/fractional-odds';
 
 const medal = ['gold', 'silver', 'bronze'] as const;
 
@@ -57,7 +58,7 @@ export function PredictionPodium({
                   {row.display_name.split(' ')[0]}
                 </span>
                 <span className="podium-points">
-                  <CountUp value={row.points} />
+                  <CountUp value={Number(row.points)} />
                   <span className="text-[10px] font-semibold"> pts</span>
                 </span>
                 <span className="podium-block">{rank}</span>
@@ -66,7 +67,7 @@ export function PredictionPodium({
           </ol>
           <ol
             className="podium-rows"
-            aria-label={`${title}. Ranked by points; equal totals share a rank. Bankers earn two points.`}
+            aria-label={`${title}. Ranked by points; equal totals share a rank. A correct Banker pays double.`}
           >
             {ranked.map(({ row, rank }) => (
               <li
@@ -91,7 +92,7 @@ export function PredictionPodium({
                   </span>
                 </span>
                 <span className="font-mono text-base font-bold text-primary">
-                  {row.points}
+                  {formatPoints(Number(row.points))}
                   <span className="ml-0.5 text-[10px] font-semibold text-muted-foreground">
                     pts
                   </span>

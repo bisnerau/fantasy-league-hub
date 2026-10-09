@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ReceiptText, X } from 'lucide-react';
 import type { PredictionMatchup } from '@/lib/data/predictions';
 import type { Slip, Verdict } from '@/lib/predictions/slip';
+import { formatPoints } from '@/lib/predictions/fractional-odds';
 import type { LeaderboardRow } from './use-prediction-member';
 
 export type SlipState =
@@ -125,6 +126,12 @@ function Docket({
                         }
                       >
                         {selection ? selection.team.ownerName : 'No pick yet'}
+                        {selection?.team.price && (
+                          <span className="docket-price">
+                            {' '}
+                            {selection.team.price.label}
+                          </span>
+                        )}
                         {selection?.banker && (
                           <span className="docket-banker"> ★ Banker ×2</span>
                         )}
@@ -147,6 +154,12 @@ function Docket({
               <li key={selection.matchupId}>
                 <span className="min-w-0 truncate">
                   {selection.team.ownerName}
+                  {selection.team.price && (
+                    <span className="docket-price">
+                      {' '}
+                      {selection.team.price.label}
+                    </span>
+                  )}
                   {selection.banker && (
                     <span className="docket-banker"> ★ Banker ×2</span>
                   )}
@@ -177,14 +190,14 @@ function Docket({
         {mode === 'open' ? (
           <p className="docket-total">
             <span>
-              Returns up to {slip.maxReturn}{' '}
+              Returns up to {formatPoints(slip.maxReturn)}{' '}
               {slip.maxReturn === 1 ? 'pt' : 'pts'}
             </span>
             <span>{slip.banker ? '★ Banked' : 'No Banker'}</span>
           </p>
         ) : settled && row ? (
           <p className="docket-total">
-            <span>Returned {row.points} pts</span>
+            <span>Returned {formatPoints(Number(row.points))} pts</span>
             <span>
               {ordinal(rank)} of {rows.length}
             </span>
@@ -251,7 +264,7 @@ export function BetSlip({
           ? ['Your slip', 'Your slip is unavailable right now']
           : state === 'settled' && row
             ? [
-                `Returned ${row.points} pts · ${ordinal(rank)} of ${weeklyRows.length}`,
+                `Returned ${formatPoints(Number(row.points))} pts · ${ordinal(rank)} of ${weeklyRows.length}`,
                 banker,
               ]
             : [state === 'locked' ? `${count} · locked` : count, banker];

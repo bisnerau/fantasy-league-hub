@@ -14,7 +14,8 @@
     "test:e2e": "playwright test",
     "format": "oxfmt",
     "draft:prepare": "node --env-file=.env.local scripts/prepare-draft-recap.mjs",
-    "members:create": "node --env-file=.env.local --experimental-strip-types scripts/create-supabase-members.mjs"
+    "members:create": "node --env-file=.env.local --experimental-strip-types scripts/create-supabase-members.mjs",
+    "odds:publish": "node --env-file=.env.local --experimental-strip-types scripts/publish-odds.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

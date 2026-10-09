@@ -30,7 +30,9 @@ try {
       'supabase/migrations/20260904150000_create_prediction_centre.sql',
       'supabase/migrations/20260904183000_add_prediction_accuracy_tables.sql',
       'supabase/migrations/20260918150000_add_weekly_bankers.sql',
+      'supabase/migrations/20261009100000_add_prediction_prices.sql',
       'tests/bankers-db.sql',
+      'tests/prices-db.sql',
     ]
       .map((file) =>
         readFileSync(new URL(`../${file}`, import.meta.url), 'utf8'),
@@ -53,7 +55,7 @@ try {
     ],
     { input: sql, stdio: ['pipe', 'inherit', 'inherit'] },
   );
-  console.log('Banker database integration checks passed.');
+  console.log('Banker and price database integration checks passed.');
 } finally {
   execFileSync('docker', [
     'exec',
