@@ -170,3 +170,13 @@ wrong. Burns receives the Flag on the play for 36.30 bench points in a
 all four completed weeks. The commissioner deferred the Week 5 previews and
 Match of the Week to Thursday so they can use later injury news. See
 `research/2026-week-5.md`.
+
+## Week 5 Friday exception
+
+Requested Friday 9 October. Six outlooks and winner calls published at 08:00 UTC
+after TB–DAL, using live Sleeper lineups, completed waivers and the latest
+Thursday team practice reports. Final Friday designations remain pending.
+Keenan–Karl is the disclosed Friday Match of the Week. See
+`research/2026-week-5.md` and `research/2026-week-5-sleeper.json`. The existing
+Week 5 ranking archive is preserved; Friday talking points refresh the homepage
+until settlement or week advancement.

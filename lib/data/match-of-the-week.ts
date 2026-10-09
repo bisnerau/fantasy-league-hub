@@ -1,5 +1,6 @@
 import type { PredictionMatchup, PredictionWeekData } from './predictions';
 import type { NewsletterKey } from './matchup-newsletters';
+import { weekFivePublishedAt } from './newsletters/2026-week-5';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -49,6 +50,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Friday selection, after Thursday’s NFL game: Joe’s $31 Gordon bid, the trade offers and the threat of 0–4 meet Jack’s established core. Only 0.41 separates the current PPR estimates; neither team has starter points banked yet.',
     buildUp:
       'The group chat has already reviewed Joe’s purchase. Jack gets to review the team. Ennis needs his first win before the rescue operation becomes a clearance sale; Ringrose can reach 3–1 without having to explain the size of the league when he won his trophy. This is a Friday outlook, with the call made now rather than before the week began.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 5,
+    sleeperMatchupId: 2,
+    homeRosterId: 3,
+    awayRosterId: 5,
+    selectedAt: weekFivePublishedAt,
+    reason:
+      'Friday selection, after Thursday’s game: unbeaten Keenan meets Karl’s three-game winning streak. Karl already has 59.50 from Irving and Pickens against Andrew’s four from Aubrey. Third meets fourth in our rankings, with a perfect record on the line.',
+    buildUp:
+      'Keenan has won four without scoring 122; Karl has brought 59.50 before Sunday and still has Bijan and McBride to come. Andrew’s $6 Mitchell purchase faces an immediate performance review while Barkley sits on his bench. This is a Friday selection with Thursday’s scoring known, not a reconstructed pre-kickoff prediction. We take Karl to end the unbeaten run and leave both managers 4–1.',
   },
 ];
 

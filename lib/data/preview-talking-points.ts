@@ -1,8 +1,32 @@
 import type { PredictionWeekData } from './predictions';
 import { weekFourPublishedAt } from './newsletters/2026-week-4';
+import { weekFivePublishedAt } from './newsletters/2026-week-5';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 5,
+    publishedAt: weekFivePublishedAt,
+    points: [
+      {
+        title: 'Keenan’s perfect start meets Karl’s 59.50-point Thursday.',
+        text: 'Irving and Pickens have already put Karl in charge of our Friday Match of the Week. Andrew is 4–0, has Barkley benched and paid $6 for Mitchell. The unbeaten record finally has a difficult appointment.',
+        href: '/matchups?week=5#matchup-2',
+      },
+      {
+        title: 'Niall’s $20 Shipley comes with competition.',
+        text: 'Barkley missed Thursday practice, but the Eagles have also promoted Dameon Pierce. Shipley is still on Niall’s bench. Shane has only 2.90 from Lamb and Lamar missed another practice: our Friday upset call goes to Murray.',
+        href: '/matchups?week=5#matchup-3',
+      },
+      {
+        title: 'Friday morning check: practising does not mean cleared.',
+        text: 'Chase remains in concussion protocol; Higgins and McConkey missed Thursday practice. Charbonnet is limited and still on PUP. All six outlooks use news checked 9 October, after TB–DAL; final Friday designations are still pending.',
+        href: '/matchups?week=5',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',
