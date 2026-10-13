@@ -4,6 +4,18 @@ import type { MatchupNewsletter } from '../matchup-newsletters';
 // Final Friday designations are not yet available. Never backdate these calls.
 // Frozen lineups, PPR estimates, banked points and waivers: docs/research/2026-week-5-sleeper.json.
 export const weekFivePublishedAt = '2026-10-09T08:00:00Z';
+export const weekFiveReviewPublishedAt = '2026-10-13T14:50:00Z';
+
+const reviewSources = [
+  {
+    label: 'Sleeper: settled Week 5 scores and recorded player points',
+    url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/5',
+  },
+  {
+    label: 'Sleeper: completed Week 5 transactions',
+    url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/5',
+  },
+];
 
 const sources = [
   {
@@ -49,6 +61,30 @@ export const weekFiveReports: MatchupNewsletter[] = [
     sleeperMatchupId: 1,
     homeRosterId: 8,
     awayRosterId: 11,
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekFiveReviewPublishedAt,
+      headline:
+        'Sharpe discovers the start button. Hugo discovers fourth straight defeats.',
+      summary:
+        'Hugo 84.82–135.34 Sharpe. Dave actually started Drake Maye this time, and the league’s best individual score followed. Our Hugo call has been escorted off the premises.',
+      sections: [
+        {
+          title: 'The memo reached its destination',
+          text: 'Last week Dave left Maye’s 26.16 on the bench and lost by 3.60. This week he selected him and collected 39.46, the highest starter score in MAC 12. A revolutionary new approach: put the good player in the team. Tyler Warren supplied 21.40, while Myers and the Jets defence added 35 between them. After three weeks below 100, Sharpe has now cleared it twice and moved to 3–2. The set-and-forget reputation may need a small amendment.',
+        },
+        {
+          title: 'Cousins cannot repair the entire building',
+          text: 'Hugo’s $4 quarterback returned a serviceable 13.72. The trouble was elsewhere: Montgomery, Higgins and Concepcion combined for 6.80, leaving Bowers’ 23.00 carrying far too much of the operation. This was the week’s lowest total and Hugo’s fourth straight defeat. Taylor and Bowers were the foundation of our Friday optimism; between them they could not bridge a 50.52-point gap. Back in the shared house, Alan also lost, so at least the round-up can be conducted in mutual silence.',
+        },
+        {
+          title: 'The Friday call: Hugo Walsh — wrong',
+          text: 'We backed the stronger-looking core and underestimated Dave’s supporting cast. Sharpe won comfortably; Hugo is 1–4 alongside Burns and Tommy. There is no clever bench swap to rescue this result. The guitar jokes are becoming easier to write, which is precisely the situation Hugo needed to avoid.',
+        },
+      ],
+      sources: reviewSources,
+    },
     preview: {
       version: 1,
       editorial: true,
@@ -91,6 +127,30 @@ export const weekFiveReports: MatchupNewsletter[] = [
     sleeperMatchupId: 2,
     homeRosterId: 3,
     awayRosterId: 5,
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekFiveReviewPublishedAt,
+      headline:
+        'Karl ends Keenan’s unbeaten run and closes the complaints department',
+      summary:
+        'Keenan 103.84–171.46 Karl. The Match of the Week became the biggest margin of the week. Karl’s fourth straight win leaves both managers 4–1, with very different explanations.',
+      sections: [
+        {
+          title: 'The billing lasted longer than the contest',
+          text: 'Friday’s selection was made after Irving and Pickens had already banked 59.50. We disclosed that advantage and backed Karl; the rest of his lineup then made the decision look positively cautious. Daniels supplied 32.26 and McBride another 21.60. The final 171.46 was the highest team score of the season so far, beating Niall’s opening 169.00. The king of bad scheduling has become the scheduling problem.',
+        },
+        {
+          title: 'Two men and a missing support act',
+          text: 'Watson’s 32.30 and Goff’s 28.94 accounted for 61.24 of Andrew’s 103.84. The other seven starters managed 42.60 together. Keenan had won his first four without reaching 122; against this opponent, even his best previous score would have left him nearly fifty short. The 67.62-point defeat was not one difficult lineup decision. It was an inspection of the whole operation. The 2021 trophy remains valid, although it cannot be submitted as a tenth starter.',
+        },
+        {
+          title: 'The Friday call: Karl Moroney — correct',
+          text: 'We called for both teams to finish 4–1, and they did. Karl has increased his score in each of his last three games and now takes our No.1 ranking. Andrew still owns four useful wins, but the unbeaten protection has gone. A marquee fixture, a correct call and almost no suspense: two out of three will have to do.',
+        },
+      ],
+      sources: reviewSources,
+    },
     preview: {
       version: 1,
       editorial: true,
@@ -125,6 +185,30 @@ export const weekFiveReports: MatchupNewsletter[] = [
     sleeperMatchupId: 3,
     homeRosterId: 2,
     awayRosterId: 10,
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekFiveReviewPublishedAt,
+      headline:
+        'Niall takes Shane’s unbeaten badge. Shrader handles the paperwork.',
+      summary:
+        'Niall 122.24–119.34 Shane. The upset call landed by 2.90, the closest finish of Week 5. Murray finally won again; Marmion’s perfect record followed Keenan’s out the door.',
+      sections: [
+        {
+          title: 'The rescue came from a different department',
+          text: 'Friday’s case for Niall leaned on Brown and Lawrence. Lawrence delivered 21.74, but Brown managed seven; Parker Washington’s 30.40 and Evans’ 26.30 did the heavy lifting instead. Then there was Shrader, contributing twenty from the kicking slot. Murray’s first win since the opener was neither tidy nor comfortable, but the standings do not offer a presentation mark. The 169-point Week 1 can finally stop serving as his entire character reference.',
+        },
+        {
+          title: 'The bench has entered the evidence bundle',
+          text: 'Warren’s 36.80 and JSN’s 22.80 kept Shane competitive despite Lamb’s 2.90. Stroud supplied 20.94, so blaming the replacement quarterback would miss the point. Likely’s 32.40 sat behind Kittle’s 7.40 on the bench: a 25-point hindsight difference in a 2.90-point game. That is not proof Shane should have foreseen it, but it is enough for the league’s referee to throw a very petty flag. Nobody is claiming this was another forgotten lineup.',
+        },
+        {
+          title: 'The Friday call: Niall Murray — correct',
+          text: 'We took the upset with Thursday’s points already known, and Niall just delivered. He is 2–3; Shane is 4–1 and still leads the season in points. Six other teams would have beaten Niall this week, so the victory comes with the Get Away With It award. Murray should collect both quickly before anyone requests a recount.',
+        },
+      ],
+      sources: reviewSources,
+    },
     preview: {
       version: 1,
       editorial: true,
@@ -168,6 +252,29 @@ export const weekFiveReports: MatchupNewsletter[] = [
     sleeperMatchupId: 4,
     homeRosterId: 1,
     awayRosterId: 9,
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekFiveReviewPublishedAt,
+      headline: 'Jack serves the commissioner a fourth consecutive defeat',
+      summary:
+        'Burns 109.92–125.40 Jack. Ringrose stopped his scoring slide; Burns stopped finding opponents he could beat. The Friday Jack call survives another visit to the appeals office.',
+      sections: [
+        {
+          title: 'The Wagyu is reheated successfully',
+          text: 'Four progressively smaller scores had ended with Jack’s league-low 93.42 in Week 4. Allen’s 30.50 made this recovery rather more convincing, with Henry, McCaffrey and Jameson Williams supplying useful support. Egbuka’s 17.20 was already banked when we made Friday’s call, and the rest of the team preserved the advantage. Jack is back above .500 at 3–2. The inaugural champion has a current result to discuss, saving everyone another argument about how many teams entered in 2020.',
+        },
+        {
+          title: 'The flag was addressed. The losing was not.',
+          text: 'Burns did put Emanuel Wilson into the final lineup, collecting 13.20, while Swift remained selected and added 17.30. Chase, whose availability had worried us on Friday, returned 19.70. The commissioner cannot pin this one on that uncertainty: Nix’s 7.92 and a fairly ordinary supporting return left him 15.48 short. Unlike last week, there was no enormous position-compatible bench haul waiting to reverse the verdict. Sometimes the selected team simply loses.',
+        },
+        {
+          title: 'The Friday call: Jack Ringrose — correct',
+          text: 'The winner was right, although the Chase concern was not what decided it. Burns falls to 1–4 after four consecutive defeats; Jack breaks a two-game losing run. Six seasons of perfect playoff attendance is a lovely historical fact. It is also beginning to look like something the commissioner will have to work to preserve.',
+        },
+      ],
+      sources: reviewSources,
+    },
     preview: {
       version: 1,
       editorial: true,
@@ -202,6 +309,29 @@ export const weekFiveReports: MatchupNewsletter[] = [
     sleeperMatchupId: 5,
     homeRosterId: 4,
     awayRosterId: 12,
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekFiveReviewPublishedAt,
+      headline: 'Tommy’s upside finally appears in the points column',
+      summary:
+        'Tommy 157.12–120.44 Murphy. The last winless manager is off the mark, with the week’s second-highest score. We backed Murphy; Tommy has submitted a 36.68-point correction.',
+      sections: [
+        {
+          title: 'The lecture finally has supporting evidence',
+          text: 'Stafford and Puka combined for 65.02, with Nacua’s 37.70 sharing the week’s best non-quarterback starter score with Gibbs. Garrett Wilson added 23.40 and Stevenson 17.50. After four weeks of explaining why the ingredients were good, Tommy produced a meal. His previous best was 105.60; this beat it by 51.52. The Shark Boy costume can remain in storage for another week, although a 1–4 record does not yet justify throwing away the receipt.',
+        },
+        {
+          title: 'A respectable total chooses the wrong opponent',
+          text: 'Murphy’s 120.44 was his lowest since the opener, but this was not a collapse. Cook and Adams supplied 44.90 between them, while London and Reichard helped. Friday pickup Andrews scored 4.80 with Strange’s 13.80 on the bench; even that hindsight improvement would not have changed the winner. Aidan had scored at least 129.94 in each of the previous three weeks. Tommy picked an inconvenient moment to stop being everybody’s recovery fixture.',
+        },
+        {
+          title: 'The Friday call: Aidan Murphy — wrong',
+          text: 'We identified Stafford–Puka as Tommy’s escape route and still favoured Murphy’s steadier recent form. The escape route became a motorway. Murphy drops to 2–3; Tommy joins Burns and Hugo at 1–4, and nobody in MAC 12 remains winless. One explosive week does not erase four defeats, but it does make the next lecture considerably harder to interrupt.',
+        },
+      ],
+      sources: reviewSources,
+    },
     preview: {
       version: 1,
       editorial: true,
@@ -237,6 +367,29 @@ export const weekFiveReports: MatchupNewsletter[] = [
     sleeperMatchupId: 6,
     homeRosterId: 6,
     awayRosterId: 7,
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekFiveReviewPublishedAt,
+      headline: 'Joe brings a free Brissett to the champion’s table',
+      summary:
+        'Alan 123.30–148.58 Joe. Ennis followed his first win by beating the reigning champion, helped by a late quarterback pickup. Our Alan call gets filed beside last week’s Jack prediction.',
+      sections: [
+        {
+          title: 'The Sunday signing earns his place',
+          text: 'Joe replaced Darnold with free-agent Jacoby Brissett on Sunday and started him for 25.28. That is more than a cosmetic waiver transaction. Nabers supplied 29.10, LaPorta 19.80 and Jefferson 18.80, giving Joe his highest total of the season. The expensive Gordon remained on the bench with 14.80, so the free quarterback will be difficult for the recruitment department to leave out of its presentation. Two straight wins have turned 0–3 into 2–3.',
+        },
+        {
+          title: 'Gibbs cannot carry the entire title defence',
+          text: 'Gibbs’ 37.70 and Burrow’s 24.60 gave Alan a substantial base. The rest did not keep up: Harvey and the Dallas defence combined for 1.70. Alan’s final score was his lowest of the season, but would still have beaten six other managers, earning the Schedule Solicitor award. The champion has borrowed Karl’s traditional complaint just as Karl has stopped needing it. There is probably a licensing fee.',
+        },
+        {
+          title: 'The Friday call: Alan Horgan — wrong',
+          text: 'We preferred Alan’s reliable floor and acknowledged Joe’s receivers as the danger. They delivered, and the quarterback changed after our snapshot. That is a reason to explain the miss, not rewrite the preview. Alan falls to 3–2; Joe’s second consecutive win makes his familiar fourth-place ambition feel less theoretical. Our six Friday calls finish 3–3. The editorial department has been asked to show its working.',
+        },
+      ],
+      sources: reviewSources,
+    },
     preview: {
       version: 1,
       editorial: true,

@@ -1,4 +1,5 @@
 import type { PredictionWeekData } from './predictions';
+import { weekFiveReviewPublishedAt } from './newsletters/2026-week-5';
 import { weekFourReviewPublishedAt } from './newsletters/2026-week-4';
 
 export type FlagOnThePlay = {
@@ -19,6 +20,17 @@ export type FlagOnThePlay = {
 // Authored with Tuesday's reviews from verified Sleeper stats; never generated.
 // One flag per league/week at most, shown only once that week has settled.
 export const flagsOnThePlay: readonly FlagOnThePlay[] = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 5,
+    rosterId: 10,
+    manager: 'Shane Marmion',
+    call: 'Excessive bench celebration',
+    text: 'Likely scored 32.40 on Shane’s bench while starting tight end Kittle returned 7.40, a 25-point hindsight gap in a 2.90-point defeat to Niall. Nobody is claiming the swap was obvious beforehand; the referee is merely enjoying the paperwork.',
+    penalty: '2.90 yards and surrender of the unbeaten badge',
+    publishedAt: weekFiveReviewPublishedAt,
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

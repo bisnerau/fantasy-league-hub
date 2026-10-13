@@ -180,3 +180,11 @@ Keenan–Karl is the disclosed Friday Match of the Week. See
 `research/2026-week-5.md` and `research/2026-week-5-sleeper.json`. The existing
 Week 5 ranking archive is preserved; Friday talking points refresh the homepage
 until settlement or week advancement.
+
+## Week 5 settlement — 13 October
+
+All six reviews match finalized results. The Friday previews remain unchanged:
+Karl, Niall and Jack were correct; Hugo, Murphy and Alan were wrong. The original
+Keenan–Karl Match of the Week gets the fuller verdict. Week 6 rankings and homepage
+talking points use the completed results; Week 6 previews and Match of the Week
+are deferred to Thursday or Friday. See `research/2026-week-6.md`.

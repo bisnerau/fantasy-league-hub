@@ -298,7 +298,8 @@ void test('record cards hide when the order already agrees with the records', ()
 });
 
 void test('rank history starts at the preseason forecast and leaves unpublished weeks as gaps', () => {
-  const at = Date.parse('2026-10-20T00:00:00Z');
+  // Freeze this archive assertion before the Week 6 publication.
+  const at = Date.parse('2026-10-12T00:00:00Z');
   const history = getRankHistory(edition.leagueId, '2026', at);
   assert.deepEqual(
     history.columns.map((c) => c.label),

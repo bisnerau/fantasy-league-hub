@@ -288,3 +288,11 @@ uses fresh preview talking points from `lib/data/preview-talking-points.ts` unti
 settlement; the published Tuesday ranking edition and its archive remain intact.
 The override requires the exact league, season, active week and publication time,
 and stops on settlement. Research is in `research/2026-week-4.md`.
+
+## Tuesday Week 6 update — 13 October
+
+Six settled Week 5 reviews, a hindsight bench flag for Shane, and Week 6 power
+rankings through Week 5 are published. Karl leads Shane and Alan; Joe rises four
+places. Both unbeaten records ended and Tommy recorded his first win. Three new
+homepage talking points accompany the rankings. Week 6 previews and Match of the
+Week wait until Thursday or Friday. See `research/2026-week-6.md`.
