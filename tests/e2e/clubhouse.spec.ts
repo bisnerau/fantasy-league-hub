@@ -302,6 +302,9 @@ test('reduced motion navigates without a page transition', async ({ page }) => {
 test('the snap ball runs only while a slow page is on its way', async ({
   page,
 }) => {
+  // Freeze wall-clock advancement before measuring the 150ms boundary.
+  // runFor alone leaves time running during Playwright clicks/assertions.
+  await page.clock.pauseAt(new Date(start.getTime() + 60_000));
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const track = page.locator('.snap-track');
