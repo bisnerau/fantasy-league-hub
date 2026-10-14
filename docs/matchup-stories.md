@@ -68,6 +68,13 @@ Weeks without a published selection keep their normal order and have no badge.
   pregame edition. Do not invent or repeatedly apologise for a missing call.
 - Member voting details stay in the authenticated receipt section, never copied
   into public report prose. It is fine to describe public awards.
+- Before publishing, run the Humanizer skill over the draft as a checker, not
+  a file rewrite: list its flags, then fix them by hand. Cut empty "not X, but
+  Y" contrasts ("useful rather than decisive", "this was not a collapse") and
+  keep a contrast only when it corrects something a reader would believe. Keep
+  scores and records with their dashes (`103.84–171.46`, `4–1`), the
+  "— correct/wrong" call labels, Friday/Thursday timing caveats, the jokes that
+  close each section, and Return of the Mac catchphrases and voice.
 
 ## Research and publish an edition
 
