@@ -11,7 +11,7 @@ import {
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
-  title: 'Return of the Mac Mondays',
+  title: macShow.title,
   description:
     'Less reaction. More Macktion. The MAC 12 audio archive with Mackorcle Senior the First.',
 };

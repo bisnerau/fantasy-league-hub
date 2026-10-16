@@ -15,7 +15,7 @@ export type MacEpisode = {
 };
 
 export const macShow = {
-  title: 'Return of the Mac Mondays',
+  title: 'Return of the Mac: Friday Mackdown',
   tagline: 'Less reaction. More Macktion.',
   host: 'Mackorcle Senior the First',
   username: 'returnofthemac-12',

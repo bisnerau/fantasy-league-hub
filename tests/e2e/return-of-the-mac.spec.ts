@@ -43,7 +43,7 @@ test('homepage leads to archive and permanent episode, with no transcript or aut
 }) => {
   await page.goto('/');
   const feature = page.getByRole('region', {
-    name: 'Return of the Mac Mondays',
+    name: 'Return of the Mac: Friday Mackdown',
   });
   await expect(feature).toBeVisible();
   await expect(
@@ -52,7 +52,7 @@ test('homepage leads to archive and permanent episode, with no transcript or aut
   await expect(
     page
       .getByRole('navigation', { name: 'Explore' })
-      .getByRole('link', { name: 'Return of the Mac Mondays' }),
+      .getByRole('link', { name: 'Return of the Mac: Friday Mackdown' }),
   ).toBeVisible();
   await expect(page.getByRole('link', { name: 'Read transcript' })).toHaveCount(
     0,
@@ -159,7 +159,7 @@ test('missing and not-yet-published episodes are unavailable', async ({
   ).toBeVisible();
   await page.goto('/');
   await expect(
-    page.getByRole('region', { name: 'Return of the Mac Mondays' }),
+    page.getByRole('region', { name: 'Return of the Mac: Friday Mackdown' }),
   ).toHaveCount(0);
 });
 

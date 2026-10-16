@@ -17,7 +17,7 @@ end zone as the footer. One signature effect per section; only the ticker loops.
    before any settlement, this week's projected fixtures.
 5. **Flag on the play**: optional, authored in `lib/data/flags-on-the-play.ts`.
 6. **Lead report** (headline and a two-line teaser) and talking points.
-7. **Return of the Mac Mondays**: latest published recording at the broadcast
+7. **Return of the Mac: Friday Mackdown**: latest published recording at the broadcast
    desk; ON AIR illuminates only during playback.
 8. **Power rankings deck**: all twelve, swipe or buttons/arrow keys.
 9. **Bragging rights**: champion trading card and the wooden-spoon sticker.
@@ -26,7 +26,10 @@ end zone as the footer. One signature effect per section; only the ticker loops.
 The draft report and draft countdown lead before the draft. Sections without
 verified data hide themselves; nothing is invented to fill a gap.
 
-## Return of the Mac Mondays
+## Return of the Mac: Friday Mackdown
+
+The commissioner approved the Friday Mackdown name on 16 October 2026.
+Existing recordings retain their original spoken introductions and dates.
 
 The series archive is `/return-of-the-mac`; each episode has a permanent slug
 under it. The homepage and episode page share the same audio player. Playback
@@ -43,9 +46,10 @@ an entry until that time but does not schedule a build or deployment.
 
 Weekly publishing steps:
 
-1. Write the script and generate the recording. For Monday editions with games
-   still outstanding, explicitly say **results through Sunday** in both the
-   recording and the episode's context label.
+1. Write the Friday script and generate the recording. Identify the actual
+   week and whether the episode is a preview or review. Friday previews must
+   acknowledge any Thursday games already played. Any interim review must
+   explicitly state its results cutoff in the recording and context label.
 2. Check names, episode context and spoken content against the intended script.
    Measure the final recording's duration. Keep manager/team names as recorded.
 3. Add the MP3 under `public/audio/return-of-the-mac/` with a new permanent

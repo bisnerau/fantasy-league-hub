@@ -10,7 +10,7 @@ import { RankingsDeck } from '@/components/clubhouse/rankings-deck';
 import { Scoreboard } from '@/components/clubhouse/scoreboard';
 import { ShameSticker } from '@/components/clubhouse/shame-sticker';
 import { MacHomepageFeature } from '@/components/return-of-the-mac/broadcast';
-import { getMacEpisodes } from '@/lib/data/return-of-the-mac';
+import { getMacEpisodes, macShow } from '@/lib/data/return-of-the-mac';
 import { DraftCountdown } from '@/components/draft/draft-countdown';
 import { CutLineHero } from '@/components/standings/cut-line-hero';
 import {
@@ -241,7 +241,7 @@ export default async function DashboardPage() {
               href="/return-of-the-mac"
               className="clubhouse-text-link min-h-11"
             >
-              Return of the Mac Mondays{' '}
+              {macShow.title}{' '}
               <ArrowRight className="size-4" aria-hidden="true" />
             </a>
             <a href="/records" className="clubhouse-text-link min-h-11">
