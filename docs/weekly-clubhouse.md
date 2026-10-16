@@ -300,3 +300,14 @@ rankings through Week 5 are published. Karl leads Shane and Alan; Joe rises four
 places. Both unbeaten records ended and Tommy recorded his first win. Three new
 homepage talking points accompany the rankings. Week 6 previews and Match of the
 Week wait until Thursday or Friday. See `research/2026-week-6.md`.
+
+## Friday Mackdown — Week 6 recording
+
+Published 16 October 2026: **Keenan: undefeated against reasonable opponents.**
+The commissioner supplied the ElevenLabs export timestamped `09_46_25`.
+Its original bytes are preserved as `2026-week-6-keenan.mp3`; measured duration
+132.440813 seconds (display 2:12), mono MP3 at 44.1 kHz. Local Whisper transcription
+matches the Week 6 script's content, Friday Mackdown introduction and closing
+line; spelling variations in automatic transcription are not published as captions.
+The episode is labelled a Friday preview after Thursday's game. The approved v9
+portrait is reused. Both older recordings remain available at their original URLs.

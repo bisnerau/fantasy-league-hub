@@ -51,6 +51,20 @@ export const macEpisodes: readonly MacEpisode[] = [
     durationSeconds: 125,
     portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
   },
+  {
+    slug: '2026-week-6-keenan',
+    title: 'Keenan: undefeated against reasonable opponents.',
+    publishedAt: '2026-10-16T09:51:00Z',
+    recordedOn: '2026-10-16',
+    season: '2026',
+    week: 6,
+    manager: 'Andrew Keenan',
+    team: 'Cooper Kupp Mah Balls',
+    context: 'Week 6 Friday preview · After Thursday’s game',
+    audio: '/audio/return-of-the-mac/2026-week-6-keenan.mp3',
+    durationSeconds: 132,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+  },
 ];
 
 export function getMacEpisodes(
