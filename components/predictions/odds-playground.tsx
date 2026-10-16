@@ -14,7 +14,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import sample from '@/lib/data/experiments/odds-week-five.json';
+import sample from '@/lib/data/experiments/odds-week-six.json';
 import { matchupNewsletters } from '@/lib/data/matchup-newsletters';
 import { matchOfTheWeekSelections } from '@/lib/data/match-of-the-week';
 import { fractionalOdds } from '@/lib/predictions/fractional-odds';
@@ -55,7 +55,7 @@ const reports = matchupNewsletters.filter(
 );
 const weeks = Array.from({ length: sample.week }, (_, i) => i + 1);
 // Sunday 1pm Eastern lock for this week's picks (from the stored ballot).
-const lock = Date.parse('2026-10-11T17:00:00Z');
+const lock = Date.parse('2026-10-18T17:00:00Z');
 const updated = formatIrishTime(sample.snapshot, {
   weekday: 'long',
   time: true,

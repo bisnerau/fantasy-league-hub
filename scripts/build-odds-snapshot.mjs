@@ -1,5 +1,5 @@
-// Builds the local odds-playground snapshot for one week from public Sleeper
-// feeds. Experimental and local only: never used for production voting.
+// Builds a weekly best-lineup snapshot from public Sleeper feeds. The playground
+// uses it locally; publish-odds.mjs explicitly freezes prices for Weekly Picks.
 //
 //   node scripts/build-odds-snapshot.mjs 5            # best possible lineup
 //   node scripts/build-odds-snapshot.mjs 5 --as-set   # lineup as set, with cover
@@ -19,6 +19,7 @@
 // - The playground turns the projected margin into a win chance with a
 //   logistic curve (20-point scale) and rounds it to fractional odds.
 import { readFileSync, writeFileSync } from 'node:fs';
+import { unavailableForOdds } from './odds-availability.mjs';
 
 const week = Number(process.argv[2]);
 const lineupBasis = process.argv.includes('--as-set') ? 'set' : 'best';
@@ -213,7 +214,7 @@ function bestLineup(matchup, adjusted) {
     }),
   );
   const pool = entries
-    .filter((p) => p.points != null && !p.locked)
+    .filter((p) => !p.locked && !isOut(p.id, p))
     .sort((a, b) => b.points - a.points);
   const used = new Set();
   // Fixed slots first, then flex: optimal for a single RB/WR flex.
@@ -245,11 +246,8 @@ function bestLineup(matchup, adjusted) {
   return { lineup, missing };
 }
 
-const unavailable = new Set(['Out', 'IR', 'PUP', 'Sus']);
 const isOut = (id, entry) =>
-  id === '0' ||
-  entry.points == null ||
-  (!entry.locked && unavailable.has(players[id]?.injury_status));
+  unavailableForOdds(id, entry, players[id]?.injury_status);
 
 function setLineup(matchup, adjusted) {
   const roster = rosterById.get(matchup.roster_id);

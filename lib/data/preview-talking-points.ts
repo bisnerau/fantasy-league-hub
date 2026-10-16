@@ -1,9 +1,33 @@
 import type { PredictionWeekData } from './predictions';
 import { weekFourPublishedAt } from './newsletters/2026-week-4';
 import { weekFivePublishedAt } from './newsletters/2026-week-5';
+import { weekSixPublishedAt } from './newsletters/2026-week-6';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 6,
+    publishedAt: weekSixPublishedAt,
+    points: [
+      {
+        title: 'Evens each. Administrator privileges sold separately.',
+        text: 'Burns–Alan is our Friday Match of the Week. Harvey has put the champion 9.40 ahead; Burns has spent $25 trying to stop four straight defeats. We narrowly back Alan. The commissioner may want to skip this week’s homepage.',
+        href: '/matchups?week=6#matchup-5',
+      },
+      {
+        title: 'Keenan’s quarterback is taking the weekend off.',
+        text: 'Goff is still selected on Detroit’s bye and Andrew has no other quarterback rostered in Friday’s snapshot. His 5/2 price reflects that gap; a later pickup can improve the team but will not change the frozen price. Jack is our call.',
+        href: '/matchups?week=6#matchup-3',
+      },
+      {
+        title: 'Joe’s employee of the week has been released.',
+        text: 'Brissett helped beat Alan, then got cut for Freiermuth. Cousins is the new $6 quarterback with Hurts ruled out. All six previews use Friday morning checks after SEA–DEN; Thursday practice reports are the latest, with final designations pending.',
+        href: '/matchups?week=6#matchup-6',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

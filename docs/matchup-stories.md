@@ -195,3 +195,13 @@ Karl, Niall and Jack were correct; Hugo, Murphy and Alan were wrong. The origina
 Keenan–Karl Match of the Week gets the fuller verdict. Week 6 rankings and homepage
 talking points use the completed results; Week 6 previews and Match of the Week
 are deferred to Thursday or Friday. See `research/2026-week-6.md`.
+
+## Week 6 Friday edition — 16 October
+
+Six Friday outlooks, winner calls and Burns–Alan as Match of the Week use fresh
+Sleeper lineups, completed waivers and Thursday team practice reports after
+SEA–DEN. Both featured teams are Evens. Keenan's bye-week quarterback gap and
+Lamar's uncertain availability are explicit. Week 6 prices use the corrected
+best-lineup availability filter; older prices remain frozen. Three preview
+homepage points and the practice odds page now follow Week 6. Tuesday's rankings
+and all historical reports are preserved. See `research/2026-week-6-previews.md`.

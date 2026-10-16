@@ -1,6 +1,7 @@
 import type { PredictionMatchup, PredictionWeekData } from './predictions';
 import type { NewsletterKey } from './matchup-newsletters';
 import { weekFivePublishedAt } from './newsletters/2026-week-5';
+import { weekSixPublishedAt } from './newsletters/2026-week-6';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -63,6 +64,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Friday selection, after Thursday’s game: unbeaten Keenan meets Karl’s three-game winning streak. Karl already has 59.50 from Irving and Pickens against Andrew’s four from Aubrey. Third meets fourth in our rankings, with a perfect record on the line.',
     buildUp:
       'Keenan has won four without scoring 122; Karl has brought 59.50 before Sunday and still has Bijan and McBride to come. Andrew’s $6 Mitchell purchase faces an immediate performance review while Barkley sits on his bench. This is a Friday selection with Thursday’s scoring known, not a reconstructed pre-kickoff prediction. We take Karl to end the unbeaten run and leave both managers 4–1.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 6,
+    sleeperMatchupId: 5,
+    homeRosterId: 1,
+    awayRosterId: 6,
+    selectedAt: weekSixPublishedAt,
+    reason:
+      'Friday selection, after Thursday’s game: the 1–4 commissioner faces the 3–2 champion, with both priced at Evens. Alan leads 14.60–5.20; Burns needs to stop four straight defeats before his perfect playoff attendance becomes a historical footnote.',
+    buildUp:
+      'Burns spent $25 on four waiver additions; Alan spent $4 covering a bye week. The best-lineup model separates them by 0.39 points. The commissioner has Kyren and Collins; the champion has a Thursday lead and Daniel Jones holding the fort for Burrow. We narrowly take Alan in this Friday call. Burns built the Wall of Shame page, which would at least make any future bug reports unusually well informed.',
   },
 ];
 
