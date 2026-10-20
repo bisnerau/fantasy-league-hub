@@ -311,3 +311,13 @@ matches the Week 6 script's content, Friday Mackdown introduction and closing
 line; spelling variations in automatic transcription are not published as captions.
 The episode is labelled a Friday preview after Thursday's game. The approved v9
 portrait is reused. Both older recordings remain available at their original URLs.
+
+## Tuesday Week 7 update — 20 October
+
+Six settled Week 6 reviews and Week 7 rankings through Week 6 refresh the homepage.
+Shane retakes No.1, Joe reaches fourth and Burns rises five places. The rankings
+include current team reports on Jackson, Doubs, Adams and Hurts, plus Monday's
+McLaurin/Evans injuries. Sharpe's bench flag explicitly leaves his hypothetical
+Tucker swap 0.20 short. Original Friday previews and Burns–Alan as Match of the
+Week remain archived; Week 7 previews and prices follow later in the week.
+See `research/2026-week-7.md` for evidence and the Tuesday audit.

@@ -1,0 +1,411 @@
+{
+  "checkedAt": "2026-10-20T15:36:07.856Z",
+  "state": {
+    "week": 7,
+    "leg": 7,
+    "season": "2026",
+    "season_type": "regular",
+    "league_season": "2026",
+    "previous_season": "2025",
+    "season_start_date": "2026-09-09",
+    "display_week": 6,
+    "league_create_season": "2026",
+    "season_has_scores": true
+  },
+  "weeks": [
+    {
+      "id": 103,
+      "week": 6,
+      "locks_at": "2026-10-18T17:00:00+00:00"
+    },
+    {
+      "id": 118,
+      "week": 7,
+      "locks_at": "2026-10-25T17:00:00+00:00"
+    }
+  ],
+  "matchups": [
+    {
+      "id": 428,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 2,
+      "away_roster_id": 8,
+      "home_final": 116.84,
+      "away_final": 94.1,
+      "winner_roster_id": 2,
+      "status": "final"
+    },
+    {
+      "id": 429,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 3,
+      "away_roster_id": 9,
+      "home_final": 83.58,
+      "away_final": 120.5,
+      "winner_roster_id": 9,
+      "status": "final"
+    },
+    {
+      "id": 430,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 4,
+      "away_roster_id": 10,
+      "home_final": 101.78,
+      "away_final": 133.88,
+      "winner_roster_id": 10,
+      "status": "final"
+    },
+    {
+      "id": 431,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 1,
+      "away_roster_id": 6,
+      "home_final": 122.06,
+      "away_final": 110.26,
+      "winner_roster_id": 1,
+      "status": "final"
+    },
+    {
+      "id": 432,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 7,
+      "away_roster_id": 12,
+      "home_final": 122.52,
+      "away_final": 114.22,
+      "winner_roster_id": 7,
+      "status": "final"
+    },
+    {
+      "id": 517,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 2,
+      "away_roster_id": 11,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 518,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 5,
+      "away_roster_id": 9,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 519,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 4,
+      "away_roster_id": 8,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 520,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 3,
+      "away_roster_id": 6,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 521,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 7,
+      "away_roster_id": 10,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 522,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 1,
+      "away_roster_id": 12,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 427,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 5,
+      "away_roster_id": 11,
+      "home_final": 106.7,
+      "away_final": 87,
+      "winner_roster_id": 5,
+      "status": "final"
+    }
+  ],
+  "standingsReplay": [
+    {
+      "rosterId": 1,
+      "record": "2–4",
+      "totalPoints": 710.72
+    },
+    {
+      "rosterId": 2,
+      "record": "3–3",
+      "totalPoints": 708
+    },
+    {
+      "rosterId": 3,
+      "record": "4–2",
+      "totalPoints": 659.02
+    },
+    {
+      "rosterId": 4,
+      "record": "1–5",
+      "totalPoints": 614.52
+    },
+    {
+      "rosterId": 5,
+      "record": "5–1",
+      "totalPoints": 778.06
+    },
+    {
+      "rosterId": 6,
+      "record": "3–3",
+      "totalPoints": 798.6
+    },
+    {
+      "rosterId": 7,
+      "record": "3–3",
+      "totalPoints": 697.42
+    },
+    {
+      "rosterId": 8,
+      "record": "1–5",
+      "totalPoints": 651.74
+    },
+    {
+      "rosterId": 9,
+      "record": "4–2",
+      "totalPoints": 710.36
+    },
+    {
+      "rosterId": 10,
+      "record": "5–1",
+      "totalPoints": 849.26
+    },
+    {
+      "rosterId": 11,
+      "record": "3–3",
+      "totalPoints": 592.02
+    },
+    {
+      "rosterId": 12,
+      "record": "2–4",
+      "totalPoints": 689.06
+    }
+  ],
+  "weekSixFrozenPrices": [
+    {
+      "matchup_id": 427,
+      "roster_id": 5,
+      "numerator": 4,
+      "denominator": 7
+    },
+    {
+      "matchup_id": 427,
+      "roster_id": 11,
+      "numerator": 7,
+      "denominator": 4
+    },
+    {
+      "matchup_id": 428,
+      "roster_id": 2,
+      "numerator": 4,
+      "denominator": 9
+    },
+    {
+      "matchup_id": 428,
+      "roster_id": 8,
+      "numerator": 9,
+      "denominator": 4
+    },
+    {
+      "matchup_id": 429,
+      "roster_id": 3,
+      "numerator": 5,
+      "denominator": 2
+    },
+    {
+      "matchup_id": 429,
+      "roster_id": 9,
+      "numerator": 2,
+      "denominator": 5
+    },
+    {
+      "matchup_id": 430,
+      "roster_id": 4,
+      "numerator": 11,
+      "denominator": 4
+    },
+    {
+      "matchup_id": 430,
+      "roster_id": 10,
+      "numerator": 4,
+      "denominator": 11
+    },
+    {
+      "matchup_id": 431,
+      "roster_id": 1,
+      "numerator": 1,
+      "denominator": 1
+    },
+    {
+      "matchup_id": 431,
+      "roster_id": 6,
+      "numerator": 1,
+      "denominator": 1
+    },
+    {
+      "matchup_id": 432,
+      "roster_id": 7,
+      "numerator": 11,
+      "denominator": 10
+    },
+    {
+      "matchup_id": 432,
+      "roster_id": 12,
+      "numerator": 10,
+      "denominator": 11
+    }
+  ],
+  "privateMemberDataRead": false,
+  "editorialVerifiedAt": "2026-10-20T15:41:16.815Z",
+  "originalPreviewsUnchanged": true,
+  "callAccuracy": {
+    "correct": 4,
+    "total": 6
+  },
+  "homepage": {
+    "reviewWeek": 6,
+    "reviews": 6,
+    "rankingWeek": 7,
+    "talkingPoints": 3,
+    "previews": 0
+  },
+  "awards": {
+    "awards": [
+      {
+        "kind": "solicitor",
+        "rosterId": 12,
+        "detail": "Lost with 114.22 points, but would have beaten 6 of 11 other teams. The complaints department has evidence."
+      },
+      {
+        "kind": "escape",
+        "rosterId": 5,
+        "detail": "Won with 106.70 points; 7 of 11 other teams would have beaten them. Collect the win and leave quietly."
+      },
+      {
+        "kind": "waiver",
+        "rosterId": 7,
+        "playerId": "1166",
+        "detail": "Added this scoring week and delivered 18.52 starting-lineup points. A waiver claim with something to show for itself."
+      }
+    ],
+    "waiverReady": true
+  },
+  "wire": [
+    {
+      "label": "Week 6 high",
+      "text": "Whos Throwing Diggs 133.88"
+    },
+    {
+      "label": "Week 6 low",
+      "text": "Cooper Kupp Mah Balls 83.58"
+    },
+    {
+      "label": "Closest call",
+      "text": "D'onta FourMore! by 8.30 over BurrowMeDickinYoAss"
+    },
+    {
+      "label": "Biggest win",
+      "text": "The Finest Wagyu by 36.92 over Cooper Kupp Mah Balls"
+    },
+    {
+      "label": "Top starter",
+      "text": "Christian McCaffrey 30.70 for The Finest Wagyu"
+    }
+  ],
+  "previousStandingsRanks": [
+    [
+      10,
+      1
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      9,
+      5
+    ],
+    [
+      11,
+      6
+    ],
+    [
+      2,
+      7
+    ],
+    [
+      7,
+      8
+    ],
+    [
+      12,
+      9
+    ],
+    [
+      1,
+      10
+    ],
+    [
+      8,
+      11
+    ],
+    [
+      4,
+      12
+    ]
+  ],
+  "cumulativePointDiscrepancies": [
+    {
+      "rosterId": 2,
+      "sumOfWeeklyScores": 708,
+      "sleeperRosterTotal": 707.99
+    }
+  ]
+}

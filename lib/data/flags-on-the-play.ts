@@ -1,6 +1,7 @@
 import type { PredictionWeekData } from './predictions';
 import { weekFiveReviewPublishedAt } from './newsletters/2026-week-5';
 import { weekFourReviewPublishedAt } from './newsletters/2026-week-4';
+import { weekSixReviewPublishedAt } from './newsletters/2026-week-6';
 
 export type FlagOnThePlay = {
   leagueId: string;
@@ -20,6 +21,17 @@ export type FlagOnThePlay = {
 // Authored with Tuesday's reviews from verified Sleeper stats; never generated.
 // One flag per league/week at most, shown only once that week has settled.
 export const flagsOnThePlay: readonly FlagOnThePlay[] = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 6,
+    rosterId: 11,
+    manager: 'David Sharpe',
+    call: 'Illegal use of the bench',
+    text: 'Tucker scored 26.70 on Dave’s bench while starting flex Michael Wilson returned 7.20. Even that 19.50-point hindsight swap would have left him 0.20 short of Karl; the appeal has somehow made the result more annoying.',
+    penalty: '19.50 yards, with another 0.20 still to find',
+    publishedAt: weekSixReviewPublishedAt,
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

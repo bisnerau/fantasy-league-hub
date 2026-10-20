@@ -205,3 +205,12 @@ Lamar's uncertain availability are explicit. Week 6 prices use the corrected
 best-lineup availability filter; older prices remain frozen. Three preview
 homepage points and the practice odds page now follow Week 6. Tuesday's rankings
 and all historical reports are preserved. See `research/2026-week-6-previews.md`.
+
+## Week 6 settlement — 20 October
+
+All six final scores match Sleeper. The Friday calls are preserved: Karl, Niall,
+Jack and Shane were correct; Burns and Joe beat the selected opponents. The
+Burns–Alan Match of the Week review owns the miss. Keenan's Sunday Winston
+acquisition resolves the previously reported quarterback gap. Current injury
+news informs the reviews and Week 7 rankings without rewriting the previews.
+See `research/2026-week-7.md`.
