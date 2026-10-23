@@ -65,6 +65,20 @@ export const macEpisodes: readonly MacEpisode[] = [
     durationSeconds: 132,
     portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
   },
+  {
+    slug: '2026-week-7-hugo',
+    title: 'Hugo: a champion by postcode.',
+    publishedAt: '2026-10-23T11:36:00Z',
+    recordedOn: '2026-10-23',
+    season: '2026',
+    week: 7,
+    manager: 'Hugo Walsh',
+    team: 'Hawk Tuas Binatsos',
+    context: 'Week 7 Friday preview · After Thursday’s game',
+    audio: '/audio/return-of-the-mac/2026-week-7-hugo.mp3',
+    durationSeconds: 196,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+  },
 ];
 
 export function getMacEpisodes(

@@ -84,13 +84,25 @@ Previous prices, saved votes, Bankers and results are preserved.
 ## Friday Mackdown script and prose check
 
 The commissioner requested a recording script, not a written site episode.
-`output/return-of-the-mac/2026-week-7-hugo-script.txt` is the current recording
-draft, replacing the unrecorded Tommy version at the commissioner's request.
-The old file is explicitly marked superseded. Hugo's draft acknowledges the
+`output/return-of-the-mac/2026-week-7-hugo-script.txt` is the recorded script,
+replacing the unrecorded Tommy version at the commissioner's request.
+The old file is explicitly marked superseded. Hugo's script acknowledges the
 wrong Keenan call, Thursday's scoring and pending injury designations; its
 comic Hugo pick differs from the preserved editorial Tommy pick.
 Mackorcle's invented adjustments are labelled character comedy in the production
-notes. No new audio entry is published without a recording.
+notes. The commissioner supplied the recording after revising the jokes,
+adding bell cues and including Hugo's team name in the introduction.
+
+The original `ElevenLabs_2026-10-23T11_32_50_MAC_gen_sp100_s50_sb75_v4.mp3`
+is preserved byte for byte at `public/audio/return-of-the-mac/2026-week-7-hugo.mp3`.
+SHA-256: `318d7fb029c965ad7c22e69c7f514354979d1f5b9d35c22c36b4edb782d76f72`.
+Measured duration: 196.5975 seconds (display 3:16), 44.1 kHz mono MP3.
+FFmpeg decoded the full file successfully. Local Whisper transcription confirms
+the team-name introduction, Temple Bar and separate-discussion wording, both
+replacement jokes, Thursday scoring, Sunday deadline and final line. It is used
+for verification only; automatic spelling errors are not published as captions.
+The episode title is **Hugo: a champion by postcode.**; its permanent slug is
+`2026-week-7-hugo`. Older episodes and the approved v9 portrait are preserved.
 
 Humanizer 3.1.0 was read and applied as a checker. Flags checked: repeated
 section closers, empty contrasts, inflated trade language and unsupported

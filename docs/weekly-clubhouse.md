@@ -330,6 +330,13 @@ All six Week 7 previews are published after NE–CHI, with fresh best-lineup pri
 The six settled Week 6 reviews and Tuesday's ranking edition remain unchanged.
 The commissioner corrected the feature to the bottom-of-the-table clash and
 requested Hugo as the Friday Mackdown subject. The revised recording script
-uses Humanizer and the latest accessible Glen tape-watch transcript;
-the existing Week 6 recording remains the latest episode until new audio is
-supplied. See `research/2026-week-7-previews.md` for the sources and checks.
+uses Humanizer and the latest accessible Glen tape-watch transcript.
+The commissioner subsequently supplied the Hugo recording, published as
+**Hugo: a champion by postcode.** on the homepage, archive and permanent
+`/return-of-the-mac/2026-week-7-hugo` page. The original ElevenLabs export
+timestamped `11_32_50` is preserved unchanged: 196.5975 seconds (display 3:16),
+mono MP3 at 44.1 kHz. Local transcription confirms the team-name introduction,
+commissioner's Temple Bar wording, revised jokes, Friday context and closing
+line. Automatic transcription spelling variations are not published as captions.
+All three older recordings and portrait v9 are preserved.
+See `research/2026-week-7-previews.md` for the sources and checks.
