@@ -14,7 +14,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import sample from '@/lib/data/experiments/odds-week-six.json';
+import sample from '@/lib/data/experiments/odds-week-seven.json';
 import { matchupNewsletters } from '@/lib/data/matchup-newsletters';
 import { matchOfTheWeekSelections } from '@/lib/data/match-of-the-week';
 import { fractionalOdds } from '@/lib/predictions/fractional-odds';

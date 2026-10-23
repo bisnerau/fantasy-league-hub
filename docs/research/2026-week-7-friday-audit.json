@@ -1,0 +1,225 @@
+{
+  "checkedAt": "2026-10-23T10:56:21.696Z",
+  "weeks": [
+    {
+      "id": 103,
+      "week": 6,
+      "locks_at": "2026-10-18T17:00:00+00:00"
+    },
+    {
+      "id": 118,
+      "week": 7,
+      "locks_at": "2026-10-25T17:00:00+00:00"
+    }
+  ],
+  "matchups": [
+    {
+      "id": 428,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 2,
+      "away_roster_id": 8,
+      "home_final": 116.84,
+      "away_final": 94.1,
+      "winner_roster_id": 2,
+      "status": "final"
+    },
+    {
+      "id": 429,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 3,
+      "away_roster_id": 9,
+      "home_final": 83.58,
+      "away_final": 120.5,
+      "winner_roster_id": 9,
+      "status": "final"
+    },
+    {
+      "id": 430,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 4,
+      "away_roster_id": 10,
+      "home_final": 101.78,
+      "away_final": 133.88,
+      "winner_roster_id": 10,
+      "status": "final"
+    },
+    {
+      "id": 431,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 1,
+      "away_roster_id": 6,
+      "home_final": 122.06,
+      "away_final": 110.26,
+      "winner_roster_id": 1,
+      "status": "final"
+    },
+    {
+      "id": 432,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 7,
+      "away_roster_id": 12,
+      "home_final": 122.52,
+      "away_final": 114.22,
+      "winner_roster_id": 7,
+      "status": "final"
+    },
+    {
+      "id": 517,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 2,
+      "away_roster_id": 11,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 518,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 5,
+      "away_roster_id": 9,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 519,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 4,
+      "away_roster_id": 8,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 520,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 3,
+      "away_roster_id": 6,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 521,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 7,
+      "away_roster_id": 10,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 522,
+      "prediction_week_id": 118,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 1,
+      "away_roster_id": 12,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 427,
+      "prediction_week_id": 103,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 5,
+      "away_roster_id": 11,
+      "home_final": 106.7,
+      "away_final": 87,
+      "winner_roster_id": 5,
+      "status": "final"
+    }
+  ],
+  "weekSixResultsAndPricesUnchanged": true,
+  "weekSevenPrices": [
+    {
+      "matchup_id": 517,
+      "roster_id": 2,
+      "numerator": 10,
+      "denominator": 11
+    },
+    {
+      "matchup_id": 517,
+      "roster_id": 11,
+      "numerator": 11,
+      "denominator": 10
+    },
+    {
+      "matchup_id": 518,
+      "roster_id": 5,
+      "numerator": 10,
+      "denominator": 11
+    },
+    {
+      "matchup_id": 518,
+      "roster_id": 9,
+      "numerator": 11,
+      "denominator": 10
+    },
+    {
+      "matchup_id": 519,
+      "roster_id": 4,
+      "numerator": 1,
+      "denominator": 5
+    },
+    {
+      "matchup_id": 519,
+      "roster_id": 8,
+      "numerator": 11,
+      "denominator": 2
+    },
+    {
+      "matchup_id": 520,
+      "roster_id": 3,
+      "numerator": 9,
+      "denominator": 2
+    },
+    {
+      "matchup_id": 520,
+      "roster_id": 6,
+      "numerator": 2,
+      "denominator": 9
+    },
+    {
+      "matchup_id": 521,
+      "roster_id": 7,
+      "numerator": 9,
+      "denominator": 4
+    },
+    {
+      "matchup_id": 521,
+      "roster_id": 10,
+      "numerator": 4,
+      "denominator": 9
+    },
+    {
+      "matchup_id": 522,
+      "roster_id": 1,
+      "numerator": 4,
+      "denominator": 11
+    },
+    {
+      "matchup_id": 522,
+      "roster_id": 12,
+      "numerator": 11,
+      "denominator": 4
+    }
+  ],
+  "privateMemberDataRead": false
+}

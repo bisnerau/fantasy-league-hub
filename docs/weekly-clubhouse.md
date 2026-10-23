@@ -321,3 +321,13 @@ McLaurin/Evans injuries. Sharpe's bench flag explicitly leaves his hypothetical
 Tucker swap 0.20 short. Original Friday previews and Burns–Alan as Match of the
 Week remain archived; Week 7 previews and prices follow later in the week.
 See `research/2026-week-7.md` for evidence and the Tuesday audit.
+
+## Friday Week 7 update — 23 October
+
+The homepage now features Karl–Jack and three Friday talking points covering
+the first trade, waiver pickups, Thursday scoring and the clock-change deadline.
+All six Week 7 previews are published after NE–CHI, with fresh best-lineup prices.
+The six settled Week 6 reviews and Tuesday's ranking edition remain unchanged.
+The commissioner requested a recording script for Tommy's Friday Mackdown;
+the existing Week 6 recording remains the latest episode until new audio is
+supplied. See `research/2026-week-7-previews.md` for the sources and checks.

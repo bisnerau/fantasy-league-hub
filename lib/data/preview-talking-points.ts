@@ -2,9 +2,33 @@ import type { PredictionWeekData } from './predictions';
 import { weekFourPublishedAt } from './newsletters/2026-week-4';
 import { weekFivePublishedAt } from './newsletters/2026-week-5';
 import { weekSixPublishedAt } from './newsletters/2026-week-6';
+import { weekSevenPublishedAt } from './newsletters/2026-week-7';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 7,
+    publishedAt: weekSevenPublishedAt,
+    points: [
+      {
+        title: 'First trade: Tommy gets Irving. Karl gets Wilson and Coleman.',
+        text: 'Wednesday’s deal exchanged no picks or FAAB. Karl takes his new receiver into our Match of the Week against Jack; Tommy leads Hugo 50.20–27.42 after Thursday in the meeting of 1–5 teams. Irving’s illness and Nacua’s calf need monitoring.',
+        href: '/matchups?week=7#matchup-3',
+      },
+      {
+        title: 'Keenan pays $12, Jack pays $2, and Jack has the tight end.',
+        text: 'Andrew dropped Fannin for Ferguson, who is now tagged IR. Jack bought Fannin on Friday; Keenan’s tight-end slot is empty. Alan already has 23.70 from Burden and is our call. Hugo’s $19 Douglas returned 5.30; Dave paid $15 for Emanuel Wilson.',
+        href: '/matchups?week=7#matchup-4',
+      },
+      {
+        title: 'Six Friday calls. Picks lock at 5pm Irish time on Sunday.',
+        text: 'The clocks go back this weekend: the 25 October deadline is 17:00 in Ireland. New prices include Thursday’s points and stay frozen. Lamar remains limited, Egbuka missed practice and final Friday designations are pending. Niall still has Jacksonville’s bye-week defence selected.',
+        href: '/matchups?week=7',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

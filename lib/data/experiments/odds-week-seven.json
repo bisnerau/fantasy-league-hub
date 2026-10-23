@@ -1,0 +1,1779 @@
+{
+  "snapshot": "2026-10-23T10:24:15.072Z",
+  "season": 2026,
+  "week": 7,
+  "lineupBasis": "best",
+  "method": "MAC 12 scoring on Sleeper weekly projections; best legal lineup including bench; opponent adjustment from points allowed by position this season, halved and capped at ±12%.",
+  "matchups": [
+    {
+      "id": 1,
+      "teams": [
+        {
+          "id": 2,
+          "name": "Niall Murray",
+          "color": "#b8dfc3",
+          "baseTotal": 107.37,
+          "adjustedTotal": 108.48,
+          "banked": 0,
+          "missing": [
+            "Jacksonville Jaguars"
+          ],
+          "matchupNotes": [],
+          "teamName": "Mahomes-lander n The Boys",
+          "avatar": "4f4090e5e9c3941414db40a871e3e909",
+          "wins": 3,
+          "losses": 3,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Aaron Rodgers",
+              "position": "QB",
+              "points": 17.18,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Kenneth Walker III",
+              "position": "RB",
+              "points": 19.49,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Chase Brown",
+              "position": "RB",
+              "points": 14.81,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jaylen Waddle",
+              "position": "WR",
+              "points": 12.87,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Josh Downs",
+              "position": "WR",
+              "points": 9.22,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Dallas Goedert",
+              "position": "TE",
+              "points": 11.17,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Spencer Shrader",
+              "position": "K",
+              "points": 8.58,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Breece Hall",
+              "position": "RB",
+              "points": 14.05,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Aaron Rodgers",
+              "position": "QB",
+              "points": 17.71,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Kenneth Walker III",
+              "position": "RB",
+              "points": 19.87,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Breece Hall",
+              "position": "RB",
+              "points": 15.65,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jaylen Waddle",
+              "position": "WR",
+              "points": 13.42,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Josh Downs",
+              "position": "WR",
+              "points": 8.51,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tyler Higbee",
+              "position": "TE",
+              "points": 10.88,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Spencer Shrader",
+              "position": "K",
+              "points": 8.58,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Chase Brown",
+              "position": "RB",
+              "points": 13.86,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "David Sharpe",
+          "color": "#65c9d6",
+          "baseTotal": 109.7,
+          "adjustedTotal": 107.1,
+          "banked": 41.54,
+          "missing": [],
+          "matchupNotes": [
+            "Rashee Rice vs SEA: difficult WR matchup (2/32; 32 is easiest)."
+          ],
+          "teamName": "Burkeys Teur",
+          "avatar": "8f7ccd0c2049b60f76a78ae0af004ac2",
+          "wins": 3,
+          "losses": 3,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Drake Maye",
+              "position": "QB",
+              "points": 27.44,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Emanuel Wilson",
+              "position": "RB",
+              "points": 7.83,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "MarShawn Lloyd",
+              "position": "RB",
+              "points": 5,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tetairoa McMillan",
+              "position": "WR",
+              "points": 14.08,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Michael Wilson",
+              "position": "WR",
+              "points": 12.57,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Hunter Henry",
+              "position": "TE",
+              "points": 14.1,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Jason Myers",
+              "position": "K",
+              "points": 8.03,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "New York Jets",
+              "position": "DEF",
+              "points": 8.15,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Rashee Rice",
+              "position": "WR",
+              "points": 12.5,
+              "locked": false,
+              "fromBench": true
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Drake Maye",
+              "position": "QB",
+              "points": 27.44,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Emanuel Wilson",
+              "position": "RB",
+              "points": 7.42,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "MarShawn Lloyd",
+              "position": "RB",
+              "points": 4.69,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tetairoa McMillan",
+              "position": "WR",
+              "points": 14.25,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Michael Wilson",
+              "position": "WR",
+              "points": 12.02,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Hunter Henry",
+              "position": "TE",
+              "points": 14.1,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Jason Myers",
+              "position": "K",
+              "points": 8.03,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "New York Jets",
+              "position": "DEF",
+              "points": 8.15,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Rashee Rice",
+              "position": "WR",
+              "points": 11,
+              "locked": false,
+              "fromBench": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "teams": [
+        {
+          "id": 5,
+          "name": "Karl Moroney",
+          "color": "#9cd85d",
+          "baseTotal": 119.69,
+          "adjustedTotal": 118.92,
+          "banked": 0,
+          "missing": [],
+          "matchupNotes": [
+            "Garrett Wilson vs MIA: difficult WR matchup (3/32; 32 is easiest).",
+            "George Pickens vs PHI: favourable WR matchup (30/32; 32 is easiest)."
+          ],
+          "teamName": "Pronouns Who Dey",
+          "avatar": "b3338675f635c2c1f42b469621d38ec6",
+          "wins": 5,
+          "losses": 1,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Bryce Young",
+              "position": "QB",
+              "points": 17.92,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Bijan Robinson",
+              "position": "RB",
+              "points": 22.78,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Aaron Jones Sr.",
+              "position": "RB",
+              "points": 11.8,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Garrett Wilson",
+              "position": "WR",
+              "points": 16.9,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "George Pickens",
+              "position": "WR",
+              "points": 11.66,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Trey McBride",
+              "position": "TE",
+              "points": 15.34,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Evan McPherson",
+              "position": "K",
+              "points": 7.75,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Denver Broncos",
+              "position": "DEF",
+              "points": 7.41,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Keenan Allen",
+              "position": "WR",
+              "points": 8.13,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Bryce Young",
+              "position": "QB",
+              "points": 16.59,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Bijan Robinson",
+              "position": "RB",
+              "points": 23.92,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Aaron Jones Sr.",
+              "position": "RB",
+              "points": 12.54,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Garrett Wilson",
+              "position": "WR",
+              "points": 14.88,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "George Pickens",
+              "position": "WR",
+              "points": 12.77,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Trey McBride",
+              "position": "TE",
+              "points": 14.99,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Evan McPherson",
+              "position": "K",
+              "points": 7.75,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Denver Broncos",
+              "position": "DEF",
+              "points": 7.41,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Blake Corum",
+              "position": "RB",
+              "points": 8.07,
+              "locked": false,
+              "fromBench": true
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "Jack Ringrose",
+          "color": "#a691dd",
+          "baseTotal": 119.1,
+          "adjustedTotal": 116.63,
+          "banked": 0,
+          "missing": [],
+          "matchupNotes": [
+            "Tony Pollard vs CLE: difficult RB matchup (2/32; 32 is easiest)."
+          ],
+          "teamName": "The Finest Wagyu",
+          "avatar": "96373266565b3d0902c13a295a3c2a1f",
+          "wins": 4,
+          "losses": 2,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Brock Purdy",
+              "position": "QB",
+              "points": 19.31,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Christian McCaffrey",
+              "position": "RB",
+              "points": 20.98,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Derrick Henry",
+              "position": "RB",
+              "points": 17.92,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jameson Williams",
+              "position": "WR",
+              "points": 11.9,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Emeka Egbuka",
+              "position": "WR",
+              "points": 10.77,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Harold Fannin Jr.",
+              "position": "TE",
+              "points": 11.01,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Matt Gay",
+              "position": "K",
+              "points": 8.28,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Carolina Panthers",
+              "position": "DEF",
+              "points": 6.91,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tony Pollard",
+              "position": "RB",
+              "points": 12.02,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Brock Purdy",
+              "position": "QB",
+              "points": 20.28,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Christian McCaffrey",
+              "position": "RB",
+              "points": 21.73,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Derrick Henry",
+              "position": "RB",
+              "points": 16.81,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jameson Williams",
+              "position": "WR",
+              "points": 12.05,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Emeka Egbuka",
+              "position": "WR",
+              "points": 10.3,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Harold Fannin Jr.",
+              "position": "TE",
+              "points": 9.69,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Matt Gay",
+              "position": "K",
+              "points": 8.28,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Carolina Panthers",
+              "position": "DEF",
+              "points": 6.91,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tony Pollard",
+              "position": "RB",
+              "points": 10.58,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "teams": [
+        {
+          "id": 4,
+          "name": "Tommy O’Brien",
+          "color": "#f23d55",
+          "baseTotal": 134.13,
+          "adjustedTotal": 138.51,
+          "banked": 50.2,
+          "missing": [],
+          "matchupNotes": [],
+          "teamName": "Prime Time",
+          "avatar": "1a01f7129c89523e607ddc7792b3e9c7",
+          "wins": 1,
+          "losses": 5,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Matthew Stafford",
+              "position": "QB",
+              "points": 16.85,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Bucky Irving",
+              "position": "RB",
+              "points": 16.93,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Rhamondre Stevenson",
+              "position": "RB",
+              "points": 22.5,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "A.J. Brown",
+              "position": "WR",
+              "points": 7.8,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Puka Nacua",
+              "position": "WR",
+              "points": 22.28,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Colston Loveland",
+              "position": "TE",
+              "points": 19.9,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Dominic Zvada",
+              "position": "K",
+              "points": 7.59,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Houston Texans",
+              "position": "DEF",
+              "points": 9.36,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Denzel Boston",
+              "position": "WR",
+              "points": 10.92,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Matthew Stafford",
+              "position": "QB",
+              "points": 18.69,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Bucky Irving",
+              "position": "RB",
+              "points": 18.68,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Rhamondre Stevenson",
+              "position": "RB",
+              "points": 22.5,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "A.J. Brown",
+              "position": "WR",
+              "points": 7.8,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Puka Nacua",
+              "position": "WR",
+              "points": 22.44,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Colston Loveland",
+              "position": "TE",
+              "points": 19.9,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Dominic Zvada",
+              "position": "K",
+              "points": 7.59,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Houston Texans",
+              "position": "DEF",
+              "points": 9.36,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Denzel Boston",
+              "position": "WR",
+              "points": 11.55,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "Hugo Walsh",
+          "color": "#d8ed25",
+          "baseTotal": 107.78,
+          "adjustedTotal": 105.16,
+          "banked": 27.42,
+          "missing": [],
+          "matchupNotes": [
+            "Jonathan Taylor vs MIN: difficult RB matchup (1/32; 32 is easiest).",
+            "Brock Bowers vs LAR: difficult TE matchup (2/32; 32 is easiest)."
+          ],
+          "teamName": "Hawk Tuas Binatsos ",
+          "avatar": "82aec8e811b839b8ec25d7b458afd57b",
+          "wins": 1,
+          "losses": 5,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Caleb Williams",
+              "position": "QB",
+              "points": 22.12,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Jonathan Taylor",
+              "position": "RB",
+              "points": 17.43,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Zonovan Knight",
+              "position": "RB",
+              "points": 7.57,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tee Higgins",
+              "position": "WR",
+              "points": 15.16,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "DeMario Douglas",
+              "position": "WR",
+              "points": 5.3,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Brock Bowers",
+              "position": "TE",
+              "points": 16.11,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jake Bates",
+              "position": "K",
+              "points": 8.14,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "San Francisco 49ers",
+              "position": "DEF",
+              "points": 6.21,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "KC Concepcion Jr.",
+              "position": "WR",
+              "points": 9.74,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Caleb Williams",
+              "position": "QB",
+              "points": 22.12,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Jonathan Taylor",
+              "position": "RB",
+              "points": 15.34,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Zonovan Knight",
+              "position": "RB",
+              "points": 7.93,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tee Higgins",
+              "position": "WR",
+              "points": 15.63,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "DeMario Douglas",
+              "position": "WR",
+              "points": 5.3,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Brock Bowers",
+              "position": "TE",
+              "points": 14.18,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jake Bates",
+              "position": "K",
+              "points": 8.14,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "San Francisco 49ers",
+              "position": "DEF",
+              "points": 6.21,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "KC Concepcion Jr.",
+              "position": "WR",
+              "points": 10.31,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "teams": [
+        {
+          "id": 3,
+          "name": "Andrew Keenan",
+          "color": "#7656c8",
+          "baseTotal": 114.7,
+          "adjustedTotal": 114.7,
+          "banked": 0,
+          "missing": [],
+          "matchupNotes": [
+            "Christian Watson vs DET: favourable WR matchup (31/32; 32 is easiest)."
+          ],
+          "teamName": "Cooper Kupp Mah Balls",
+          "avatar": "82aec8e811b839b8ec25d7b458afd57b",
+          "wins": 4,
+          "losses": 2,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Jared Goff",
+              "position": "QB",
+              "points": 18.48,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Ashton Jeanty",
+              "position": "RB",
+              "points": 15.97,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Saquon Barkley",
+              "position": "RB",
+              "points": 13.8,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Zay Flowers",
+              "position": "WR",
+              "points": 19.29,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Christian Watson",
+              "position": "WR",
+              "points": 17.7,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Brandon Aubrey",
+              "position": "K",
+              "points": 8.55,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Pittsburgh Steelers",
+              "position": "DEF",
+              "points": 7.14,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "DeVonta Smith",
+              "position": "WR",
+              "points": 13.77,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Jared Goff",
+              "position": "QB",
+              "points": 16.26,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Ashton Jeanty",
+              "position": "RB",
+              "points": 15.36,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Saquon Barkley",
+              "position": "RB",
+              "points": 14.42,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Christian Watson",
+              "position": "WR",
+              "points": 19.83,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Zay Flowers",
+              "position": "WR",
+              "points": 18.5,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Brandon Aubrey",
+              "position": "K",
+              "points": 8.55,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Pittsburgh Steelers",
+              "position": "DEF",
+              "points": 7.14,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "DeVonta Smith",
+              "position": "WR",
+              "points": 14.64,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Alan Horgan",
+          "color": "#d74c9b",
+          "baseTotal": 142.31,
+          "adjustedTotal": 144.02,
+          "banked": 23.7,
+          "missing": [],
+          "matchupNotes": [
+            "Jahmyr Gibbs vs GB: favourable RB matchup (30/32; 32 is easiest).",
+            "Tucker Kraft vs DET: favourable TE matchup (32/32; 32 is easiest)."
+          ],
+          "teamName": "Tampa B'AH",
+          "avatar": "f1b56725760cf29597018dc4f9715a14",
+          "wins": 3,
+          "losses": 3,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Joe Burrow",
+              "position": "QB",
+              "points": 18.98,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jahmyr Gibbs",
+              "position": "RB",
+              "points": 25.5,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Javonte Williams",
+              "position": "RB",
+              "points": 17.53,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Chris Olave",
+              "position": "WR",
+              "points": 17.07,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Luther Burden III",
+              "position": "WR",
+              "points": 23.7,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Tucker Kraft",
+              "position": "TE",
+              "points": 11.64,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Ka'imi Fairbairn",
+              "position": "K",
+              "points": 9.23,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tennessee Titans",
+              "position": "DEF",
+              "points": 7.27,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "RJ Harvey",
+              "position": "RB",
+              "points": 11.39,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Joe Burrow",
+              "position": "QB",
+              "points": 17.86,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jahmyr Gibbs",
+              "position": "RB",
+              "points": 28.44,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Javonte Williams",
+              "position": "RB",
+              "points": 17.2,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Chris Olave",
+              "position": "WR",
+              "points": 16.14,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Luther Burden III",
+              "position": "WR",
+              "points": 23.7,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Tucker Kraft",
+              "position": "TE",
+              "points": 13.03,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Ka'imi Fairbairn",
+              "position": "K",
+              "points": 9.23,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tennessee Titans",
+              "position": "DEF",
+              "points": 7.27,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "RJ Harvey",
+              "position": "RB",
+              "points": 11.15,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "teams": [
+        {
+          "id": 7,
+          "name": "Joe Ennis",
+          "color": "#4b4f9a",
+          "baseTotal": 122.37,
+          "adjustedTotal": 124.81,
+          "banked": 0,
+          "missing": [],
+          "matchupNotes": [
+            "Matthew Golden vs DET: favourable WR matchup (31/32; 32 is easiest)."
+          ],
+          "teamName": "D'onta FourMore!",
+          "avatar": "b319fdf8b7b5b0359d3c78622ba4d70c",
+          "wins": 3,
+          "losses": 3,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Bo Nix",
+              "position": "QB",
+              "points": 18.72,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Ollie Gordon II",
+              "position": "RB",
+              "points": 13.1,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "J.K. Dobbins",
+              "position": "RB",
+              "points": 10.43,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Amon-Ra St. Brown",
+              "position": "WR",
+              "points": 19.5,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Justin Jefferson",
+              "position": "WR",
+              "points": 16.87,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Sam LaPorta",
+              "position": "TE",
+              "points": 12.9,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Trey Smack",
+              "position": "K",
+              "points": 8.52,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Dallas Cowboys",
+              "position": "DEF",
+              "points": 7.03,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Matthew Golden",
+              "position": "WR",
+              "points": 15.3,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Bo Nix",
+              "position": "QB",
+              "points": 20.97,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Ollie Gordon II",
+              "position": "RB",
+              "points": 13.3,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "J.K. Dobbins",
+              "position": "RB",
+              "points": 10.21,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Amon-Ra St. Brown",
+              "position": "WR",
+              "points": 19.76,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Matthew Golden",
+              "position": "WR",
+              "points": 17.13,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Sam LaPorta",
+              "position": "TE",
+              "points": 11.36,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Trey Smack",
+              "position": "K",
+              "points": 8.52,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Dallas Cowboys",
+              "position": "DEF",
+              "points": 7.03,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Justin Jefferson",
+              "position": "WR",
+              "points": 16.53,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "Shane Marmion",
+          "color": "#ff7f6f",
+          "baseTotal": 141.09,
+          "adjustedTotal": 141.43,
+          "banked": 0,
+          "missing": [],
+          "matchupNotes": [
+            "Jaylen Warren vs NO: favourable RB matchup (32/32; 32 is easiest).",
+            "Chuba Hubbard vs TB: difficult RB matchup (3/32; 32 is easiest).",
+            "Jaxon Smith-Njigba vs KC: difficult WR matchup (1/32; 32 is easiest).",
+            "CeeDee Lamb vs PHI: favourable WR matchup (30/32; 32 is easiest)."
+          ],
+          "teamName": "Whos Throwing Diggs",
+          "avatar": "b319fdf8b7b5b0359d3c78622ba4d70c",
+          "wins": 5,
+          "losses": 1,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Lamar Jackson",
+              "position": "QB",
+              "points": 20.86,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jaylen Warren",
+              "position": "RB",
+              "points": 17.03,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Chuba Hubbard",
+              "position": "RB",
+              "points": 16.27,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jaxon Smith-Njigba",
+              "position": "WR",
+              "points": 23.44,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "CeeDee Lamb",
+              "position": "WR",
+              "points": 17.35,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "George Kittle",
+              "position": "TE",
+              "points": 16.63,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tyler Loop",
+              "position": "K",
+              "points": 7.4,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Los Angeles Rams",
+              "position": "DEF",
+              "points": 6.46,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jalen Coker",
+              "position": "WR",
+              "points": 15.65,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Lamar Jackson",
+              "position": "QB",
+              "points": 20.75,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jaylen Warren",
+              "position": "RB",
+              "points": 19.08,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Chuba Hubbard",
+              "position": "RB",
+              "points": 14.63,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jaxon Smith-Njigba",
+              "position": "WR",
+              "points": 20.63,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "CeeDee Lamb",
+              "position": "WR",
+              "points": 19.01,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "George Kittle",
+              "position": "TE",
+              "points": 17.63,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Tyler Loop",
+              "position": "K",
+              "points": 7.4,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Los Angeles Rams",
+              "position": "DEF",
+              "points": 6.46,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Jalen Coker",
+              "position": "WR",
+              "points": 15.84,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "teams": [
+        {
+          "id": 1,
+          "name": "Emmet Burns",
+          "color": "#26a653",
+          "baseTotal": 129.44,
+          "adjustedTotal": 128.51,
+          "banked": 19,
+          "missing": [],
+          "matchupNotes": [
+            "Travis Kelce vs SEA: difficult TE matchup (3/32; 32 is easiest)."
+          ],
+          "teamName": "Burns XI",
+          "avatar": null,
+          "wins": 2,
+          "losses": 4,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Tyler Shough",
+              "position": "QB",
+              "points": 14.92,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Kyren Williams",
+              "position": "RB",
+              "points": 19.93,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "D'Andre Swift",
+              "position": "RB",
+              "points": 19,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Ja'Marr Chase",
+              "position": "WR",
+              "points": 18.82,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Nico Collins",
+              "position": "WR",
+              "points": 17.93,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Travis Kelce",
+              "position": "TE",
+              "points": 11.41,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Harrison Butker",
+              "position": "K",
+              "points": 7.11,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Cleveland Browns",
+              "position": "DEF",
+              "points": 7.89,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Carnell Tate",
+              "position": "WR",
+              "points": 12.43,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Baker Mayfield",
+              "position": "QB",
+              "points": 13.68,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Kyren Williams",
+              "position": "RB",
+              "points": 21.08,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "D'Andre Swift",
+              "position": "RB",
+              "points": 19,
+              "locked": true,
+              "fromBench": false
+            },
+            {
+              "name": "Ja'Marr Chase",
+              "position": "WR",
+              "points": 19.4,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Nico Collins",
+              "position": "WR",
+              "points": 17.63,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Travis Kelce",
+              "position": "TE",
+              "points": 10.04,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Harrison Butker",
+              "position": "K",
+              "points": 7.11,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Cleveland Browns",
+              "position": "DEF",
+              "points": 7.89,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Carnell Tate",
+              "position": "WR",
+              "points": 12.68,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "Aidan Murphy",
+          "color": "#f2d43d",
+          "baseTotal": 107.35,
+          "adjustedTotal": 107.48,
+          "banked": 0,
+          "missing": [],
+          "matchupNotes": [
+            "Omar Cooper Jr. vs MIA: difficult WR matchup (3/32; 32 is easiest)."
+          ],
+          "teamName": "BurrowMeDickinYoAss",
+          "avatar": "b56f726e782d46df668d11e45de5e42e",
+          "wins": 2,
+          "losses": 4,
+          "ties": 0,
+          "lineup": [
+            {
+              "name": "Dak Prescott",
+              "position": "QB",
+              "points": 15.52,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Woody Marks",
+              "position": "RB",
+              "points": 14.63,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Quinshon Judkins",
+              "position": "RB",
+              "points": 11.19,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Drake London",
+              "position": "WR",
+              "points": 16.6,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "DK Metcalf",
+              "position": "WR",
+              "points": 12.48,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Pat Freiermuth",
+              "position": "TE",
+              "points": 9.73,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Will Reichard",
+              "position": "K",
+              "points": 9.28,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Minnesota Vikings",
+              "position": "DEF",
+              "points": 8.41,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Omar Cooper Jr.",
+              "position": "WR",
+              "points": 9.51,
+              "locked": false,
+              "fromBench": false
+            }
+          ],
+          "adjustedLineup": [
+            {
+              "name": "Dak Prescott",
+              "position": "QB",
+              "points": 16.48,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Woody Marks",
+              "position": "RB",
+              "points": 14.75,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Quinshon Judkins",
+              "position": "RB",
+              "points": 10.84,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Drake London",
+              "position": "WR",
+              "points": 16.04,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "DK Metcalf",
+              "position": "WR",
+              "points": 12.41,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Pat Freiermuth",
+              "position": "TE",
+              "points": 10.9,
+              "locked": false,
+              "fromBench": true
+            },
+            {
+              "name": "Will Reichard",
+              "position": "K",
+              "points": 9.28,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Minnesota Vikings",
+              "position": "DEF",
+              "points": 8.41,
+              "locked": false,
+              "fromBench": false
+            },
+            {
+              "name": "Omar Cooper Jr.",
+              "position": "WR",
+              "points": 8.37,
+              "locked": false,
+              "fromBench": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

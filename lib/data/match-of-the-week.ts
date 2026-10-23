@@ -2,6 +2,7 @@ import type { PredictionMatchup, PredictionWeekData } from './predictions';
 import type { NewsletterKey } from './matchup-newsletters';
 import { weekFivePublishedAt } from './newsletters/2026-week-5';
 import { weekSixPublishedAt } from './newsletters/2026-week-6';
+import { weekSevenPublishedAt } from './newsletters/2026-week-7';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -77,6 +78,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Friday selection, after Thursday’s game: the 1–4 commissioner faces the 3–2 champion, with both priced at Evens. Alan leads 14.60–5.20; Burns needs to stop four straight defeats before his perfect playoff attendance becomes a historical footnote.',
     buildUp:
       'Burns spent $25 on four waiver additions; Alan spent $4 covering a bye week. The best-lineup model separates them by 0.39 points. The commissioner has Kyren and Collins; the champion has a Thursday lead and Daniel Jones holding the fort for Burrow. We narrowly take Alan in this Friday call. Burns built the Wall of Shame page, which would at least make any future bug reports unusually well informed.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 7,
+    sleeperMatchupId: 2,
+    homeRosterId: 5,
+    awayRosterId: 9,
+    selectedAt: weekSevenPublishedAt,
+    reason:
+      'Friday selection, after Thursday’s game: 5–1 Karl faces 4–2 Jack after trading Irving for Garrett Wilson and Coleman. Only 2.29 separates the adjusted best-lineup estimates, and neither has starter points banked. Karl is 10/11; Jack is 11/10.',
+    buildUp:
+      'Karl has won five straight and made the season’s first trade to repair his receiving depth. Jack has beaten Burns and Keenan in consecutive weeks and now gets a third contender. Wilson makes his Karl debut opposite McCaffrey and Henry; Egbuka’s missed practices leave Jack a decision to watch. We narrowly back Karl in this Friday call. A sixth straight win should make the scheduling complaints harder to sustain, although we admire his commitment to trying.',
   },
 ];
 

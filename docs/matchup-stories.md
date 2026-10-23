@@ -214,3 +214,14 @@ Burns–Alan Match of the Week review owns the miss. Keenan's Sunday Winston
 acquisition resolves the previously reported quarterback gap. Current injury
 news informs the reviews and Week 7 rankings without rewriting the previews.
 See `research/2026-week-7.md`.
+
+## Week 7 Friday edition — 23 October
+
+Six Friday previews after NE–CHI cover the first trade (Irving to Tommy;
+Garrett Wilson and Coleman to Karl), completed waivers, Thursday points and
+the latest available Thursday injury reports. Karl–Jack is Match of the Week.
+Week 7 prices and the practice page use the post-trade best-lineup snapshot.
+Homepage talking points include Sunday's 17:00 Irish deadline after the clock
+change. Tuesday's ranking edition and older reports stay archived unchanged.
+The commissioner requested a Tommy Friday Mackdown recording script; no new
+episode is listed without its recording. See `research/2026-week-7-previews.md`.
