@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   weekSevenReports,
   weekSevenPublishedAt,
+  weekSevenFeatureUpdatedAt,
 } from '../lib/data/newsletters/2026-week-7.ts';
 import { getMatchupNewsletter } from '../lib/data/matchup-newsletters.ts';
 import { getMatchOfTheWeek } from '../lib/data/match-of-the-week.ts';
@@ -60,12 +61,15 @@ void test('Week 7 reports match the verified ballot, projections and Friday cuto
   }
 });
 
-void test('the Friday homepage features Karl–Jack and retires talking points on settlement', () => {
-  const featured = getMatchOfTheWeek(data, undefined, now);
-  assert.equal(featured.sleeperMatchupId, 2);
+void test('the corrected Friday homepage features Tommy–Hugo and retires talking points on settlement', () => {
+  const featureNow = Date.parse(weekSevenFeatureUpdatedAt);
+  const featured = getMatchOfTheWeek(data, undefined, featureNow);
+  assert.equal(featured.sleeperMatchupId, 3);
+  assert.equal(featured.homeRosterId, 4);
+  assert.equal(featured.awayRosterId, 8);
   assert.match(featured.reason, /Friday selection, after Thursday/);
-  const home = getClubhouseEditorial(data, null, now);
-  assert.equal(home.lead.matchup.sleeperMatchupId, 2);
+  const home = getClubhouseEditorial(data, null, featureNow);
+  assert.equal(home.lead.matchup.sleeperMatchupId, 3);
   assert.equal(getLeadBesideTicket(home).matchup.sleeperMatchupId, 1);
   assert.equal(home.ranking.week, 7);
   assert.notDeepEqual(home.talkingPoints, home.ranking.talkingPoints);

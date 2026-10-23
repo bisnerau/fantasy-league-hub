@@ -219,9 +219,9 @@ See `research/2026-week-7.md`.
 
 Six Friday previews after NE–CHI cover the first trade (Irving to Tommy;
 Garrett Wilson and Coleman to Karl), completed waivers, Thursday points and
-the latest available Thursday injury reports. Karl–Jack is Match of the Week.
+the latest available Thursday injury reports. Tommy–Hugo is Match of the Week, corrected at the commissioner’s request.
 Week 7 prices and the practice page use the post-trade best-lineup snapshot.
 Homepage talking points include Sunday's 17:00 Irish deadline after the clock
 change. Tuesday's ranking edition and older reports stay archived unchanged.
-The commissioner requested a Tommy Friday Mackdown recording script; no new
+The commissioner requested a Hugo Friday Mackdown recording script; no new
 episode is listed without its recording. See `research/2026-week-7-previews.md`.

@@ -18,10 +18,12 @@ completed trade, filed under Week 7, at 16:33:38 UTC on Wednesday 21 October:
 - Karl received Garrett Wilson and Jonah Coleman.
 - No draft picks or FAAB moved.
 
-Karl–Jack is the Friday Match of the Week: 5–1 versus 4–2, five consecutive wins
-against two, and a 2.29-point gap in the adjusted best-lineup model. The trade
-addresses Karl's receiving need after McLaurin's season-ending injury. The
-editorial call is Karl. Other calls: Niall, Tommy, Alan, Shane and Burns.
+At the commissioner's explicit request, Tommy–Hugo replaces Karl–Jack as the
+Friday Match of the Week. Both are 1–5 at the bottom of the table; the forfeit
+stakes take priority over Karl–Jack's closer price. The feature correction is
+timestamped 11:10:37 UTC. All original winner calls and published prices remain
+unchanged: Niall, Karl, Tommy, Alan, Shane and Burns. The fuller featured report
+uses the managers' verified busking, stand-up and Shark Boy forfeit history.
 
 Thursday starter totals, already included in prices: Sharpe 41.54, Tommy 50.20,
 Hugo 27.42, Alan 23.70, Burns 19.00; everyone else zero. Bench points remain
@@ -82,9 +84,11 @@ Previous prices, saved votes, Bankers and results are preserved.
 ## Friday Mackdown script and prose check
 
 The commissioner requested a recording script, not a written site episode.
-`output/return-of-the-mac/2026-week-7-tommy-script.txt` is prepared for the usual
-recording, centred on Tommy and the first trade. It acknowledges last week's
-wrong Keenan call, Thursday's scoring and the pending injury designations.
+`output/return-of-the-mac/2026-week-7-hugo-script.txt` is the current recording
+draft, replacing the unrecorded Tommy version at the commissioner's request.
+The old file is explicitly marked superseded. Hugo's draft acknowledges the
+wrong Keenan call, Thursday's scoring and pending injury designations; its
+comic Hugo pick differs from the preserved editorial Tommy pick.
 Mackorcle's invented adjustments are labelled character comedy in the production
 notes. No new audio entry is published without a recording.
 
@@ -107,3 +111,30 @@ Twelve Week 7 prices were published and read back successfully. The receipt is
 `2026-week-7-prices.json`; `2026-week-7-friday-audit.json` records the public
 ballot audit at 10:56 UTC, including unchanged Week 6 final results and frozen
 prices. No private votes, Bankers or credentials were read for editorial use.
+
+## Commissioner revision: tone and source check
+
+The commissioner explicitly requested Tommy–Hugo as Match of the Week and Hugo
+as Mackorcle's subject, overriding the earlier feature choice. The original
+winner calls, projections, published odds and older weekly selections stay fixed.
+
+Glen reference research: today's [23 October episode description](https://www.reddit.com/r/PardonMyTake/comments/1xd68mx/new_episode_discussion_102326_week_7_picks_and/)
+confirms a new tape-watch website segment in the opening 31:05. An accessible
+transcript of that episode could not be found. The newest accessible tape-watch
+transcript located was [16 October, around 1:29–1:32](https://podcasts.happyscribe.com/pardon-my-take/nfl-week-6-picks-and-preview-mike-florio-talking-nfl-broncos-win-despite-bo-nix-brewers-to-the-world-series-plus-fyre-fest).
+The draft uses broad comic devices: overconfident mock expertise, selective
+evidence and increasingly absurd excuses. No Glen dialogue or catchphrases were
+copied. Mackorcle's existing introduction, bell and sign-off are preserved.
+
+Humanizer 3.1.0 checker flags and manual fixes:
+
+- Removed the old draft's management jargon (efficiency gains, research projects)
+  and abstract calculator joke; used Hugo's actual bid and household context.
+- Varied setups and paragraph length; cut explanations after punchlines.
+- Kept the deliberate mock-statistical language as the character's voice, while
+  labelling invented adjustments in production notes.
+- Rechecked concrete claims: 1–5 records, five straight Hugo defeats, 22.78-point
+  deficit, $19/5.30 Douglas receipt, trade direction, forfeit history and the
+  shared home with Alan. No private quotes or events were invented.
+- Added the tie exception to the featured report's 1–6 outcome; injuries remain
+  dated Thursday practice reports, not final game designations.

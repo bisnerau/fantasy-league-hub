@@ -3,6 +3,8 @@ import type { MatchupNewsletter } from '../matchup-newsletters';
 // Friday outlooks after NE–CHI. Thursday points are already known; the
 // latest practice reports are Thursday's, with final designations pending.
 export const weekSevenPublishedAt = '2026-10-23T10:31:00Z';
+// Commissioner-requested feature correction; original winner calls stay fixed.
+export const weekSevenFeatureUpdatedAt = '2026-10-23T11:10:37Z';
 const sources = [
   {
     label: 'Sleeper: Friday Week 7 lineups and Thursday points',
@@ -85,7 +87,7 @@ export const weekSevenReports: MatchupNewsletter[] = [
       awayProjection: 121.67,
       headline: 'Karl completes a trade. The complaints department stays open.',
       summary:
-        'Friday Match of the Week: 5–1 Karl faces 4–2 Jack after the season’s first trade. Garrett Wilson and Jonah Coleman went to Karl for Bucky Irving; only 2.29 separates the adjusted best-lineup estimates.',
+        'Friday outlook: 5–1 Karl faces 4–2 Jack after the season’s first trade. Garrett Wilson and Jonah Coleman went to Karl for Bucky Irving; only 2.29 separates the adjusted best-lineup estimates.',
       sections: [
         {
           title: 'A deal with an actual acceptance button',
@@ -125,21 +127,21 @@ export const weekSevenReports: MatchupNewsletter[] = [
       pickRosterId: 4,
       homeProjection: 120.66,
       awayProjection: 108.42,
-      headline: 'Tommy trades for the present. Hugo gets the receipt.',
+      headline: 'Tommy–Hugo: the loser starts checking the forfeit rules.',
       summary:
-        'Friday outlook: both are 1–5, and Tommy leads 50.20–27.42 after Thursday. Irving arrives through the first trade; Hugo’s $19 Douglas pickup has already returned 5.30. Someone is leaving this meeting at 1–6.',
+        'Friday Match of the Week: the bottom-of-the-table clash, with both managers 1–5 and Tommy leading 50.20–27.42 after Thursday. Tommy has traded for Irving; Hugo paid $19 for Douglas and got 5.30. A win buys breathing room. A defeat brings the group chat closer.',
       sections: [
         {
-          title: 'Tommy has bought a player for this season',
-          text: 'The league’s most committed investor in future breakouts has sent Wilson and Coleman to Karl for Irving. Tommy needs a running back now, with Tuten on bye and Monangai unavailable. Stevenson’s 22.50 and Loveland’s 19.90 have already done much of Thursday’s work; Brown added 7.80. For a 1–5 manager, being able to discuss points that actually exist must be a refreshing change of subject.',
+          title: 'The Shark Boy–busker derby',
+          text: 'Tommy has done stand-up and Comic Con as Shark Boy. Hugo has busked on Grafton Street. Between them, these managers have enough forfeit experience to run a small performing-arts college. Both arrive at 1–5; Hugo has lost five straight. Barring a tie, the loser goes 1–6 while the winner gets to describe 2–5 as momentum. This deserves top billing. The league has spent years preparing the material.',
         },
         {
-          title: 'Hugo’s emergency purchase gets an early review',
-          text: 'Douglas cost $19 and supplied 5.30, alongside Caleb Williams’ 22.12. Knight has since replaced Pierce, while Higgins returns from his bye to help Taylor. Bowers improved to full practice Thursday. Across the matchup, Irving was limited by illness and Nacua appeared on the Rams report with a calf issue. Final designations are pending, so Tommy’s new arrival and favourite receiver still need checking. The forfeit race has enough uncertainty without medical guesswork.',
+          title: 'One trade, one expensive Thursday',
+          text: 'Tommy sent Wilson and Coleman to Karl for Irving, addressing his running-back shortage with Tuten on bye. Stevenson and Loveland supplied 42.40 on Thursday; Brown added 7.80. Hugo got 22.12 from Caleb and 5.30 from his $19 Douglas purchase. At least on Grafton Street the money used to come towards him. Knight replaces Pierce, Higgins returns from his bye and Bowers practised fully Thursday. Hugo needs that trio around Taylor to keep this from becoming another audition.',
         },
         {
           title: 'The Friday call: Tommy O’Brien',
-          text: 'Tommy is 1/5 against Hugo’s 11/2 after the Thursday scoring. His lead and the Stafford–Nacua upside earn our call, subject to the remaining injury news. Hugo needs Taylor and Bowers to give him a way back and end five straight defeats. Tommy has finally traded potential for immediate help. A second win would make a compelling case for trying it again.',
+          text: 'Tommy is 1/5 against Hugo’s 11/2, with the Thursday points included. We stick with Tommy’s lead and Stafford–Nacua upside, though Irving was limited by illness and Nacua by a calf issue on Thursday. Final designations are pending. Taylor and Bowers give Hugo a way back; the price reflects how much catching up is required. Tommy knows more football than almost anyone here. Beating the other 1–5 team would be a modest place to demonstrate it.',
         },
       ],
       sources: [...sources, bucs, rams],

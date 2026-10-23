@@ -324,10 +324,12 @@ See `research/2026-week-7.md` for evidence and the Tuesday audit.
 
 ## Friday Week 7 update — 23 October
 
-The homepage now features Karl–Jack and three Friday talking points covering
+The homepage now features Tommy–Hugo and three Friday talking points covering
 the first trade, waiver pickups, Thursday scoring and the clock-change deadline.
 All six Week 7 previews are published after NE–CHI, with fresh best-lineup prices.
 The six settled Week 6 reviews and Tuesday's ranking edition remain unchanged.
-The commissioner requested a recording script for Tommy's Friday Mackdown;
+The commissioner corrected the feature to the bottom-of-the-table clash and
+requested Hugo as the Friday Mackdown subject. The revised recording script
+uses Humanizer and the latest accessible Glen tape-watch transcript;
 the existing Week 6 recording remains the latest episode until new audio is
 supplied. See `research/2026-week-7-previews.md` for the sources and checks.

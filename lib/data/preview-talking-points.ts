@@ -14,7 +14,7 @@ const editions = [
     points: [
       {
         title: 'First trade: Tommy gets Irving. Karl gets Wilson and Coleman.',
-        text: 'Wednesday’s deal exchanged no picks or FAAB. Karl takes his new receiver into our Match of the Week against Jack; Tommy leads Hugo 50.20–27.42 after Thursday in the meeting of 1–5 teams. Irving’s illness and Nacua’s calf need monitoring.',
+        text: 'Tommy takes the season’s first trade into our Match of the Week against Hugo: both 1–5, with Tommy 50.20–27.42 ahead after Thursday. Shark Boy meets the Grafton Street busker. Irving’s illness and Nacua’s calf still need monitoring.',
         href: '/matchups?week=7#matchup-3',
       },
       {
