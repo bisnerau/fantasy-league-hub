@@ -225,3 +225,13 @@ Homepage talking points include Sunday's 17:00 Irish deadline after the clock
 change. Tuesday's ranking edition and older reports stay archived unchanged.
 The commissioner requested a Hugo Friday Mackdown recording script; no new
 episode is listed without its recording. See `research/2026-week-7-previews.md`.
+
+## Week 7 settlement — 28 October
+
+All six reviews preserve the Friday previews and calls: Alan and Shane were
+correct; Sharpe, Jack, Hugo and Murphy beat our selected opponents. Tommy–Hugo
+remains the archived feature with the 0.82 result. Keenan and Niall's Sunday trade
+resolved their Friday lineup gaps. The Joe–Shane report quotes the stored final
+117.28–124.62 and discloses Sleeper's current 117.18 for Joe; grading is unchanged.
+Week 8 rankings include Tuesday trades, Wednesday waivers and dated post-game
+injury reports. No Week 8 previews are published. See `research/2026-week-8.md`.

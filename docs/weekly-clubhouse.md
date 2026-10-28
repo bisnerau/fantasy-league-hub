@@ -340,3 +340,13 @@ commissioner's Temple Bar wording, revised jokes, Friday context and closing
 line. Automatic transcription spelling variations are not published as captions.
 All three older recordings and portrait v9 are preserved.
 See `research/2026-week-7-previews.md` for the sources and checks.
+
+## Wednesday Week 8 update — 28 October
+
+Six Week 7 reviews and Week 8 rankings refresh the homepage after settled results,
+Tuesday's two Alan trades and Wednesday waivers. Shane leads Alan and Jack;
+Murphy and Hugo rise four places. Hugo's 0.82 Match of the Week win overturns the
+Tommy call; Tommy receives a hindsight defensive bench flag. Joe's report notes
+the 0.10 difference between the frozen score and current Sleeper, without changing
+grading. The existing halfway table now has seven completed weeks. Week 8 previews,
+Match of the Week and prices remain later-week work. See `research/2026-week-8.md`.

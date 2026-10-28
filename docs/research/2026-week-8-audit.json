@@ -1,0 +1,651 @@
+{
+  "retrievedAt": "2026-10-28T11:02:27.297Z",
+  "publication": "2026-10-28T11:03:33Z",
+  "previewsUnchanged": true,
+  "finalScoresMatchSleeper": false,
+  "scoreDiscrepancies": [
+    {
+      "rosterId": 7,
+      "storedFinal": 117.28,
+      "sleeperNow": 117.18,
+      "winnerUnchanged": true,
+      "action": "Preserve settled score; disclose difference; rankings use current Sleeper"
+    }
+  ],
+  "correctCalls": 2,
+  "words": [
+    {
+      "matchup": 1,
+      "words": 244
+    },
+    {
+      "matchup": 2,
+      "words": 242
+    },
+    {
+      "matchup": 3,
+      "words": 243
+    },
+    {
+      "matchup": 4,
+      "words": 250
+    },
+    {
+      "matchup": 5,
+      "words": 246
+    },
+    {
+      "matchup": 6,
+      "words": 249
+    }
+  ],
+  "ballot": {
+    "id": 133,
+    "week": 8,
+    "locks_at": "2026-11-01T18:00:00+00:00"
+  },
+  "fixtures": [
+    {
+      "id": 609,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 5,
+      "away_roster_id": 6,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 610,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 7,
+      "away_roster_id": 8,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 611,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 3,
+      "away_roster_id": 12,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 612,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 1,
+      "away_roster_id": 10,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 607,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 9,
+      "away_roster_id": 11,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    },
+    {
+      "id": 608,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 2,
+      "away_roster_id": 4,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled"
+    }
+  ],
+  "rankingMovement": [
+    {
+      "rosterId": 10,
+      "rank": 1,
+      "previousRank": 1,
+      "change": 0
+    },
+    {
+      "rosterId": 6,
+      "rank": 2,
+      "previousRank": 3,
+      "change": 1
+    },
+    {
+      "rosterId": 9,
+      "rank": 3,
+      "previousRank": 5,
+      "change": 2
+    },
+    {
+      "rosterId": 12,
+      "rank": 4,
+      "previousRank": 8,
+      "change": 4
+    },
+    {
+      "rosterId": 5,
+      "rank": 5,
+      "previousRank": 2,
+      "change": -3
+    },
+    {
+      "rosterId": 7,
+      "rank": 6,
+      "previousRank": 4,
+      "change": -2
+    },
+    {
+      "rosterId": 3,
+      "rank": 7,
+      "previousRank": 9,
+      "change": 2
+    },
+    {
+      "rosterId": 8,
+      "rank": 8,
+      "previousRank": 12,
+      "change": 4
+    },
+    {
+      "rosterId": 4,
+      "rank": 9,
+      "previousRank": 10,
+      "change": 1
+    },
+    {
+      "rosterId": 1,
+      "rank": 10,
+      "previousRank": 6,
+      "change": -4
+    },
+    {
+      "rosterId": 2,
+      "rank": 11,
+      "previousRank": 7,
+      "change": -4
+    },
+    {
+      "rosterId": 11,
+      "rank": 12,
+      "previousRank": 11,
+      "change": -1
+    }
+  ],
+  "homepage": {
+    "rankingWeek": 8,
+    "reviewWeek": 7,
+    "reviews": 6,
+    "previews": 0,
+    "talkingPoints": 3,
+    "lead": "Dave buys the right Wilson. Niall buys himself more work."
+  },
+  "flag": {
+    "leagueId": "1389706813993160704",
+    "season": "2026",
+    "week": 7,
+    "rosterId": 4,
+    "manager": "Tommy O’Brien",
+    "call": "Illegal use of the bench",
+    "text": "Sunday pickup Cincinnati scored 10 on Tommy’s bench while starting Houston returned 3, a seven-point hindsight gap in a 0.82-point defeat. The referee cannot prove the choice was obvious before kickoff, but would like Shark Boy to explain the ending.",
+    "penalty": "0.82 yards and a defensive coordinator audition",
+    "publishedAt": "2026-10-28T11:03:33Z"
+  },
+  "wire": [
+    {
+      "label": "Week 7 high",
+      "text": "Aidan Murphy 140.98"
+    },
+    {
+      "label": "Week 7 low",
+      "text": "Mahomes-lander n The Boys 87.98"
+    },
+    {
+      "label": "Closest call",
+      "text": "Hawk Tuas Binatsos by 0.82 over Prime Time"
+    },
+    {
+      "label": "Biggest win",
+      "text": "Aidan Murphy by 46.16 over Burns XI"
+    },
+    {
+      "label": "Top starter",
+      "text": "Tony Pollard 36.50 for The Finest Wagyu"
+    }
+  ],
+  "awards": {
+    "awards": [
+      {
+        "kind": "solicitor",
+        "rosterId": 3,
+        "detail": "Lost with 133.62 points, but would have beaten 9 of 11 other teams. The complaints department has evidence."
+      },
+      {
+        "kind": "escape",
+        "rosterId": 11,
+        "detail": "Won with 101.14 points; 8 of 11 other teams would have beaten them. Collect the win and leave quietly."
+      },
+      {
+        "kind": "waiver",
+        "rosterId": 2,
+        "playerId": "13296",
+        "detail": "Added this scoring week and delivered 21.00 starting-lineup points. A waiver claim with something to show for itself."
+      }
+    ],
+    "waiverReady": true
+  },
+  "standings": [
+    {
+      "rosterId": 10,
+      "wins": 6,
+      "losses": 1,
+      "ties": 0,
+      "pointsFor": 973.88,
+      "rank": 1,
+      "medianWins": 5,
+      "medianLosses": 2,
+      "streak": "W2",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "L",
+        "W",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 59,
+        "losses": 18,
+        "ties": 0
+      },
+      "previousRank": 1
+    },
+    {
+      "rosterId": 5,
+      "wins": 5,
+      "losses": 2,
+      "ties": 0,
+      "pointsFor": 866.78,
+      "rank": 2,
+      "medianWins": 4,
+      "medianLosses": 3,
+      "streak": "L1",
+      "form": [
+        "L",
+        "W",
+        "W",
+        "W",
+        "W",
+        "W",
+        "L"
+      ],
+      "allPlay": {
+        "wins": 44,
+        "losses": 33,
+        "ties": 0
+      },
+      "previousRank": 2
+    },
+    {
+      "rosterId": 9,
+      "wins": 5,
+      "losses": 2,
+      "ties": 0,
+      "pointsFor": 835.08,
+      "rank": 3,
+      "medianWins": 4,
+      "medianLosses": 3,
+      "streak": "W3",
+      "form": [
+        "L",
+        "W",
+        "W",
+        "L",
+        "W",
+        "W",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 39,
+        "losses": 38,
+        "ties": 0
+      },
+      "previousRank": 3
+    },
+    {
+      "rosterId": 6,
+      "wins": 4,
+      "losses": 3,
+      "ties": 0,
+      "pointsFor": 936.68,
+      "rank": 4,
+      "medianWins": 6,
+      "medianLosses": 1,
+      "streak": "W1",
+      "form": [
+        "L",
+        "W",
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 57,
+        "losses": 20,
+        "ties": 0
+      },
+      "previousRank": 5
+    },
+    {
+      "rosterId": 3,
+      "wins": 4,
+      "losses": 3,
+      "ties": 0,
+      "pointsFor": 792.64,
+      "rank": 5,
+      "medianWins": 4,
+      "medianLosses": 3,
+      "streak": "L3",
+      "form": [
+        "W",
+        "W",
+        "W",
+        "W",
+        "L",
+        "L",
+        "L"
+      ],
+      "allPlay": {
+        "wins": 34,
+        "losses": 43,
+        "ties": 0
+      },
+      "previousRank": 4
+    },
+    {
+      "rosterId": 11,
+      "wins": 4,
+      "losses": 3,
+      "ties": 0,
+      "pointsFor": 693.16,
+      "rank": 6,
+      "medianWins": 1,
+      "medianLosses": 6,
+      "streak": "W1",
+      "form": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "W",
+        "L",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 23,
+        "losses": 53,
+        "ties": 1
+      },
+      "previousRank": 8
+    },
+    {
+      "rosterId": 12,
+      "wins": 3,
+      "losses": 4,
+      "ties": 0,
+      "pointsFor": 830.04,
+      "rank": 7,
+      "medianWins": 5,
+      "medianLosses": 2,
+      "streak": "W1",
+      "form": [
+        "L",
+        "L",
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 47,
+        "losses": 30,
+        "ties": 0
+      },
+      "previousRank": 10
+    },
+    {
+      "rosterId": 7,
+      "wins": 3,
+      "losses": 4,
+      "ties": 0,
+      "pointsFor": 814.6,
+      "rank": 8,
+      "medianWins": 3,
+      "medianLosses": 4,
+      "streak": "L1",
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "W",
+        "W",
+        "L"
+      ],
+      "allPlay": {
+        "wins": 39,
+        "losses": 38,
+        "ties": 0
+      },
+      "previousRank": 7
+    },
+    {
+      "rosterId": 2,
+      "wins": 3,
+      "losses": 4,
+      "ties": 0,
+      "pointsFor": 795.98,
+      "rank": 9,
+      "medianWins": 2,
+      "medianLosses": 5,
+      "streak": "L1",
+      "form": [
+        "W",
+        "L",
+        "L",
+        "L",
+        "W",
+        "W",
+        "L"
+      ],
+      "allPlay": {
+        "wins": 31,
+        "losses": 46,
+        "ties": 0
+      },
+      "previousRank": 6
+    },
+    {
+      "rosterId": 1,
+      "wins": 2,
+      "losses": 5,
+      "ties": 0,
+      "pointsFor": 805.54,
+      "rank": 10,
+      "medianWins": 3,
+      "medianLosses": 4,
+      "streak": "L1",
+      "form": [
+        "W",
+        "L",
+        "L",
+        "L",
+        "L",
+        "W",
+        "L"
+      ],
+      "allPlay": {
+        "wins": 33,
+        "losses": 44,
+        "ties": 0
+      },
+      "previousRank": 9
+    },
+    {
+      "rosterId": 8,
+      "wins": 2,
+      "losses": 5,
+      "ties": 0,
+      "pointsFor": 777.76,
+      "rank": 11,
+      "medianWins": 3,
+      "medianLosses": 4,
+      "streak": "W1",
+      "form": [
+        "W",
+        "L",
+        "L",
+        "L",
+        "L",
+        "L",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 30,
+        "losses": 46,
+        "ties": 1
+      },
+      "previousRank": 11
+    },
+    {
+      "rosterId": 4,
+      "wins": 1,
+      "losses": 6,
+      "ties": 0,
+      "pointsFor": 739.72,
+      "rank": 12,
+      "medianWins": 2,
+      "medianLosses": 5,
+      "streak": "L2",
+      "form": [
+        "L",
+        "L",
+        "L",
+        "L",
+        "W",
+        "L",
+        "L"
+      ],
+      "allPlay": {
+        "wins": 25,
+        "losses": 52,
+        "ties": 0
+      },
+      "previousRank": 12
+    }
+  ],
+  "halfwayTable": [
+    {
+      "rosterId": 10,
+      "wins": 6,
+      "losses": 1,
+      "ties": 0,
+      "points": 973.88
+    },
+    {
+      "rosterId": 5,
+      "wins": 5,
+      "losses": 2,
+      "ties": 0,
+      "points": 866.7800000000001
+    },
+    {
+      "rosterId": 9,
+      "wins": 5,
+      "losses": 2,
+      "ties": 0,
+      "points": 835.08
+    },
+    {
+      "rosterId": 6,
+      "wins": 4,
+      "losses": 3,
+      "ties": 0,
+      "points": 936.68
+    },
+    {
+      "rosterId": 3,
+      "wins": 4,
+      "losses": 3,
+      "ties": 0,
+      "points": 792.6400000000001
+    },
+    {
+      "rosterId": 11,
+      "wins": 4,
+      "losses": 3,
+      "ties": 0,
+      "points": 693.16
+    },
+    {
+      "rosterId": 12,
+      "wins": 3,
+      "losses": 4,
+      "ties": 0,
+      "points": 830.04
+    },
+    {
+      "rosterId": 7,
+      "wins": 3,
+      "losses": 4,
+      "ties": 0,
+      "points": 814.6000000000001
+    },
+    {
+      "rosterId": 2,
+      "wins": 3,
+      "losses": 4,
+      "ties": 0,
+      "points": 795.98
+    },
+    {
+      "rosterId": 1,
+      "wins": 2,
+      "losses": 5,
+      "ties": 0,
+      "points": 805.54
+    },
+    {
+      "rosterId": 8,
+      "wins": 2,
+      "losses": 5,
+      "ties": 0,
+      "points": 777.7600000000001
+    },
+    {
+      "rosterId": 4,
+      "wins": 1,
+      "losses": 6,
+      "ties": 0,
+      "points": 739.72
+    }
+  ]
+}

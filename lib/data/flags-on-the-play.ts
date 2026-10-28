@@ -2,6 +2,7 @@ import type { PredictionWeekData } from './predictions';
 import { weekFiveReviewPublishedAt } from './newsletters/2026-week-5';
 import { weekFourReviewPublishedAt } from './newsletters/2026-week-4';
 import { weekSixReviewPublishedAt } from './newsletters/2026-week-6';
+import { weekSevenReviewPublishedAt } from './newsletters/2026-week-7';
 
 export type FlagOnThePlay = {
   leagueId: string;
@@ -21,6 +22,17 @@ export type FlagOnThePlay = {
 // Authored with Tuesday's reviews from verified Sleeper stats; never generated.
 // One flag per league/week at most, shown only once that week has settled.
 export const flagsOnThePlay: readonly FlagOnThePlay[] = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 7,
+    rosterId: 4,
+    manager: 'Tommy O’Brien',
+    call: 'Illegal use of the bench',
+    text: 'Sunday pickup Cincinnati scored 10 on Tommy’s bench while starting Houston returned 3, a seven-point hindsight gap in a 0.82-point defeat. The referee cannot prove the choice was obvious before kickoff, but would like Shark Boy to explain the ending.',
+    penalty: '0.82 yards and a defensive coordinator audition',
+    publishedAt: weekSevenReviewPublishedAt,
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',
