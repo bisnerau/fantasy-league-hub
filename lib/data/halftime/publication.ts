@@ -44,12 +44,32 @@ export const halftimeHonours = [
   },
   {
     id: 'miss',
-    label: 'Biggest AI miss',
+    label: 'AI Apology Award',
     rosterId: 1,
     winner: 'The Burns forecast',
     metric: '8',
     detail: 'Places out · predicted second, currently tenth',
     verdict:
       'The AI gave six straight playoff appearances plenty of credit. Burns has seven weeks left to make that look less generous.',
+  },
+  {
+    id: 'schedule',
+    label: 'Schedule Solicitor',
+    rosterId: 12,
+    winner: 'Aidan Murphy',
+    metric: '47–30',
+    detail: 'Third in all-play · seventh in the table',
+    verdict:
+      'The complaint comes with evidence. Six straight weeks above 114 points and a losing record. The fixture list has been called as a witness.',
+  },
+  {
+    id: 'escape',
+    label: 'Get Away With It',
+    rosterId: 11,
+    winner: 'David Sharpe',
+    metric: '4–3',
+    detail: 'Sixth in the table · last in points and all-play',
+    verdict:
+      'Four wins. Last in points. Please collect your award before the statisticians arrive.',
   },
 ] as const;

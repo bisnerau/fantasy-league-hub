@@ -118,6 +118,8 @@ export function useHalftimeBallots(
     ).values(),
   ];
   return {
+    ownRosterId:
+      state.profiles.find((p) => p.id === state.userId)?.roster_id ?? null,
     status: state.status,
     insights: halftimeForecastInsights(valid, state.profiles, teams),
     count: valid.length,

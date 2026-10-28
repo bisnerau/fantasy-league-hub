@@ -33,7 +33,8 @@ import { useHalftimeBallots } from './use-halftime-ballots';
 import { TransactionDesk, TeamActivity } from './transaction-desk';
 import { ManagerReceipts } from './manager-receipts';
 import { saveReportCard } from './save-report-card';
-import { halftimeHonours } from '@/lib/data/halftime/publication';
+import { AwardsStage } from './awards-stage';
+import { RugbyReveal } from './rugby-reveal';
 
 const two = (n: number) => String(n).padStart(2, '0');
 const chapters = [
@@ -106,8 +107,11 @@ function SectionTitle({
 
 export function HalftimeShow({ report }: { report: HalftimeReport }) {
   const root = useRef<HTMLDivElement>(null);
+  const rugbyTarget = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const [selected, setSelected] = useState<HalftimeTeam | null>(null);
+  const [rugbyEntry, setRugbyEntry] = useState(false);
+  const [rugbyManager, setRugbyManager] = useState<number | null>(null);
   const [chapter, setChapter] = useState('replay');
   const [actual, setActual] = useState(false);
   const [phase, setPhase] = useState<'idle' | 'set' | 'move' | 'spotlight'>(
@@ -239,7 +243,11 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
   }
   function morphReport(next: HalftimeTeam | null) {
     transition.current?.skipTransition();
-    if (!document.startViewTransition || !motionAllowed()) {
+    if (
+      !document.startViewTransition ||
+      !motionAllowed() ||
+      !opener.current?.matches('.ht-team-card')
+    ) {
       setSelected(next);
       return;
     }
@@ -257,7 +265,8 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
         transition.current = null;
       });
   }
-  function openTeam(team: HalftimeTeam, target: HTMLElement) {
+  function openTeam(team: HalftimeTeam, target: HTMLElement, rugby = false) {
+    setRugbyEntry(rugby);
     opener.current?.removeAttribute('data-ht-origin');
     opener.current = target;
     setExportState('idle');
@@ -706,6 +715,49 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
           title="Everybody gets a report."
           detail="The record, the reality and the original receipt. Pick a manager to open their halftime dossier."
         />
+        <div className="ht-rugby-feature">
+          <div>
+            <span className="ht-eyebrow">THEN IN BLUE. NOW IN GREEN.</span>
+            <h3>Find your Ireland alter ego.</h3>
+            <p>The draft-night comparison gets its halfway review.</p>
+          </div>
+          <div className="ht-rugby-feature-actions">
+            <label>
+              CHOOSE A MANAGER
+              <select
+                value={
+                  rugbyManager ?? ballots.ownRosterId ?? followed ?? teams[0].id
+                }
+                onChange={(e) => setRugbyManager(Number(e.target.value))}
+              >
+                {teams.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="button"
+              onClick={(e) =>
+                openTeam(
+                  teams.find(
+                    (t) =>
+                      t.id ===
+                      (rugbyManager ??
+                        ballots.ownRosterId ??
+                        followed ??
+                        teams[0].id),
+                  ) ?? teams[0],
+                  e.currentTarget,
+                  true,
+                )
+              }
+            >
+              Reveal the comparison <ArrowUpRight size={18} />
+            </button>
+          </div>
+        </div>
         <div className="ht-team-tools">
           <label>
             FIND YOUR TEAM
@@ -938,36 +990,14 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
           number="06"
           label="THE HALFTIME HONOURS"
           title="Take a bow. Or take the blame."
-          detail="Three first-half verdicts. The final awards still have seven regular-season weeks to wait."
+          detail="Mackorcle has five envelopes. You control the ceremony. Pick an award, roll the presentation and inspect the evidence."
         />
-        <div className="ht-honours-grid">
-          {halftimeHonours.map((award, i) => (
-            <button
-              type="button"
-              key={award.id}
-              className="ht-honour"
-              onClick={(e) =>
-                openTeam(
-                  teams.find((t) => t.id === award.rosterId)!,
-                  e.currentTarget,
-                )
-              }
-            >
-              <span className="ht-honour-top">
-                <Trophy size={20} />
-                <span>0{i + 1}</span>
-              </span>
-              <span className="ht-eyebrow">{award.label}</span>
-              <strong className="ht-honour-metric">{award.metric}</strong>
-              <h3>{award.winner}</h3>
-              <span className="ht-honour-detail">{award.detail}</span>
-              <p>{award.verdict}</p>
-              <span className="ht-honour-link">
-                Read the evidence <ArrowUpRight size={17} />
-              </span>
-            </button>
-          ))}
-        </div>
+        <AwardsStage
+          awards={report.honours}
+          teams={teams}
+          paused={motionPaused}
+          onOpenTeam={openTeam}
+        />
       </section>
 
       <footer className="ht-footer">
@@ -1009,6 +1039,10 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
 
       <Dialog
         open={Boolean(selected)}
+        onOpenChangeComplete={(open) => {
+          if (open && rugbyEntry)
+            rugbyTarget.current?.scrollIntoView({ block: 'start' });
+        }}
         onOpenChange={(open) => {
           if (!open) morphReport(null);
         }}
@@ -1017,6 +1051,7 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
           className={`ht-dialog ${motionPaused ? 'ht-motion-paused' : ''}`}
           showCloseButton={false}
           finalFocus={opener}
+          initialFocus={rugbyEntry ? rugbyTarget : undefined}
           style={{ viewTransitionName: selected ? 'ht-dossier' : 'none' }}
         >
           {selected && (
@@ -1067,6 +1102,14 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
               </div>
               <div className="ht-dossier-story">
                 <p>{selected.review}</p>
+              </div>
+              <div ref={rugbyTarget} tabIndex={-1}>
+                <RugbyReveal
+                  key={selected.id}
+                  team={selected}
+                  paused={motionPaused}
+                  startRevealed={rugbyEntry}
+                />
               </div>
               <div className="ht-dossier-chart">
                 <div>

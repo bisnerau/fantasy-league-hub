@@ -61,7 +61,12 @@ test('the report API verifies identity and restricts data to the commissioner', 
   expect(await access.json()).toEqual({ allowed: true });
   const report = await request.get('/api/halftime-preview', { headers });
   expect(report.status()).toBe(200);
-  expect((await report.json()).report.teams).toHaveLength(12);
+  const content = (await report.json()).report;
+  expect(content.teams).toHaveLength(12);
+  expect(content.honours).toHaveLength(5);
+  expect(
+    content.teams.find((team: { id: number }) => team.id === 4).rugby.player,
+  ).toBe('Jacob Stockdale');
   expect(report.headers()['cache-control']).toBe('private, no-store');
   expect(report.headers()['vary']).toContain('Authorization');
   const anonymous = await request.get('/api/halftime-preview');

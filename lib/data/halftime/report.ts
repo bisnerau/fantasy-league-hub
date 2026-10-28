@@ -1,5 +1,7 @@
 import snapshot from './snapshot.json';
 import activity from './activity.json';
+import { halftimeRugby } from './rugby';
+import { halftimeAwards } from './awards';
 import type { HalftimeActivity } from '@/lib/season/halftime-ledger';
 
 // Editorial checkpoint: first seven weeks only. Original forecasts are copied
@@ -104,8 +106,13 @@ const reports: Record<
 
 export const halftimeReport = {
   ...snapshot,
+  honours: halftimeAwards,
   activity: activity as HalftimeActivity,
-  teams: snapshot.teams.map((team) => ({ ...team, ...reports[team.id] })),
+  teams: snapshot.teams.map((team) => ({
+    ...team,
+    ...reports[team.id],
+    rugby: halftimeRugby[team.id],
+  })),
 };
 export type HalftimeTeam = (typeof halftimeReport.teams)[number];
 export type HalftimeReport = typeof halftimeReport;

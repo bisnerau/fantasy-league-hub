@@ -3896,3 +3896,787 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
 .halftime[data-motion='paused'] .ht-honour:hover {
   translate: none;
 }
+
+/* Halftime ceremony */
+.ht-ceremony {
+  --stage-gold: #eac784;
+  background: #100e12;
+  border: 1px solid #665539;
+  color: #f7f0e4;
+}
+.ht-stage-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 22px;
+  border-bottom: 1px solid #655138;
+  color: #d9bd8b;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.15em;
+}
+.ht-stage-topline span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ht-stage-topline i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d8b678;
+}
+.ht-stage-scene {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: end;
+  min-height: 510px;
+  padding: 48px 36px 85px;
+  background:
+    radial-gradient(ellipse at 70% 35%, #5b3e253d, transparent 65%),
+    linear-gradient(130deg, #1b1620, #111015 65%);
+}
+.ht-stage-architecture {
+  position: absolute;
+  inset: 16px 3% 45px;
+  z-index: -1;
+  border: 1px solid #a27f4445;
+  box-shadow:
+    inset 0 0 0 9px #151218,
+    inset 0 0 0 10px #a27f4426;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 52px,
+    #d7a85f0b 53px,
+    transparent 54px
+  );
+}
+.ht-stage-beam {
+  position: absolute;
+  top: -60px;
+  width: 38%;
+  height: 640px;
+  transform-origin: top center;
+  pointer-events: none;
+  background: linear-gradient(#ffe2a966, #e9b96b09 85%, transparent);
+  clip-path: polygon(47% 0, 53% 0, 100% 100%, 0 100%);
+  z-index: -1;
+}
+.ht-stage-beam-left {
+  left: 12%;
+}
+.ht-stage-beam-right {
+  right: 8%;
+}
+.ht-stage-host {
+  position: relative;
+  align-self: end;
+  margin: 0 -45px -20px -20px;
+  z-index: 2;
+}
+.ht-stage-host img {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+.ht-stage-podium {
+  position: relative;
+  z-index: 2;
+  margin: -19% 25% 0 15%;
+  min-height: 106px;
+  padding: 16px 8px 10px;
+  text-align: center;
+  background: linear-gradient(110deg, #241d25, #121117 80%);
+  border: 1px solid #b69453;
+  border-top: 5px solid #dfbe7e;
+  box-shadow: 0 12px 32px #0008;
+}
+.ht-stage-podium > span {
+  font-size: 27px;
+  font-weight: 950;
+  letter-spacing: -0.07em;
+}
+.ht-stage-podium > span > span {
+  color: var(--stage-gold);
+}
+.ht-stage-podium small {
+  display: block;
+  font:
+    7px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.16em;
+  color: #b8aa93;
+}
+.ht-stage-podium b {
+  display: block;
+  margin-top: 13px;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.2em;
+  color: var(--stage-gold);
+}
+.ht-stage-screen {
+  position: relative;
+  z-index: 3;
+  align-self: center;
+  min-width: 0;
+  min-height: 360px;
+  border: 1px solid #bd965a;
+  background:
+    radial-gradient(ellipse at center, #342a1b77, transparent 80%), #151319;
+  box-shadow:
+    0 0 0 5px #100f13,
+    0 0 0 6px #6d573a,
+    0 24px 55px #0008;
+}
+.ht-stage-screen-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 13px 18px;
+  font:
+    8px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.12em;
+  color: #d1b581;
+  border-bottom: 1px solid #b18a4535;
+}
+.ht-stage-content {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+.ht-stage-kicker {
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.13em;
+  line-height: 1.7;
+  text-transform: uppercase;
+  color: #dfc18c;
+}
+.ht-stage-content h3 {
+  font-size: clamp(24px, 3.1vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  margin: 12px 0;
+  text-wrap: balance;
+}
+.ht-stage-content p {
+  max-width: 410px;
+  color: #bfb7a9;
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 6px 0;
+}
+.ht-stage-seal {
+  border: 1px solid #a68b54;
+  border-radius: 50%;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  color: #e5c17c;
+  margin: 12px 0;
+  box-shadow: 0 0 0 5px #d4b56e09;
+}
+.ht-winner-metric {
+  color: #f1d299;
+  font-size: clamp(48px, 6vw, 78px);
+  letter-spacing: -0.06em;
+  font-weight: 850;
+  line-height: 1;
+  margin-top: 16px;
+}
+.ht-stage-content .ht-winner-detail {
+  color: #ead5b0;
+  font-size: 11px;
+}
+.ht-stage-evidence {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #f2d7a2;
+  margin-top: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid #a88b57;
+}
+.ht-stage-nominees {
+  width: 100%;
+  text-align: left;
+  margin-top: 16px;
+}
+.ht-stage-nominees > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid #b18a4535;
+}
+.ht-stage-nominees > div > span {
+  color: #b89961;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+}
+.ht-stage-nominees strong {
+  font-size: 13px;
+  display: block;
+}
+.ht-stage-nominees small {
+  font-size: 10px;
+  color: #bfb7a9;
+  display: block;
+  margin-top: 3px;
+}
+.ht-envelope {
+  position: relative;
+  width: 160px;
+  height: 100px;
+  background: linear-gradient(135deg, #f0d798, #b78b40);
+  margin: 55px 0 25px;
+  perspective: 600px;
+  box-shadow: 0 16px 30px #0005;
+}
+.ht-envelope > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #483718;
+  font:
+    14px var(--font-geist-mono),
+    monospace;
+  z-index: 3;
+  background:
+    linear-gradient(28deg, #c99d56 49%, transparent 50%),
+    linear-gradient(-28deg, #d4ad68 49%, transparent 50%);
+}
+.ht-envelope-flap {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 55px;
+  background: #e0bc73;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  z-index: 4;
+}
+.ht-envelope-card {
+  position: absolute;
+  inset: 8px 10px;
+  background: #faf0d8;
+  display: grid;
+  place-items: center;
+  color: #987335;
+}
+.ht-stage-floor {
+  position: absolute;
+  inset: auto 0 0;
+  height: 80px;
+  border-top: 1px solid #c09c5d66;
+  background: repeating-linear-gradient(
+    0deg,
+    #251d2099 0 17px,
+    #80633e55 18px,
+    #131016 19px 23px
+  );
+  z-index: 1;
+}
+.ht-stage-audience {
+  position: absolute;
+  bottom: -25px;
+  left: -2%;
+  width: 104%;
+  height: 60px;
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
+  z-index: 4;
+  pointer-events: none;
+}
+.ht-stage-audience i {
+  display: block;
+  width: 6%;
+  height: 45px;
+  border-radius: 45% 45% 0 0;
+  background: #09080b;
+  position: relative;
+}
+.ht-stage-audience i:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 24px;
+  height: 27px;
+  border-radius: 50%;
+  left: calc(50% - 12px);
+  top: -17px;
+  background: #09080b;
+}
+.ht-stage-audience i:nth-child(3n) {
+  height: 34px;
+}
+.ht-stage-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 20px 24px;
+  border-top: 1px solid #5d4930;
+}
+.ht-stage-controls > span {
+  color: #ae9f86;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+  margin-right: auto;
+}
+.ht-stage-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  min-height: 42px;
+  font-size: 11px;
+  border: 1px solid #645238;
+}
+.ht-stage-controls .ht-stage-present {
+  color: #17130f;
+  background: #e6c58b;
+  border-color: #e6c58b;
+  font-weight: 700;
+}
+.ht-award-programme {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid #5d4930;
+}
+.ht-award-programme button {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  padding: 17px 12px;
+  border-right: 1px solid #5d4930;
+  color: #b6ab97;
+  min-height: 73px;
+}
+.ht-award-programme button:last-child {
+  border-right: 0;
+}
+.ht-award-programme button[aria-pressed='true'] {
+  background: #d6b17318;
+  color: #f0d59f;
+  box-shadow: inset 0 2px #e6c58b;
+}
+.ht-award-programme strong {
+  font-size: 11px;
+  font-weight: 600;
+  flex: 1;
+}
+.ht-award-programme span {
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+}
+.ht-award-programme svg {
+  flex-shrink: 0;
+}
+.ht-award-results {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: #5d4930;
+  border-top: 1px solid #5d4930;
+}
+.ht-award-results button {
+  display: grid;
+  text-align: left;
+  position: relative;
+  gap: 6px;
+  padding: 20px 32px 20px 20px;
+  background: #18151b;
+}
+.ht-award-results span {
+  font-size: 10px;
+  color: #c5a975;
+}
+.ht-award-results strong {
+  font-size: 18px;
+}
+.ht-award-results small {
+  color: #bab1a2;
+  font-size: 11px;
+}
+.ht-award-results svg {
+  position: absolute;
+  right: 12px;
+  top: 20px;
+}
+.ht-stage-footnote {
+  color: #ab9f8c;
+  font-size: 10px;
+  line-height: 1.7;
+  padding: 15px 24px;
+  border-top: 1px solid #5d4930;
+}
+
+/* Ireland comparisons */
+.ht-rugby-feature {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 26px;
+  border: 1px solid #486955;
+  background: linear-gradient(115deg, #192d43, #183326 80%);
+}
+.ht-rugby-feature h3 {
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  margin: 8px 0;
+}
+.ht-rugby-feature p {
+  font-size: 12px;
+  color: #b7c7be;
+}
+.ht-rugby-feature-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 220px;
+}
+.ht-rugby-feature label {
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.1em;
+  color: #c1d5c8;
+}
+.ht-rugby-feature select {
+  display: block;
+  width: 100%;
+  background: #14251d;
+  padding: 11px;
+  border: 1px solid #5e7c68;
+  font-size: 12px;
+  margin-top: 6px;
+  color: #f4eee0;
+  letter-spacing: 0;
+}
+.ht-rugby-feature button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 12px;
+  color: #e7ce9e;
+}
+.ht-rugby {
+  margin: 28px 0;
+  padding: 24px;
+  background: #111b18;
+  border: 1px solid #47634f;
+  color: #f0eee5;
+  scroll-margin-top: 20px;
+}
+.ht-rugby header h3 {
+  font-size: 28px;
+  font-weight: 750;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 10px 0 22px;
+}
+.ht-rugby header em {
+  font-style: normal;
+  color: #a9d5b1;
+}
+.ht-rugby-reveal {
+  overflow: hidden;
+}
+.ht-rugby-card {
+  min-height: 190px;
+  position: relative;
+  padding: 26px 105px 26px 24px;
+  border: 1px solid #6e8aac;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ht-rugby-blue {
+  background: linear-gradient(120deg, #173555, #122238);
+}
+.ht-rugby-green {
+  background: linear-gradient(120deg, #174631, #122d20);
+  border-color: #689578;
+}
+.ht-rugby-card h4 {
+  font-size: clamp(25px, 4vw, 36px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 12px 0 8px;
+}
+.ht-rugby-card > p {
+  font-size: 11px;
+  color: #d3dfd8;
+  line-height: 1.5;
+}
+.ht-rugby-kit {
+  position: absolute;
+  right: 18px;
+  top: 28px;
+  width: 70px;
+  height: 95px;
+  clip-path: polygon(
+    25% 0,
+    38% 5%,
+    62% 5%,
+    75% 0,
+    100% 20%,
+    85% 40%,
+    77% 33%,
+    77% 100%,
+    23% 100%,
+    23% 33%,
+    15% 40%,
+    0 20%
+  );
+  background: #f5eee01a;
+  text-align: center;
+  padding-top: 28px;
+  color: #e6d3aa;
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+}
+.ht-rugby-kit small {
+  display: block;
+  font-size: 23px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.ht-rugby-status {
+  align-self: start;
+  margin-top: 15px;
+  border: 1px solid #b5cfad55;
+  color: #cce6c6;
+  padding: 4px 7px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.ht-rugby-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 0;
+  color: #e5c17c;
+  font-size: 12px;
+  border-bottom: 1px solid #3c5142;
+  cursor: pointer;
+}
+.ht-rugby-original,
+.ht-rugby-verdict > p,
+.ht-rugby-verdict details p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #bdc8bf;
+  margin-top: 18px;
+}
+.ht-rugby-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+}
+.ht-rugby-evidence span {
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+  background: #a9d5b10d;
+  border: 1px solid #52705b;
+  padding: 8px;
+  color: #c3dfc4;
+}
+.ht-rugby-verdict blockquote {
+  margin: 22px 0;
+  padding-left: 16px;
+  border-left: 2px solid #e5c17c;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+.ht-rugby-verdict summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: #d1d9d2;
+  padding: 8px 0;
+}
+.ht-rugby-verdict > a {
+  display: inline-block;
+  font-size: 10px;
+  color: #e5c17c;
+  margin-top: 12px;
+}
+.ht-rugby-verdict > small {
+  display: block;
+  font-size: 9px;
+  color: #93a397;
+  line-height: 1.6;
+  margin-top: 14px;
+}
+@media (max-width: 760px) {
+  .ht-stage-scene {
+    padding: 28px 20px 280px;
+    grid-template-columns: 1fr;
+    min-height: 700px;
+  }
+  .ht-stage-screen {
+    min-height: 360px;
+  }
+  .ht-stage-content {
+    min-height: 310px;
+    padding: 24px 18px;
+  }
+  .ht-stage-content h3 {
+    font-size: 30px;
+  }
+  .ht-stage-host {
+    position: absolute;
+    width: 250px;
+    left: calc(50% - 140px);
+    bottom: 35px;
+    margin: 0;
+  }
+  .ht-stage-podium {
+    min-height: 70px;
+    padding: 7px;
+  }
+  .ht-stage-podium > span {
+    font-size: 22px;
+  }
+  .ht-stage-podium b {
+    margin-top: 5px;
+    font-size: 8px;
+  }
+  .ht-stage-podium small {
+    font-size: 6px;
+  }
+  .ht-stage-topline {
+    padding: 14px;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+  .ht-stage-topline span:last-child {
+    max-width: 105px;
+    text-align: right;
+  }
+  .ht-stage-controls {
+    padding: 16px;
+  }
+  .ht-stage-controls > span {
+    width: 100%;
+  }
+  .ht-stage-controls button {
+    flex: 1;
+  }
+  .ht-award-programme {
+    grid-template-columns: 1fr;
+  }
+  .ht-award-programme button {
+    min-height: 50px;
+    padding: 14px 18px;
+    border-right: 0;
+    border-bottom: 1px solid #5d4930;
+  }
+  .ht-award-programme strong {
+    font-size: 12px;
+  }
+  .ht-award-programme button[aria-pressed='true'] {
+    box-shadow: inset 3px 0 #e6c58b;
+  }
+  .ht-award-results {
+    grid-template-columns: 1fr;
+  }
+  .ht-stage-footnote {
+    padding: 14px 18px;
+  }
+  .ht-stage-beam {
+    height: 850px;
+    width: 65%;
+  }
+  .ht-rugby-feature {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 22px;
+  }
+  .ht-rugby-feature h3 {
+    font-size: 24px;
+  }
+  .ht-rugby-feature-actions {
+    min-width: 0;
+  }
+  .ht-rugby {
+    padding: 18px;
+  }
+  .ht-rugby-card {
+    padding: 22px 76px 22px 16px;
+  }
+  .ht-rugby-kit {
+    width: 53px;
+    right: 12px;
+    height: 80px;
+  }
+  .ht-rugby-card h4 {
+    font-size: 27px;
+  }
+  .ht-rugby-verdict blockquote {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ht-envelope-flap,
+  .ht-envelope-card {
+    transform: none !important;
+  }
+}
+.ht-dialog-top {
+  position: sticky;
+  top: -28px;
+  z-index: 8;
+  padding: 10px 0;
+  background: #17221b;
+}
+.ht-dialog > div[tabindex='-1'] {
+  scroll-margin-top: 62px;
+  outline: none;
+}
+@media (max-width: 760px) {
+  .ht-dialog-top {
+    top: -17px;
+  }
+}

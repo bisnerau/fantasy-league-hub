@@ -28,7 +28,7 @@ For local work, run `npm run dev -- --host 127.0.0.1 --port 4320`.
 
 The premium sports broadcast includes a prediction replay, twelve team dossiers,
 actual/all-play tables, original AI receipts, authenticated manager comparisons,
-transaction evidence and three halftime honours. Shane is team of the half;
+transaction evidence and five halftime honours. Shane is team of the half;
 Jared Goff has the highest verified pickup starter-point return; the Burns
 forecast is the AI's largest position error. Every honour opens its team report.
 
@@ -59,8 +59,8 @@ OS preference fallback and an on-page pause switch.
 
 ## Design references
 
-Original implementation in the existing site stack; no third-party component
-source was copied and no new animation dependency was installed.
+The initial release used the existing site stack without an animation dependency.
+The awards-stage update below adds Motion; the page components remain original.
 
 - https://github.com/ibelick/motion-primitives — continuity between compact cards
   and focused reports.
@@ -129,3 +129,48 @@ future features. No Week 8 previews are included in this release.
   the shared deterministic Irish formatter to avoid Safari hydration mismatches.
 - The existing production member session confirms six submitted manager
   forecasts. The live report is checked again after deployment.
+
+## Awards stage and rugby review · 28 October 2026
+
+The announcement hold remains in place. The commissioner preview now includes
+Mackorcle’s five-envelope ceremony: Pickup of the half, Schedule Solicitor,
+Get Away With It, AI Apology Award, and Team of the half. Editorial shortlists
+use the frozen checkpoint and verified pickup receipts, not manager votes.
+Each presentation has a nominee sequence, envelope opening and winner reveal,
+with skip, replay, direct award selection and an immediate all-results view.
+Evidence opens the matching dossier and restores focus on close. There is no
+spoken audio. Changing either the OS motion preference or the on-page switch
+finishes an active presentation immediately.
+
+The implementation uses the MIT-licensed Motion package:
+https://github.com/motiondivision/motion. Its official skill and self-contained
+React, CSS-or-Motion and animation best-practice guidance were read from
+https://github.com/motiondivision/ai-kit/tree/main/plugins/motion/skills/motion.
+The stage is original HTML/CSS/React; no paid Motion+ examples were copied.
+Mackorcle’s transparent presenter artwork is derived from the existing v9
+Return of the Mac portrait, saved as `public/images/halftime/mackorcle-awards.png`.
+
+“Then in blue. Now in green.” sits after each first-half review and before the
+second-half question. The blue card preserves the original Leinster comparison
+verbatim; the green reveal contains the agreed Ireland player/era, supporting
+Week 7 statistics, an affectionate roast and historical source where applicable.
+Tommy’s revised reference is Jacob Stockdale in 2019. Retained comparisons are
+labelled honestly rather than inventing a particular international campaign.
+The main-page manager selector defaults to the signed-in profile independently
+of whether that manager submitted a preseason ballot. Rugby editorial is assembled
+server-side with the report and follows the existing commissioner preview gate.
+
+`tests/e2e/halftime-stage.spec.ts` covers full presentation, interruption, skip,
+replay, evidence/focus return, all five winners, rugby reveal/replay, an OS
+preference change, the in-page motion switch, and 320/390/1440px layouts.
+
+Verification: production build and lint pass; all 156 existing unit tests pass.
+Eight Chromium checks pass, covering the ceremony, three viewport sizes and the
+commissioner-only access boundary. The custom motion preference subscription
+handles OS changes made after page load. The direct rugby entry focuses and
+scrolls the comparison; the dossier close control remains sticky while reading.
+
+All five WebKit interaction checks also pass after restricting the shared card
+transition to actual team cards. Award evidence buttons use the normal dialog
+transition. Award shortlists, like rugby copy, are included in the authenticated
+report response rather than embedded in the client component.
