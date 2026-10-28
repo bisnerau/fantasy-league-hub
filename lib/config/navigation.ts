@@ -15,6 +15,7 @@ export const navigation: readonly NavigationItem[] = [
   { label: 'Power rankings', href: '/power-rankings' },
   { label: 'Managers', href: '/managers' },
   { label: 'Awards & Receipts', href: '/season-hub' },
+  { label: 'The Halftime Show', href: '/halftime' },
   { label: 'Wall of shame', href: '/wall-of-shame' },
   { label: 'Draft Report & Season Preview', href: '/draft-recap' },
 ];

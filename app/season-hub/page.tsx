@@ -4,6 +4,7 @@ import { getSeasonHubData } from '@/lib/data/season-hub';
 import { formatIrishTime } from '@/lib/format/irish-time';
 import { awardNames } from '@/lib/season/features';
 import { MemberReceipts } from '@/components/season/member-receipts';
+import { HalftimeFeature } from '@/components/halftime/halftime-feature';
 
 export const metadata: Metadata = {
   title: 'Awards & Receipts',
@@ -15,19 +16,22 @@ export default async function SeasonHubPage() {
   const data = await getSeasonHubData();
   if (!data)
     return (
-      <section className="linear-panel rounded-xl p-5">
-        <h1 className="text-2xl font-semibold">Awards & Receipts</h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          The 2026 league data is unavailable right now. Please try again
-          shortly.
-        </p>
-        <a
-          href="/season-hub"
-          className="mt-3 inline-block text-primary underline"
-        >
-          Retry
-        </a>
-      </section>
+      <div className="space-y-5">
+        <HalftimeFeature />
+        <section className="linear-panel rounded-xl p-5">
+          <h1 className="text-2xl font-semibold">Awards & Receipts</h1>
+          <p className="mt-3 text-sm text-muted-foreground">
+            The 2026 league data is unavailable right now. Please try again
+            shortly.
+          </p>
+          <a
+            href="/season-hub"
+            className="mt-3 inline-block text-primary underline"
+          >
+            Retry
+          </a>
+        </section>
+      </div>
     );
   const name = (id: number) =>
     data.managers.find((m) => m.rosterId === id)?.name ?? `Roster ${id}`;
@@ -87,6 +91,7 @@ export default async function SeasonHubPage() {
           </a>
         </nav>
       </header>
+      <HalftimeFeature />
       <section
         id="weekly-awards"
         className="linear-panel scroll-mt-20 rounded-xl p-4 sm:p-5"

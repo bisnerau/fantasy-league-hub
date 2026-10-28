@@ -34,6 +34,8 @@ import {
   type PredictionWeekData,
 } from '@/lib/data/predictions';
 import { gamesPlayed, getCutLine } from '@/lib/data/standings';
+import { HalftimeFeature } from '@/components/halftime/halftime-feature';
+import { featureHalftime } from '@/lib/data/halftime/publication';
 
 export const dynamic = 'force-dynamic';
 
@@ -125,6 +127,14 @@ export default async function DashboardPage() {
   const macEpisodes = getMacEpisodes();
 
   const candidates: (Section | false | null | undefined)[] = [
+    featureHalftime(
+      predictions.leagueId,
+      predictions.season,
+      predictions.week,
+    ) && {
+      key: 'halftime',
+      node: <HalftimeFeature />,
+    },
     beforeDraft && {
       key: 'draft',
       node: (

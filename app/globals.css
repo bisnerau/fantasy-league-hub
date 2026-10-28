@@ -3216,3 +3216,93 @@ html:has(.bet-slip) {
     filter: none;
   }
 }
+
+/* Published halftime special: a light server-rendered invitation. */
+.halftime-feature {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(24px, 4vw, 40px);
+  background: #213225;
+  border: 1px solid #71815b;
+  color: #f0eee5;
+  position: relative;
+  overflow: hidden;
+}
+.halftime-feature > div:first-child {
+  max-width: 600px;
+}
+.halftime-feature p:first-child {
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.1em;
+  color: #d8c28e;
+}
+.halftime-feature h2 {
+  font-size: clamp(30px, 4vw, 49px);
+  font-weight: 750;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin: 16px 0;
+}
+.halftime-feature h2 > span {
+  color: #e5c17c;
+}
+.halftime-feature-copy {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #bdcbb3;
+}
+.halftime-feature-link {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 22px;
+  color: #e5c17c;
+}
+.halftime-feature-clock {
+  font:
+    100px/1 Impact,
+    sans-serif;
+  letter-spacing: -3px;
+  color: #e5c17c;
+  flex-shrink: 0;
+}
+.halftime-feature-clock > span {
+  font-size: 40px;
+  color: #819572;
+}
+.halftime-feature-clock > small {
+  display: block;
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.12em;
+  color: #b7c9a8;
+  margin-top: 10px;
+}
+.halftime-feature:hover {
+  border-color: #e5c17c;
+}
+.halftime-feature:focus-visible {
+  outline: 2px solid #e5c17c;
+  outline-offset: 5px;
+}
+@media (max-width: 639px) {
+  .halftime-feature {
+    gap: 20px;
+  }
+  .halftime-feature-clock {
+    display: none;
+  }
+  .halftime-feature p:first-child {
+    font-size: 9px;
+  }
+  .halftime-feature-copy {
+    font-size: 13px;
+  }
+}

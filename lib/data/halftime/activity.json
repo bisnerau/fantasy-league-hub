@@ -1,0 +1,6412 @@
+{
+  "retrievedAt": "2026-10-28T12:20:20.462Z",
+  "cutoff": "2026-10-27T00:00:00.000Z",
+  "teams": [
+    {
+      "rosterId": 1,
+      "total": 805.54,
+      "categories": {
+        "drafted": 631.2,
+        "pickups": 174.34,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 26,
+      "faab": 66,
+      "pickupPoints": 174.34,
+      "pickupStarts": 19,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1408020776501731328:12545",
+        "title": "Tyler Shough",
+        "points": 80.52,
+        "acquired": 1790147673097,
+        "cost": 15,
+        "starts": 4,
+        "weeks": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 2,
+      "total": 795.98,
+      "categories": {
+        "drafted": 644,
+        "pickups": 143.98,
+        "trades": 0,
+        "unassigned": 8
+      },
+      "additions": 20,
+      "faab": 56,
+      "pickupPoints": 143.98,
+      "pickupStarts": 18,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1408388546452049920:12185",
+        "title": "Spencer Shrader",
+        "points": 63,
+        "acquired": 1790148505370,
+        "cost": 0,
+        "starts": 5,
+        "weeks": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 3,
+      "total": 792.64,
+      "categories": {
+        "drafted": 630.96,
+        "pickups": 158.28,
+        "trades": 0,
+        "unassigned": 3.4
+      },
+      "additions": 20,
+      "faab": 53,
+      "pickupPoints": null,
+      "pickupStarts": 16,
+      "incompleteReturns": 1,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1408348249407918080:3163",
+        "title": "Jared Goff",
+        "points": 86.8,
+        "acquired": 1790147673097,
+        "cost": 5,
+        "starts": 4,
+        "weeks": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 4,
+      "total": 739.72,
+      "categories": {
+        "drafted": 649.62,
+        "pickups": 66.1,
+        "trades": 0,
+        "unassigned": 24
+      },
+      "additions": 15,
+      "faab": 39,
+      "pickupPoints": 66.1,
+      "pickupStarts": 10,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1407783717656649728:13346",
+        "title": "Denzel Boston",
+        "points": 26.7,
+        "acquired": 1790147673097,
+        "cost": 16,
+        "starts": 3,
+        "weeks": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 5,
+      "total": 866.78,
+      "categories": {
+        "drafted": 763.56,
+        "pickups": 98.62,
+        "trades": 0,
+        "unassigned": 4.6
+      },
+      "additions": 9,
+      "faab": 33,
+      "pickupPoints": 98.62,
+      "pickupStarts": 9,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1409142991393697792:9228",
+        "title": "Bryce Young",
+        "points": 40.52,
+        "acquired": 1790333700079,
+        "cost": 0,
+        "starts": 3,
+        "weeks": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 6,
+      "total": 936.68,
+      "categories": {
+        "drafted": 878.92,
+        "pickups": 57.76,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 11,
+      "faab": 12,
+      "pickupPoints": 57.76,
+      "pickupStarts": 7,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1405858138598486016:NE",
+        "title": "Patriots",
+        "points": 21,
+        "acquired": 1789545209124,
+        "cost": 0,
+        "starts": 1,
+        "weeks": [
+          2
+        ]
+      }
+    },
+    {
+      "rosterId": 7,
+      "total": 814.6,
+      "categories": {
+        "drafted": 572.8,
+        "pickups": 241.8,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 18,
+      "faab": 48,
+      "pickupPoints": 241.8,
+      "pickupStarts": 21,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1405795730924249088:11576",
+        "title": "Braelon Allen",
+        "points": 59.1,
+        "acquired": 1789542912584,
+        "cost": 2,
+        "starts": 4,
+        "weeks": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 8,
+      "total": 777.76,
+      "categories": {
+        "drafted": 681.64,
+        "pickups": 96.12,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 12,
+      "faab": 60,
+      "pickupPoints": 96.12,
+      "pickupStarts": 13,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1403509839224741888:5012",
+        "title": "Mark Andrews",
+        "points": 19.8,
+        "acquired": 1788985330925,
+        "cost": 0,
+        "starts": 2,
+        "weeks": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "rosterId": 9,
+      "total": 835.08,
+      "categories": {
+        "drafted": 754.18,
+        "pickups": 80.9,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 9,
+      "faab": 26,
+      "pickupPoints": 80.9,
+      "pickupStarts": 12,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1408842151571279872:6083",
+        "title": "Matt Gay",
+        "points": 50,
+        "acquired": 1790256653257,
+        "cost": 0,
+        "starts": 5,
+        "weeks": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 10,
+      "total": 973.88,
+      "categories": {
+        "drafted": 862.44,
+        "pickups": 111.44,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 4,
+      "faab": 13,
+      "pickupPoints": 111.44,
+      "pickupStarts": 9,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1411343557771489280:9758",
+        "title": "C.J. Stroud",
+        "points": 60.44,
+        "acquired": 1790853034969,
+        "cost": 0,
+        "starts": 3,
+        "weeks": [
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 11,
+      "total": 693.16,
+      "categories": {
+        "drafted": 582.48,
+        "pickups": 110.68,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 14,
+      "faab": 23,
+      "pickupPoints": 110.68,
+      "pickupStarts": 11,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1417575397343703040:3214",
+        "title": "Hunter Henry",
+        "points": 28.9,
+        "acquired": 1792338821305,
+        "cost": 0,
+        "starts": 2,
+        "weeks": [
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "rosterId": 12,
+      "total": 830.04,
+      "categories": {
+        "drafted": 649.84,
+        "pickups": 180.2,
+        "trades": 0,
+        "unassigned": 0
+      },
+      "additions": 11,
+      "faab": 38,
+      "pickupPoints": 180.2,
+      "pickupStarts": 16,
+      "incompleteReturns": 0,
+      "definingMove": {
+        "kind": "pickup",
+        "id": "1408258082126999552:MIN",
+        "title": "Vikings",
+        "points": 46,
+        "acquired": 1790147673097,
+        "cost": 1,
+        "starts": 4,
+        "weeks": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    }
+  ],
+  "pickups": [
+    {
+      "id": "1420168798966755328:8129",
+      "transactionId": "1420168798966755328",
+      "rosterId": 3,
+      "player": "Dameon Pierce",
+      "playerId": "8129",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792957136435,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1420108655705034752:CIN",
+      "transactionId": "1420108655705034752",
+      "rosterId": 4,
+      "player": "Bengals",
+      "playerId": "CIN",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792942797164,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1420108405632192512:8676",
+      "transactionId": "1420108405632192512",
+      "rosterId": 4,
+      "player": "Rashid Shaheed",
+      "playerId": "8676",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792942737543,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1420082416952885248:13296",
+      "transactionId": "1420082416952885248",
+      "rosterId": 2,
+      "player": "Caleb Douglas",
+      "playerId": "13296",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792936541358,
+      "cost": 0,
+      "points": 21,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 21,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1419988821105258496:KC",
+      "transactionId": "1419988821105258496",
+      "rosterId": 3,
+      "player": "Chiefs",
+      "playerId": "KC",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792914226370,
+      "cost": 0,
+      "points": 3,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 3,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1419247146221203456:5012",
+      "transactionId": "1419247146221203456",
+      "rosterId": 3,
+      "player": "Mark Andrews",
+      "playerId": "5012",
+      "type": "waiver",
+      "week": 7,
+      "acquired": 1792906484401,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1419465424164200448:2197",
+      "transactionId": "1419465424164200448",
+      "rosterId": 6,
+      "player": "Brandin Cooks",
+      "playerId": "2197",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792789438815,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1419299424047280128:13424",
+      "transactionId": "1419299424047280128",
+      "rosterId": 1,
+      "player": "Seth McGowan",
+      "playerId": "13424",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792749861303,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418619404320620544:12506",
+      "transactionId": "1418619404320620544",
+      "rosterId": 9,
+      "player": "Harold Fannin Jr.",
+      "playerId": "12506",
+      "type": "waiver",
+      "week": 7,
+      "acquired": 1792736699061,
+      "cost": 2,
+      "points": 13.1,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 13.1,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418925713695772672:11435",
+      "transactionId": "1418925713695772672",
+      "rosterId": 11,
+      "player": "Emanuel Wilson",
+      "playerId": "11435",
+      "type": "waiver",
+      "week": 7,
+      "acquired": 1792736699061,
+      "cost": 15,
+      "points": 18.5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 18.5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1419212910604922880:3271",
+      "transactionId": "1419212910604922880",
+      "rosterId": 2,
+      "player": "Tyler Higbee",
+      "playerId": "3271",
+      "type": "waiver",
+      "week": 7,
+      "acquired": 1792736699061,
+      "cost": 6,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1419121288462553088:12718",
+      "transactionId": "1419121288462553088",
+      "rosterId": 3,
+      "player": "Konata Mumpfield",
+      "playerId": "12718",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792707390470,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1419088487352631296:8122",
+      "transactionId": "1419088487352631296",
+      "rosterId": 8,
+      "player": "Zonovan Knight",
+      "playerId": "8122",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792699570076,
+      "cost": 0,
+      "points": 9.3,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 9.3,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418390275071496192:7600",
+      "transactionId": "1418390275071496192",
+      "rosterId": 12,
+      "player": "Pat Freiermuth",
+      "playerId": "7600",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792661735225,
+      "cost": 1,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418758142371561472:5872",
+      "transactionId": "1418758142371561472",
+      "rosterId": 5,
+      "player": "Deebo Samuel Sr.",
+      "playerId": "5872",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792620809694,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418680839516024832:7553",
+      "transactionId": "1418680839516024832",
+      "rosterId": 4,
+      "player": "Kyle Pitts Sr.",
+      "playerId": "7553",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792602379257,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418536052359983104:11539",
+      "transactionId": "1418536052359983104",
+      "rosterId": 8,
+      "player": "Jake Bates",
+      "playerId": "11539",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792567859309,
+      "cost": 0,
+      "points": 8,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418532990375538688:TEN",
+      "transactionId": "1418532990375538688",
+      "rosterId": 6,
+      "player": "Titans",
+      "playerId": "TEN",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792567129276,
+      "cost": 0,
+      "points": 5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418532887187230720:11783",
+      "transactionId": "1418532887187230720",
+      "rosterId": 6,
+      "player": "Ryan Flournoy",
+      "playerId": "11783",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792567104673,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1418532833034596352:11655",
+      "transactionId": "1418532833034596352",
+      "rosterId": 7,
+      "player": "Tyrone Tracy Jr.",
+      "playerId": "11655",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792567091762,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418532668630409216:13545",
+      "transactionId": "1418532668630409216",
+      "rosterId": 7,
+      "player": "Trey Smack",
+      "playerId": "13545",
+      "type": "free_agent",
+      "week": 7,
+      "acquired": 1792567052566,
+      "cost": 0,
+      "points": 5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418018332317106176:11439",
+      "transactionId": "1418018332317106176",
+      "rosterId": 10,
+      "player": "Jaleel McLaughlin",
+      "playerId": "11439",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 8,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1418161837282721792:CLE",
+      "transactionId": "1418161837282721792",
+      "rosterId": 1,
+      "player": "Browns",
+      "playerId": "CLE",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 5,
+      "points": 5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418169914786689024:9501",
+      "transactionId": "1418169914786689024",
+      "rosterId": 8,
+      "player": "DeMario Douglas",
+      "playerId": "9501",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 19,
+      "points": 5.3,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 5.3,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418191710860681216:96",
+      "transactionId": "1418191710860681216",
+      "rosterId": 2,
+      "player": "Aaron Rodgers",
+      "playerId": "96",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 0,
+      "points": 13.08,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 13.08,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418220003395682304:DAL",
+      "transactionId": "1418220003395682304",
+      "rosterId": 7,
+      "player": "Cowboys",
+      "playerId": "DAL",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 0,
+      "points": 4,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418220093837492224:11563",
+      "transactionId": "1418220093837492224",
+      "rosterId": 7,
+      "player": "Bo Nix",
+      "playerId": "11563",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 4,
+      "points": 26.18,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 26.18,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418248844679852032:5012",
+      "transactionId": "1418248844679852032",
+      "rosterId": 9,
+      "player": "Mark Andrews",
+      "playerId": "5012",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 2,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1418383436430716928:4892",
+      "transactionId": "1418383436430716928",
+      "rosterId": 1,
+      "player": "Baker Mayfield",
+      "playerId": "4892",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418383698679562240:13276",
+      "transactionId": "1418383698679562240",
+      "rosterId": 12,
+      "player": "Omar Cooper Jr.",
+      "playerId": "13276",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 18,
+      "points": 22.5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 22.5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418387144547880960:5844",
+      "transactionId": "1418387144547880960",
+      "rosterId": 12,
+      "player": "T.J. Hockenson",
+      "playerId": "5844",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 7,
+      "points": 13.5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 13.5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418392162655059968:NYJ",
+      "transactionId": "1418392162655059968",
+      "rosterId": 11,
+      "player": "Jets",
+      "playerId": "NYJ",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 2,
+      "points": 1,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418398833506840576:7839",
+      "transactionId": "1418398833506840576",
+      "rosterId": 5,
+      "player": "Evan McPherson",
+      "playerId": "7839",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 3,
+      "points": 5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418399562703347712:13305",
+      "transactionId": "1418399562703347712",
+      "rosterId": 5,
+      "player": "Mike Washington Jr.",
+      "playerId": "13305",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 6,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418399851242172416:12536",
+      "transactionId": "1418399851242172416",
+      "rosterId": 5,
+      "player": "Jaylin Noel",
+      "playerId": "12536",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 7,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1418516169878425600:12487",
+      "transactionId": "1418516169878425600",
+      "rosterId": 3,
+      "player": "Terrance Ferguson",
+      "playerId": "12487",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 12,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1418516435398914048:4950",
+      "transactionId": "1418516435398914048",
+      "rosterId": 3,
+      "player": "Christian Kirk",
+      "playerId": "4950",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792566931814,
+      "cost": 7,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1417696546702606336:8136",
+      "transactionId": "1417696546702606336",
+      "rosterId": 7,
+      "player": "Rachaad White",
+      "playerId": "8136",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792367705563,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1417611809849921536:2197",
+      "transactionId": "1417611809849921536",
+      "rosterId": 2,
+      "player": "Brandin Cooks",
+      "playerId": "2197",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792347502723,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1417611037582127104:11783",
+      "transactionId": "1417611037582127104",
+      "rosterId": 2,
+      "player": "Ryan Flournoy",
+      "playerId": "11783",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792347318600,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1417575397343703040:3214",
+      "transactionId": "1417575397343703040",
+      "rosterId": 11,
+      "player": "Hunter Henry",
+      "playerId": "3214",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792338821305,
+      "cost": 0,
+      "points": 28.9,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 14.8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 14.1,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1417511161078779904:4454",
+      "transactionId": "1417511161078779904",
+      "rosterId": 1,
+      "player": "Kendrick Bourne",
+      "playerId": "4454",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792323506186,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1417499898818859008:2306",
+      "transactionId": "1417499898818859008",
+      "rosterId": 3,
+      "player": "Jameis Winston",
+      "playerId": "2306",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792320821054,
+      "cost": 0,
+      "points": 6.48,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 6.48,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1417498992379457536:5012",
+      "transactionId": "1417498992379457536",
+      "rosterId": 7,
+      "player": "Mark Andrews",
+      "playerId": "5012",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792320604943,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1417495191815757824:8142",
+      "transactionId": "1417495191815757824",
+      "rosterId": 3,
+      "player": "Alec Pierce",
+      "playerId": "8142",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792319698817,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1417462974402121728:9757",
+      "transactionId": "1417462974402121728",
+      "rosterId": 2,
+      "player": "Kendre Miller",
+      "playerId": "9757",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792312017587,
+      "cost": 0,
+      "points": 9,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1417400478580355072:8136",
+      "transactionId": "1417400478580355072",
+      "rosterId": 7,
+      "player": "Rachaad White",
+      "playerId": "8136",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792297117422,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1416751720138113024:11439",
+      "transactionId": "1416751720138113024",
+      "rosterId": 2,
+      "player": "Jaleel McLaughlin",
+      "playerId": "11439",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1792142441356,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1416575760356909056:1166",
+      "transactionId": "1416575760356909056",
+      "rosterId": 7,
+      "player": "Kirk Cousins",
+      "playerId": "1166",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792131905803,
+      "cost": 6,
+      "points": 18.52,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 18.52,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1416675343204438016:8132",
+      "transactionId": "1416675343204438016",
+      "rosterId": 3,
+      "player": "Tyler Allgeier",
+      "playerId": "8132",
+      "type": "waiver",
+      "week": 6,
+      "acquired": 1792131905803,
+      "cost": 10,
+      "points": 5.8,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 5.8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1416048921301520384:PHI",
+      "transactionId": "1416048921301520384",
+      "rosterId": 11,
+      "player": "Eagles",
+      "playerId": "PHI",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1791974881056,
+      "cost": 0,
+      "points": 2,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 2,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1416048070017236992:CAR",
+      "transactionId": "1416048070017236992",
+      "rosterId": 9,
+      "player": "Panthers",
+      "playerId": "CAR",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1791974678095,
+      "cost": 0,
+      "points": 0,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": -4,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1415998266931257344:SF",
+      "transactionId": "1415998266931257344",
+      "rosterId": 8,
+      "player": "49ers",
+      "playerId": "SF",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1791962804113,
+      "cost": 0,
+      "points": 4,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": -1,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1415997719939407872:11647",
+      "transactionId": "1415997719939407872",
+      "rosterId": 8,
+      "player": "Kimani Vidal",
+      "playerId": "11647",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1791962673701,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415995971371876352:1945",
+      "transactionId": "1415995971371876352",
+      "rosterId": 5,
+      "player": "Chris Boswell",
+      "playerId": "1945",
+      "type": "free_agent",
+      "week": 6,
+      "acquired": 1791962256809,
+      "cost": 0,
+      "points": 18,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 18,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414790675895001088:8154",
+      "transactionId": "1414790675895001088",
+      "rosterId": 5,
+      "player": "Brian Robinson Jr.",
+      "playerId": "8154",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 3,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1415397385135255552:96",
+      "transactionId": "1415397385135255552",
+      "rosterId": 2,
+      "player": "Aaron Rodgers",
+      "playerId": "96",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 4,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415436674195877888:SEA",
+      "transactionId": "1415436674195877888",
+      "rosterId": 4,
+      "player": "Seahawks",
+      "playerId": "SEA",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 1,
+      "points": 3,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 3,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415497706196959232:NE",
+      "transactionId": "1415497706196959232",
+      "rosterId": 1,
+      "player": "Patriots",
+      "playerId": "NE",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 5,
+      "points": 6,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415625643969843200:4227",
+      "transactionId": "1415625643969843200",
+      "rosterId": 1,
+      "player": "Harrison Butker",
+      "playerId": "4227",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 3,
+      "points": 17,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 12,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1415674292582051840:9508",
+      "transactionId": "1415674292582051840",
+      "rosterId": 11,
+      "player": "Tyjae Spears",
+      "playerId": "9508",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 3,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415679946336055296:8129",
+      "transactionId": "1415679946336055296",
+      "rosterId": 8,
+      "player": "Dameon Pierce",
+      "playerId": "8129",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 11,
+      "points": 15,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 15,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415680581101969408:13274",
+      "transactionId": "1415680581101969408",
+      "rosterId": 1,
+      "player": "Germie Bernard",
+      "playerId": "13274",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 16,
+      "points": 5.7,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 5.7,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1415685600769589248:5870",
+      "transactionId": "1415685600769589248",
+      "rosterId": 6,
+      "player": "Daniel Jones",
+      "playerId": "5870",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 2,
+      "points": 13.76,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 13.76,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415685715722825728:IND",
+      "transactionId": "1415685715722825728",
+      "rosterId": 6,
+      "player": "Colts",
+      "playerId": "IND",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 2,
+      "points": 2,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 2,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415714109185376256:3271",
+      "transactionId": "1415714109185376256",
+      "rosterId": 9,
+      "player": "Tyler Higbee",
+      "playerId": "3271",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 7,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415714344901132288:13150",
+      "transactionId": "1415714344901132288",
+      "rosterId": 9,
+      "player": "Darius Cooper",
+      "playerId": "13150",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 15,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1415838877138128896:10235",
+      "transactionId": "1415838877138128896",
+      "rosterId": 1,
+      "player": "Roschon Johnson",
+      "playerId": "10235",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 1,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415875028754378752:KC",
+      "transactionId": "1415875028754378752",
+      "rosterId": 12,
+      "player": "Chiefs",
+      "playerId": "KC",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 8,
+      "points": 15,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 15,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415876570932862976:5189",
+      "transactionId": "1415876570932862976",
+      "rosterId": 12,
+      "player": "Eddy Pineiro",
+      "playerId": "5189",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 3,
+      "points": 5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415905033492455424:7600",
+      "transactionId": "1415905033492455424",
+      "rosterId": 7,
+      "player": "Pat Freiermuth",
+      "playerId": "7600",
+      "type": "waiver",
+      "week": 5,
+      "acquired": 1791962120883,
+      "cost": 3,
+      "points": 3.1,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 6,
+          "points": 3.1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1415133807484370944:5995",
+      "transactionId": "1415133807484370944",
+      "rosterId": 1,
+      "player": "Justice Hill",
+      "playerId": "5995",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791756700920,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414860159137677312:3257",
+      "transactionId": "1414860159137677312",
+      "rosterId": 7,
+      "player": "Jacoby Brissett",
+      "playerId": "3257",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791691458070,
+      "cost": 0,
+      "points": 25.28,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 25.28,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414788500456259584:12504",
+      "transactionId": "1414788500456259584",
+      "rosterId": 11,
+      "player": "Kaleb Johnson",
+      "playerId": "12504",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791674373309,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414788286290972672:12509",
+      "transactionId": "1414788286290972672",
+      "rosterId": 11,
+      "player": "Tre' Harris",
+      "playerId": "12509",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791674322248,
+      "cost": 0,
+      "points": 3.6,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 3.6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414665070167764992:11628",
+      "transactionId": "1414665070167764992",
+      "rosterId": 2,
+      "player": "Marvin Harrison Jr.",
+      "playerId": "11628",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791644945236,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414325622972456960:13305",
+      "transactionId": "1414325622972456960",
+      "rosterId": 1,
+      "player": "Mike Washington Jr.",
+      "playerId": "13305",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791564014717,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414301133677023232:5012",
+      "transactionId": "1414301133677023232",
+      "rosterId": 12,
+      "player": "Mark Andrews",
+      "playerId": "5012",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791558176014,
+      "cost": 0,
+      "points": 4.8,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 4.8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1414063444205850624:NYJ",
+      "transactionId": "1414063444205850624",
+      "rosterId": 11,
+      "player": "Jets",
+      "playerId": "NYJ",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791501506428,
+      "cost": 0,
+      "points": 16,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 16,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413459633011490816:CLE",
+      "transactionId": "1413459633011490816",
+      "rosterId": 1,
+      "player": "Browns",
+      "playerId": "CLE",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791357546621,
+      "cost": 0,
+      "points": 9,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413459113605685248:DAL",
+      "transactionId": "1413459113605685248",
+      "rosterId": 6,
+      "player": "Cowboys",
+      "playerId": "DAL",
+      "type": "free_agent",
+      "week": 5,
+      "acquired": 1791357422785,
+      "cost": 0,
+      "points": 1,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1412943127714533376:13833",
+      "transactionId": "1412943127714533376",
+      "rosterId": 4,
+      "player": "Dominic Zvada",
+      "playerId": "13833",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 0,
+      "points": 23,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 13,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 3,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1413114140448325632:5844",
+      "transactionId": "1413114140448325632",
+      "rosterId": 2,
+      "player": "T.J. Hockenson",
+      "playerId": "5844",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 0,
+      "points": 1.7,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 1.7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413118458551382016:11577",
+      "transactionId": "1413118458551382016",
+      "rosterId": 2,
+      "player": "Will Shipley",
+      "playerId": "11577",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 20,
+      "points": 8.3,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 8.3,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413157904227278848:1166",
+      "transactionId": "1413157904227278848",
+      "rosterId": 8,
+      "player": "Kirk Cousins",
+      "playerId": "1166",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 4,
+      "points": 13.72,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 13.72,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413235508665978880:11637",
+      "transactionId": "1413235508665978880",
+      "rosterId": 4,
+      "player": "Keon Coleman",
+      "playerId": "11637",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 9,
+      "points": 7.7,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 7.7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413257407211065344:DEN",
+      "transactionId": "1413257407211065344",
+      "rosterId": 5,
+      "player": "Broncos",
+      "playerId": "DEN",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 5,
+      "points": 29,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 12,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 13,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1413312152705441792:9511",
+      "transactionId": "1413312152705441792",
+      "rosterId": 3,
+      "player": "Keaton Mitchell",
+      "playerId": "9511",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 6,
+      "points": 5.9,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 5.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413324500233105408:13264",
+      "transactionId": "1413324500233105408",
+      "rosterId": 6,
+      "player": "Dohnte Meyers",
+      "playerId": "13264",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 8,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1413447003471405056:JAX",
+      "transactionId": "1413447003471405056",
+      "rosterId": 2,
+      "player": "Jaguars",
+      "playerId": "JAX",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1791357288473,
+      "cost": 6,
+      "points": 3,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 5,
+          "points": 2,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1412957089445249024:4018",
+      "transactionId": "1412957089445249024",
+      "rosterId": 3,
+      "player": "Joe Mixon",
+      "playerId": "4018",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1791237730898,
+      "cost": 0,
+      "points": null,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": null,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1412488219747999744:9757",
+      "transactionId": "1412488219747999744",
+      "rosterId": 4,
+      "player": "Kendre Miller",
+      "playerId": "9757",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1791125943652,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1412390520860180480:13301",
+      "transactionId": "1412390520860180480",
+      "rosterId": 1,
+      "player": "Antonio Williams",
+      "playerId": "13301",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1791102650421,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1412215766094249984:11435",
+      "transactionId": "1412215766094249984",
+      "rosterId": 1,
+      "player": "Emanuel Wilson",
+      "playerId": "11435",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1791060985639,
+      "cost": 0,
+      "points": 18.4,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 13.2,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 5.2,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1412080154112479232:DEN",
+      "transactionId": "1412080154112479232",
+      "rosterId": 4,
+      "player": "Broncos",
+      "playerId": "DEN",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1791028653222,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1411141168086999040:11581",
+      "transactionId": "1411141168086999040",
+      "rosterId": 11,
+      "player": "MarShawn Lloyd",
+      "playerId": "11581",
+      "type": "waiver",
+      "week": 4,
+      "acquired": 1790922277611,
+      "cost": 3,
+      "points": 27.6,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 9.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 16.7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1411562128954966016:4943",
+      "transactionId": "1411562128954966016",
+      "rosterId": 7,
+      "player": "Sam Darnold",
+      "playerId": "4943",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790905146400,
+      "cost": 0,
+      "points": 13.32,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 13.32,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1411488625534791680:9480",
+      "transactionId": "1411488625534791680",
+      "rosterId": 12,
+      "player": "Brenton Strange",
+      "playerId": "9480",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790887621820,
+      "cost": 0,
+      "points": 25.9,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 16.5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 9.4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1411343557771489280:9758",
+      "transactionId": "1411343557771489280",
+      "rosterId": 10,
+      "player": "C.J. Stroud",
+      "playerId": "9758",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790853034969,
+      "cost": 0,
+      "points": 60.44,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 20.94,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 22.98,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 16.52,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1411142055459147776:4177",
+      "transactionId": "1411142055459147776",
+      "rosterId": 11,
+      "player": "Mack Hollins",
+      "playerId": "4177",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790804993075,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1411135966923575296:7049",
+      "transactionId": "1411135966923575296",
+      "rosterId": 9,
+      "player": "Jauan Jennings",
+      "playerId": "7049",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790803541455,
+      "cost": 0,
+      "points": 1.8,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 1.8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1411123699809091584:11792",
+      "transactionId": "1411123699809091584",
+      "rosterId": 12,
+      "player": "Will Reichard",
+      "playerId": "11792",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790800616746,
+      "cost": 0,
+      "points": 44,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 17,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 15,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 12,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1410938941737013248:CHI",
+      "transactionId": "1410938941737013248",
+      "rosterId": 9,
+      "player": "Bears",
+      "playerId": "CHI",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790756566989,
+      "cost": 0,
+      "points": 8,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410936809441013760:11643",
+      "transactionId": "1410936809441013760",
+      "rosterId": 1,
+      "player": "Jaylen Wright",
+      "playerId": "11643",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790756058610,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410925136420388864:GB",
+      "transactionId": "1410925136420388864",
+      "rosterId": 6,
+      "player": "Packers",
+      "playerId": "GB",
+      "type": "free_agent",
+      "week": 4,
+      "acquired": 1790753275545,
+      "cost": 0,
+      "points": 8,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410087097255124992:10213",
+      "transactionId": "1410087097255124992",
+      "rosterId": 11,
+      "player": "Tre Tucker",
+      "playerId": "10213",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1410421313650098176:BAL",
+      "transactionId": "1410421313650098176",
+      "rosterId": 7,
+      "player": "Ravens",
+      "playerId": "BAL",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 2,
+      "points": 21,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410421484324728832:12495",
+      "transactionId": "1410421484324728832",
+      "rosterId": 7,
+      "player": "Ollie Gordon II",
+      "playerId": "12495",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 31,
+      "points": 17.3,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 17.3,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1410721688705863680:1479",
+      "transactionId": "1410721688705863680",
+      "rosterId": 5,
+      "player": "Keenan Allen",
+      "playerId": "1479",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 9,
+      "points": 6.1,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 6.1,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1410745324925878272:13330",
+      "transactionId": "1410745324925878272",
+      "rosterId": 4,
+      "player": "Kenyon Sadiq",
+      "playerId": "13330",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 13,
+      "points": 0,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410782050729959424:9511",
+      "transactionId": "1410782050729959424",
+      "rosterId": 1,
+      "player": "Keaton Mitchell",
+      "playerId": "9511",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410831060610060288:13311",
+      "transactionId": "1410831060610060288",
+      "rosterId": 3,
+      "player": "Chris Bell",
+      "playerId": "13311",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 4,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410831377674383360:PIT",
+      "transactionId": "1410831377674383360",
+      "rosterId": 3,
+      "player": "Steelers",
+      "playerId": "PIT",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 1,
+      "points": 17,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 10,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410916639838425088:3634",
+      "transactionId": "1410916639838425088",
+      "rosterId": 8,
+      "player": "Kalif Raymond",
+      "playerId": "3634",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790752488943,
+      "cost": 15,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1410187527792410624:3321",
+      "transactionId": "1410187527792410624",
+      "rosterId": 2,
+      "player": "Tyreek Hill",
+      "playerId": "3321",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790577415944,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1409976289003098112:11608",
+      "transactionId": "1409976289003098112",
+      "rosterId": 1,
+      "player": "Isaiah Williams",
+      "playerId": "11608",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790527052692,
+      "cost": 0,
+      "points": 3.1,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 3.1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1409508226134740992:11628",
+      "transactionId": "1409508226134740992",
+      "rosterId": 2,
+      "player": "Marvin Harrison Jr.",
+      "playerId": "11628",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790415457808,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1409315663834603520:7571",
+      "transactionId": "1409315663834603520",
+      "rosterId": 4,
+      "player": "Rashod Bateman",
+      "playerId": "7571",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790369547378,
+      "cost": 0,
+      "points": 5.7,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 5.7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1409142991393697792:9228",
+      "transactionId": "1409142991393697792",
+      "rosterId": 5,
+      "player": "Bryce Young",
+      "playerId": "9228",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790333700079,
+      "cost": 0,
+      "points": 40.52,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 13.64,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 21.46,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 5.42,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1409103448791650304:11563",
+      "transactionId": "1409103448791650304",
+      "rosterId": 1,
+      "player": "Bo Nix",
+      "playerId": "11563",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790318951369,
+      "cost": 0,
+      "points": 7.92,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 7.92,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408501012427255808:8136",
+      "transactionId": "1408501012427255808",
+      "rosterId": 8,
+      "player": "Rachaad White",
+      "playerId": "8136",
+      "type": "waiver",
+      "week": 3,
+      "acquired": 1790316897584,
+      "cost": 1,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408953523135107072:12504",
+      "transactionId": "1408953523135107072",
+      "rosterId": 1,
+      "player": "Kaleb Johnson",
+      "playerId": "12504",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790283206307,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408842151571279872:6083",
+      "transactionId": "1408842151571279872",
+      "rosterId": 9,
+      "player": "Matt Gay",
+      "playerId": "6083",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790256653257,
+      "cost": 0,
+      "points": 50,
+      "starts": 5,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 11,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 13,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 12,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 9,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1408453682533502976:11625",
+      "transactionId": "1408453682533502976",
+      "rosterId": 1,
+      "player": "Adonai Mitchell",
+      "playerId": "11625",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790164035022,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408388546452049920:12185",
+      "transactionId": "1408388546452049920",
+      "rosterId": 2,
+      "player": "Spencer Shrader",
+      "playerId": "12185",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790148505370,
+      "cost": 0,
+      "points": 63,
+      "starts": 5,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 17,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 14,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 20,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1408388540311572480:DET",
+      "transactionId": "1408388540311572480",
+      "rosterId": 6,
+      "player": "Lions",
+      "playerId": "DET",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790148503906,
+      "cost": 0,
+      "points": 7,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408387885370982400:BUF",
+      "transactionId": "1408387885370982400",
+      "rosterId": 2,
+      "player": "Bills",
+      "playerId": "BUF",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790148347755,
+      "cost": 0,
+      "points": 9,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408386554795204608:3214",
+      "transactionId": "1408386554795204608",
+      "rosterId": 12,
+      "player": "Hunter Henry",
+      "playerId": "3214",
+      "type": "free_agent",
+      "week": 3,
+      "acquired": 1790148030522,
+      "cost": 0,
+      "points": 1.5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 1.5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1407502881778622464:6804",
+      "transactionId": "1407502881778622464",
+      "rosterId": 11,
+      "player": "Jordan Love",
+      "playerId": "6804",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 0,
+      "points": 13.08,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 13.08,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1407783717656649728:13346",
+      "transactionId": "1407783717656649728",
+      "rosterId": 4,
+      "player": "Denzel Boston",
+      "playerId": "13346",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 16,
+      "points": 26.7,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 8.1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 12.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 5.7,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1408020776501731328:12545",
+      "transactionId": "1408020776501731328",
+      "rosterId": 1,
+      "player": "Tyler Shough",
+      "playerId": "12545",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 15,
+      "points": 80.52,
+      "starts": 4,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 23.8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 15.94,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 26.96,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 13.82,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1408025345105444864:9228",
+      "transactionId": "1408025345105444864",
+      "rosterId": 1,
+      "player": "Bryce Young",
+      "playerId": "9228",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 8,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408026914068627456:9486",
+      "transactionId": "1408026914068627456",
+      "rosterId": 1,
+      "player": "Dontayvion Wicks",
+      "playerId": "9486",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 6,
+      "points": 4.8,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 4.8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408044126984785920:NYG",
+      "transactionId": "1408044126984785920",
+      "rosterId": 9,
+      "player": "Giants",
+      "playerId": "NYG",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 0,
+      "points": 8,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408084255292039168:5001",
+      "transactionId": "1408084255292039168",
+      "rosterId": 2,
+      "player": "Dalton Schultz",
+      "playerId": "5001",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 14,
+      "points": 8.9,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 2.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408161933026242560:CIN",
+      "transactionId": "1408161933026242560",
+      "rosterId": 8,
+      "player": "Bengals",
+      "playerId": "CIN",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 10,
+      "points": 16,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 3,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408228083579793408:11435",
+      "transactionId": "1408228083579793408",
+      "rosterId": 1,
+      "player": "Emanuel Wilson",
+      "playerId": "11435",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 7,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408242540603314176:CAR",
+      "transactionId": "1408242540603314176",
+      "rosterId": 7,
+      "player": "Panthers",
+      "playerId": "CAR",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 0,
+      "points": 4,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408258082126999552:MIN",
+      "transactionId": "1408258082126999552",
+      "rosterId": 12,
+      "player": "Vikings",
+      "playerId": "MIN",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 1,
+      "points": 46,
+      "starts": 4,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 17,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 11,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 10,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1408258619127934976:13545",
+      "transactionId": "1408258619127934976",
+      "rosterId": 12,
+      "player": "Trey Smack",
+      "playerId": "13545",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 0,
+      "points": 2,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 2,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1408348249407918080:3163",
+      "transactionId": "1408348249407918080",
+      "rosterId": 3,
+      "player": "Jared Goff",
+      "playerId": "3163",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1790147673097,
+      "cost": 5,
+      "points": 86.8,
+      "starts": 4,
+      "evidence": [
+        {
+          "week": 3,
+          "points": 19.36,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 20.48,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 28.94,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 18.02,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1407295811632562176:12711",
+      "transactionId": "1407295811632562176",
+      "rosterId": 10,
+      "player": "Tyler Loop",
+      "playerId": "12711",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789887977087,
+      "cost": 0,
+      "points": 51,
+      "starts": 6,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 12,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 14,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 7,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1407155284568182784:10218",
+      "transactionId": "1407155284568182784",
+      "rosterId": 1,
+      "player": "Xavier Hutchinson",
+      "playerId": "10218",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789854472823,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1406563255270268928:9504",
+      "transactionId": "1406563255270268928",
+      "rosterId": 4,
+      "player": "Kayshon Boutte",
+      "playerId": "9504",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789713322039,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1406063367013040128:13293",
+      "transactionId": "1406063367013040128",
+      "rosterId": 4,
+      "player": "Ja'Kobi Lane",
+      "playerId": "13293",
+      "type": "waiver",
+      "week": 2,
+      "acquired": 1789712686960,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1406062570690928640:13301",
+      "transactionId": "1406062570690928640",
+      "rosterId": 4,
+      "player": "Antonio Williams",
+      "playerId": "13301",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789593949533,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1406038793332572160:11370",
+      "transactionId": "1406038793332572160",
+      "rosterId": 11,
+      "player": "Chris Brooks",
+      "playerId": "11370",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789588280569,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405875450999300096:5189",
+      "transactionId": "1405875450999300096",
+      "rosterId": 2,
+      "player": "Eddy Pineiro",
+      "playerId": "5189",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789549336723,
+      "cost": 0,
+      "points": 5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405858138598486016:NE",
+      "transactionId": "1405858138598486016",
+      "rosterId": 6,
+      "player": "Patriots",
+      "playerId": "NE",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789545209124,
+      "cost": 0,
+      "points": 21,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 21,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405858034441297920:4993",
+      "transactionId": "1405858034441297920",
+      "rosterId": 6,
+      "player": "Mike Gesicki",
+      "playerId": "4993",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789545184291,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1405851552031203328:GB",
+      "transactionId": "1405851552031203328",
+      "rosterId": 8,
+      "player": "Packers",
+      "playerId": "GB",
+      "type": "free_agent",
+      "week": 2,
+      "acquired": 1789543638764,
+      "cost": 0,
+      "points": 5,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405559533979303936:KC",
+      "transactionId": "1405559533979303936",
+      "rosterId": 1,
+      "player": "Chiefs",
+      "playerId": "KC",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 0,
+      "points": 13,
+      "starts": 3,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405694989631062016:6130",
+      "transactionId": "1405694989631062016",
+      "rosterId": 10,
+      "player": "Devin Singletary",
+      "playerId": "6130",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 5,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405712395673845760:13296",
+      "transactionId": "1405712395673845760",
+      "rosterId": 1,
+      "player": "Caleb Douglas",
+      "playerId": "13296",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 0,
+      "points": 3.9,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 3.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405741544757035008:SF",
+      "transactionId": "1405741544757035008",
+      "rosterId": 3,
+      "player": "49ers",
+      "playerId": "SF",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 2,
+      "points": 9,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 1,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405795730924249088:11576",
+      "transactionId": "1405795730924249088",
+      "rosterId": 7,
+      "player": "Braelon Allen",
+      "playerId": "11576",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 2,
+      "points": 59.1,
+      "starts": 4,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 8.7,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 18.6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 12.4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 19.4,
+          "started": true,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1405815330663575552:7042",
+      "transactionId": "1405815330663575552",
+      "rosterId": 7,
+      "player": "Tyler Bass",
+      "playerId": "7042",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 0,
+      "points": 45,
+      "starts": 5,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 5,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 6,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 8,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 11,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 15,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1405820606556934144:11834",
+      "transactionId": "1405820606556934144",
+      "rosterId": 3,
+      "player": "Devaughn Vele",
+      "playerId": "11834",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 6,
+      "points": 24.3,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 6.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 17.4,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        }
+      ]
+    },
+    {
+      "id": "1405836674528813056:TB",
+      "transactionId": "1405836674528813056",
+      "rosterId": 2,
+      "player": "Buccaneers",
+      "playerId": "TB",
+      "type": "waiver",
+      "week": 1,
+      "acquired": 1789542912584,
+      "cost": 6,
+      "points": 2,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 2,
+          "points": 2,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1404991885495328768:13285",
+      "transactionId": "1404991885495328768",
+      "rosterId": 7,
+      "player": "Malachi Fields",
+      "playerId": "13285",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1789338678290,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1404831877457551360:TEN",
+      "transactionId": "1404831877457551360",
+      "rosterId": 3,
+      "player": "Titans",
+      "playerId": "TEN",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1789300529402,
+      "cost": 0,
+      "points": 0,
+      "starts": 1,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1403509839224741888:5012",
+      "transactionId": "1403509839224741888",
+      "rosterId": 8,
+      "player": "Mark Andrews",
+      "playerId": "5012",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788985330925,
+      "cost": 0,
+      "points": 19.8,
+      "starts": 2,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 8.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 10.9,
+          "started": true,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1402822606805082112:4137",
+      "transactionId": "1402822606805082112",
+      "rosterId": 3,
+      "player": "James Conner",
+      "playerId": "4137",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788821481948,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1402431340292390912:8205",
+      "transactionId": "1402431340292390912",
+      "rosterId": 3,
+      "player": "Isiah Pacheco",
+      "playerId": "8205",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788728196742,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1402431163548639232:9502",
+      "transactionId": "1402431163548639232",
+      "rosterId": 3,
+      "player": "Tank Dell",
+      "playerId": "9502",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788728154602,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1402322606383697920:12487",
+      "transactionId": "1402322606383697920",
+      "rosterId": 2,
+      "player": "Terrance Ferguson",
+      "playerId": "12487",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788702272557,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1402307310960816128:11603",
+      "transactionId": "1402307310960816128",
+      "rosterId": 11,
+      "player": "AJ Barner",
+      "playerId": "11603",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788698625844,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1402292362721366016:13330",
+      "transactionId": "1402292362721366016",
+      "rosterId": 4,
+      "player": "Kenyon Sadiq",
+      "playerId": "13330",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788695061906,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": false
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    },
+    {
+      "id": "1402290222384820224:5995",
+      "transactionId": "1402290222384820224",
+      "rosterId": 7,
+      "player": "Justice Hill",
+      "playerId": "5995",
+      "type": "free_agent",
+      "week": 1,
+      "acquired": 1788694551610,
+      "cost": 0,
+      "points": 0,
+      "starts": 0,
+      "evidence": [
+        {
+          "week": 1,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 2,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 3,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 4,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 5,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 6,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        },
+        {
+          "week": 7,
+          "points": 0,
+          "started": false,
+          "excluded": true
+        }
+      ]
+    }
+  ],
+  "trades": [
+    {
+      "id": "1419985969129553920",
+      "acquired": 1792913925653,
+      "firstWeek": 8,
+      "weeks": [],
+      "sides": [
+        {
+          "rosterId": 2,
+          "received": [
+            "Steelers"
+          ],
+          "points": 0,
+          "players": [
+            {
+              "playerId": "PIT",
+              "exited": false,
+              "contributions": []
+            }
+          ]
+        },
+        {
+          "rosterId": 3,
+          "received": [
+            "Tyler Higbee"
+          ],
+          "points": 0,
+          "players": [
+            {
+              "playerId": "3271",
+              "exited": false,
+              "contributions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1418671852720578560",
+      "acquired": 1792600418292,
+      "firstWeek": 8,
+      "weeks": [],
+      "sides": [
+        {
+          "rosterId": 4,
+          "received": [
+            "Bucky Irving"
+          ],
+          "points": 0,
+          "players": [
+            {
+              "playerId": "11584",
+              "exited": false,
+              "contributions": []
+            }
+          ]
+        },
+        {
+          "rosterId": 5,
+          "received": [
+            "Garrett Wilson",
+            "Jonah Coleman"
+          ],
+          "points": 0,
+          "players": [
+            {
+              "playerId": "8146",
+              "exited": false,
+              "contributions": []
+            },
+            {
+              "playerId": "13345",
+              "exited": false,
+              "contributions": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

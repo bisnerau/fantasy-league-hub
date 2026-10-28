@@ -1,0 +1,344 @@
+{
+  "season": 2026,
+  "throughWeek": 7,
+  "retrievedAt": "2026-10-28T11:02:27.297Z",
+  "leagueId": "1389706813993160704",
+  "teams": [
+    {
+      "id": 1,
+      "name": "Emmet Burns",
+      "short": "Burns",
+      "team": "Burns XI",
+      "avatar": "https://sleepercdn.com/uploads/2a61160ab8327137facb55509f0e0b80",
+      "record": "2–5",
+      "wins": 2,
+      "points": 805.54,
+      "allPlay": [
+        33,
+        44,
+        0
+      ],
+      "scores": [
+        158.1,
+        88.4,
+        118.4,
+        113.84,
+        109.92,
+        122.06,
+        94.82
+      ],
+      "rank": 10,
+      "ai": 2,
+      "draftGrade": "B",
+      "quote": "Second is a forecast of the whole Burns operation, not a claim that this was the second-best draft. Six straight playoff appearances and persistent waiver activity earn him a sizeable lift over the roster’s fifth-best grade. The raw material is here. So, inevitably, is a trade offer involving three of his bench players for your best starter."
+    },
+    {
+      "id": 2,
+      "name": "Niall Murray",
+      "short": "Murray",
+      "team": "Mahomes-lander n The Boys",
+      "avatar": "https://sleepercdn.com/uploads/27af3364785ff591ddfc7a540d02d6f0.jpg",
+      "record": "3–4",
+      "wins": 3,
+      "points": 795.98,
+      "allPlay": [
+        31,
+        46,
+        0
+      ],
+      "scores": [
+        169,
+        88.96,
+        105.88,
+        105.08,
+        122.24,
+        116.84,
+        87.98
+      ],
+      "rank": 9,
+      "ai": 5,
+      "draftGrade": "B-",
+      "quote": "Fifth feels like a recovery that still leaves something to prove. Murray’s engagement and 2024 title justify backing him to improve the roster during the year; the 2025 wooden spoon prevents a coronation. The 50 Challenge is excellent motivation to keep checking the waiver wire."
+    },
+    {
+      "id": 3,
+      "name": "Andrew Keenan",
+      "short": "Keenan",
+      "team": "Cooper Kupp Mah Balls",
+      "avatar": "https://sleepercdn.com/uploads/b168db964d7f082373f47fcef8756604.jpg",
+      "record": "4–3",
+      "wins": 4,
+      "points": 792.64,
+      "allPlay": [
+        34,
+        43,
+        0
+      ],
+      "scores": [
+        120.24,
+        110.92,
+        118.76,
+        121.68,
+        103.84,
+        83.58,
+        133.62
+      ],
+      "rank": 5,
+      "ai": 12,
+      "draftGrade": "C",
+      "quote": "Twelfth is a close-call forecast, not a prediction of weekly humiliation. Consecutive ninth-place finishes remove the benefit of the doubt, and the early price premiums plus an uncertain bench leave less room for error. A defence pickup is the first repair. The 2021 trophy is welcome in the room; it cannot fill a lineup slot."
+    },
+    {
+      "id": 4,
+      "name": "Tommy O’Brien",
+      "short": "O’Brien",
+      "team": "Prime Time",
+      "avatar": "https://sleepercdn.com/uploads/c789bb11559ae3a829e9a7cf7a5b86a2.jpg",
+      "record": "1–6",
+      "wins": 1,
+      "points": 739.72,
+      "allPlay": [
+        25,
+        52,
+        0
+      ],
+      "scores": [
+        74.46,
+        72.48,
+        105.6,
+        103.08,
+        157.12,
+        101.78,
+        125.2
+      ],
+      "rank": 12,
+      "ai": 10,
+      "draftGrade": "C+",
+      "quote": "Tenth reflects the thin running-back margin and Tommy’s longstanding appetite for potential. His 2023 final shows the ceiling is real, but this roster needs timely waiver decisions rather than another beautifully explained near-breakout. Shark Boy should remain a costume, not a contingency plan."
+    },
+    {
+      "id": 5,
+      "name": "Karl Moroney",
+      "short": "Moroney",
+      "team": "Pronouns Who Dey",
+      "avatar": "https://sleepercdn.com/uploads/b37180e7f457183ec98225e5404ba686",
+      "record": "5–2",
+      "wins": 5,
+      "points": 866.78,
+      "allPlay": [
+        44,
+        33,
+        0
+      ],
+      "scores": [
+        126.66,
+        99.44,
+        131.34,
+        142.46,
+        171.46,
+        106.7,
+        88.72
+      ],
+      "rank": 2,
+      "ai": 1,
+      "draftGrade": "A-",
+      "quote": "First. The 10–4 season and 2025 final already weakened Karl’s argument that the universe has singled him out. This draft removes another excuse. Active management plus the best-rounded roster makes him the pick to finish the job; any complaint about the schedule must now be submitted with supporting documentation."
+    },
+    {
+      "id": 6,
+      "name": "Alan Horgan",
+      "short": "Horgan",
+      "team": "Tampa B'AH",
+      "avatar": "https://sleepercdn.com/uploads/ac4bdbeb10e4c8dbc9f2ddb1805f9b06.jpg",
+      "record": "4–3",
+      "wins": 4,
+      "points": 936.68,
+      "allPlay": [
+        57,
+        20,
+        0
+      ],
+      "scores": [
+        136.16,
+        128.48,
+        147.68,
+        152.72,
+        123.3,
+        110.26,
+        138.08
+      ],
+      "rank": 4,
+      "ai": 4,
+      "draftGrade": "B-",
+      "quote": "Fourth backs the manager’s recent run more than the draft-grade order. Consecutive finals, the reigning title and active trading give Alan a credible path to improving this B-minus roster. The newsletter can call it a dynasty when there is a second trophy; until then, the Titanic tour remains in the archive."
+    },
+    {
+      "id": 7,
+      "name": "Joe Ennis",
+      "short": "Ennis",
+      "team": "D'onta FourMore!",
+      "avatar": "https://sleepercdn.com/uploads/b6ae8ce310e0cc163223c929045a56d5",
+      "record": "3–4",
+      "wins": 3,
+      "points": 814.6,
+      "allPlay": [
+        39,
+        38,
+        0
+      ],
+      "scores": [
+        139.02,
+        99.26,
+        71.62,
+        116.42,
+        148.58,
+        122.52,
+        117.18
+      ],
+      "rank": 8,
+      "ai": 3,
+      "draftGrade": "B+",
+      "quote": "Third is the prediction that finally gets Joe onto a podium. The receiver core offers a better reason than habit to trust the strategist after an eleventh-place collapse. He still needs to manage running-back risk, but this time the spreadsheet has produced something worth celebrating."
+    },
+    {
+      "id": 8,
+      "name": "Hugo Walsh",
+      "short": "Walsh",
+      "team": "Hawk Tuas Binatsos",
+      "avatar": "https://sleepercdn.com/uploads/14bf254526a4df014abf129678144d12.jpg",
+      "record": "2–5",
+      "wins": 2,
+      "points": 777.76,
+      "allPlay": [
+        30,
+        46,
+        1
+      ],
+      "scores": [
+        156.06,
+        93.42,
+        102.04,
+        121.3,
+        84.82,
+        94.1,
+        126.02
+      ],
+      "rank": 11,
+      "ai": 11,
+      "draftGrade": "C",
+      "quote": "Eleventh interrupts an encouraging climb rather than erasing it. Back-to-back playoff appearances earn Hugo respect, but the rookie premiums leave this roster short of bankable flex depth against a closely matched field. The guitar can stay in its case if he treats September waivers as seriously as draft night."
+    },
+    {
+      "id": 9,
+      "name": "Jack Ringrose",
+      "short": "Ringrose",
+      "team": "The Finest Wagyu",
+      "avatar": "https://sleepercdn.com/avatars/96373266565b3d0902c13a295a3c2a1f",
+      "record": "5–2",
+      "wins": 5,
+      "points": 835.08,
+      "allPlay": [
+        39,
+        38,
+        0
+      ],
+      "scores": [
+        130.56,
+        126.62,
+        113.86,
+        93.42,
+        125.4,
+        120.5,
+        124.72
+      ],
+      "rank": 3,
+      "ai": 8,
+      "draftGrade": "B-",
+      "quote": "Eighth allows for the 2025 revival without assuming it continues automatically. The weekly ceiling is higher than this finish, but age concentration and the receiver trade-off create a wider range of outcomes. At least a second title would come without anyone counting how many teams were invited."
+    },
+    {
+      "id": 10,
+      "name": "Shane Marmion",
+      "short": "Marmion",
+      "team": "Whos Throwing Diggs",
+      "avatar": "https://sleepercdn.com/uploads/a12f9d76487e42320bf2ad3eee657d26.jpg",
+      "record": "6–1",
+      "wins": 6,
+      "points": 973.88,
+      "allPlay": [
+        59,
+        18,
+        0
+      ],
+      "scores": [
+        147.66,
+        138.7,
+        157.9,
+        151.78,
+        119.34,
+        133.88,
+        124.62
+      ],
+      "rank": 1,
+      "ai": 6,
+      "draftGrade": "B+",
+      "quote": "Sixth is materially below the second-best draft grade because the forecast includes Shane’s engagement history. The 2022 champion can win this league when he stays involved; two playoff appearances in six seasons make sustained attention the question. The roster deserves a contender’s season. The phone needs charging."
+    },
+    {
+      "id": 11,
+      "name": "David Sharpe",
+      "short": "Sharpe",
+      "team": "Burkeys Teur",
+      "avatar": "https://sleepercdn.com/avatars/8f7ccd0c2049b60f76a78ae0af004ac2",
+      "record": "4–3",
+      "wins": 4,
+      "points": 693.16,
+      "allPlay": [
+        23,
+        53,
+        1
+      ],
+      "scores": [
+        78.02,
+        93.42,
+        80.16,
+        118.08,
+        135.34,
+        87,
+        101.14
+      ],
+      "rank": 6,
+      "ai": 7,
+      "draftGrade": "B",
+      "quote": "Seventh is deliberately lower than the fourth-best draft grade. One playoff appearance in five seasons and a limited waiver habit temper the outlook, even with a much better starting platform. Sharpe can beat this forecast by managing the team after draft night. The roster has done its part; the login screen awaits."
+    },
+    {
+      "id": 12,
+      "name": "Aidan Murphy",
+      "short": "Murphy",
+      "team": "BurrowMeDickinYoAss",
+      "avatar": "https://sleepercdn.com/avatars/b56f726e782d46df668d11e45de5e42e",
+      "record": "3–4",
+      "wins": 3,
+      "points": 830.04,
+      "allPlay": [
+        47,
+        30,
+        0
+      ],
+      "scores": [
+        57,
+        130.46,
+        129.94,
+        137,
+        120.44,
+        114.22,
+        140.98
+      ],
+      "rank": 7,
+      "ai": 9,
+      "draftGrade": "C+",
+      "quote": "Ninth is the uncomfortable call against a perfect five-for-five playoff record. That history keeps Murphy above the bottom group, but this roster’s modest edges and awkward bye concentration need more adaptation than the established set-and-forget approach. Joe cannot be assumed to provide complimentary after-sales support."
+    }
+  ]
+}
