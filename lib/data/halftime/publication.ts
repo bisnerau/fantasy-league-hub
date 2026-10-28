@@ -1,4 +1,6 @@
 export const halftimePublication = {
+  // Restore only when the commissioner is ready to announce the report.
+  isPublic: false,
   leagueId: '1389706813993160704',
   season: 2026,
   publishedAt: '2026-10-28T12:52:08Z',
@@ -11,6 +13,7 @@ export function featureHalftime(
   week: number,
 ) {
   return (
+    halftimePublication.isPublic &&
     leagueId === halftimePublication.leagueId &&
     season === String(halftimePublication.season) &&
     week >= 8 &&

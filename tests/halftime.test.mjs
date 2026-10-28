@@ -7,6 +7,7 @@ import { halftimeForecastInsights } from '../lib/season/halftime-forecasts.ts';
 import {
   featureHalftime,
   halftimeHonours,
+  halftimePublication,
 } from '../lib/data/halftime/publication.ts';
 
 const snapshot = JSON.parse(
@@ -38,7 +39,10 @@ void test('published honours match the frozen league and acquisition evidence', 
     String(Math.abs(biggestMiss.ai - biggestMiss.rank)),
     halftimeHonours[2].metric,
   );
-  assert.equal(featureHalftime(snapshot.leagueId, '2026', 8), true);
+  assert.equal(
+    featureHalftime(snapshot.leagueId, '2026', 8),
+    halftimePublication.isPublic,
+  );
   for (const [league, season, week] of [
     [snapshot.leagueId, '2026', 7],
     [snapshot.leagueId, '2026', 15],

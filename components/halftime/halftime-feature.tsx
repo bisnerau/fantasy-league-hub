@@ -1,6 +1,8 @@
 import { ArrowUpRight } from 'lucide-react';
+import { halftimePublication } from '@/lib/data/halftime/publication';
 
 export function HalftimeFeature() {
+  if (!halftimePublication.isPublic) return null;
   return (
     <a
       href="/halftime"

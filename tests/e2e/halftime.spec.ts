@@ -1,6 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { halftimePublication } from '../../lib/data/halftime/publication';
 
 test.beforeEach(async ({ context }) => {
+  test.skip(
+    !halftimePublication.isPublic,
+    'The public report is held for the commissioner’s announcement.',
+  );
   // This design test cannot send credentials or writes to a real service.
   await context.route('**/*', (route) => {
     const url = new URL(route.request().url());

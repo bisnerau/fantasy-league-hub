@@ -1,5 +1,14 @@
 # The halftime show
 
+## Announcement hold · 28 October 2026
+
+The commissioner requested that the report be hidden until their Friday
+announcement. `halftimePublication.isPublic` is false: the production route
+returns 404, promotions and navigation are hidden, and metadata is noindex.
+The development server still supports `/halftime` for local review. There is
+no automatic release time; restore the flag and deploy when asked to reveal it.
+The launch record below describes the previously published release.
+
 Published at `/halftime`, with a homepage feature, an Awards & Receipts link,
 site navigation and a 1200 × 630 share image. Homepage promotion is restricted
 to the 2026 league during Weeks 8–14; the report remains available as an archive.

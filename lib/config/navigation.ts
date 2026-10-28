@@ -1,3 +1,5 @@
+import { halftimePublication } from '@/lib/data/halftime/publication';
+
 // Site sections in navigation order. The shell adds icons; the page
 // transition uses the order to decide which way the yard line sweeps.
 export interface NavigationItem {
@@ -15,7 +17,9 @@ export const navigation: readonly NavigationItem[] = [
   { label: 'Power rankings', href: '/power-rankings' },
   { label: 'Managers', href: '/managers' },
   { label: 'Awards & Receipts', href: '/season-hub' },
-  { label: 'The Halftime Show', href: '/halftime' },
+  ...(halftimePublication.isPublic
+    ? [{ label: 'The Halftime Show', href: '/halftime' }]
+    : []),
   { label: 'Wall of shame', href: '/wall-of-shame' },
   { label: 'Draft Report & Season Preview', href: '/draft-recap' },
 ];

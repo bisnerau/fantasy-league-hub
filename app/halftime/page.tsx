@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { HalftimeShow } from '@/components/halftime/halftime-show';
 import { halftimeReport } from '@/lib/data/halftime/report';
 import { halftimePublication } from '@/lib/data/halftime/publication';
 import './halftime.css';
 
-export const metadata: Metadata = {
+const publishedMetadata: Metadata = {
   title: 'The Halftime Show',
   description: 'Seven weeks. Twelve managers. The MAC 12 halfway report.',
   alternates: { canonical: '/halftime' },
@@ -32,6 +33,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const metadata: Metadata = halftimePublication.isPublic
+  ? publishedMetadata
+  : { title: 'Page unavailable', robots: { index: false, follow: false } };
+
 export default function HalftimePage() {
+  if (!halftimePublication.isPublic && process.env.NODE_ENV !== 'development') {
+    notFound();
+  }
   return <HalftimeShow report={halftimeReport} />;
 }
