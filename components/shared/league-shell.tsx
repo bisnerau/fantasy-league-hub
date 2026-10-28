@@ -29,6 +29,8 @@ import { YardLine } from '@/components/effects/yard-line';
 import { leagueConfig } from '@/lib/config/league.config';
 import { navigation as navigationItems } from '@/lib/config/navigation';
 import { cn } from '@/lib/utils';
+import { halftimePublication } from '@/lib/data/halftime/publication';
+import { useHalftimePreview } from '@/components/halftime/use-halftime-preview';
 
 const icons: Record<string, LucideIcon> = {
   '/': Home,
@@ -43,7 +45,7 @@ const icons: Record<string, LucideIcon> = {
   '/draft-recap': NotebookPen,
 };
 
-const navigation = navigationItems.map((item) => ({
+const publicNavigation = navigationItems.map((item) => ({
   ...item,
   icon: icons[item.href] ?? BookOpen,
 }));
@@ -59,6 +61,19 @@ export function LeagueShell({
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const preview = useHalftimePreview(!halftimePublication.isPublic);
+  const navigation =
+    preview.status === 'ready' && !halftimePublication.isPublic
+      ? [
+          ...publicNavigation,
+          {
+            label: 'Halftime · private preview',
+            href: '/halftime',
+            icon: BookOpen,
+            shortLabel: 'Halftime',
+          },
+        ]
+      : publicNavigation;
   const activePage = navigation.find((item) => item.href === pathname);
   const avatarUrl = leagueAvatar
     ? `https://sleepercdn.com/avatars/thumbs/${leagueAvatar}`

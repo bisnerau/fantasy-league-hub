@@ -4,10 +4,22 @@
 
 The commissioner requested that the report be hidden until their Friday
 announcement. `halftimePublication.isPublic` is false: the production route
-returns 404, promotions and navigation are hidden, and metadata is noindex.
+shows only a sign-in gate, public promotions and navigation are hidden, and metadata is noindex.
+The existing commissioner account can open a private navigation link after sign-in.
+`/api/halftime-preview` verifies the bearer token with Supabase Auth and requires
+the matching protected profile to have roster 1, login `emmet-burns` and admin
+status. Only then is report data returned, with private/no-store caching. Other
+managers receive 403, signed-out requests receive 401, and lookup failures deny
+access. Session changes clear the client report and cancel stale requests.
 The development server still supports `/halftime` for local review. There is
 no automatic release time; restore the flag and deploy when asked to reveal it.
 The launch record below describes the previously published release.
+
+Private access validation covers missing/forged credentials, an ordinary member,
+another administrator, failed profile reads, the commissioner response and its
+private cache headers. Browser checks cover the sign-in gate, hidden public
+links, the commissioner navigation link, team-report opening and sign-out in a
+second tab clearing the already-open preview. No service-role key is used.
 
 Published at `/halftime`, with a homepage feature, an Awards & Receipts link,
 site navigation and a 1200 × 630 share image. Homepage promotion is restricted

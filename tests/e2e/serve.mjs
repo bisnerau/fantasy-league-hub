@@ -38,6 +38,8 @@ let bankers = [];
 let standings = null;
 // Opt-in clock for dated editorial; reset preserves existing fixture behaviour.
 let editorialNow = null;
+// Opt-in commissioner access for private report tests; ordinary fixtures stay members.
+let previewRole = 'member';
 // Opt-in published odds: home 4/6, away 6/4 in every fixture.
 let prices = false;
 const now = () =>
@@ -186,10 +188,12 @@ async function handle(
       standings = null;
       editorialNow = null;
       prices = false;
+      previewRole = 'member';
     }
     if (body.standings !== undefined) standings = body.standings;
     if (body.editorialNow !== undefined) editorialNow = body.editorialNow;
     if (body.prices !== undefined) prices = body.prices;
+    if (body.previewRole !== undefined) previewRole = body.previewRole;
     if (body.mode) mode = body.mode;
     if (body.failVote != null) failVote = body.failVote;
     if (body.failRead != null) failRead = body.failRead;
@@ -212,7 +216,10 @@ async function handle(
           { code: 'invalid_credentials', msg: 'Invalid login credentials' },
           400,
         );
-  if (url.pathname === '/auth/v1/user') return json(user);
+  if (url.pathname === '/auth/v1/user')
+    return headers.get('authorization')?.includes('fixture-signature')
+      ? json(user)
+      : json({ message: 'Invalid token' }, 401);
   if (url.pathname === '/auth/v1/logout')
     return new Response(null, { status: 204 });
   if (url.pathname.startsWith('/rest/')) {
@@ -255,8 +262,24 @@ async function handle(
       return json({ message: 'Fixture sign-in required' }, 401);
     if (failRead && method === 'GET')
       return json({ message: 'Fixture read failure' }, 400);
-    if (table === 'profiles')
-      return json(url.searchParams.has('id') ? [profiles[0]] : profiles);
+    if (table === 'profiles') {
+      if (previewRole === 'unavailable')
+        return json({ message: 'Unavailable' }, 503);
+      const previewProfiles = profiles.map((p, i) =>
+        i
+          ? p
+          : {
+              ...p,
+              login_slug:
+                previewRole === 'other-admin' ? 'other-manager' : 'emmet-burns',
+              roster_id: previewRole === 'other-admin' ? 2 : p.roster_id,
+              is_admin: ['owner', 'other-admin'].includes(previewRole),
+            },
+      );
+      return json(
+        url.searchParams.has('id') ? [previewProfiles[0]] : previewProfiles,
+      );
+    }
     if (table.endsWith('leaderboard')) {
       const voter = url.searchParams.get('voter_id')?.replace('eq.', '');
       return json(

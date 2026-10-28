@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { PrivateHalftime } from '@/components/halftime/private-halftime';
 import { HalftimeShow } from '@/components/halftime/halftime-show';
 import { halftimeReport } from '@/lib/data/halftime/report';
 import { halftimePublication } from '@/lib/data/halftime/publication';
@@ -35,11 +35,11 @@ const publishedMetadata: Metadata = {
 
 export const metadata: Metadata = halftimePublication.isPublic
   ? publishedMetadata
-  : { title: 'Page unavailable', robots: { index: false, follow: false } };
+  : { title: 'Private preview', robots: { index: false, follow: false } };
 
 export default function HalftimePage() {
   if (!halftimePublication.isPublic && process.env.NODE_ENV !== 'development') {
-    notFound();
+    return <PrivateHalftime />;
   }
   return <HalftimeShow report={halftimeReport} />;
 }
