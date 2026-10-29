@@ -42,6 +42,9 @@ let editorialNow = null;
 let previewRole = 'member';
 // Opt-in published odds: home 4/6, away 6/4 in every fixture.
 let prices = false;
+// Second-half ballots; opt-in locked reveal with seeded ballots.
+let halftimeBallots = [];
+let halftimeLocked = false;
 const now = () =>
   Date.parse(
     editorialNow ??
@@ -189,7 +192,12 @@ async function handle(
       editorialNow = null;
       prices = false;
       previewRole = 'member';
+      halftimeBallots = [];
+      halftimeLocked = false;
     }
+    if (body.halftimeLocked !== undefined) halftimeLocked = body.halftimeLocked;
+    if (body.halftimeBallots !== undefined)
+      halftimeBallots = body.halftimeBallots;
     if (body.standings !== undefined) standings = body.standings;
     if (body.editorialNow !== undefined) editorialNow = body.editorialNow;
     if (body.prices !== undefined) prices = body.prices;
@@ -310,6 +318,34 @@ async function handle(
           .filter((row) => !voter || row.voter_id === voter),
       );
     }
+    if (table === 'halftime_forecasts') {
+      if (method === 'POST') {
+        if (halftimeLocked)
+          return json({ message: 'Second-half ballots are locked' }, 400);
+        const row = Array.isArray(body) ? body[0] : body;
+        if (row.voter_id !== memberId)
+          return json({ message: 'Invalid member' }, 403);
+        halftimeBallots = [
+          ...halftimeBallots.filter((b) => b.voter_id !== memberId),
+          row,
+        ];
+        return json(row);
+      }
+      return json(
+        halftimeBallots.filter(
+          (b) => halftimeLocked || b.voter_id === memberId,
+        ),
+      );
+    }
+    if (table === 'halftime_forecast_submission_status')
+      return json(
+        profiles.map((p) => ({
+          voter_id: p.id,
+          roster_id: p.roster_id,
+          display_name: p.display_name,
+          submitted: halftimeBallots.some((b) => b.voter_id === p.id),
+        })),
+      );
     if (table === 'prediction_bankers')
       return json(
         bankers.filter(

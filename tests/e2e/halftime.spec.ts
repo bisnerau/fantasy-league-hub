@@ -32,12 +32,17 @@ test('published honours open their evidence and the share image is available', a
   const png = await image.body();
   expect(png.readUInt32BE(16)).toBe(1200);
   expect(png.readUInt32BE(20)).toBe(630);
+  await page
+    .getByRole('button', { name: 'Show all results', exact: true })
+    .click();
   for (const [award, manager] of [
     ['Team of the half', 'Shane Marmion'],
     ['Pickup of the half', 'Andrew Keenan'],
-    ['Biggest AI miss', 'Emmet Burns'],
+    ['AI Apology Award', 'Emmet Burns'],
   ]) {
-    const card = page.locator('.ht-honour').filter({ hasText: award });
+    const card = page
+      .locator('.ht-award-results button')
+      .filter({ hasText: award });
     await card.click();
     await expect(page.getByRole('dialog')).toContainText(manager);
     await page.keyboard.press('Escape');
@@ -148,7 +153,7 @@ test('halftime honours reduced motion and its manual motion switch', async ({
       .first()
       .evaluate((node) => getComputedStyle(node).transitionDuration),
   ).toBe('0s');
-  await page.getByRole('button', { name: 'Motion on', exact: true }).click();
+  await page.getByRole('button', { name: 'Pause motion', exact: true }).click();
   await expect(page.locator('.halftime')).toHaveAttribute(
     'data-motion',
     'paused',

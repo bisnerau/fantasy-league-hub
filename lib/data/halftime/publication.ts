@@ -31,6 +31,8 @@ export const halftimeHonours = [
     detail: '973.88 points · 59–18 all-play',
     verdict:
       'First in the table and first against the whole field. Shane has made the engagement jokes considerably harder to write.',
+    mackorcle:
+      'Shane leads the league in wins and in points. I went looking for an adjustment to make and there isn’t one. It’s been a difficult week for my department.',
   },
   {
     id: 'pickup',
@@ -41,6 +43,8 @@ export const halftimeHonours = [
     detail: 'Keenan · 86.80 points from four starts',
     verdict:
       'The biggest starter-point return among the fully verified pickup receipts. A useful answer to the forecast that put Keenan last.',
+    mackorcle:
+      'Keenan paid five dollars for Jared Goff. I want to be careful here, but that is the best five dollars spent in this league, and I’ve seen most of the receipts.',
   },
   {
     id: 'miss',
@@ -51,6 +55,8 @@ export const halftimeHonours = [
     detail: 'Places out · predicted second, currently tenth',
     verdict:
       'The AI gave six straight playoff appearances plenty of credit. Burns has seven weeks left to make that look less generous.',
+    mackorcle:
+      'The AI had Burns finishing second. He is tenth. I ran it again on a different calculator and he is still tenth, so I’ve been asked to read this apology out loud.',
   },
   {
     id: 'schedule',
@@ -61,6 +67,8 @@ export const halftimeHonours = [
     detail: 'Third in all-play · seventh in the table',
     verdict:
       'The complaint comes with evidence. Six straight weeks above 114 points and a losing record. The fixture list has been called as a witness.',
+    mackorcle:
+      'Aidan has outscored most of this league every week since the opener and has a losing record to show for it. On a Mackjusted basis, Aidan is performing very well. The standings have been notified.',
   },
   {
     id: 'escape',
@@ -71,5 +79,7 @@ export const halftimeHonours = [
     detail: 'Sixth in the table · last in points and all-play',
     verdict:
       'Four wins. Last in points. Please collect your award before the statisticians arrive.',
+    mackorcle:
+      'David is last in points and sixth in the table. I reviewed the tape three times looking for the part where he does something wrong. To be fair, I couldn’t find the part where he does anything.',
   },
 ] as const;

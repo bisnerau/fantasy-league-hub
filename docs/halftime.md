@@ -138,8 +138,9 @@ Get Away With It, AI Apology Award, and Team of the half. Editorial shortlists
 use the frozen checkpoint and verified pickup receipts, not manager votes.
 Each presentation has a nominee sequence, envelope opening and winner reveal,
 with skip, replay, direct award selection and an immediate all-results view.
-Evidence opens the matching dossier and restores focus on close. There is no
-spoken audio. Changing either the OS motion preference or the on-page switch
+Evidence opens the matching dossier and restores focus on close. The stage itself has no
+spoken audio; Mackorcle's halftime episode plays from its own player beneath
+the ceremony (see below). Changing either the OS motion preference or the on-page switch
 finishes an active presentation immediately.
 
 The implementation uses the MIT-licensed Motion package:
@@ -174,3 +175,106 @@ All five WebKit interaction checks also pass after restricting the shared card
 transition to actual team cards. Award evidence buttons use the normal dialog
 transition. Award shortlists, like rugby copy, are included in the authenticated
 report response rather than embedded in the client component.
+
+## Tidy-up, Mackorcle and the second-half ballot · 29 October 2026
+
+**Tidy-up.** Unused rules from earlier designs were removed: the clock, route
+diagram, honours grid, week track and replay callout. So were declarations
+that a later identical selector already overrode. Before-and-after screenshots
+at 390 and 1440px were pixel-identical. The "second edition" layer deliberately
+follows the earlier media queries and overrides them; folding it upward changes
+the phone layout, so keep that order. All motion checks use
+`useHalftimeReducedMotion`. The on-page switch is a fixed "Pause motion"
+toggle. The receipt stamp shows each team's own verdict.
+
+**Dates and trades.** Visible dates read 30 October, the announcement day; the
+source note keeps the 28 October Week 7 capture. Set `publishedAt` when
+`isPublic` is restored. The deals completed since the 27 October cutoff live in
+`afterWhistle` in `lib/data/halftime/report.ts`, checked against Sleeper on 29
+October. Re-check the transactions before the reveal.
+
+**Phone.**
+- The chapter bar keeps the active chapter in view. The active chapter is the
+  latest section inside the reading band, so a section that changes height
+  cannot leave a stale chapter selected.
+- On the awards stage, Mackorcle stands above the screen, with the controls
+  directly beneath it.
+- Team reports keep "Save card" in the top bar and end on the second-half
+  question.
+
+**Mackorcle on stage.** Each honour has a `mackorcle` line in
+`lib/data/halftime/publication.ts`, and the intro line is in `awards.ts`. The
+winner screen shows his line; the editorial verdicts appear under "Show all
+results". The lines follow the Return of the Mac persona: American, deadpan,
+few numbers.
+
+**Second-half ballot (chapter 07).**
+- **What you predict:** the final regular-season table (1–12), then both
+  six-team brackets seeded from it.
+- **Championship:** winners advance. Week 15 is 4 v 5 and 3 v 6, and seeds 1
+  and 2 meet the winners in Week 16.
+- **Loser bowl:** losers advance. Week 15 is 8 v 9 and 7 v 10, seeds 12 and 11
+  have the byes, and the final pick is last one standing. Every bracket pick
+  is the team that goes through.
+- **Punishment:** the league's punishment (the wooden spoon) goes to last
+  place in the regular season, as Niall took it in 2025, not to the loser
+  bowl. A ballot's punishment pick is the twelfth team in its table.
+- **Layout:** both brackets are drawn as a bracket, with Week 15, Week 16 and
+  the final side by side and joining lines that light up as games are
+  decided. On phones the bracket scrolls sideways in its own lane and moves on
+  once a round is complete.
+- **Source check:** the structure was verified against the 2025 Sleeper
+  winners/losers brackets and Week 15–17 scores.
+- **Shared rules:** `lib/season/halftime-ballot.ts`. The migration's
+  `halftime_bracket_valid()` mirrors them.
+- **Lock:** `sundayKickoffForWeek(2026, 8)`, which is 1 November, 18:00
+  Irish/UTC.
+- **Privacy:** before the lock a member reads only their own ballot plus the
+  participation count from `halftime_forecast_submission_status`. Everything is
+  revealed at the lock: the room's champion and punishment votes, the consensus
+  table, Mackorcle's house ballot, each manager's brackets and their biggest
+  change of heart against their September ballot.
+- **Mackorcle's house ballot:** authored in
+  `lib/data/halftime/house-ballot.ts`, shown with the managers' ballots and
+  never ranked against them. A manager sees it as soon as they file their
+  own ballot; everyone else's stays sealed until the lock. His Mackjusted
+  pick on the ballot is Tommy.
+- **Scoring (after the season):** tables score total places out against Week
+  14. Each correct bracket pick earns a point.
+
+Applied to production on 29 October 2026 through the SQL editor and recorded
+in `supabase_migrations.schema_migrations`. For new environments, apply
+`supabase/migrations/20261030090000_add_halftime_forecasts.sql` with the linked
+Supabase CLI. Separate tables leave the
+frozen preseason `season_forecasts` untouched.
+
+**Personal opener.** Signed-in managers see a "Your half" strip in the hero:
+- their team's position against the AI's call
+- their September ballot's places out and rank, or "No ballot filed"
+- their second-half ballot status, with a link to the ballot
+- the strip itself opens their report
+
+"Follow a team" defaults to the manager's own team until they choose another.
+
+**Checks.**
+- `tests/halftime-ballot.test.mjs`: bracket pairings, losers advancing, pick
+  invalidation, completeness, vote counts, the lock and the house ballot.
+- `node tests/halftime-ballot-db.mjs`: isolated Postgres, using the container
+  in `docs/bankers-and-rivalries.md`. It covers validation, member-only
+  writes, private-before-lock, reveal-after-lock, the trigger-enforced lock and
+  anonymous denial.
+- `tests/e2e/halftime-ballot.spec.ts`: build, file, reload, edit, reseeding,
+  the locked reveal, the opener, and 320/390px layouts.
+- Phone screenshots and a recording: set `SHOT_DIR=/path` when running the
+  ballot spec. Those runs use a running clock, because Playwright's fixed
+  clock freezes Motion's animations.
+
+**Mackorcle's halftime episode.** "The Mackjusted halftime table" (2:34,
+recorded 29 October 2026, script in
+`output/return-of-the-mac/2026-halftime-special-script.txt`) counts down all
+twelve teams. It plays beneath the awards ceremony using the shared Return of
+the Mac player, never autoplays, and is the only media on the page. In
+`lib/data/return-of-the-mac.ts` it is `held` while `halftimePublication.isPublic`
+is false, so the homepage, archive and episode URL stay hidden until the
+announcement; restoring the flag releases it, and it then leads the archive.
+

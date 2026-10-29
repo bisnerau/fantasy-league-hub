@@ -156,7 +156,14 @@ for (const width of [320, 390, 1440]) {
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
-    expect(await page.locator('audio,video').count()).toBe(0);
+    // The only media is Mackorcle's halftime episode, which never autoplays.
+    await expect(page.locator('video')).toHaveCount(0);
+    const tape = page.locator('audio');
+    await expect(tape).toHaveCount(1);
+    await expect(tape).toHaveAttribute('src', /2026-halftime-special\.mp3$/);
+    expect(
+      await tape.evaluate((a: HTMLAudioElement) => a.paused && !a.autoplay),
+    ).toBe(true);
   });
 }
 
@@ -166,7 +173,7 @@ test('the on-page motion switch completes an active reveal immediately', async (
   await page
     .getByRole('button', { name: 'Present this award', exact: true })
     .click();
-  await page.getByRole('button', { name: 'Motion on', exact: true }).click();
+  await page.getByRole('button', { name: 'Pause motion', exact: true }).click();
   await expect(page.locator('.ht-ceremony')).toHaveAttribute(
     'data-phase',
     'winner',

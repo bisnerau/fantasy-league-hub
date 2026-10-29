@@ -17,14 +17,25 @@ import type { HalftimeReport, HalftimeTeam } from '@/lib/data/halftime/report';
 type Award = HalftimeReport['honours'][number];
 type Phase = 'ready' | 'nominees' | 'envelope' | 'winner';
 
+function HostLine({ children }: { children: string }) {
+  return (
+    <blockquote className="ht-stage-quote">
+      <cite>MACKORCLE</cite>
+      <p>“{children}”</p>
+    </blockquote>
+  );
+}
+
 export function AwardsStage({
   teams,
   awards,
+  intro,
   paused,
   onOpenTeam,
 }: {
   teams: HalftimeTeam[];
   awards: HalftimeReport['honours'];
+  intro: string;
   paused: boolean;
   onOpenTeam: (team: HalftimeTeam, target: HTMLElement) => void;
 }) {
@@ -164,11 +175,7 @@ export function AwardsStage({
                     <div className="ht-stage-seal" aria-hidden="true">
                       <Trophy size={42} />
                     </div>
-                    <p>
-                      The first half has had its moments.
-                      <br />
-                      Some deserve a trophy. Some deserve an explanation.
-                    </p>
+                    <HostLine>{intro}</HostLine>
                   </>
                 )}
                 {phase === 'nominees' && (
@@ -238,7 +245,7 @@ export function AwardsStage({
                     </motion.div>
                     <h3>{award.winner}</h3>
                     <p className="ht-winner-detail">{award.detail}</p>
-                    <p>{award.verdict}</p>
+                    <HostLine>{award.mackorcle}</HostLine>
                     <button
                       className="ht-stage-evidence"
                       type="button"
@@ -332,6 +339,7 @@ export function AwardsStage({
                 <span>{a.label}</span>
                 <strong>{a.winner}</strong>
                 <small>{a.detail}</small>
+                <p>{a.verdict}</p>
                 <ArrowUpRight size={16} />
               </button>
             ))}

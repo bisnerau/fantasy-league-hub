@@ -38,8 +38,10 @@ page navigation. ON AIR follows actual playback, switching off on pause,
 buffering, completion or error. The portrait is uncropped on every screen size.
 The homepage feature and Explore area link to the archive; mobile tabs are unchanged.
 
-Episodes are authored in `lib/data/return-of-the-mac.ts`. Publication timestamps
-control visibility on all three surfaces, with the most recently published
+Episodes are authored in `lib/data/return-of-the-mac.ts`. An episode marked
+`held` stays hidden everywhere (the halftime special is held until the Halftime
+Show is announced). Otherwise, publication timestamps control visibility on all
+three surfaces, with the most recently published
 episode on the homepage. Publication is manual; no cron, ElevenLabs generation,
 or live league-data lookup supplies episode content. A future timestamp hides
 an entry until that time but does not schedule a build or deployment.

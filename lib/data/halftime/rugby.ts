@@ -76,7 +76,7 @@ export const irelandComparisons: Record<number, IrelandComparison> = {
     verdict:
       'The tidy, balanced Ringrose roster we described has produced the fewest points and weakest all-play record—yet Sharpe is 4–3. This is a deliberately specific Wallace reference: the enormous relief when the late penalty fell short and the result survived. It is about escaping with the outcome, not a verdict on Wallace’s career.',
     roast:
-      'Four wins. Last in points. Please collect your award before the statisticians arrive.',
+      'The kick fell short in Cardiff. His points have been falling short since September. The result keeps surviving anyway.',
     evidence: ['4–3 · sixth in the table', '693.16 points · last'],
     source:
       'https://www.rte.ie/sport/six-nations/2013/0131/365430-flashback-wales-15-17-ireland-2009/',

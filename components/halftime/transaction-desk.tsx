@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import type { HalftimeActivity } from '@/lib/season/halftime-ledger';
-import type { HalftimeTeam } from '@/lib/data/halftime/report';
+import type { HalftimeReport, HalftimeTeam } from '@/lib/data/halftime/report';
 import { formatIrishTime } from '@/lib/format/irish-time';
 
 type ActivityTeam = HalftimeActivity['teams'][number];
@@ -88,10 +88,12 @@ export function TeamActivity({ team }: { team: ActivityTeam }) {
 
 export function TransactionDesk({
   activity,
+  afterWhistle,
   teams,
   followed,
 }: {
   activity: HalftimeActivity;
+  afterWhistle: HalftimeReport['afterWhistle'];
   teams: HalftimeTeam[];
   followed: number | null;
 }) {
@@ -375,12 +377,21 @@ export function TransactionDesk({
         </p>
       </div>
       <div className="ht-after-whistle">
-        <span className="ht-eyebrow">SINCE THE HALFTIME WHISTLE / 27 OCT</span>
-        <h3>Alan has been shopping.</h3>
-        <p>
-          Bowers arrives from Hugo for Javonte Williams and Tucker Kraft. Chase
-          Brown and Waddle arrive from Murray for Olave.
-        </p>
+        <span className="ht-eyebrow">SINCE THE HALFTIME WHISTLE</span>
+        <h3>The market reopened.</h3>
+        <ul>
+          {afterWhistle.map((deal, i) => (
+            <li key={i}>
+              <time>{deal.date}</time>
+              {deal.sides.map((side) => (
+                <p key={side.rosterId}>
+                  <strong>{name(side.rosterId)}</strong>
+                  <span>gets {side.received.join(' + ')}</span>
+                </p>
+              ))}
+            </li>
+          ))}
+        </ul>
         <span className="ht-after-note">
           After Week 7. These trades have no first-half scoring return.
         </span>

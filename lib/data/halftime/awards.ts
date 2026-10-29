@@ -34,3 +34,8 @@ export const halftimeAwards = order.map((id) => {
   const award = halftimeHonours.find((a) => a.id === id)!;
   return { ...award, shortlist: shortlists[id] };
 });
+
+// Mackorcle's opening line on the stage. His per-award lines live with each
+// honour in publication.ts; the editorial verdicts stay in the results list.
+export const halftimeStageIntro =
+  'Mackorcle Senior the First here. Five envelopes. Seven weeks of data. I have checked all of it personally.';

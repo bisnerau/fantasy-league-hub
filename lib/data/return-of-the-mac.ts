@@ -1,3 +1,5 @@
+import { halftimePublication } from './halftime/publication';
+
 export type MacEpisode = {
   slug: string;
   title: string;
@@ -12,6 +14,8 @@ export type MacEpisode = {
   durationSeconds: number;
   portrait: string;
   transcript?: readonly string[];
+  /** Hidden everywhere while true, whatever the publication time. */
+  held?: boolean;
 };
 
 export const macShow = {
@@ -79,6 +83,23 @@ export const macEpisodes: readonly MacEpisode[] = [
     durationSeconds: 196,
     portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
   },
+  {
+    slug: '2026-halftime-special',
+    title: 'The Mackjusted halftime table.',
+    publishedAt: '2026-10-30T00:00:00Z',
+    recordedOn: '2026-10-29',
+    season: '2026',
+    week: 7,
+    manager: 'The whole league',
+    team: 'All twelve teams',
+    context: 'Halftime Show special · Weeks 1–7',
+    audio: '/audio/return-of-the-mac/2026-halftime-special.mp3',
+    durationSeconds: 154,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+    // It covers the halftime honours and ballot, so it stays hidden until the
+    // Halftime Show is announced.
+    held: !halftimePublication.isPublic,
+  },
 ];
 
 export function getMacEpisodes(
@@ -86,7 +107,9 @@ export function getMacEpisodes(
   episodes: readonly MacEpisode[] = macEpisodes,
 ) {
   return episodes
-    .filter((episode) => Date.parse(episode.publishedAt) <= now)
+    .filter(
+      (episode) => !episode.held && Date.parse(episode.publishedAt) <= now,
+    )
     .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
 }
 

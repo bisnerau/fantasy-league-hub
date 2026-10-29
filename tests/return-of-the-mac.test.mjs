@@ -79,3 +79,22 @@ void test('the Burns XI Week 4 review leads once published and keeps the pilot a
   );
   assert.equal(getMacEpisode(burns.slug, at - 1), undefined);
 });
+
+void test('the halftime special stays hidden until the Halftime Show is announced', async () => {
+  const { halftimePublication } =
+    await import('../lib/data/halftime/publication.ts');
+  const special = macEpisodes.find((e) => e.slug === '2026-halftime-special');
+  assert.ok(existsSync(`public${special.audio}`));
+  assert.equal(special.held, !halftimePublication.isPublic);
+  const later = Date.parse('2026-11-01T00:00:00Z');
+  assert.equal(
+    getMacEpisodes(later).some((e) => e.slug === special.slug),
+    halftimePublication.isPublic,
+  );
+  // Once announced it leads the archive.
+  assert.equal(
+    getMacEpisodes(later, [{ ...special, held: false }, ...macEpisodes])[0]
+      .slug,
+    special.slug,
+  );
+});

@@ -35,8 +35,22 @@ import { ManagerReceipts } from './manager-receipts';
 import { saveReportCard } from './save-report-card';
 import { AwardsStage } from './awards-stage';
 import { RugbyReveal } from './rugby-reveal';
+import { useHalftimeReducedMotion } from './use-reduced-motion';
+import { SecondHalfBallot } from './second-half-ballot';
+import { useSecondHalfBallot } from './use-second-half-ballot';
+import { formatIrishTime } from '@/lib/format/irish-time';
+import { AudioPlayer } from '@/components/return-of-the-mac/audio-player';
+import { macEpisodes, macEpisodeHref } from '@/lib/data/return-of-the-mac';
+
+// Mackorcle's halftime episode plays under his awards ceremony. The archive
+// keeps it hidden until the reveal; the commissioner preview still hears it.
+const halftimeTape = macEpisodes.find(
+  (e) => e.slug === '2026-halftime-special',
+);
 
 const two = (n: number) => String(n).padStart(2, '0');
+const ordinal = (n: number) =>
+  `${n}${n % 100 >= 11 && n % 100 <= 13 ? 'th' : (['th', 'st', 'nd', 'rd'][n % 10] ?? 'th')}`;
 const chapters = [
   ['replay', 'Roll the tape'],
   ['teams', 'Team reports'],
@@ -44,6 +58,7 @@ const chapters = [
   ['receipts', 'The receipts'],
   ['moves', 'The moves'],
   ['honours', 'The honours'],
+  ['second-half', 'The second half'],
 ] as const;
 
 function Portrait({
@@ -109,6 +124,7 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
   const root = useRef<HTMLDivElement>(null);
   const rugbyTarget = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLElement | null>(null);
+  const chapterNav = useRef<HTMLElement>(null);
   const [selected, setSelected] = useState<HalftimeTeam | null>(null);
   const [rugbyEntry, setRugbyEntry] = useState(false);
   const [rugbyManager, setRugbyManager] = useState<number | null>(null);
@@ -117,7 +133,9 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
   const [phase, setPhase] = useState<'idle' | 'set' | 'move' | 'spotlight'>(
     'idle',
   );
-  const [followed, setFollowed] = useState<number | null>(null);
+  // Undefined until the viewer chooses: signed-in managers follow their own
+  // team; choosing "The whole league" stores null.
+  const [followChoice, setFollowed] = useState<number | null>();
   const [spotlight, setSpotlight] = useState<number | null>(null);
   const [finder, setFinder] = useState('');
   const [exportState, setExportState] = useState<
@@ -130,10 +148,23 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
   const [receipt, setReceipt] = useState(10);
   const [revealed, setRevealed] = useState(false);
   const [motionPaused, setMotionPaused] = useState(false);
+  const reduceMotion = useHalftimeReducedMotion();
   const ballots = useHalftimeBallots(report.leagueId, report.teams);
+  const followed =
+    followChoice === undefined ? ballots.ownRosterId : followChoice;
   const teams = useMemo(
     () => [...report.teams].sort((a, b) => a.rank - b.rank),
     [report.teams],
+  );
+  const rosterIds = useMemo(
+    () => report.teams.map((t) => t.id),
+    [report.teams],
+  );
+  const secondHalf = useSecondHalfBallot(
+    report.leagueId,
+    report.season,
+    report.secondHalf.lockAt,
+    rosterIds,
   );
   const aiOrder = useMemo(
     () => [...teams].sort((a, b) => a.ai - b.ai).map((t) => t.id),
@@ -218,11 +249,18 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
       { threshold: 0.08 },
     );
     el.querySelectorAll('.ht-reveal').forEach((node) => observer.observe(node));
+    // The current chapter is the latest section inside the reading band, so
+    // a section that changes height cannot leave a stale chapter selected.
+    const order = [...el.querySelectorAll('section[id]')].map((n) => n.id);
+    const inBand = new Set<string>();
     const sections = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setChapter(entry.target.id);
+          if (entry.isIntersecting) inBand.add(entry.target.id);
+          else inBand.delete(entry.target.id);
         });
+        const current = order.findLast((id) => inBand.has(id));
+        if (current) setChapter(current);
       },
       { rootMargin: '-20% 0px -55% 0px' },
     );
@@ -235,11 +273,26 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
     };
   }, []);
 
+  // Keep the active chapter visible in the sideways-scrolling phone bar
+  // without moving the page itself.
+  useEffect(() => {
+    const nav = chapterNav.current;
+    const link = nav?.querySelector('[aria-current="location"]');
+    if (!nav || !link || nav.scrollWidth <= nav.clientWidth) return;
+    const navBox = nav.getBoundingClientRect();
+    const linkBox = link.getBoundingClientRect();
+    nav.scrollTo({
+      left:
+        nav.scrollLeft +
+        linkBox.left -
+        navBox.left -
+        (navBox.width - linkBox.width) / 2,
+      behavior: motionPaused || reduceMotion ? 'auto' : 'smooth',
+    });
+  }, [chapter, motionPaused, reduceMotion]);
+
   function motionAllowed() {
-    return (
-      !motionPaused &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    );
+    return !motionPaused && !reduceMotion;
   }
   function morphReport(next: HalftimeTeam | null) {
     transition.current?.skipTransition();
@@ -307,7 +360,19 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
     `${t.name} ${t.team}`.toLowerCase().includes(finder.toLowerCase().trim()),
   );
   const followedTeam = teams.find((t) => t.id === followed);
+  // The signed-in manager's own line for the hero.
+  const ownTeam = teams.find((t) => t.id === ballots.ownRosterId);
+  const managerScores = ballots.insights?.scores.filter((s) => !s.ai) ?? [];
+  const ownScore = managerScores.find(
+    (s) => JSON.stringify(s.rankings) === JSON.stringify(ballots.own),
+  );
+  const ownPlace = ownScore
+    ? 1 + managerScores.filter((s) => s.error < ownScore.error).length
+    : null;
   const featuredTeam = teams.find((t) => t.id === spotlight);
+  // The followed team's story waits for the reveal so it never gives away
+  // the Week 7 position before "Reveal Week 7" is pressed.
+  const storyTeam = featuredTeam ?? (actual ? followedTeam : undefined);
 
   return (
     <div
@@ -320,14 +385,14 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
       <div className="ht-edition">
         <span>
           <span className="ht-status-dot" /> HALFTIME EDITION{' '}
-          <span className="ht-dim">/ 28 OCTOBER 2026</span>
+          <span className="ht-dim">/ 30 OCTOBER 2026</span>
         </span>
         <button
           type="button"
           onClick={() => setMotionPaused(!motionPaused)}
           aria-pressed={motionPaused}
         >
-          {motionPaused ? 'Motion paused' : 'Motion on'}
+          Pause motion
         </button>
       </div>
 
@@ -361,9 +426,60 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
               And a few predictions we’d like back.
             </p>
             <a className="ht-button ht-button-gold" href="#replay">
-              <Play size={15} fill="currentColor" /> Roll the tape{' '}
+              <Play size={15} fill="currentColor" /> Start the show{' '}
               <ArrowDown size={16} />
             </a>
+            {ownTeam && (
+              <div className="ht-your-half">
+                <span className="ht-eyebrow">YOUR HALF</span>
+                <button
+                  type="button"
+                  className="ht-your-team"
+                  aria-label={`Open your report: ${ownTeam.team}`}
+                  onClick={(e) => openTeam(ownTeam, e.currentTarget)}
+                >
+                  <Portrait team={ownTeam} />
+                  <span>
+                    <strong>{ownTeam.team}</strong>
+                    <small>
+                      {ordinal(ownTeam.rank)} at halfway · the AI said{' '}
+                      {ordinal(ownTeam.ai)}
+                    </small>
+                  </span>
+                  <ArrowUpRight size={18} />
+                </button>
+                <dl>
+                  <div>
+                    <dt>Your September ballot</dt>
+                    <dd>
+                      {ownScore && ownPlace
+                        ? `${ownScore.error} places out · ${ordinal(ownPlace)} of ${managerScores.length}`
+                        : ballots.status === 'ready'
+                          ? 'No ballot filed'
+                          : ballots.status === 'error'
+                            ? 'Unavailable right now'
+                            : 'Checking…'}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Your second-half ballot</dt>
+                    <dd>
+                      <a href="#second-half">
+                        {secondHalf.status === 'error'
+                          ? 'Unavailable right now'
+                          : secondHalf.status !== 'ready'
+                            ? 'Checking…'
+                            : secondHalf.locked
+                              ? 'Locked · see every call'
+                              : secondHalf.own
+                                ? 'Filed · change it until the lock'
+                                : `Not filed · locks ${formatIrishTime(report.secondHalf.lockAt, { weekday: 'short', date: false, time: true })}`}
+                      </a>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            )}
           </div>
           <div className="ht-lead-stories">
             <div className="ht-halftime-marker">
@@ -430,7 +546,11 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
         </div>
       </header>
 
-      <nav className="ht-chapter-nav" aria-label="Halftime chapters">
+      <nav
+        ref={chapterNav}
+        className="ht-chapter-nav"
+        aria-label="Halftime chapters"
+      >
         {chapters.map(([id, name], i) => (
           <a
             key={id}
@@ -609,63 +729,30 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
             </div>
           </div>
           <aside className="ht-replay-aside ht-reveal">
-            {(followedTeam || featuredTeam) && (
+            {storyTeam && (
               <div className="ht-follow-story" aria-live="polite">
                 <span className="ht-eyebrow">
-                  {followedTeam
+                  {storyTeam === followedTeam
                     ? 'FOLLOWING YOUR TEAM'
                     : 'THE BIGGEST SURPRISE'}
                 </span>
-                <h3>{(followedTeam ?? featuredTeam)!.name}</h3>
+                <h3>{storyTeam.name}</h3>
                 <div>
-                  <strong>
-                    #{order.indexOf((followedTeam ?? featuredTeam)!.id) + 1}
-                  </strong>
+                  <strong>#{order.indexOf(storyTeam.id) + 1}</strong>
                   <ArrowRight size={22} />
-                  <strong>#{(followedTeam ?? featuredTeam)!.rank}</strong>
+                  <strong>#{storyTeam.rank}</strong>
                 </div>
                 <p>{sourceName} → Week 7 table</p>
                 <button
                   type="button"
                   className="ht-text-button"
-                  onClick={(e) =>
-                    openTeam((followedTeam ?? featuredTeam)!, e.currentTarget)
-                  }
+                  onClick={(e) => openTeam(storyTeam, e.currentTarget)}
                 >
                   Open the evidence <ArrowUpRight size={16} />
                 </button>
               </div>
             )}
 
-            <div className="ht-callout">
-              <span className="ht-eyebrow">THE BIGGEST CLIMB VS AI</span>
-              <div className="ht-big-rise">
-                <ArrowUpRight />
-                <strong>7</strong>
-                <span>PLACES</span>
-              </div>
-              <h3>
-                Keenan kept
-                <br />
-                the receipt.
-              </h3>
-              <p>
-                Predicted last. Fifth at halfway. The AI’s apology has been
-                entered into the record.
-              </p>
-              <button
-                type="button"
-                className="ht-text-button"
-                onClick={(e) =>
-                  openTeam(
-                    teams.find((t) => t.id === 3)!,
-                    e.currentTarget,
-                  )
-                }
-              >
-                Open his report <ArrowUpRight size={17} />
-              </button>
-            </div>
             <div className="ht-accuracy">
               <span className="ht-eyebrow">{sourceName} / HALFWAY CHECK</span>
               <div>
@@ -964,7 +1051,9 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
             </div>
             {revealed && (
               <div className="ht-stamped-verdict">
-                <span className="ht-stamp">APOLOGY ISSUED</span>
+                <span className="ht-stamp">
+                  {receiptTeam.verdict.toUpperCase()}
+                </span>
                 <p>{receiptTeam.title}</p>
                 <button
                   type="button"
@@ -981,6 +1070,7 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
 
       <TransactionDesk
         activity={report.activity}
+        afterWhistle={report.afterWhistle}
         teams={teams}
         followed={followed}
       />
@@ -994,9 +1084,50 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
         />
         <AwardsStage
           awards={report.honours}
+          intro={report.stageIntro}
           teams={teams}
           paused={motionPaused}
           onOpenTeam={openTeam}
+        />
+        {halftimeTape && (
+          <div className="ht-tape ht-reveal">
+            <div>
+              <span className="ht-eyebrow">
+                RETURN OF THE MAC · HALFTIME SPECIAL
+              </span>
+              <h3>{halftimeTape.title}</h3>
+              <p>
+                Mackorcle goes to the tape and re-ranks all twelve teams. Your
+                host does not accept the actual table.
+              </p>
+              {!halftimeTape.held && (
+                <a href={macEpisodeHref(halftimeTape)}>
+                  Episode page <ArrowUpRight size={14} />
+                </a>
+              )}
+            </div>
+            <AudioPlayer
+              src={halftimeTape.audio}
+              durationSeconds={halftimeTape.durationSeconds}
+              title={halftimeTape.title}
+            />
+          </div>
+        )}
+      </section>
+
+      <section id="second-half" className="ht-section">
+        <SectionTitle
+          number="07"
+          label="THE SECOND-HALF BALLOT"
+          title="Call the second half."
+          detail="Rank the final table, then pick every playoff game and the loser bowl. One ballot each, private until Sunday’s kickoff."
+        />
+        <SecondHalfBallot
+          teams={teams}
+          ballot={secondHalf}
+          house={report.secondHalf.house}
+          lockAt={report.secondHalf.lockAt}
+          paused={motionPaused}
         />
       </section>
 
@@ -1007,7 +1138,7 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
           <br />
           <span>Plenty of time to be wrong again.</span>
         </h2>
-        <p>2026 regular season · Weeks 1–7 · Published 28 October 2026</p>
+        <p>2026 regular season · Weeks 1–7 · Published 30 October 2026</p>
         <details>
           <summary>Sources & scoring notes</summary>
           <p>
@@ -1060,12 +1191,51 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
                 <span className="ht-eyebrow">
                   MAC12 / HALFTIME DOSSIER / {two(selected.rank)}
                 </span>
-                <DialogClose
-                  className="ht-dialog-close"
-                  aria-label="Close team report"
-                >
-                  <X size={22} />
-                </DialogClose>
+                <div className="ht-dialog-actions">
+                  <button
+                    type="button"
+                    className="ht-card-export"
+                    aria-label="Save report card"
+                    disabled={exportState === 'saving'}
+                    onClick={async () => {
+                      setExportState('saving');
+                      try {
+                        await saveReportCard(selected);
+                        setExportState('saved');
+                      } catch {
+                        setExportState('error');
+                      }
+                    }}
+                  >
+                    {exportState === 'saved' ? (
+                      <Check size={15} />
+                    ) : (
+                      <ArrowDown size={15} />
+                    )}
+                    <span>
+                      {exportState === 'saving'
+                        ? 'Saving…'
+                        : exportState === 'saved'
+                          ? 'Saved'
+                          : exportState === 'error'
+                            ? 'Try again'
+                            : 'Save card'}
+                    </span>
+                  </button>
+                  <DialogClose
+                    className="ht-dialog-close"
+                    aria-label="Close team report"
+                  >
+                    <X size={22} />
+                  </DialogClose>
+                </div>
+                <output className="sr-only">
+                  {exportState === 'saved'
+                    ? 'Report card PNG saved.'
+                    : exportState === 'error'
+                      ? 'Could not create the image. Please try again.'
+                      : ''}
+                </output>
               </div>
               <div className="ht-dialog-person">
                 <Portrait team={selected} size="large" />
@@ -1149,36 +1319,26 @@ export function HalftimeShow({ report }: { report: HalftimeReport }) {
                   )!}
                 />
               )}
-              <div className="ht-card-export">
-                <button
-                  type="button"
-                  disabled={exportState === 'saving'}
-                  onClick={async () => {
-                    setExportState('saving');
-                    try {
-                      await saveReportCard(selected);
-                      setExportState('saved');
-                    } catch {
-                      setExportState('error');
-                    }
-                  }}
-                >
-                  {exportState === 'saving'
-                    ? 'Making your card…'
-                    : 'Save report card'}{' '}
-                  <ArrowDown size={16} />
-                </button>
-                <output>
-                  {exportState === 'saved'
-                    ? 'PNG saved. Ready to share.'
-                    : exportState === 'error'
-                      ? 'Could not create the image. Please try again.'
-                      : 'A portrait PNG of your halfway stats.'}
-                </output>
-              </div>
               <div className="ht-dossier-question">
                 <span className="ht-eyebrow">THE SECOND-HALF QUESTION</span>
                 <p>{selected.question}</p>
+                {!secondHalf.locked && (
+                  <DialogClose
+                    className="ht-text-button"
+                    onClick={() =>
+                      window.setTimeout(() =>
+                        document.getElementById('second-half')?.scrollIntoView({
+                          behavior: motionAllowed() ? 'smooth' : 'auto',
+                        }),
+                      )
+                    }
+                  >
+                    {secondHalf.own
+                      ? 'Review your second-half ballot'
+                      : 'Make your second-half call'}{' '}
+                    <ArrowDown size={15} />
+                  </DialogClose>
+                )}
               </div>
             </>
           )}

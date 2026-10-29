@@ -1,7 +1,9 @@
 import snapshot from './snapshot.json';
 import activity from './activity.json';
 import { halftimeRugby } from './rugby';
-import { halftimeAwards } from './awards';
+import { halftimeAwards, halftimeStageIntro } from './awards';
+import { houseBallot } from './house-ballot';
+import { sundayKickoffForWeek } from '@/lib/predictions/rules';
 import type { HalftimeActivity } from '@/lib/season/halftime-ledger';
 
 // Editorial checkpoint: first seven weeks only. Original forecasts are copied
@@ -104,9 +106,49 @@ const reports: Record<
   },
 };
 
+// Trades completed after the 27 October cutoff, from the public Sleeper
+// transactions (checked 29 October). They carry no first-half scoring return.
+const afterWhistle = [
+  {
+    date: '27 Oct',
+    sides: [
+      { rosterId: 6, received: ['Jaylen Waddle', 'Chase Brown'] },
+      { rosterId: 2, received: ['Chris Olave'] },
+    ],
+  },
+  {
+    date: '27 Oct',
+    sides: [
+      { rosterId: 6, received: ['Brock Bowers'] },
+      { rosterId: 8, received: ['Javonte Williams', 'Tucker Kraft'] },
+    ],
+  },
+  {
+    date: '29 Oct',
+    sides: [
+      { rosterId: 10, received: ['Dallas Goedert'] },
+      { rosterId: 2, received: ['Isaiah Likely'] },
+    ],
+  },
+  {
+    date: '29 Oct',
+    sides: [
+      { rosterId: 7, received: ['Emeka Egbuka', 'Brock Purdy'] },
+      { rosterId: 9, received: ['Justin Jefferson'] },
+    ],
+  },
+];
+
 export const halftimeReport = {
   ...snapshot,
+  afterWhistle,
   honours: halftimeAwards,
+  stageIntro: halftimeStageIntro,
+  // The second-half ballot locks at the Week 8 Sunday kickoff.
+  secondHalf: {
+    lockAt: sundayKickoffForWeek(2026, 8).toISOString(),
+    house: houseBallot,
+  },
   activity: activity as HalftimeActivity,
   teams: snapshot.teams.map((team) => ({
     ...team,

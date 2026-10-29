@@ -49,6 +49,10 @@
   border-radius: 30px;
   min-height: 32px;
 }
+.ht-edition button[aria-pressed='true'] {
+  border-color: #e5c17c;
+  color: #e5c17c;
+}
 .ht-dim {
   opacity: 0.65;
 }
@@ -115,10 +119,7 @@
 }
 .ht-hero-main {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 20px;
   align-items: center;
-  padding: 44px 0 38px;
 }
 .ht-eyebrow {
   font:
@@ -144,7 +145,6 @@
   letter-spacing: -0.035em;
   line-height: 0.85;
   margin: 20px 0 23px;
-  font-size: clamp(62px, 7vw, 105px);
 }
 .ht-hero h1 > span {
   display: block;
@@ -200,135 +200,6 @@
 .ht-button > svg:last-child {
   margin-left: 15px;
 }
-.ht-clock-wrap {
-  padding: 24px 0 0 24px;
-  animation: ht-clock-enter 1.2s 0.2s both;
-}
-.ht-clock-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font:
-    8px var(--font-geist-mono),
-    monospace;
-  letter-spacing: 0.12em;
-  color: var(--ht-gold);
-}
-.ht-clock-label > span:first-child {
-  margin-right: auto;
-  color: #a6b49f;
-}
-.ht-clock-label .ht-live-line {
-  margin: 0 9px;
-  width: 12px;
-}
-.ht-clock {
-  display: flex;
-  align-items: baseline;
-  font-family: Impact, 'Arial Narrow', sans-serif;
-  letter-spacing: -0.04em;
-  line-height: 1.15;
-}
-.ht-clock-seven {
-  font-size: clamp(100px, 13.3vw, 183px);
-  color: var(--ht-gold);
-  text-shadow: 0 3px 0 #060b08;
-  position: relative;
-}
-.ht-clock-seven:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 53%;
-  height: 2px;
-  background: #17251d88;
-}
-.ht-clock-total {
-  font-size: clamp(40px, 5vw, 69px);
-  color: #72806a;
-}
-.ht-week-track {
-  display: grid;
-  grid-template-columns: repeat(14, 1fr);
-  gap: 4px;
-  margin-top: 2px;
-}
-.ht-week-track span {
-  height: 5px;
-  background: #394634;
-  transform: skewX(-15deg);
-}
-.ht-week-track .ht-week-done {
-  background: var(--ht-gold);
-  animation: ht-week-enter 1s 0.6s both;
-}
-.ht-clock-caption {
-  display: flex;
-  justify-content: space-between;
-  font:
-    6px var(--font-geist-mono),
-    monospace;
-  letter-spacing: 0.08em;
-  color: #9aa78f;
-  margin-top: 10px;
-}
-.ht-play-diagram {
-  width: 100%;
-  height: auto;
-  margin: 16px 0 10px;
-  overflow: visible;
-  fill: none;
-  stroke: #a5cbb3;
-  stroke-width: 2;
-}
-.ht-field-lines {
-  stroke: #7a96642e;
-  stroke-width: 1;
-}
-.ht-route {
-  stroke: var(--ht-gold);
-  stroke-dasharray: 400;
-  stroke-dashoffset: 400;
-  animation: ht-route-draw 2s 650ms ease forwards;
-}
-.ht-route-arrow {
-  stroke: var(--ht-gold);
-}
-.ht-cross {
-  opacity: 0.4;
-}
-.ht-hero-stat {
-  border-top: 1px solid #62755466;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  padding-top: 18px;
-  gap: 5px;
-}
-.ht-hero-stat > span {
-  font:
-    7px var(--font-geist-mono),
-    monospace;
-  letter-spacing: 0.15em;
-  color: #b2bfaa;
-}
-.ht-hero-stat > strong {
-  font-size: 12px;
-  font-weight: 750;
-  grid-row: 2;
-}
-.ht-hero-stat > b {
-  grid-column: 2;
-  grid-row: 1/3;
-  font:
-    34px Impact,
-    sans-serif;
-}
-.ht-hero-stat > b span {
-  color: #6b7b62;
-  margin: 0 4px;
-}
 .ht-hero-bottom {
   border-top: 1px solid #62755466;
   padding: 15px 0;
@@ -370,7 +241,6 @@
   gap: 10px;
   align-items: center;
   padding: 20px 0;
-  font-size: 10px;
   color: #a2ada3;
   min-height: 55px;
 }
@@ -423,9 +293,7 @@
   max-width: 480px;
 }
 .ht-section-detail {
-  max-width: 270px;
   color: var(--ht-muted);
-  font-size: 11px;
   line-height: 1.8;
 }
 .ht-replay-layout {
@@ -583,12 +451,10 @@
 }
 .ht-rank-identity strong {
   display: block;
-  font-size: 11px;
   font-weight: 600;
 }
 .ht-rank-identity small {
   display: block;
-  font-size: 9px;
   color: #8d9d8e;
   white-space: nowrap;
   overflow: hidden;
@@ -641,63 +507,8 @@
   flex-direction: column;
   gap: 25px;
 }
-.ht-callout {
-  padding: 26px;
-  background: #283a2a;
-  border-top: 2px solid var(--ht-gold);
-  position: relative;
-  overflow: hidden;
-}
-.ht-callout:after {
-  content: '↑';
-  position: absolute;
-  right: -10px;
-  top: 80px;
-  font-size: 240px;
-  line-height: 1;
-  color: #b8ce9d08;
-  pointer-events: none;
-}
-.ht-callout .ht-eyebrow {
-  color: #c4d0b8;
-  font-size: 7px;
-}
-.ht-big-rise {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--ht-gold);
-  margin-top: 12px;
-}
-.ht-big-rise svg {
-  width: 50px;
-  height: 50px;
-  stroke-width: 1;
-}
-.ht-big-rise strong {
-  font:
-    112px/0.95 Impact,
-    sans-serif;
-  letter-spacing: -5px;
-}
-.ht-big-rise > span {
-  font:
-    7px var(--font-geist-mono),
-    monospace;
-  align-self: end;
-  margin: 0 0 12px 8px;
-}
-.ht-callout h3 {
-  font-size: 28px;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  margin: 22px 0 13px;
-  font-weight: 600;
-}
-.ht-callout p,
 .ht-accuracy p,
 .ht-ballot-note p {
-  font-size: 11px;
   line-height: 1.9;
   color: #b7c4af;
 }
@@ -765,10 +576,6 @@
   text-align: left;
   padding: 19px 18px 0;
   overflow: hidden;
-  transition:
-    background 0.3s,
-    border-color 0.3s,
-    transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
   position: relative;
 }
 .ht-team-card:before {
@@ -798,9 +605,6 @@
   justify-content: space-between;
   align-items: center;
 }
-.ht-card-top .ht-eyebrow {
-  font-size: 7px;
-}
 .ht-card-record {
   font:
     20px Impact,
@@ -824,7 +628,6 @@
 }
 .ht-card-person small {
   display: block;
-  font-size: 9px;
   color: var(--ht-muted);
   margin-bottom: 5px;
 }
@@ -864,10 +667,8 @@
   animation: ht-spark-draw 1.4s ease;
 }
 .ht-team-card > p {
-  font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
-  min-height: 54px;
   padding-top: 7px;
 }
 .ht-card-bottom {
@@ -887,7 +688,6 @@
   color: #e5e5d6;
   font-weight: 500;
   margin-left: 4px;
-  font-size: 9px;
 }
 .ht-card-arrow {
   margin: 0 10px;
@@ -1008,7 +808,6 @@
   color: #8b9b85;
 }
 .ht-mini-row > strong {
-  font-size: 10px;
   font-weight: 450;
 }
 .ht-mini-row > span:last-child {
@@ -1236,32 +1035,6 @@
   font-size: 10px;
   margin-top: 8px;
   min-height: 40px;
-}
-.ht-transfer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 45px;
-  border-top: 1px solid var(--ht-border);
-  border-bottom: 1px solid var(--ht-border);
-  padding: 35px 0;
-  margin-top: 70px;
-}
-.ht-transfer h2 {
-  font-size: 38px;
-  line-height: 1.05;
-  letter-spacing: -1px;
-  font-weight: 600;
-  margin: 15px 0;
-}
-.ht-transfer p {
-  font-size: 12px;
-  line-height: 1.9;
-  color: var(--ht-muted);
-  max-width: 340px;
-}
-.ht-transfer p strong {
-  color: var(--ht-ink);
-  font-weight: 500;
 }
 .ht-after-whistle {
   border-left: 1px solid var(--ht-border);
@@ -1565,16 +1338,6 @@
     clip-path: inset(0);
   }
 }
-@keyframes ht-clock-enter {
-  from {
-    opacity: 0;
-    transform: perspective(900px) rotateY(-15deg) translateX(25px);
-  }
-  to {
-    opacity: 1;
-    transform: perspective(900px) rotateY(0) translateX(0);
-  }
-}
 @keyframes ht-week-enter {
   from {
     transform: scaleX(0) skewX(-15deg);
@@ -1582,11 +1345,6 @@
   }
   to {
     transform: scaleX(1) skewX(-15deg);
-  }
-}
-@keyframes ht-route-draw {
-  to {
-    stroke-dashoffset: 0;
   }
 }
 @keyframes ht-digit-enter {
@@ -1687,32 +1445,17 @@
   .ht-hero h1 {
     font-size: 116px;
   }
-  .ht-clock-seven {
-    font-size: 190px;
-  }
 }
 @media (max-width: 900px) {
   .ht-hero {
     padding: 23px 24px 0;
   }
-  .ht-hero-main {
-    gap: 15px;
-  }
   .ht-hero h1 {
     font-size: clamp(60px, 9vw, 90px);
-  }
-  .ht-clock-seven {
-    font-size: clamp(90px, 14vw, 145px);
-  }
-  .ht-clock-wrap {
-    padding-left: 10px;
   }
   .ht-replay-layout {
     grid-template-columns: minmax(0, 1.65fr) minmax(200px, 1fr);
     gap: 17px;
-  }
-  .ht-callout {
-    padding: 20px;
   }
   .ht-team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1758,66 +1501,11 @@
   .ht-issue {
     font-size: 6px;
   }
-  .ht-hero-main {
-    grid-template-columns: 1fr;
-    padding: 32px 0 25px;
-    gap: 28px;
-  }
   .ht-hero-copy {
     position: relative;
   }
-  .ht-hero h1 {
-    font-size: clamp(70px, 18vw, 108px);
-    margin: 18px 0;
-  }
-  .ht-hero h1 > span:first-child {
-    font-size: 0.4em;
-  }
   .ht-hero-copy > .ht-eyebrow {
     font-size: 7px;
-  }
-  .ht-deck {
-    font-size: 11px;
-  }
-  .ht-button {
-    margin-top: 20px;
-  }
-  .ht-clock-wrap {
-    padding: 20px 0 0;
-    border-top: 1px solid #62755466;
-    position: relative;
-  }
-  .ht-clock-label {
-    font-size: 7px;
-  }
-  .ht-clock {
-    line-height: 1;
-  }
-  .ht-clock-seven {
-    font-size: 104px;
-    letter-spacing: -3px;
-  }
-  .ht-clock-total {
-    font-size: 46px;
-  }
-  .ht-clock-caption {
-    font-size: 6px;
-  }
-  .ht-play-diagram {
-    position: absolute;
-    right: 0;
-    top: 42px;
-    width: 47%;
-    height: 75px;
-    margin: 0;
-    opacity: 0.6;
-  }
-  .ht-hero-stat {
-    margin-top: 20px;
-    padding-top: 15px;
-  }
-  .ht-hero-stat > b {
-    font-size: 29px;
   }
   .ht-hero-bottom {
     font-size: 6px;
@@ -1840,12 +1528,7 @@
     top: 64px;
   }
   .ht-chapter-nav a {
-    font-size: 9px;
-    gap: 7px;
     padding: 18px 0;
-  }
-  .ht-chapter-nav a span {
-    font-size: 7px;
   }
   .ht-section {
     padding-top: 48px;
@@ -1861,7 +1544,6 @@
     margin-top: 11px;
   }
   .ht-section-detail {
-    font-size: 11px;
     max-width: 330px;
     margin-top: 13px;
   }
@@ -1893,16 +1575,6 @@
   .ht-rank-number {
     font-size: 18px;
   }
-  .ht-rank-identity {
-    gap: 8px;
-  }
-  .ht-rank-identity strong {
-    font-size: 10px;
-  }
-  .ht-rank-identity small {
-    max-width: 150px;
-    font-size: 8px;
-  }
   .ht-rank-record {
     font-size: 9px;
   }
@@ -1911,51 +1583,12 @@
     gap: 1px;
   }
   .ht-board-footer {
-    font-size: 5.5px;
     padding: 13px 12px;
   }
   .ht-replay-aside {
     gap: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-  .ht-callout {
-    grid-column: 1/3;
-    padding: 22px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
-  }
-  .ht-callout > .ht-eyebrow {
-    grid-column: 1/3;
-  }
-  .ht-big-rise {
-    grid-column: 1;
-    grid-row: 2/4;
-    align-self: center;
-  }
-  .ht-big-rise strong {
-    font-size: 90px;
-  }
-  .ht-big-rise svg {
-    width: 40px;
-  }
-  .ht-big-rise > span {
-    font-size: 6px;
-    margin-left: 0;
-  }
-  .ht-callout h3 {
-    font-size: 23px;
-    margin-top: 20px;
-  }
-  .ht-callout p {
-    grid-column: 2;
-    font-size: 10px;
-  }
-  .ht-callout .ht-text-button {
-    grid-column: 1/3;
-    justify-self: start;
-    margin-top: 10px;
   }
   .ht-accuracy {
     padding: 0 0 15px;
@@ -1970,65 +1603,28 @@
   .ht-accuracy > div > span {
     font-size: 10px;
   }
-  .ht-accuracy p,
-  .ht-ballot-note p {
-    font-size: 10px;
-  }
   .ht-ballot-note {
     border-left: 1px solid var(--ht-border);
     padding-left: 17px;
-  }
-  .ht-team-grid {
-    gap: 11px;
-  }
-  .ht-team-card {
-    padding: 14px 12px 0;
-  }
-  .ht-card-top .ht-eyebrow {
-    font-size: 6px;
-  }
-  .ht-card-record {
-    font-size: 18px;
   }
   .ht-card-person {
     display: block;
     margin-top: 15px;
     min-height: 98px;
   }
-  .ht-card-person .ht-portrait {
-    width: 38px;
-    height: 38px;
-    margin-bottom: 9px;
-  }
-  .ht-card-person small {
-    font-size: 8px;
-  }
   .ht-card-person h3 {
-    font-size: 12px;
     line-height: 1.3;
-    min-height: 32px;
   }
   .ht-team-card > .ht-spark {
     height: 57px;
     margin-top: 2px;
   }
-  .ht-team-card > p {
-    font-size: 10px;
-    min-height: 60px;
-    line-height: 1.6;
-  }
   .ht-card-bottom {
-    font-size: 5px;
     gap: 4px;
     padding: 12px 0;
-    margin-top: 7px;
   }
   .ht-card-bottom b {
-    font-size: 8px;
     margin-left: 2px;
-  }
-  .ht-card-arrow {
-    margin: 0 3px;
   }
   .ht-card-open svg {
     width: 14px;
@@ -2055,12 +1651,6 @@
   }
   .ht-schedule-table {
     padding: 20px;
-  }
-  .ht-mini-row > strong {
-    font-size: 11px;
-  }
-  .ht-mini-row > span:last-child {
-    font-size: 10px;
   }
   .ht-under-table {
     display: block;
@@ -2117,18 +1707,6 @@
   }
   .ht-paper-label {
     font-size: 7px;
-  }
-  .ht-transfer {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    margin-top: 48px;
-    padding: 28px 0;
-  }
-  .ht-transfer h2 {
-    font-size: 34px;
-  }
-  .ht-transfer p {
-    font-size: 11px;
   }
   .ht-after-whistle {
     border-left: 0;
@@ -2230,17 +1808,11 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-  .ht-route {
-    stroke-dashoffset: 0 !important;
-  }
 }
 .halftime[data-motion='paused'] * {
   animation: none !important;
   transition: none !important;
   scroll-behavior: auto !important;
-}
-.halftime[data-motion='paused'] .ht-route {
-  stroke-dashoffset: 0;
 }
 @media (forced-colors: active) {
   .ht-title-outline {
@@ -2266,12 +1838,11 @@
   .ht-spark-line {
     stroke: CanvasText;
   }
-  .ht-status-dot,
-  .ht-week-track span {
+  .ht-status-dot {
     background: CanvasText;
   }
 }
-/* The route diagram sits behind the copy, inside the hero's own stacking context. */
+/* The background grid sits behind the copy, inside the hero's own stacking context. */
 .ht-hero {
   isolation: isolate;
 }
@@ -2297,38 +1868,12 @@
   transition: none !important;
 }
 @media (max-width: 639px) {
-  .ht-card-top .ht-eyebrow {
-    font-size: 8px;
-  }
-  .ht-card-person small {
-    font-size: 10px;
-  }
-  .ht-card-person h3 {
-    font-size: 13px;
-  }
-  .ht-team-card > p {
-    font-size: 12px;
-    min-height: 76px;
-  }
-  .ht-card-bottom {
-    font-size: 6px;
-  }
-  .ht-rank-identity strong {
-    font-size: 12px;
-  }
-  .ht-rank-identity small {
-    font-size: 10px;
-  }
   .ht-rank-identity {
     gap: 7px;
   }
   .ht-rank-identity .ht-portrait {
     width: 25px;
     height: 25px;
-  }
-  .ht-rank-record,
-  .ht-rank-change {
-    font-size: 10px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2339,7 +1884,8 @@
 .halftime[data-motion='paused'] .ht-team-card:hover {
   translate: none;
 }
-/* Second edition: a tighter opening, directed replay and shared report surface. */
+/* Second edition: a tighter opening, directed replay and shared report surface.
+   These rules deliberately follow the earlier media queries and override them. */
 .ht-hero-main {
   grid-template-columns: 1.05fr 1fr;
   padding: 30px 0 30px;
@@ -2637,7 +2183,6 @@
   font-size: 8px;
   line-height: 1.6;
 }
-.ht-callout p,
 .ht-accuracy p,
 .ht-ballot-note p {
   font-size: 12px;
@@ -2906,7 +2451,6 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
   .ht-board-footer {
     font-size: 7px;
   }
-  .ht-callout p,
   .ht-accuracy p,
   .ht-ballot-note p {
     font-size: 12px;
@@ -3287,11 +2831,39 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
   margin-top: 25px;
   background: #1f2c22;
 }
-.ht-moves > .ht-after-whistle p {
+.ht-after-whistle ul {
+  display: grid;
+  gap: 1px;
+  max-width: 720px;
+  background: var(--ht-border);
+  border: 1px solid var(--ht-border);
+}
+.ht-after-whistle li {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 3px 14px;
+  padding: 12px 14px;
+  background: #18251c;
+}
+.ht-after-whistle time {
+  grid-row: span 2;
+  font:
+    9px/2 var(--font-geist-mono),
+    monospace;
+  color: var(--ht-gold);
+  letter-spacing: 0.06em;
+}
+.ht-after-whistle li p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
   font-size: 13px;
-  line-height: 1.8;
+  line-height: 1.5;
   color: var(--ht-muted);
-  max-width: 620px;
+}
+.ht-after-whistle li strong {
+  color: #f0eee5;
+  font-weight: 600;
 }
 .ht-moves .ht-after-note {
   font-size: 10px;
@@ -3757,144 +3329,33 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
     font-size: 27px;
   }
 }
-.ht-card-export {
-  border-top: 1px solid #41533a;
+.ht-dialog-actions {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 23px;
-  padding-top: 20px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
 }
-.ht-card-export > button {
+.ht-card-export {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 8px;
   min-height: 44px;
-  padding: 10px 15px;
-  background: #e5c17c;
-  color: #17221b;
+  padding: 0 14px;
+  border: 1px solid #45533d;
+  color: #e5c17c;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
-.ht-card-export > output {
-  font-size: 11px;
-  color: #a2ada3;
+.ht-card-export:hover {
+  border-color: #e5c17c;
+  background: #e5c17c14;
 }
-.ht-card-export > button:disabled {
+.ht-card-export:disabled {
   opacity: 0.6;
   cursor: progress;
-}
-.ht-honours-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-.ht-honour {
-  padding: 25px;
-  text-align: left;
-  border: 1px solid #64714b;
-  background: linear-gradient(145deg, #30412a, #1a281d);
-  display: flex;
-  flex-direction: column;
-  transition:
-    translate 0.35s,
-    border-color 0.35s;
-  position: relative;
-  overflow: hidden;
-}
-.ht-honour:hover {
-  translate: 0 -5px;
-  border-color: var(--ht-gold);
-}
-.ht-honour-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
-  color: var(--ht-gold);
-}
-.ht-honour-top > span {
-  font:
-    10px var(--font-geist-mono),
-    monospace;
-  color: #98a588;
-}
-.ht-honour > .ht-eyebrow {
-  text-transform: uppercase;
-  font-size: 9px;
-  color: #d3d8c1;
-}
-.ht-honour-metric {
-  font:
-    72px/1 Impact,
-    sans-serif;
-  color: var(--ht-gold);
-  margin: 16px 0;
-}
-.ht-honour h3 {
-  font-size: 21px;
-  font-weight: 650;
-  line-height: 1.2;
-  letter-spacing: -0.6px;
-}
-.ht-honour-detail {
-  font:
-    10px/1.8 var(--font-geist-mono),
-    monospace;
-  color: #b9c7ac;
-  display: block;
-  margin: 12px 0;
-}
-.ht-honour > p {
-  font-size: 12px;
-  line-height: 1.9;
-  color: #b6c2ab;
-  margin: 5px 0 22px;
-}
-.ht-honour-link {
-  margin-top: auto;
-  padding-top: 15px;
-  border-top: 1px solid #61734c;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 11px;
-  color: var(--ht-gold);
-}
-@media (max-width: 639px) {
-  .ht-honours-grid {
-    grid-template-columns: 1fr;
-  }
-  .ht-honour {
-    padding: 23px;
-  }
-  .ht-honour-top {
-    margin-bottom: 17px;
-  }
-  .ht-honour-metric {
-    font-size: 64px;
-    margin: 15px 0;
-  }
-  .ht-honour h3 {
-    font-size: 24px;
-  }
-  .ht-honour-detail {
-    font-size: 11px;
-  }
-  .ht-honour > p {
-    font-size: 13px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ht-honour:hover {
-    translate: none;
-  }
-}
-.halftime[data-motion='paused'] .ht-honour:hover {
-  translate: none;
 }
 
 /* Halftime ceremony */
@@ -4082,6 +3543,29 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
   font-size: 12px;
   line-height: 1.7;
   margin: 6px 0;
+}
+/* Mackorcle's own line: the host's voice, set apart from the evidence. */
+.ht-stage-quote {
+  max-width: 430px;
+  margin: 10px 0 4px;
+  padding-left: 14px;
+  border-left: 2px solid #e5c17c;
+  text-align: left;
+}
+.ht-stage-quote cite {
+  display: block;
+  font:
+    normal 9px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.14em;
+  color: #e5c17c;
+}
+.ht-stage-content .ht-stage-quote p {
+  margin: 4px 0 0;
+  color: #f0e6d4;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.6;
 }
 .ht-stage-seal {
   border: 1px solid #a68b54;
@@ -4325,6 +3809,11 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
   color: #bab1a2;
   font-size: 11px;
 }
+.ht-award-results p {
+  color: #a99f90;
+  font-size: 12px;
+  line-height: 1.6;
+}
 .ht-award-results svg {
   position: absolute;
   right: 12px;
@@ -4550,10 +4039,13 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
   margin-top: 14px;
 }
 @media (max-width: 760px) {
+  /* Phones: Mackorcle stands above the screen so the controls sit directly
+     beneath it instead of a host-sized gap below. */
   .ht-stage-scene {
-    padding: 28px 20px 280px;
+    padding: 18px 20px 46px;
     grid-template-columns: 1fr;
-    min-height: 700px;
+    min-height: 0;
+    gap: 0;
   }
   .ht-stage-screen {
     min-height: 360px;
@@ -4566,25 +4058,13 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
     font-size: 30px;
   }
   .ht-stage-host {
-    position: absolute;
-    width: 250px;
-    left: calc(50% - 140px);
-    bottom: 35px;
-    margin: 0;
+    order: -1;
+    justify-self: center;
+    width: 210px;
+    margin: 0 0 -6px;
   }
   .ht-stage-podium {
-    min-height: 70px;
-    padding: 7px;
-  }
-  .ht-stage-podium > span {
-    font-size: 22px;
-  }
-  .ht-stage-podium b {
-    margin-top: 5px;
-    font-size: 8px;
-  }
-  .ht-stage-podium small {
-    font-size: 6px;
+    display: none;
   }
   .ht-stage-topline {
     padding: 14px;
@@ -4678,5 +4158,781 @@ html[data-ht-transition='report'] .ht-team-card[data-ht-origin='true'] {
 @media (max-width: 760px) {
   .ht-dialog-top {
     top: -17px;
+  }
+}
+/* The second-half ballot. One step on screen at a time; gold is the
+   championship, copper the loser bowl and its spoon. */
+.ht-ballot {
+  --ht-copper: #c98b5a;
+  --ht-raised: #1c2a21;
+  max-width: 820px;
+}
+.ht-ballot-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ht-border);
+  font-size: 12px;
+  color: var(--ht-muted);
+}
+.ht-ballot-status span {
+  color: var(--ht-gold);
+}
+.ht-ballot-empty {
+  padding: 28px 0;
+  font-size: 14px;
+  color: var(--ht-muted);
+}
+.ht-ballot-empty a {
+  color: var(--ht-gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ht-ballot-footnote {
+  margin-top: 22px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--ht-muted);
+  max-width: 560px;
+}
+.ht-ballot-rail {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--ht-border);
+}
+.ht-ballot-rail button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 48px;
+  font-size: 12px;
+  color: var(--ht-muted);
+  cursor: pointer;
+}
+.ht-ballot-rail button[aria-current='step'] {
+  color: var(--ht-ink);
+  font-weight: 600;
+}
+.ht-ballot-rail button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.ht-ballot-rail button svg {
+  color: var(--ht-gold);
+}
+.ht-ballot-rail i {
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background: var(--ht-gold);
+}
+.ht-ballot-step {
+  padding-top: 24px;
+}
+.ht-ballot-step > h3,
+.ht-ballot-filed > h3 {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.ht-ballot-step > p,
+.ht-ballot-filed > p {
+  margin: 6px 0 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ht-muted);
+  max-width: 520px;
+}
+.ht-ballot-table {
+  display: grid;
+  gap: 4px;
+}
+.ht-ballot-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px 22px 30px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 6px 0 2px;
+  background: var(--ht-raised);
+  border: 1px solid var(--ht-border);
+}
+.ht-ballot-row.ht-ballot-cut {
+  margin-bottom: 26px;
+}
+.ht-ballot-row.ht-ballot-cut::after {
+  content: 'Playoff line';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  border-top: 1px dashed var(--ht-gold);
+  padding-top: 3px;
+  font-size: 10px;
+  color: var(--ht-gold);
+  text-align: right;
+}
+.ht-ballot-grip {
+  display: grid;
+  place-items: center;
+  height: 44px;
+  color: var(--ht-muted);
+  cursor: grab;
+  touch-action: none;
+}
+.ht-ballot-grip:active {
+  cursor: grabbing;
+}
+.ht-ballot-seed {
+  font:
+    600 12px var(--font-geist-mono),
+    monospace;
+  color: var(--ht-gold);
+  text-align: center;
+}
+.ht-ballot-name {
+  display: grid;
+  min-width: 0;
+}
+.ht-ballot-name strong,
+.ht-ballot-name small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ht-ballot-name strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.ht-ballot-name small {
+  font-size: 11px;
+  color: var(--ht-muted);
+}
+.ht-ballot-nudge {
+  display: flex;
+}
+.ht-ballot-nudge button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 44px;
+  color: var(--ht-muted);
+  cursor: pointer;
+}
+.ht-ballot-nudge button:disabled {
+  opacity: 0.25;
+}
+.ht-ballot-note {
+  display: block;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--ht-gold);
+}
+.ht-ballot-next,
+.ht-ballot-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  margin-top: 22px;
+  background: var(--ht-gold);
+  color: #17221b;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.ht-ballot-next:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.ht-ballot-edit {
+  background: transparent;
+  color: var(--ht-gold);
+  border: 1px solid var(--ht-gold);
+}
+.ht-ballot-back {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.ht-ballot-back button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 13px;
+  color: var(--ht-muted);
+  cursor: pointer;
+}
+.ht-bracket {
+  --ht-prize: var(--ht-gold);
+  --ht-prize-wash: #e5c17c24;
+}
+.ht-bracket-loser {
+  --ht-prize: var(--ht-copper);
+  --ht-prize-wash: #c98b5a29;
+}
+.ht-bracket-loser .ht-ballot-seed {
+  color: var(--ht-copper);
+}
+/* Phones scroll the bracket sideways; wide screens see it whole. */
+.ht-bk-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  margin: 0 -16px;
+  padding: 0 16px 4px;
+}
+.ht-bk-scroll::-webkit-scrollbar {
+  display: none;
+}
+.ht-bk-grid {
+  display: grid;
+  grid-template-columns: 188px 20px 188px 22px 188px 20px 132px;
+  grid-template-rows: auto auto auto;
+  width: max-content;
+}
+.ht-bk-head {
+  grid-row: 1;
+  padding-bottom: 10px;
+  font-size: 11px;
+  color: var(--ht-muted);
+}
+.ht-bk-game {
+  align-self: center;
+  margin: 7px 0;
+  display: grid;
+  border: 1px solid var(--ht-border);
+  background: var(--ht-raised);
+}
+.ht-bk-slot,
+.ht-bk-waiting {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16px 24px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 8px 0 6px;
+  text-align: left;
+}
+.ht-bk-slot + .ht-bk-slot,
+.ht-bk-slot + .ht-bk-waiting,
+.ht-bk-waiting + .ht-bk-slot,
+.ht-bk-waiting + .ht-bk-waiting {
+  border-top: 1px solid var(--ht-border);
+}
+.ht-bk-slot {
+  cursor: pointer;
+}
+.ht-bk-slot:disabled {
+  cursor: default;
+}
+.ht-bk-slot .ht-portrait {
+  width: 24px;
+  height: 24px;
+}
+.ht-bk-slot .ht-ballot-name strong {
+  font-size: 13px;
+}
+.ht-bk-slot .ht-ballot-name small {
+  font-size: 10px;
+}
+.ht-bk-slot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-left: 3px solid var(--ht-prize);
+  background: linear-gradient(90deg, var(--ht-prize-wash), transparent 75%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.ht-bk-slot[aria-pressed='true']::before {
+  opacity: 1;
+}
+.ht-bk-tick {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ht-prize);
+  color: #17221b;
+}
+.ht-bk-waiting {
+  display: flex;
+  padding-left: 12px;
+  font-size: 11px;
+  color: #7f8b80;
+}
+/* Connector lines: dim until the game that feeds them is decided. */
+.ht-bk-link,
+.ht-bk-elbow {
+  position: relative;
+  align-self: stretch;
+}
+.ht-bk-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 2px solid var(--ht-border);
+  transition: border-color 0.4s;
+}
+.ht-bk-elbow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 50%;
+  border-right: 2px solid var(--ht-border);
+  transition: border-color 0.4s;
+}
+.ht-bk-elbow-top::before {
+  top: 50%;
+  bottom: 0;
+  border-top: 2px solid var(--ht-border);
+}
+.ht-bk-elbow-bottom::before {
+  top: 0;
+  bottom: 50%;
+  border-bottom: 2px solid var(--ht-border);
+}
+/* The short run from the elbow's join into the final. */
+.ht-bk-elbow-top::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: 0;
+  bottom: -1px;
+  border-top: 2px solid var(--ht-border);
+}
+.ht-bk-lit::before,
+.ht-bk-elbow.ht-bk-lit::before {
+  border-color: var(--ht-prize);
+}
+.ht-bk-result {
+  align-self: center;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 16px 10px;
+  border: 1px dashed var(--ht-border);
+  text-align: center;
+  transition: border-color 0.4s;
+}
+.ht-bk-result[data-filled='true'] {
+  border: 1px solid var(--ht-prize);
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    var(--ht-prize-wash),
+    transparent 70%
+  );
+}
+.ht-bk-prize {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--ht-prize);
+  color: var(--ht-prize);
+}
+.ht-bk-result strong {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+.ht-bk-result small {
+  font-size: 11px;
+  color: var(--ht-muted);
+}
+.ht-bk-hint {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ht-muted);
+}
+@media (min-width: 900px) {
+  .ht-bk-hint {
+    display: none;
+  }
+}
+.ht-ballot-punish {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--ht-copper);
+  white-space: nowrap;
+}
+.ht-ballot-standing {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ht-muted);
+}
+.ht-ballot-standing strong {
+  color: var(--ht-ink);
+}
+.ht-ballot-standing svg {
+  color: var(--ht-copper);
+}
+.ht-ballot-mini li .ht-spoon {
+  color: var(--ht-copper);
+  align-self: center;
+}
+.ht-spoon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.ht-ballot-summary {
+  display: grid;
+  gap: 14px;
+}
+.ht-ballot-outcomes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.ht-ballot-outcomes > div {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--ht-gold);
+  color: var(--ht-gold);
+}
+.ht-ballot-outcomes > .ht-ballot-outcome-spoon {
+  border-color: var(--ht-copper);
+  color: var(--ht-copper);
+}
+.ht-ballot-outcomes small {
+  font-size: 11px;
+  color: var(--ht-muted);
+}
+.ht-ballot-outcomes strong {
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--ht-ink);
+}
+.ht-ballot-mini {
+  display: grid;
+  border-top: 1px solid var(--ht-border);
+}
+.ht-ballot-mini li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--ht-border);
+  font-size: 13px;
+}
+.ht-ballot-mini li.ht-ballot-cut {
+  border-bottom: 1px dashed var(--ht-gold);
+}
+.ht-ballot-mini span {
+  font:
+    11px var(--font-geist-mono),
+    monospace;
+  color: var(--ht-gold);
+}
+.ht-ballot-mini small {
+  font-size: 11px;
+  color: var(--ht-muted);
+}
+.ht-ballot-filed {
+  position: relative;
+  padding-top: 24px;
+}
+.ht-ballot-stamp {
+  position: absolute;
+  top: 18px;
+  right: 0;
+  animation: none;
+  color: var(--ht-copper);
+  border-color: var(--ht-copper);
+}
+.ht-ballot-revealed {
+  display: grid;
+  gap: 30px;
+  padding-top: 24px;
+}
+.ht-ballot-revealed h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.ht-ballot-room {
+  display: grid;
+  gap: 24px;
+}
+.ht-ballot-votes > div {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  isolation: isolate;
+}
+.ht-ballot-votes i {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #e5c17c26;
+  transform-origin: left;
+}
+.ht-ballot-votes + .ht-ballot-votes i {
+  background: #c98b5a2e;
+}
+.ht-ballot-house {
+  padding: 20px;
+  border: 1px solid #a68b54;
+  background: #18151b;
+}
+.ht-ballot-house .ht-stage-quote p {
+  margin: 4px 0 16px;
+  color: #f0e6d4;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.6;
+}
+.ht-ballot-house-lines {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.6;
+  color: #d9ccb6;
+}
+.ht-ballot-manager {
+  border-bottom: 1px solid var(--ht-border);
+}
+.ht-ballot-manager > button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  width: 100%;
+  padding: 12px 0;
+  text-align: left;
+  cursor: pointer;
+}
+.ht-ballot-manager > button span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ht-muted);
+}
+.ht-ballot-manager > button b {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--ht-gold);
+}
+.ht-ballot-manager > div {
+  display: grid;
+  gap: 18px;
+  padding-bottom: 18px;
+}
+.ht-ballot-shift {
+  font-size: 13px;
+  color: var(--ht-muted);
+}
+.ht-ballot-shift strong {
+  color: var(--ht-ink);
+}
+@media (min-width: 900px) {
+  .ht-ballot-room {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 639px) {
+  .ht-ballot-step > h3,
+  .ht-ballot-filed > h3 {
+    font-size: 22px;
+  }
+  .ht-ballot-row {
+    gap: 8px;
+  }
+  .ht-ballot-name strong {
+    font-size: 13px;
+  }
+}
+/* The signed-in manager's own line in the hero. */
+.ht-your-half {
+  margin-top: 24px;
+  max-width: 440px;
+  border: 1px solid #e5c17c66;
+  background: #111916cc;
+}
+.ht-your-half > .ht-eyebrow {
+  display: block;
+  padding: 12px 14px 0;
+  color: var(--ht-gold);
+}
+.ht-your-team {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px 12px;
+  text-align: left;
+  cursor: pointer;
+}
+.ht-your-team > span {
+  display: grid;
+  min-width: 0;
+}
+.ht-your-team strong {
+  font-size: 16px;
+  font-weight: 650;
+}
+.ht-your-team small {
+  font-size: 12px;
+  color: var(--ht-muted);
+}
+.ht-your-team svg {
+  color: var(--ht-gold);
+}
+.ht-your-half dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #e5c17c33;
+}
+.ht-your-half dl > div {
+  padding: 10px 14px 12px;
+}
+.ht-your-half dl > div + div {
+  border-left: 1px solid #e5c17c33;
+}
+.ht-your-half dt {
+  font-size: 11px;
+  color: var(--ht-muted);
+}
+.ht-your-half dd {
+  margin-top: 3px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ht-your-half dd a {
+  color: var(--ht-gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* Bracket slots keep one height so the connectors stay aligned; long team
+   names wrap to two lines instead of truncating. */
+.ht-bk-slot {
+  height: 58px;
+}
+.ht-bk-slot .ht-ballot-name strong {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.15;
+  font-size: 12.5px;
+}
+.ht-bk-waiting {
+  height: 58px;
+}
+/* Grid children default to their content width; the bracket's lane must be
+   allowed to shrink and scroll instead of widening the page. */
+.ht-bracket,
+.ht-ballot-revealed > *,
+.ht-ballot-manager > div > * {
+  min-width: 0;
+}
+.ht-ballot-bracket-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ht-muted);
+  margin-bottom: -8px;
+}
+/* Phones: fewer repeats. The checkpoint box restates the line above it, the
+   team cards' AI-pick footer restates the replay, and the move headlines
+   restate the top of the pickup ledger. */
+@media (max-width: 639px) {
+  .ht-halftime-marker,
+  .ht-card-bottom,
+  .ht-move-leads {
+    display: none;
+  }
+  .ht-team-card {
+    padding-bottom: 16px;
+  }
+  .ht-team-card > p {
+    min-height: 0;
+  }
+}
+.ht-ballot-house-reveal {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ht-border);
+}
+.ht-ballot-house-reveal > p {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--ht-muted);
+}
+.ht-ballot-house h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+/* Mackorcle's halftime episode, under his awards ceremony. */
+.ht-tape {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+  padding: 22px;
+  border: 1px solid #5d4930;
+  background: #18151b;
+}
+.ht-tape > div:first-child {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.ht-tape .ht-eyebrow {
+  color: #e5c17c;
+}
+.ht-tape h3 {
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.ht-tape p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #bfb7a9;
+  max-width: 460px;
+}
+.ht-tape a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 13px;
+  color: #e5c17c;
+}
+@media (min-width: 900px) {
+  .ht-tape {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
   }
 }

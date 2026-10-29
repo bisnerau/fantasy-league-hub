@@ -1,0 +1,51 @@
+RETURN OF THE MAC: FRIDAY MACKDOWN — Halftime Show special — the Mackjusted halftime table
+DRAFT SCRIPT v3.2 (Humanizer pass, cut to about 2:30 at the commissioner's request) — prepared Thursday 29 October 2026 for release with the Halftime Show on Friday 30 October. Recording pending. Replaces v1 (clip reel; rejected jokes) and v2 (too focused on Burns). The commissioner asked for all twelve teams, covered evenly.
+
+PRODUCTION NOTES — not spoken
+Approx. 2 minutes 30 seconds. Mackorcle counts down his own "Mackjusted" halftime table from twelfth to first, one short argument per team, each delivered with total confidence. Treat "roll it", "pause it there" and "rewind" like a film-room session, with a slight beat after each command. Do not explain a joke or break character. One short desk-bell ring at each [bell] cue, five rings in total; leave a beat for the ring before continuing.
+Facts use the frozen Week 7 halftime checkpoint (captured 28 October) and Sleeper transactions checked 29 October:
+Shane 6–1, first in points and all-play. Alan 4–3, second in points, cleared 110 every week, reigning champion, lives with Hugo. Karl 5–2, second in the table, the AI's preseason favourite, known for complaining about the schedule. Joe 3–4, 71.62 in Week 3, traded Justin Jefferson to Jack for Emeka Egbuka and Brock Purdy on 29 October. Jack 5–2 with a 39–38 all-play record. David Sharpe 4–3, sixth, fewest points and last in all-play. Keenan: the AI had him twelfth, he is fifth, $5 FAAB on Jared Goff for 86.80 starter points, three straight defeats after four opening wins. Niall Murray opened with 169.00, the biggest Week 1 score, and is 3–4. Hugo lost five straight, then beat Tommy by 0.82 in Week 7. Aidan Murphy is seventh in the table and third in all-play. Burns: the AI had him second, he opened with 158.10 and is tenth. Tommy 1–6, second-best last-three-week average (128.03), lost to Hugo by 0.82.
+The household ruling is a callback to the 23 October Hugo episode. Mackorcle's house ballot (lib/data/halftime/house-ballot.ts) has Tommy champion. The second-half ballot locks Sunday 1 November at 18:00 Irish time, and filing one reveals his. The Mackjusted table, the "standards department" and every adjustment are invented comedy. Thursday's Week 8 game is not discussed: this is a halftime special, not a Week 8 preview.
+Reference: the Glen tape-watch segments on Pardon My Take. Broad devices only (film-room authority, selective evidence, reading the tape the wrong way with confidence); no Glen dialogue or catchphrases copied. Mackorcle keeps the established MAC 12 voice, open, bell and sign-off.
+
+SCRIPT
+
+Mackorcle Senior the First here. Welcome to Return of the Mac: Friday Mackdown, Mackticians. Less reaction. More Macktion.
+
+Halftime special. I've been to the tape and built the real table: the Mackjusted one. Roll it.
+
+[short pause]
+
+Twelfth. Shane. Six and one, first in everything. When every number agrees like that, somebody has coordinated them. [bell]
+
+Eleventh, Alan. Over a hundred and ten points every single week. I can't build a model around a man who refuses to surprise me.
+
+Karl is tenth. He's spent the whole season telling us the schedule is against him. Now he has something real to complain about.
+
+Ninth. Joe. He traded Justin Jefferson and got two players back, so mathematically he's up a player. But I've watched his Week Three. Seventy-one points. I'm still not over it. [bell]
+
+Jack comes in eighth. As good as everybody, luckier than all of them, and now he has Justin Jefferson. I've hidden him in eighth, where nobody will notice.
+
+Seventh, David. A winning record with the fewest points in the league. Lucky or a genius? Seventh, until he explains himself.
+
+Sixth, Keenan. The AI had him twelfth. Five dollars on Jared Goff got him to fifth. Then three straight losses. A man slowly coming around to the AI's way of thinking.
+
+Fifth. Niall. Week One, a hundred and sixty-nine points. Pause it there. I'm treating the six weeks since as the cool-down.
+
+[short pause]
+
+Hugo is fourth. Five straight losses, then a win by zero point eight two. That's a winning streak. [bell]
+
+Third, Aidan. Third in all-play, seventh in the table. The schedule wouldn't give him what he earned, so I have.
+
+Second. Burns. The AI had him second, and I don't overrule the AI. His Week One was a hundred and fifty-eight. I believe we're still watching it.
+
+And first. Tommy. One and six, but the second-best scoring of the last three weeks. He lost to Hugo by zero point eight two. I've scored it as an unlucky tie. Yes, same game as Hugo's winning streak. Both men played very well.
+
+On a Mackjusted basis, Prime Time is performing very well. [bell]
+
+The second-half ballot is on the Halftime Show page. File yours and you'll see mine. Tommy wins it, obviously. Ballots lock Sunday at six, Irish time. [bell]
+
+That's Return of the Mac: Friday Mackdown. Like, comment, subscribe. Macksperts, the comment section is for questions.
+
+If your results don't reflect my analysis, please allow another week.
