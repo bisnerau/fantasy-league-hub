@@ -1,0 +1,193 @@
+{
+  "checkedAt": "2026-10-30T10:07:41.662Z",
+  "weeks": [
+    {
+      "id": 87,
+      "week": 5,
+      "locks_at": "2026-10-11T17:00:00+00:00"
+    },
+    {
+      "id": 103,
+      "week": 6,
+      "locks_at": "2026-10-18T17:00:00+00:00"
+    },
+    {
+      "id": 118,
+      "week": 7,
+      "locks_at": "2026-10-25T17:00:00+00:00"
+    },
+    {
+      "id": 133,
+      "week": 8,
+      "locks_at": "2026-11-01T18:00:00+00:00"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": 607,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 9,
+      "away_roster_id": 11,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 608,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 2,
+      "away_roster_id": 4,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 609,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 5,
+      "away_roster_id": 6,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 610,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 7,
+      "away_roster_id": 8,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 611,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 3,
+      "away_roster_id": 12,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 612,
+      "prediction_week_id": 133,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 1,
+      "away_roster_id": 10,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    }
+  ],
+  "currentPrices": [
+    {
+      "matchup_id": 607,
+      "roster_id": 9,
+      "numerator": 4,
+      "denominator": 6,
+      "payout": 1.67,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 607,
+      "roster_id": 11,
+      "numerator": 6,
+      "denominator": 4,
+      "payout": 2.5,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 608,
+      "roster_id": 2,
+      "numerator": 1,
+      "denominator": 1,
+      "payout": 2,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 608,
+      "roster_id": 4,
+      "numerator": 1,
+      "denominator": 1,
+      "payout": 2,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 609,
+      "roster_id": 5,
+      "numerator": 10,
+      "denominator": 11,
+      "payout": 1.91,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 609,
+      "roster_id": 6,
+      "numerator": 11,
+      "denominator": 10,
+      "payout": 2.1,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 610,
+      "roster_id": 7,
+      "numerator": 6,
+      "denominator": 4,
+      "payout": 2.5,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 610,
+      "roster_id": 8,
+      "numerator": 4,
+      "denominator": 6,
+      "payout": 1.67,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 611,
+      "roster_id": 3,
+      "numerator": 1,
+      "denominator": 2,
+      "payout": 1.5,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 611,
+      "roster_id": 12,
+      "numerator": 2,
+      "denominator": 1,
+      "payout": 3,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 612,
+      "roster_id": 1,
+      "numerator": 5,
+      "denominator": 2,
+      "payout": 3.5,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    },
+    {
+      "matchup_id": 612,
+      "roster_id": 10,
+      "numerator": 2,
+      "denominator": 5,
+      "payout": 1.4,
+      "published_at": "2026-10-30T09:59:35.736865+00:00"
+    }
+  ],
+  "previousWeeksUnchanged": true,
+  "previousPriceCount": 36
+}

@@ -3,6 +3,7 @@ import type { NewsletterKey } from './matchup-newsletters';
 import { weekFivePublishedAt } from './newsletters/2026-week-5';
 import { weekSixPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenFeatureUpdatedAt } from './newsletters/2026-week-7';
+import { weekEightPublishedAt } from './newsletters/2026-week-8';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -91,6 +92,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Friday selection, after Thursday’s game: Tommy and Hugo meet at 1–5 in the bottom-of-the-table clash. Tommy leads 50.20–27.42 and is 1/5 to Hugo’s 11/2. The loser, barring a tie, goes 1–6. Both have already completed enough forfeits to know where this can lead.',
     buildUp:
       'The commissioner’s Friday choice: Shark Boy against the Grafton Street busker. Tommy has traded Wilson and Coleman for Irving; Hugo spent $19 on Douglas for 5.30 Thursday points. Both need a second win before the forfeit discussion starts looking less hypothetical. We retain the original Friday call for Tommy, with his Thursday lead already known and the Irving/Nacua injury checks still pending. The winner gets breathing room. The loser gets eleven people suddenly very interested in his availability next summer.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 8,
+    sleeperMatchupId: 3,
+    homeRosterId: 5,
+    awayRosterId: 6,
+    selectedAt: weekEightPublishedAt,
+    reason:
+      'Friday selection, after Thursday’s game: last year’s finalists meet again. Karl is 5–2, Alan is 4–3, and only 1.06 separates their adjusted best-lineup totals. Neither has starter points banked. Alan brings Bowers, Brown and Waddle into the rematch.',
+    buildUp:
+      'Karl can reach 6–2; Alan can pull them level at 5–3, barring a tie. Moroney’s five-game winning streak ended against Jack, while the champion has rebuilt through two Tuesday trades. Karl is 10/11 to Alan’s 11/10, but our Friday call goes to Alan. Last year’s runner-up has had ten months to prepare for this fixture. We expect both the team and the explanation to be ready.',
   },
 ];
 

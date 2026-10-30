@@ -352,3 +352,14 @@ Tommy call; Tommy receives a hindsight defensive bench flag. Joe's report notes
 the 0.10 difference between the frozen score and current Sleeper, without changing
 grading. The existing halfway table now has seven completed weeks. Week 8 previews,
 Match of the Week and prices remain later-week work. See `research/2026-week-8.md`.
+
+## Friday Week 8 update — 30 October
+
+Six Friday previews and winner calls follow Carolina–Green Bay. Karl–Alan is
+Match of the Week, a rematch of the 2025 final with nearly level prices. Fresh
+copy covers Thursday's Jefferson and Goedert trades, Tuesday's Alan deals,
+Friday pickups, Thursday scoring and the latest practice reports. Picks lock at
+18:00 Irish time on 1 November. The Week 8 prices and playground use the new
+best-lineup snapshot; archived reports and rankings remain unchanged. The
+Halftime Show remains held for the commissioner's announcement. See
+`research/2026-week-8-previews.md`.

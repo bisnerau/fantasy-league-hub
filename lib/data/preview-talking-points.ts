@@ -3,9 +3,33 @@ import { weekFourPublishedAt } from './newsletters/2026-week-4';
 import { weekFivePublishedAt } from './newsletters/2026-week-5';
 import { weekSixPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenPublishedAt } from './newsletters/2026-week-7';
+import { weekEightPublishedAt } from './newsletters/2026-week-8';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 8,
+    publishedAt: weekEightPublishedAt,
+    points: [
+      {
+        title: 'The final rematch. Alan has brought reinforcements.',
+        text: 'Karl–Alan is Match of the Week: 5–2 against 4–3, with just 1.06 between the adjusted totals. Bowers, Brown and Waddle are all selected for the champion. We take Alan at 11/10; Karl’s 10/11 price gives him very little room for a scheduling complaint.',
+        href: '/matchups?week=8#matchup-3',
+      },
+      {
+        title: 'Jack gets Jefferson. Joe has a receiver slot to fill.',
+        text: 'Thursday’s deal sends Jefferson to Jack for Purdy and Egbuka. Joe’s selected WR slot is empty at Friday’s check; the price includes bench cover, with Egbuka still limited. Shane traded Likely for Goedert, while Niall’s $48 Black purchase waits through a bye.',
+        href: '/matchups?week=8#matchup-4',
+      },
+      {
+        title: 'Six Friday calls. Picks lock at 6pm Irish time on Sunday.',
+        text: 'The 1 November deadline returns to 18:00 in Ireland after the US clock change. Keenan has 40.50 banked, Shane 34.50 and Hugo 28.30. Lamar has practised fully twice; Barkley and Smith remained non-participants. Friday’s final injury designations are pending.',
+        href: '/matchups?week=8',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',
