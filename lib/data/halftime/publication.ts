@@ -1,9 +1,10 @@
 export const halftimePublication = {
-  // Restore only when the commissioner is ready to announce the report.
-  isPublic: false,
+  // Announced by the commissioner on 30 October 2026, after a final check of
+  // the Sleeper trades.
+  isPublic: true,
   leagueId: '1389706813993160704',
   season: 2026,
-  publishedAt: '2026-10-28T12:52:08Z',
+  publishedAt: '2026-10-30T10:17:27Z',
   path: '/halftime',
 };
 

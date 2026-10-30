@@ -1,5 +1,15 @@
 # The halftime show
 
+## Announced · 30 October 2026
+
+The commissioner announced the report on Friday 30 October 2026.
+`halftimePublication.isPublic` is true and `publishedAt` records the release
+time. A final check of the Sleeper transactions found no trades beyond the four
+already listed under "Since the halftime whistle". Releasing the page also
+released Mackorcle's halftime episode in the Return of the Mac archive and the
+second-half ballot, which locks on Sunday 1 November at 18:00 Irish time. The
+hold notes below are kept as history.
+
 ## Announcement hold · 28 October 2026
 
 The commissioner requested that the report be hidden until their Friday

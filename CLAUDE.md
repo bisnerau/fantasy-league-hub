@@ -91,8 +91,8 @@ The `.openai/hosting.json` contains a legacy OpenAI Sites project ID (this was o
 
 Weekly Picks includes authored matchup reports in `lib/data/newsletters/`, indexed by `lib/data/matchup-newsletters.ts`. The commissioner prompts for reviews on Tuesdays and previews on Thursdays. Write individual stories with a few telling stats and friendly league slagging; the initial stats-heavy template style was rejected. The cron only syncs results and ballots, never generates prose. Preserve each published preview and winner call; show reviews only after settlement. Week 1–4 reviews and Week 2–4 previews are authored. Week 4 was requested Friday and explicitly labels its outlooks and calls after Thursday’s game; never describe those as pre-kickoff predictions. Preview-day homepage talking points live separately in `lib/data/preview-talking-points.ts` to preserve ranking archives. Use “matchup report”, “preview” or “round-up” in visible wording; the commissioner retired “newsletter”. Hugo and Alan live together. See `docs/matchup-stories.md` for the writing and publishing workflow.
 
-The Halftime Show (`/halftime`, held behind `halftimePublication.isPublic` until
-the commissioner announces it) ends with a second-half ballot. Members rank the
+The Halftime Show (`/halftime`, announced 30 October 2026; visibility follows
+`halftimePublication.isPublic`) ends with a second-half ballot. Members rank the
 final table, then pick both six-team brackets: championship winners advance; in
 the loser bowl losers advance. The league's punishment is last place in the
 regular season (Niall, 2025), not the loser bowl. It locks at the Week 8 Sunday
