@@ -18,6 +18,7 @@ import sample from '@/lib/data/experiments/odds-week-eight.json';
 import { matchupNewsletters } from '@/lib/data/matchup-newsletters';
 import { matchOfTheWeekSelections } from '@/lib/data/match-of-the-week';
 import { fractionalOdds } from '@/lib/predictions/fractional-odds';
+import { sundayKickoffForWeek } from '@/lib/predictions/rules';
 import { getRemaining } from '@/lib/countdown';
 import { formatIrishTime } from '@/lib/format/irish-time';
 import { cn } from '@/lib/utils';
@@ -54,8 +55,8 @@ const reports = matchupNewsletters.filter(
   (r) => r.season === String(sample.season) && r.week === sample.week,
 );
 const weeks = Array.from({ length: sample.week }, (_, i) => i + 1);
-// Sunday 1pm Eastern lock for this week's picks (from the stored ballot).
-const lock = Date.parse('2026-10-18T17:00:00Z');
+// Keep the practice countdown aligned with its weekly snapshot, including DST.
+const lock = sundayKickoffForWeek(sample.season, sample.week).getTime();
 const updated = formatIrishTime(sample.snapshot, {
   weekday: 'long',
   time: true,
@@ -236,9 +237,9 @@ export function OddsPlayground() {
               </div>
             )}
             <p className="mt-3 text-xs leading-5 text-muted-foreground">
-              Sunday 11 Oct, 18:00 · Irish time. Odds updated {updated} · Irish
-              time. Practice picks only: nothing here changes your real Weekly
-              Picks.
+              {formatIrishTime(lock, { weekday: 'long', time: true })} · Irish
+              time. Odds updated {updated} · Irish time. Practice picks only:
+              nothing here changes your real Weekly Picks.
             </p>
             <DriveTracker
               picks={selectedCount}
