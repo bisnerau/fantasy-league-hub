@@ -1,0 +1,103 @@
+{
+  "week": 6,
+  "season": 2026,
+  "snapshot": "2026-10-16T08:52:27.270Z",
+  "prices": [
+    {
+      "matchup_id": 427,
+      "roster_id": 5,
+      "numerator": 4,
+      "denominator": 7,
+      "payout": 1.57,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 427,
+      "roster_id": 11,
+      "numerator": 7,
+      "denominator": 4,
+      "payout": 2.75,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 428,
+      "roster_id": 2,
+      "numerator": 4,
+      "denominator": 9,
+      "payout": 1.44,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 428,
+      "roster_id": 8,
+      "numerator": 9,
+      "denominator": 4,
+      "payout": 3.25,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 429,
+      "roster_id": 3,
+      "numerator": 5,
+      "denominator": 2,
+      "payout": 3.5,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 429,
+      "roster_id": 9,
+      "numerator": 2,
+      "denominator": 5,
+      "payout": 1.4,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 430,
+      "roster_id": 4,
+      "numerator": 11,
+      "denominator": 4,
+      "payout": 3.75,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 430,
+      "roster_id": 10,
+      "numerator": 4,
+      "denominator": 11,
+      "payout": 1.36,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 431,
+      "roster_id": 1,
+      "numerator": 1,
+      "denominator": 1,
+      "payout": 2,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 431,
+      "roster_id": 6,
+      "numerator": 1,
+      "denominator": 1,
+      "payout": 2,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 432,
+      "roster_id": 7,
+      "numerator": 11,
+      "denominator": 10,
+      "payout": 2.1,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    },
+    {
+      "matchup_id": 432,
+      "roster_id": 12,
+      "numerator": 10,
+      "denominator": 11,
+      "payout": 1.91,
+      "published_at": "2026-10-16T09:32:19.929077+00:00"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+RETURN OF THE MAC MONDAYS — Week 4 review — Emmet Burns, Burns XI (v6)
+Recorded Wednesday 7 October 2026. Follows the 2 October format brief. [bell] = one desk-bell ring, added as a sound effect in editing; same spot every week, straight after the verdict. Facts verified against settled Sleeper Week 1–4 results and Week 5 lineups at 11:37 UTC.
+
+Mackorcle Senior the First here. Welcome to Return of the Mac Mondays, Mackticians. Less reaction. More Macktion.
+
+Quick housekeeping. Last week's subject, Joe Ennis, won. I'm not saying it was the analysis. I'm not not saying it.
+
+[short pause]
+
+This week, Emmet Burns. Burns XI. One and three. The self-proclaimed Macksperts have been very loud about this. Some of it on the league website. Which Emmet built. So that's ungrateful, too.
+
+Start with points. Fourth most in the league. The record says one and three. The points say contender.
+
+So. Mackalytics in Macktion.
+
+Week 3. He lost to Andrew Keenan by 0.36. I don't count that. That's not a result. That's a measuring error. I've moved it to wins.
+
+Week 4. Carnell Tate and Emanuel Wilson scored more than the margin. From the bench. The comments say that's a bad lineup. I'd call it a deep roster. Wilson was picked up on Saturday. He was still in onboarding.
+
+Put those two in, Burns beats Karl. I've moved that to wins as well.
+
+That's three and one.
+
+Then Keaton Mitchell. Claimed, then released fifty-nine minutes later. He's now in Andrew Keenan's lineup. People call that a mistake. I call it player development. Bryce Young's another graduate. Twenty-one points against Emmet on Sunday. For Karl. The program works. It just keeps working for other people.
+
+And forgive my language here... [short pause] but the flag on the play was baloney. You don't flag the man who owns the field.
+
+On a Mackjusted basis, Burns XI is performing very well. [bell] I've checked it twice. Same settings both times.
+
+Now. Last week I said Jack's data didn't need correcting. Jack then had the lowest score in the league. I've looked into that. My analysis was fine. Jack's wasn't. Emmet plays Jack on Sunday.
+
+That's Return of the Mac Mondays. Like, comment, subscribe. Macksperts, the comment section is for questions.
+
+[short pause]
+
+If your results don't reflect my analysis, please allow another week.
+
+---
+Proposed episode entry (fill in duration after measuring the export):
+slug: 2026-week-4-burns-xi
+title: Burns XI: the record says one and three.
+context: Week 4 review
+recordedOn: 2026-10-07
+manager: Emmet Burns · team: Burns XI · portrait: mackorcle-senior-v9.webp
+audio: /audio/return-of-the-mac/2026-week-4-burns-xi.mp3
