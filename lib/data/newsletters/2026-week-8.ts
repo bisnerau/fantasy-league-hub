@@ -4,6 +4,8 @@ import type { MatchupNewsletter } from '../matchup-newsletters';
 // injury designations pending. Original PPR estimates are archived below.
 export const weekEightPublishedAt = '2026-10-30T09:48:00Z';
 
+export const weekEightReviewPublishedAt = '2026-11-03T14:20:00Z';
+
 export const weekEightReports: MatchupNewsletter[] = [
   {
     leagueId: '1389706813993160704',
@@ -52,6 +54,42 @@ export const weekEightReports: MatchupNewsletter[] = [
         {
           label: 'Sleeper: latest Week 8 trades and Friday pickups',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/8',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekEightReviewPublishedAt,
+      headline: 'The best $8 Jack spent all week',
+      summary:
+        'Jack beat Dave 164.36–97.06 without McCaffrey. Justin Jefferson scored 14.30 on debut. That put the most talked-about man in the fixture sixth among Jack’s starters.',
+      sections: [
+        {
+          title: 'Eight dollars for eight sacks',
+          text: 'Jack picked up Pittsburgh after Niall let the defence go. The Steelers sacked Cleveland eight times and allowed two field goals. That waiver claim put 19 on the board, 1.30 more than Dave got from both running backs, his tight end, his kicker and Seattle’s defence combined. Niall may wish he had kept the receipt.',
+        },
+        {
+          title: 'Dave found the right receiver',
+          text: 'Michael Wilson gave Dave 26.80, then revealed he had played through two broken ribs. Maye and Rice did their bit too. The issue was at running back, where Hampton and Mason shared 6.70. Even a healthy Wilson would have struggled to do much about a 67.30-point gap.',
+        },
+        {
+          title: 'The Friday call: Jack Ringrose — correct',
+          text: 'We tipped Jack after the Jefferson trade. The better argument was already on the roster. Pollard followed last week’s 36.50 with another 28.70, and every Ringrose starter reached double figures. Four straight wins bring Jack level with Shane at 6–2. Dave heads back to .500.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · final Week 8 lineups and points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/8',
+        },
+        {
+          label: 'Steelers · eight sacks against Cleveland',
+          url: 'https://www.steelers.com/news/steelers-roll-past-browns-27-6',
+        },
+        {
+          label: 'Cardinals · Michael Wilson on playing through broken ribs',
+          url: 'https://www.azcardinals.com/news/jeremiyah-love-with-new-ankle-issue-as-cardinals-offense-catches-injury-bug',
         },
       ],
     },
@@ -119,6 +157,38 @@ export const weekEightReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekEightReviewPublishedAt,
+      headline: 'Tommy gets paid for the Bucky trade',
+      summary:
+        'A week after scoring 125.20 and losing by less than a point, Tommy got to enjoy his Sunday. He beat Niall 130.38–100.20 with his quarterback contributing all of 8.28.',
+      sections: [
+        {
+          title: 'Twenty-seven carries in the rain',
+          text: 'Tampa handed Bucky Irving the ball 27 times against Atlanta. He ran for 170 yards and the game’s only touchdown. Tommy has had Irving for two MAC 12 starts and collected 45 points from him. Karl took Wilson and Coleman in that deal. Shark Boy can finally discuss it with a win to his name.',
+        },
+        {
+          title: 'A good day to own Jacksonville',
+          text: 'Niall got 19.40 from Lawrence and 20 from the Jaguars defence. Unfortunately Tommy owned Bhayshul Tuten, who put up 29.90 all by himself. Friday pickup Freiermuth chipped in 11.60 for Niall, but Parker Washington managed 3.60 and there was very little on the bench to change the outcome.',
+        },
+        {
+          title: 'The Friday call: Tommy O’Brien — correct',
+          text: 'Friday’s prices had both managers at Evens. We took Tommy for Irving and Nacua, who supplied 46 between them before counting a point from Tuten. Tommy joins Hugo on two wins. Niall is still one win clear of both, which felt a good deal more comfortable on Friday.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · final Week 8 lineups and points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/8',
+        },
+        {
+          label: 'Buccaneers · Irving carries the offence in the rain',
+          url: 'https://www.buccaneers.com/news/bucs-win-atlanta-falcons-week-8-2026-score-16-0',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -172,6 +242,38 @@ export const weekEightReports: MatchupNewsletter[] = [
         {
           label: 'Raiders: Bowers upgraded to full Thursday practice',
           url: 'https://www.raiders.com/team/injury-report/',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekEightReviewPublishedAt,
+      headline: 'Alan gives Karl grounds for a scheduling complaint',
+      summary:
+        'The champion beat last year’s runner-up 173.88–104.58. Karl can take the fixture list to the committee this time. Nobody in MAC 12 would have beaten Alan.',
+      sections: [
+        {
+          title: 'Overtime in Cincinnati',
+          text: 'Joe Burrow threw for 462 yards and five touchdowns, then kept the ball for the nine-yard winner in overtime. Alan got 39.48 from that one shirt. Gibbs contributed another 24.80. By the time Karl had counted up his two best starters, Coleman and McBride, they had barely covered Burrow.',
+        },
+        {
+          title: 'The housemate rate',
+          text: 'Hugo had good reason to be pleased with Kraft’s 17.30 on Thursday after sending Bowers across the hall. Bowers answered with 28.20 for Alan. The other deal produced 16.10 from Brown and 14.90 from Waddle. All three newcomers started, and their 59.20 points would have made a handsome debut even on a weekend when their quarterback hadn’t scored six touchdowns.',
+        },
+        {
+          title: 'The Friday call: Alan Horgan — correct',
+          text: 'Our Match of the Week had just 1.06 between the two best-lineup estimates on Friday. We took Alan at 11/10 and got the winner right by 69.30 points. Both finalists are now 5–3. There is some consolation for Karl in Coleman’s 20.40, his best starter on the day. Any enquiries about the Bucky Irving side of that trade should probably wait.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · final Week 8 lineups and points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/8',
+        },
+        {
+          label: 'Bengals · Burrow accounts for six touchdowns',
+          url: 'https://www.bengals.com/news/bengals-titans-recap-postgame-notes-quotes-stats-week-8-2026',
         },
       ],
     },
@@ -235,6 +337,42 @@ export const weekEightReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekEightReviewPublishedAt,
+      headline: 'Joe finds his winning margin on the waiver wire',
+      summary:
+        'Elic Ayomanor scored 6.40 in a game Joe won by 5.02. The receiver slot we worried about on Friday turned out to be exactly where Hugo lost it. Joe takes it 122.60–117.58.',
+      sections: [
+        {
+          title: 'Someone answered the ad',
+          text: 'Neither Purdy nor Egbuka appeared in Joe’s starting lineup after the Jefferson deal. Golden’s 20.90 was already in the bank on Thursday and the free Ayomanor pickup filled the open job. Take that contribution out and Hugo wins by 1.38. Jack can have the splashy Jefferson debut. Joe will happily keep the change.',
+        },
+        {
+          title: 'Higgins asks for some help',
+          text: 'Tee Higgins caught ten passes for 155 yards and two touchdowns, worth 37.50 for Hugo. Taylor, Javonte Williams and Concepcion somehow returned identical scores of 6.70. Walsh had also started Caleb Williams over Mahomes. The 11.46-point difference between those two would have covered the margin twice.',
+        },
+        {
+          title: 'The Friday call: Hugo Walsh — wrong',
+          text: 'We backed Hugo with Kraft’s Thursday points already on the board. Braelon Allen gave Joe 23.30, the kicker gave him 15 and the last man through the door settled the argument. Joe is 4–4. After winning by 0.82 last week, Hugo has now seen quite enough of the decimal places.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · final Week 8 lineups and points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/8',
+        },
+        {
+          label: 'Sleeper · completed Week 8 moves',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/8',
+        },
+        {
+          label: 'Bengals · Burrow accounts for six touchdowns',
+          url: 'https://www.bengals.com/news/bengals-titans-recap-postgame-notes-quotes-stats-week-8-2026',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -287,6 +425,38 @@ export const weekEightReports: MatchupNewsletter[] = [
         {
           label: 'Eagles: Barkley and Smith absent Thursday; Goedert full',
           url: 'https://www.philadelphiaeagles.com/news/eagles-at-commanders-injury-report-2026-nfl-week-8-sunday-night-football-saquon-barkley-devonta-smith',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekEightReviewPublishedAt,
+      headline: 'Keenan finds the one man he could beat',
+      summary:
+        'Andrew scored 87.44, lost to ten teams on points and beat the only one who counted. Murphy followed the highest score of Week 7 with the lowest of Week 8, a 71.80 that ended Keenan’s three-game slide.',
+      sections: [
+        {
+          title: 'Thursday holds up',
+          text: 'Jacobs and Watson had 40.50 in the bank before Friday’s preview. The other seven starters added 46.94 between them. Flowers played in Buffalo and went without a catch for the first time in his NFL career. Keenan still had enough in hand to leave Allgeier’s 36.10 and Emmett Johnson’s 25.30 on the bench.',
+        },
+        {
+          title: 'Three receivers, one miserable afternoon',
+          text: 'London, Cooper and Metcalf occupied two receiver slots and the flex for Murphy. They combined for 3.20. Cook and Hockenson gave him 33.90, but asking two men to carry five positions is what got Aidan into this conversation. Cousins outscored Prescott on the bench by 8.38. Even perfect hindsight at quarterback leaves Murphy short.',
+        },
+        {
+          title: 'The Friday call: Andrew Keenan — correct',
+          text: 'We fancied Keenan with those Thursday points already counted. They ended up representing nearly half his score. He goes to 5–3 while Murphy drops to 3–5. Karl has spent years asking the league for a fixture like this one. Andrew got it the week he left 36 points sitting down.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · final Week 8 lineups and points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/8',
+        },
+        {
+          label: 'Ravens · Flowers held without a catch in Buffalo',
+          url: 'https://www.baltimoreravens.com/news/lamar-jackson-ravens-injury-ravens-bills-breakdown-injured-reserve',
         },
       ],
     },
@@ -346,6 +516,46 @@ export const weekEightReports: MatchupNewsletter[] = [
         {
           label: 'Ravens, 29 October: Lamar completes a second full practice',
           url: 'https://www.baltimoreravens.com/news/ravens-injury-report-vega-ioane-kyle-hamilton-roquan-smith-ravens-practice-return-2026',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekEightReviewPublishedAt,
+      headline: 'Swift delivers the commissioner’s correction on Monday night',
+      summary:
+        'Shane had 34.50 banked before Burns had a starter on the field. On Monday night the commissioner got to watch D’Andre Swift score three times against Seattle and beat the league leader 122.96–113.60.',
+      sections: [
+        {
+          title: 'Two quarterbacks, 3.46 points',
+          text: 'Lamar Jackson lasted one play in Buffalo before injuring his right thumb. Baltimore said on Monday that surgery was planned. Burns got 3.46 from Brissett, whom Arizona demoted to emergency third quarterback on Monday. Burns released him on Tuesday morning. Between them the two managers used an entire position to produce less than Shane got from his kicker.',
+        },
+        {
+          title: 'Chicago settles it',
+          text: 'Ja’Marr Chase had already supplied Burns with 31.10. Swift added 27.90 as Chicago beat Seattle 34–17 on Monday, scoring three touchdowns while Shane’s Smith-Njigba put up 23.80 on the other side. Burns also got 16 from his one-dollar kicker, Tyler Bass. For once the commissioner’s best free-agent argument involves a receipt small enough to lose down the sofa.',
+        },
+        {
+          title: 'The Friday call: Shane Marmion — wrong',
+          text: 'Shane had banked 34.50 before we backed him on Friday. Hubbard, Warren and Smith-Njigba all cleared 20, yet the leader still lost by 9.36. Burns gets a third win and the considerable pleasure of publishing this correction on his own website.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · final Week 8 lineups and points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/8',
+        },
+        {
+          label: 'Ravens · Monday update on Jackson’s thumb',
+          url: 'https://www.baltimoreravens.com/news/lamar-jackson-surgery-joe-fagnano-tyler-huntley-ravens-quarterback-injuries',
+        },
+        {
+          label: 'Bears · Swift scores three in Seattle',
+          url: 'https://www.chicagobears.com/news/game-recap-bears-make-statement-with-impressive-prime-time-win-in-seattle',
+        },
+        {
+          label: 'Cardinals · Brissett moves to emergency third quarterback',
+          url: 'https://www.azcardinals.com/news/gardner-minshew-named-cardinals-starting-quarterback-carson-beck-made-backup',
         },
       ],
     },

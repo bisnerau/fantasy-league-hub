@@ -235,3 +235,17 @@ resolved their Friday lineup gaps. The Joe–Shane report quotes the stored fina
 117.28–124.62 and discloses Sleeper's current 117.18 for Joe; grading is unchanged.
 Week 8 rankings include Tuesday trades, Wednesday waivers and dated post-game
 injury reports. No Week 8 previews are published. See `research/2026-week-8.md`.
+
+## Week 8 settlement — 3 November
+
+All six stored finals in ballot 133 matched the twelve Sleeper scores. Jack,
+Tommy, Alan and Keenan won as called on Friday. Joe beat Hugo by 5.02 and Burns
+beat Shane by 9.36. Karl–Alan remains the featured rematch. Hugo gets the bench
+flag for the 11.46-point gap between his two quarterbacks.
+
+The Tuesday ranking archive uses Week 9 as its edition number and Week 8 as
+its results cutoff. Alan leads on 1,110.56 season points, followed by Jack and
+Shane at 6–2. The reports link the team news used in the verdicts, including
+Baltimore’s thumb surgery update, Arizona’s quarterback change and Chicago’s
+Monday finish. Week 9 previews, winner calls, feature selection and prices are
+held for Friday.

@@ -4,6 +4,8 @@ import { weekFourReviewPublishedAt } from './newsletters/2026-week-4';
 import { weekSixReviewPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenReviewPublishedAt } from './newsletters/2026-week-7';
 
+import { weekEightReviewPublishedAt } from './newsletters/2026-week-8';
+
 export type FlagOnThePlay = {
   leagueId: string;
   season: string;
@@ -22,6 +24,17 @@ export type FlagOnThePlay = {
 // Authored with Tuesday's reviews from verified Sleeper stats; never generated.
 // One flag per league/week at most, shown only once that week has settled.
 export const flagsOnThePlay: readonly FlagOnThePlay[] = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 8,
+    rosterId: 8,
+    manager: 'Hugo Walsh',
+    call: 'Illegal use of the bench',
+    text: 'Caleb Williams scored 13.98 in Hugo’s starting lineup. Mahomes scored 25.44 on his bench. In a 5.02-point loss to Joe, that one hindsight swap turns the result into a 6.44-point win.',
+    penalty: '11.46 yards and a seat beside Patrick',
+    publishedAt: weekEightReviewPublishedAt,
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',
