@@ -7,6 +7,7 @@ import { weekFiveReports } from './newsletters/2026-week-5';
 import { weekSixReports } from './newsletters/2026-week-6';
 import { weekSevenReports } from './newsletters/2026-week-7';
 import { weekEightReports } from './newsletters/2026-week-8';
+import { weekNineReports } from './newsletters/2026-week-9';
 
 export type NewsletterKey = {
   leagueId: string;
@@ -34,6 +35,7 @@ export const matchupNewsletters: readonly MatchupNewsletter[] = [
   ...weekSixReports,
   ...weekSevenReports,
   ...weekEightReports,
+  ...weekNineReports,
 ];
 
 // A candidate only: callers still load the week and require settled results

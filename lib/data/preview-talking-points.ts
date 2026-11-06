@@ -4,9 +4,33 @@ import { weekFivePublishedAt } from './newsletters/2026-week-5';
 import { weekSixPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenPublishedAt } from './newsletters/2026-week-7';
 import { weekEightPublishedAt } from './newsletters/2026-week-8';
+import { weekNinePublishedAt } from './newsletters/2026-week-9';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 9,
+    publishedAt: weekNinePublishedAt,
+    points: [
+      {
+        title: 'Alan–Jack: the top two get a proper argument.',
+        text: 'Our Friday Match of the Week pairs Alan’s 173.88-point win with Jack’s four-game streak. Henry has banked 5.58; McCaffrey returned to limited practice Thursday. We take Alan at 4/9 to pull them level at 6–3.',
+        href: '/matchups?week=9#matchup-2',
+      },
+      {
+        title: 'Keenan buys a running back and loses a tight end.',
+        text: 'The $6 Henderson claim cost Okonkwo his place. Andrew’s tight-end slot is empty and Ferguson remains tagged IR, so the price includes only eight eligible starters. Shane is our call; a later pickup can improve Keenan’s team but cannot change the frozen odds.',
+        href: '/matchups?week=9#matchup-6',
+      },
+      {
+        title: 'Niall banks 38.68. The rest get until Sunday at six.',
+        text: 'Six Friday previews follow Jacksonville–Baltimore. Niall has 38.68, Hugo 15.00 and Tommy 8.90 already scored. Egbuka practised fully; Nabers and Garrett Wilson missed Thursday. Final Friday designations are pending. Picks lock at 18:00 Irish time on 8 November, after the early Madrid game begins.',
+        href: '/matchups?week=9',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

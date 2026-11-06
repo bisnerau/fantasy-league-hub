@@ -1,0 +1,3085 @@
+{
+  "retrievedAt": "2026-11-06T08:58:07.131Z",
+  "leagueId": "1389706813993160704",
+  "season": "2026",
+  "week": 9,
+  "firstKickoff": "2026-11-06T01:15:00Z",
+  "state": {
+    "week": 9,
+    "leg": 9,
+    "season": "2026",
+    "season_type": "regular",
+    "league_season": "2026",
+    "previous_season": "2025",
+    "season_start_date": "2026-09-09",
+    "display_week": 9,
+    "league_create_season": "2026",
+    "season_has_scores": true
+  },
+  "teams": [
+    {
+      "rosterId": 4,
+      "team": "Prime Time",
+      "record": "2–6",
+      "matchupId": 1,
+      "points": 8.9,
+      "pprTotal": 112.15,
+      "starters": [
+        {
+          "id": "421",
+          "name": "Matthew Stafford",
+          "position": "QB",
+          "team": "LAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 18.6,
+          "date": "2026-11-08",
+          "opponent": "WAS"
+        },
+        {
+          "id": "11584",
+          "name": "Bucky Irving",
+          "position": "RB",
+          "team": "TB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 17.56,
+          "date": "2026-11-08",
+          "opponent": "CHI"
+        },
+        {
+          "id": "12490",
+          "name": "Bhayshul Tuten",
+          "position": "RB",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 8.9,
+          "ppr": 13.51,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        },
+        {
+          "id": "13346",
+          "name": "Denzel Boston",
+          "position": "WR",
+          "team": "CLE",
+          "status": "Questionable",
+          "injury": "Calf",
+          "points": 0,
+          "ppr": 10.73,
+          "date": "2026-11-08",
+          "opponent": "NO"
+        },
+        {
+          "id": "9493",
+          "name": "Puka Nacua",
+          "position": "WR",
+          "team": "LAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 23.22,
+          "date": "2026-11-08",
+          "opponent": "WAS"
+        },
+        {
+          "id": "12517",
+          "name": "Colston Loveland",
+          "position": "TE",
+          "team": "CHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.94,
+          "date": "2026-11-08",
+          "opponent": "TB"
+        },
+        {
+          "id": "5859",
+          "name": "A.J. Brown",
+          "position": "WR",
+          "team": "NE",
+          "status": "Questionable",
+          "injury": "Ankle",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "3451",
+          "name": "Ka'imi Fairbairn",
+          "position": "K",
+          "team": "HOU",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.97,
+          "date": "2026-11-08",
+          "opponent": "LAC"
+        },
+        {
+          "id": "HOU",
+          "name": "Houston Texans",
+          "position": "DEF",
+          "team": "HOU",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.62,
+          "date": "2026-11-08",
+          "opponent": "LAC"
+        }
+      ],
+      "bench": [
+        {
+          "id": "11565",
+          "name": "J.J. McCarthy",
+          "position": "QB",
+          "team": "NYG",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.42,
+          "date": "2026-11-08",
+          "opponent": "PHI"
+        },
+        {
+          "id": "12534",
+          "name": "Kyle Monangai",
+          "position": "RB",
+          "team": "CHI",
+          "status": "Questionable",
+          "injury": "Toe",
+          "points": 0,
+          "ppr": 6.95,
+          "date": "2026-11-08",
+          "opponent": "TB"
+        },
+        {
+          "id": "13281",
+          "name": "Jordyn Tyson",
+          "position": "WR",
+          "team": "NO",
+          "status": "IR",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "13293",
+          "name": "Ja'Kobi Lane",
+          "position": "WR",
+          "team": "BAL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 4.97,
+          "date": "2026-11-05",
+          "opponent": "JAX"
+        },
+        {
+          "id": "1945",
+          "name": "Chris Boswell",
+          "position": "K",
+          "team": "PIT",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "7553",
+          "name": "Kyle Pitts Sr.",
+          "position": "TE",
+          "team": "ATL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.8,
+          "date": "2026-11-08",
+          "opponent": "CIN"
+        },
+        {
+          "id": "7611",
+          "name": "Rhamondre Stevenson",
+          "position": "RB",
+          "team": "NE",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 11.99,
+          "date": "2026-11-08",
+          "opponent": "GB"
+        }
+      ],
+      "previousPoints": 130.38
+    },
+    {
+      "rosterId": 11,
+      "team": "Burkeys Teur",
+      "record": "4–4",
+      "matchupId": 1,
+      "points": 0,
+      "pprTotal": 112.45,
+      "starters": [
+        {
+          "id": "11564",
+          "name": "Drake Maye",
+          "position": "QB",
+          "team": "NE",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 20.91,
+          "date": "2026-11-08",
+          "opponent": "GB"
+        },
+        {
+          "id": "12507",
+          "name": "Omarion Hampton",
+          "position": "RB",
+          "team": "LAC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.24,
+          "date": "2026-11-08",
+          "opponent": "HOU"
+        },
+        {
+          "id": "8408",
+          "name": "Jordan Mason",
+          "position": "RB",
+          "team": "MIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.05,
+          "date": "2026-11-09",
+          "opponent": "BUF"
+        },
+        {
+          "id": "12526",
+          "name": "Tetairoa McMillan",
+          "position": "WR",
+          "team": "CAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.78,
+          "date": "2026-11-08",
+          "opponent": "DEN"
+        },
+        {
+          "id": "10229",
+          "name": "Rashee Rice",
+          "position": "WR",
+          "team": "KC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 15.7,
+          "date": "2026-11-08",
+          "opponent": "NYJ"
+        },
+        {
+          "id": "12518",
+          "name": "Tyler Warren",
+          "position": "TE",
+          "team": "IND",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.23,
+          "date": "2026-11-08",
+          "opponent": "DAL"
+        },
+        {
+          "id": "10232",
+          "name": "Michael Wilson",
+          "position": "WR",
+          "team": "ARI",
+          "status": "Questionable",
+          "injury": "Ribs",
+          "points": 0,
+          "ppr": 12.94,
+          "date": "2026-11-08",
+          "opponent": "SEA"
+        },
+        {
+          "id": "2747",
+          "name": "Jason Myers",
+          "position": "K",
+          "team": "SEA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.75,
+          "date": "2026-11-08",
+          "opponent": "ARI"
+        },
+        {
+          "id": "SEA",
+          "name": "Seattle Seahawks",
+          "position": "DEF",
+          "team": "SEA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.85,
+          "date": "2026-11-08",
+          "opponent": "ARI"
+        }
+      ],
+      "bench": [
+        {
+          "id": "10213",
+          "name": "Tre Tucker",
+          "position": "WR",
+          "team": "LV",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 11,
+          "date": "2026-11-08",
+          "opponent": "SF"
+        },
+        {
+          "id": "11435",
+          "name": "Emanuel Wilson",
+          "position": "RB",
+          "team": "SEA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 0.76,
+          "date": "2026-11-08",
+          "opponent": "ARI"
+        },
+        {
+          "id": "11647",
+          "name": "Kimani Vidal",
+          "position": "RB",
+          "team": "LAC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.33,
+          "date": "2026-11-08",
+          "opponent": "HOU"
+        },
+        {
+          "id": "3214",
+          "name": "Hunter Henry",
+          "position": "TE",
+          "team": "NE",
+          "status": "Questionable",
+          "injury": "Foot",
+          "points": 0,
+          "ppr": 7.01,
+          "date": "2026-11-08",
+          "opponent": "GB"
+        },
+        {
+          "id": "4037",
+          "name": "Chris Godwin Jr.",
+          "position": "WR",
+          "team": "TB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.45,
+          "date": "2026-11-08",
+          "opponent": "CHI"
+        },
+        {
+          "id": "6804",
+          "name": "Jordan Love",
+          "position": "QB",
+          "team": "GB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 17,
+          "date": "2026-11-08",
+          "opponent": "NE"
+        },
+        {
+          "id": "9226",
+          "name": "De'Von Achane",
+          "position": "RB",
+          "team": "MIA",
+          "status": "IR",
+          "injury": "Knee - ACL",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        }
+      ],
+      "previousPoints": 97.06
+    },
+    {
+      "rosterId": 6,
+      "team": "Tampa B'AH",
+      "record": "5–3",
+      "matchupId": 2,
+      "points": 0,
+      "pprTotal": 134.83,
+      "starters": [
+        {
+          "id": "6770",
+          "name": "Joe Burrow",
+          "position": "QB",
+          "team": "CIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 21.26,
+          "date": "2026-11-08",
+          "opponent": "ATL"
+        },
+        {
+          "id": "9221",
+          "name": "Jahmyr Gibbs",
+          "position": "RB",
+          "team": "DET",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 25.8,
+          "date": "2026-11-08",
+          "opponent": "MIA"
+        },
+        {
+          "id": "9224",
+          "name": "Chase Brown",
+          "position": "RB",
+          "team": "CIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.16,
+          "date": "2026-11-08",
+          "opponent": "ATL"
+        },
+        {
+          "id": "2449",
+          "name": "Stefon Diggs",
+          "position": "WR",
+          "team": "WAS",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 12.21,
+          "date": "2026-11-08",
+          "opponent": "LAR"
+        },
+        {
+          "id": "12519",
+          "name": "Luther Burden III",
+          "position": "WR",
+          "team": "CHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 14.53,
+          "date": "2026-11-08",
+          "opponent": "TB"
+        },
+        {
+          "id": "11604",
+          "name": "Brock Bowers",
+          "position": "TE",
+          "team": "LV",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 18.59,
+          "date": "2026-11-08",
+          "opponent": "SF"
+        },
+        {
+          "id": "7526",
+          "name": "Jaylen Waddle",
+          "position": "WR",
+          "team": "DEN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 11.06,
+          "date": "2026-11-08",
+          "opponent": "CAR"
+        },
+        {
+          "id": "12713",
+          "name": "Andy Borregales",
+          "position": "K",
+          "team": "NE",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.48,
+          "date": "2026-11-08",
+          "opponent": "GB"
+        },
+        {
+          "id": "NYG",
+          "name": "New York Giants",
+          "position": "DEF",
+          "team": "NYG",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.74,
+          "date": "2026-11-08",
+          "opponent": "PHI"
+        }
+      ],
+      "bench": [
+        {
+          "id": "10219",
+          "name": "Chris Rodriguez Jr.",
+          "position": "RB",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 11.2,
+          "ppr": 5.94,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        },
+        {
+          "id": "11637",
+          "name": "Keon Coleman",
+          "position": "WR",
+          "team": "BUF",
+          "status": "Questionable",
+          "injury": "Shoulder",
+          "points": 0,
+          "ppr": 6.87,
+          "date": "2026-11-09",
+          "opponent": "MIN"
+        },
+        {
+          "id": "12489",
+          "name": "RJ Harvey",
+          "position": "RB",
+          "team": "DEN",
+          "status": "IR",
+          "injury": "Knee",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "4892",
+          "name": "Baker Mayfield",
+          "position": "QB",
+          "team": "TB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.19,
+          "date": "2026-11-08",
+          "opponent": "CHI"
+        },
+        {
+          "id": "4993",
+          "name": "Mike Gesicki",
+          "position": "TE",
+          "team": "CIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.17,
+          "date": "2026-11-08",
+          "opponent": "ATL"
+        },
+        {
+          "id": "6806",
+          "name": "J.K. Dobbins",
+          "position": "RB",
+          "team": "DEN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.05,
+          "date": "2026-11-08",
+          "opponent": "CAR"
+        },
+        {
+          "id": "9756",
+          "name": "Jordan Addison",
+          "position": "WR",
+          "team": "MIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.55,
+          "date": "2026-11-09",
+          "opponent": "BUF"
+        }
+      ],
+      "previousPoints": 173.88
+    },
+    {
+      "rosterId": 9,
+      "team": "The Finest Wagyu",
+      "record": "6–2",
+      "matchupId": 2,
+      "points": 5.58,
+      "pprTotal": 125.64,
+      "starters": [
+        {
+          "id": "4984",
+          "name": "Josh Allen",
+          "position": "QB",
+          "team": "BUF",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 22.09,
+          "date": "2026-11-09",
+          "opponent": "MIN"
+        },
+        {
+          "id": "4034",
+          "name": "Christian McCaffrey",
+          "position": "RB",
+          "team": "SF",
+          "status": "Questionable",
+          "injury": "Calf",
+          "points": 0,
+          "ppr": 22.98,
+          "date": "2026-11-08",
+          "opponent": "LV"
+        },
+        {
+          "id": "3198",
+          "name": "Derrick Henry",
+          "position": "RB",
+          "team": "BAL",
+          "status": null,
+          "injury": null,
+          "points": 5.58,
+          "ppr": 11.94,
+          "date": "2026-11-05",
+          "opponent": "JAX"
+        },
+        {
+          "id": "6794",
+          "name": "Justin Jefferson",
+          "position": "WR",
+          "team": "MIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 17.92,
+          "date": "2026-11-09",
+          "opponent": "BUF"
+        },
+        {
+          "id": "8148",
+          "name": "Jameson Williams",
+          "position": "WR",
+          "team": "DET",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 12.66,
+          "date": "2026-11-08",
+          "opponent": "MIA"
+        },
+        {
+          "id": "12506",
+          "name": "Harold Fannin Jr.",
+          "position": "TE",
+          "team": "CLE",
+          "status": "Questionable",
+          "injury": "Groin",
+          "points": 0,
+          "ppr": 11.42,
+          "date": "2026-11-08",
+          "opponent": "NO"
+        },
+        {
+          "id": "11624",
+          "name": "Xavier Worthy",
+          "position": "WR",
+          "team": "KC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.29,
+          "date": "2026-11-08",
+          "opponent": "NYJ"
+        },
+        {
+          "id": "6083",
+          "name": "Matt Gay",
+          "position": "K",
+          "team": "LV",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.23,
+          "date": "2026-11-08",
+          "opponent": "SF"
+        },
+        {
+          "id": "NO",
+          "name": "New Orleans Saints",
+          "position": "DEF",
+          "team": "NO",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.11,
+          "date": "2026-11-08",
+          "opponent": "CLE"
+        }
+      ],
+      "bench": [
+        {
+          "id": "10222",
+          "name": "Jayden Reed",
+          "position": "WR",
+          "team": "GB",
+          "status": "IR",
+          "injury": "Neck",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "10236",
+          "name": "Dalton Kincaid",
+          "position": "TE",
+          "team": "BUF",
+          "status": "Questionable",
+          "injury": "Chest",
+          "points": 0,
+          "ppr": 9.67,
+          "date": "2026-11-09",
+          "opponent": "MIN"
+        },
+        {
+          "id": "5045",
+          "name": "Courtland Sutton",
+          "position": "WR",
+          "team": "DEN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.31,
+          "date": "2026-11-08",
+          "opponent": "CAR"
+        },
+        {
+          "id": "5872",
+          "name": "Deebo Samuel Sr.",
+          "position": "WR",
+          "team": "SF",
+          "status": "Questionable",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": null,
+          "date": "2026-11-08",
+          "opponent": "LV"
+        },
+        {
+          "id": "5967",
+          "name": "Tony Pollard",
+          "position": "RB",
+          "team": "TEN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "8134",
+          "name": "Khalil Shakir",
+          "position": "WR",
+          "team": "BUF",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.06,
+          "date": "2026-11-09",
+          "opponent": "MIN"
+        },
+        {
+          "id": "PIT",
+          "name": "Pittsburgh Steelers",
+          "position": "DEF",
+          "team": "PIT",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        }
+      ],
+      "previousPoints": 164.36
+    },
+    {
+      "rosterId": 2,
+      "team": "Mahomes-lander n The Boys",
+      "record": "3–5",
+      "matchupId": 3,
+      "points": 38.68,
+      "pprTotal": 118.8,
+      "starters": [
+        {
+          "id": "7523",
+          "name": "Trevor Lawrence",
+          "position": "QB",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 13.58,
+          "ppr": 19.46,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        },
+        {
+          "id": "8151",
+          "name": "Kenneth Walker III",
+          "position": "RB",
+          "team": "KC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 21.98,
+          "date": "2026-11-08",
+          "opponent": "NYJ"
+        },
+        {
+          "id": "8155",
+          "name": "Breece Hall",
+          "position": "RB",
+          "team": "NYJ",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.38,
+          "date": "2026-11-08",
+          "opponent": "KC"
+        },
+        {
+          "id": "8144",
+          "name": "Chris Olave",
+          "position": "WR",
+          "team": "NO",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 15.41,
+          "date": "2026-11-08",
+          "opponent": "CLE"
+        },
+        {
+          "id": "9487",
+          "name": "Parker Washington",
+          "position": "WR",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 14.1,
+          "ppr": 14,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        },
+        {
+          "id": "8131",
+          "name": "Isaiah Likely",
+          "position": "TE",
+          "team": "NYG",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 11.5,
+          "date": "2026-11-08",
+          "opponent": "PHI"
+        },
+        {
+          "id": "9500",
+          "name": "Josh Downs",
+          "position": "WR",
+          "team": "IND",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.94,
+          "date": "2026-11-08",
+          "opponent": "DAL"
+        },
+        {
+          "id": "12185",
+          "name": "Spencer Shrader",
+          "position": "K",
+          "team": "IND",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.69,
+          "date": "2026-11-08",
+          "opponent": "DAL"
+        },
+        {
+          "id": "JAX",
+          "name": "Jacksonville Jaguars",
+          "position": "DEF",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 11,
+          "ppr": 7.44,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        }
+      ],
+      "bench": [
+        {
+          "id": "11628",
+          "name": "Marvin Harrison Jr.",
+          "position": "WR",
+          "team": "HOU",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 5.06,
+          "date": "2026-11-08",
+          "opponent": "LAC"
+        },
+        {
+          "id": "13296",
+          "name": "Caleb Douglas",
+          "position": "WR",
+          "team": "MIA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.55,
+          "date": "2026-11-08",
+          "opponent": "DET"
+        },
+        {
+          "id": "13414",
+          "name": "Kaelon Black",
+          "position": "RB",
+          "team": "SF",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 6.59,
+          "date": "2026-11-08",
+          "opponent": "LV"
+        },
+        {
+          "id": "2216",
+          "name": "Mike Evans",
+          "position": "WR",
+          "team": "SF",
+          "status": "Questionable",
+          "injury": "Achilles",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "3286",
+          "name": "Demarcus Robinson",
+          "position": "WR",
+          "team": "SF",
+          "status": "IR",
+          "injury": "Ankle",
+          "points": 0,
+          "ppr": 8.04,
+          "date": "2026-11-08",
+          "opponent": "LV"
+        },
+        {
+          "id": "7021",
+          "name": "Rico Dowdle",
+          "position": "RB",
+          "team": "PIT",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        }
+      ],
+      "previousPoints": 100.2
+    },
+    {
+      "rosterId": 7,
+      "team": "D'onta FourMore!",
+      "record": "4–4",
+      "matchupId": 3,
+      "points": 0,
+      "pprTotal": 126.13,
+      "starters": [
+        {
+          "id": "8183",
+          "name": "Brock Purdy",
+          "position": "QB",
+          "team": "SF",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 22.27,
+          "date": "2026-11-08",
+          "opponent": "LV"
+        },
+        {
+          "id": "12495",
+          "name": "Ollie Gordon II",
+          "position": "RB",
+          "team": "MIA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.03,
+          "date": "2026-11-08",
+          "opponent": "DET"
+        },
+        {
+          "id": "11576",
+          "name": "Braelon Allen",
+          "position": "RB",
+          "team": "NYJ",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.51,
+          "date": "2026-11-08",
+          "opponent": "KC"
+        },
+        {
+          "id": "7547",
+          "name": "Amon-Ra St. Brown",
+          "position": "WR",
+          "team": "DET",
+          "status": "Questionable",
+          "injury": "Ribs",
+          "points": 0,
+          "ppr": 20.31,
+          "date": "2026-11-08",
+          "opponent": "MIA"
+        },
+        {
+          "id": "11632",
+          "name": "Malik Nabers",
+          "position": "WR",
+          "team": "NYG",
+          "status": "Questionable",
+          "injury": "Undisclosed",
+          "points": 0,
+          "ppr": 15.74,
+          "date": "2026-11-08",
+          "opponent": "PHI"
+        },
+        {
+          "id": "10859",
+          "name": "Sam LaPorta",
+          "position": "TE",
+          "team": "DET",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.44,
+          "date": "2026-11-08",
+          "opponent": "MIA"
+        },
+        {
+          "id": "12501",
+          "name": "Matthew Golden",
+          "position": "WR",
+          "team": "GB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 14.86,
+          "date": "2026-11-08",
+          "opponent": "NE"
+        },
+        {
+          "id": "13968",
+          "name": "Drew Stevens",
+          "position": "K",
+          "team": "WAS",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.42,
+          "date": "2026-11-08",
+          "opponent": "LAR"
+        },
+        {
+          "id": "DET",
+          "name": "Detroit Lions",
+          "position": "DEF",
+          "team": "DET",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.55,
+          "date": "2026-11-08",
+          "opponent": "MIA"
+        }
+      ],
+      "bench": [
+        {
+          "id": "11783",
+          "name": "Ryan Flournoy",
+          "position": "WR",
+          "team": "DAL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.7,
+          "date": "2026-11-08",
+          "opponent": "IND"
+        },
+        {
+          "id": "12481",
+          "name": "Cam Skattebo",
+          "position": "RB",
+          "team": "NYG",
+          "status": "Questionable",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": 11.89,
+          "date": "2026-11-08",
+          "opponent": "PHI"
+        },
+        {
+          "id": "12514",
+          "name": "Emeka Egbuka",
+          "position": "WR",
+          "team": "TB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.52,
+          "date": "2026-11-08",
+          "opponent": "CHI"
+        },
+        {
+          "id": "6904",
+          "name": "Jalen Hurts",
+          "position": "QB",
+          "team": "PHI",
+          "status": "IR",
+          "injury": "Calf",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "8136",
+          "name": "Rachaad White",
+          "position": "RB",
+          "team": "WAS",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.68,
+          "date": "2026-11-08",
+          "opponent": "LAR"
+        },
+        {
+          "id": "9753",
+          "name": "Zach Charbonnet",
+          "position": "RB",
+          "team": "SEA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.99,
+          "date": "2026-11-08",
+          "opponent": "ARI"
+        },
+        {
+          "id": "BAL",
+          "name": "Baltimore Ravens",
+          "position": "DEF",
+          "team": "BAL",
+          "status": null,
+          "injury": null,
+          "points": 1,
+          "ppr": 5.42,
+          "date": "2026-11-05",
+          "opponent": "JAX"
+        }
+      ],
+      "previousPoints": 122.6
+    },
+    {
+      "rosterId": 5,
+      "team": "Pronouns Who Dey",
+      "record": "5–3",
+      "matchupId": 4,
+      "points": 0,
+      "pprTotal": 127.37,
+      "starters": [
+        {
+          "id": "11566",
+          "name": "Jayden Daniels",
+          "position": "QB",
+          "team": "WAS",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 18.65,
+          "date": "2026-11-08",
+          "opponent": "LAR"
+        },
+        {
+          "id": "9509",
+          "name": "Bijan Robinson",
+          "position": "RB",
+          "team": "ATL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 23.03,
+          "date": "2026-11-08",
+          "opponent": "CIN"
+        },
+        {
+          "id": "13345",
+          "name": "Jonah Coleman",
+          "position": "RB",
+          "team": "DEN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 14.45,
+          "date": "2026-11-08",
+          "opponent": "CAR"
+        },
+        {
+          "id": "8137",
+          "name": "George Pickens",
+          "position": "WR",
+          "team": "DAL",
+          "status": "Questionable",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": 13.52,
+          "date": "2026-11-08",
+          "opponent": "IND"
+        },
+        {
+          "id": "8146",
+          "name": "Garrett Wilson",
+          "position": "WR",
+          "team": "NYJ",
+          "status": "Questionable",
+          "injury": "Concussion",
+          "points": 0,
+          "ppr": 14.25,
+          "date": "2026-11-08",
+          "opponent": "KC"
+        },
+        {
+          "id": "8130",
+          "name": "Trey McBride",
+          "position": "TE",
+          "team": "ARI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 15.34,
+          "date": "2026-11-08",
+          "opponent": "SEA"
+        },
+        {
+          "id": "1479",
+          "name": "Keenan Allen",
+          "position": "WR",
+          "team": "IND",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 11.35,
+          "date": "2026-11-08",
+          "opponent": "DAL"
+        },
+        {
+          "id": "7839",
+          "name": "Evan McPherson",
+          "position": "K",
+          "team": "CIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.3,
+          "date": "2026-11-08",
+          "opponent": "ATL"
+        },
+        {
+          "id": "DEN",
+          "name": "Denver Broncos",
+          "position": "DEF",
+          "team": "DEN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.48,
+          "date": "2026-11-08",
+          "opponent": "CAR"
+        }
+      ],
+      "bench": [
+        {
+          "id": "11586",
+          "name": "Blake Corum",
+          "position": "RB",
+          "team": "LAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.23,
+          "date": "2026-11-08",
+          "opponent": "WAS"
+        },
+        {
+          "id": "11631",
+          "name": "Brian Thomas Jr.",
+          "position": "WR",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 3.76,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        },
+        {
+          "id": "13305",
+          "name": "Mike Washington Jr.",
+          "position": "RB",
+          "team": "LV",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.21,
+          "date": "2026-11-08",
+          "opponent": "SF"
+        },
+        {
+          "id": "4199",
+          "name": "Aaron Jones Sr.",
+          "position": "RB",
+          "team": "MIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10,
+          "date": "2026-11-09",
+          "opponent": "BUF"
+        },
+        {
+          "id": "8121",
+          "name": "Romeo Doubs",
+          "position": "WR",
+          "team": "NE",
+          "status": "IR",
+          "injury": "Shoulder",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "8154",
+          "name": "Brian Robinson Jr.",
+          "position": "RB",
+          "team": "ATL",
+          "status": "Questionable",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": 6.04,
+          "date": "2026-11-08",
+          "opponent": "CIN"
+        },
+        {
+          "id": "9228",
+          "name": "Bryce Young",
+          "position": "QB",
+          "team": "CAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.99,
+          "date": "2026-11-08",
+          "opponent": "DEN"
+        }
+      ],
+      "previousPoints": 104.58
+    },
+    {
+      "rosterId": 12,
+      "team": "BurrowMeDickinYoAss",
+      "record": "3–5",
+      "matchupId": 4,
+      "points": 0,
+      "pprTotal": 115.44,
+      "starters": [
+        {
+          "id": "3294",
+          "name": "Dak Prescott",
+          "position": "QB",
+          "team": "DAL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 19.77,
+          "date": "2026-11-08",
+          "opponent": "IND"
+        },
+        {
+          "id": "12512",
+          "name": "Quinshon Judkins",
+          "position": "RB",
+          "team": "CLE",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 12.25,
+          "date": "2026-11-08",
+          "opponent": "NO"
+        },
+        {
+          "id": "8138",
+          "name": "James Cook III",
+          "position": "RB",
+          "team": "BUF",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 14.87,
+          "date": "2026-11-09",
+          "opponent": "MIN"
+        },
+        {
+          "id": "8112",
+          "name": "Drake London",
+          "position": "WR",
+          "team": "ATL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 18.47,
+          "date": "2026-11-08",
+          "opponent": "CIN"
+        },
+        {
+          "id": "13276",
+          "name": "Omar Cooper Jr.",
+          "position": "WR",
+          "team": "NYJ",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.81,
+          "date": "2026-11-08",
+          "opponent": "KC"
+        },
+        {
+          "id": "5844",
+          "name": "T.J. Hockenson",
+          "position": "TE",
+          "team": "MIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.88,
+          "date": "2026-11-09",
+          "opponent": "BUF"
+        },
+        {
+          "id": "12474",
+          "name": "Woody Marks",
+          "position": "RB",
+          "team": "HOU",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.86,
+          "date": "2026-11-08",
+          "opponent": "LAC"
+        },
+        {
+          "id": "11792",
+          "name": "Will Reichard",
+          "position": "K",
+          "team": "MIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.2,
+          "date": "2026-11-09",
+          "opponent": "BUF"
+        },
+        {
+          "id": "MIN",
+          "name": "Minnesota Vikings",
+          "position": "DEF",
+          "team": "MIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 6.33,
+          "date": "2026-11-09",
+          "opponent": "BUF"
+        }
+      ],
+      "bench": [
+        {
+          "id": "1166",
+          "name": "Kirk Cousins",
+          "position": "QB",
+          "team": "LV",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 17.18,
+          "date": "2026-11-08",
+          "opponent": "SF"
+        },
+        {
+          "id": "2133",
+          "name": "Davante Adams",
+          "position": "WR",
+          "team": "LAR",
+          "status": "IR",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "4035",
+          "name": "Alvin Kamara",
+          "position": "RB",
+          "team": "NO",
+          "status": "Questionable",
+          "injury": "Back",
+          "points": 0,
+          "ppr": 9.39,
+          "date": "2026-11-08",
+          "opponent": "CLE"
+        },
+        {
+          "id": "5846",
+          "name": "DK Metcalf",
+          "position": "WR",
+          "team": "PIT",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "5947",
+          "name": "Jakobi Meyers",
+          "position": "WR",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 10.5,
+          "ppr": 9.34,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        },
+        {
+          "id": "7543",
+          "name": "Travis Etienne Jr.",
+          "position": "RB",
+          "team": "NO",
+          "status": "IR",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "7567",
+          "name": "Kenny Gainwell",
+          "position": "RB",
+          "team": "TB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.2,
+          "date": "2026-11-08",
+          "opponent": "CHI"
+        },
+        {
+          "id": "9480",
+          "name": "Brenton Strange",
+          "position": "TE",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 4.2,
+          "ppr": 9.71,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        }
+      ],
+      "previousPoints": 71.8
+    },
+    {
+      "rosterId": 1,
+      "team": "Burns XI",
+      "record": "3–5",
+      "matchupId": 5,
+      "points": 0,
+      "pprTotal": 124.95,
+      "starters": [
+        {
+          "id": "12545",
+          "name": "Tyler Shough",
+          "position": "QB",
+          "team": "NO",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 15.33,
+          "date": "2026-11-08",
+          "opponent": "CLE"
+        },
+        {
+          "id": "8150",
+          "name": "Kyren Williams",
+          "position": "RB",
+          "team": "LAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 18.7,
+          "date": "2026-11-08",
+          "opponent": "WAS"
+        },
+        {
+          "id": "6790",
+          "name": "D'Andre Swift",
+          "position": "RB",
+          "team": "CHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.5,
+          "date": "2026-11-08",
+          "opponent": "TB"
+        },
+        {
+          "id": "7564",
+          "name": "Ja'Marr Chase",
+          "position": "WR",
+          "team": "CIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 19.68,
+          "date": "2026-11-08",
+          "opponent": "ATL"
+        },
+        {
+          "id": "7569",
+          "name": "Nico Collins",
+          "position": "WR",
+          "team": "HOU",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 17.28,
+          "date": "2026-11-08",
+          "opponent": "LAC"
+        },
+        {
+          "id": "1466",
+          "name": "Travis Kelce",
+          "position": "TE",
+          "team": "KC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.2,
+          "date": "2026-11-08",
+          "opponent": "NYJ"
+        },
+        {
+          "id": "13301",
+          "name": "Antonio Williams",
+          "position": "WR",
+          "team": "WAS",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.55,
+          "date": "2026-11-08",
+          "opponent": "LAR"
+        },
+        {
+          "id": "7042",
+          "name": "Tyler Bass",
+          "position": "K",
+          "team": "BUF",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.3,
+          "date": "2026-11-09",
+          "opponent": "MIN"
+        },
+        {
+          "id": "CHI",
+          "name": "Chicago Bears",
+          "position": "DEF",
+          "team": "CHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.41,
+          "date": "2026-11-08",
+          "opponent": "TB"
+        }
+      ],
+      "bench": [
+        {
+          "id": "11625",
+          "name": "Adonai Mitchell",
+          "position": "WR",
+          "team": "NYJ",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.37,
+          "date": "2026-11-08",
+          "opponent": "KC"
+        },
+        {
+          "id": "12508",
+          "name": "Jaxson Dart",
+          "position": "QB",
+          "team": "NYG",
+          "status": "IR",
+          "injury": "Knee - Meniscus",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "13274",
+          "name": "Germie Bernard",
+          "position": "WR",
+          "team": "PIT",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "13279",
+          "name": "Carnell Tate",
+          "position": "WR",
+          "team": "TEN",
+          "status": "Out",
+          "injury": "Shoulder",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "13286",
+          "name": "Jadarian Price",
+          "position": "RB",
+          "team": "SEA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.13,
+          "date": "2026-11-08",
+          "opponent": "ARI"
+        },
+        {
+          "id": "13417",
+          "name": "De'Zhaun Stribling",
+          "position": "WR",
+          "team": "SF",
+          "status": "IR",
+          "injury": "Ankle",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "13424",
+          "name": "Seth McGowan",
+          "position": "RB",
+          "team": "IND",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 6.72,
+          "date": "2026-11-08",
+          "opponent": "DAL"
+        },
+        {
+          "id": "8161",
+          "name": "Malik Willis",
+          "position": "QB",
+          "team": "MIA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 17.81,
+          "date": "2026-11-08",
+          "opponent": "DET"
+        }
+      ],
+      "previousPoints": 122.96
+    },
+    {
+      "rosterId": 8,
+      "team": "Hawk Tuas Binatsos ",
+      "record": "2–6",
+      "matchupId": 5,
+      "points": 15,
+      "pprTotal": 121.18,
+      "starters": [
+        {
+          "id": "11560",
+          "name": "Caleb Williams",
+          "position": "QB",
+          "team": "CHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 18.47,
+          "date": "2026-11-08",
+          "opponent": "TB"
+        },
+        {
+          "id": "6813",
+          "name": "Jonathan Taylor",
+          "position": "RB",
+          "team": "IND",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 17.5,
+          "date": "2026-11-08",
+          "opponent": "DAL"
+        },
+        {
+          "id": "7588",
+          "name": "Javonte Williams",
+          "position": "RB",
+          "team": "DAL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 18.39,
+          "date": "2026-11-08",
+          "opponent": "IND"
+        },
+        {
+          "id": "6801",
+          "name": "Tee Higgins",
+          "position": "WR",
+          "team": "CIN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.55,
+          "date": "2026-11-08",
+          "opponent": "ATL"
+        },
+        {
+          "id": "11610",
+          "name": "Malik Washington",
+          "position": "WR",
+          "team": "MIA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.84,
+          "date": "2026-11-08",
+          "opponent": "DET"
+        },
+        {
+          "id": "9484",
+          "name": "Tucker Kraft",
+          "position": "TE",
+          "team": "GB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 11.62,
+          "date": "2026-11-08",
+          "opponent": "NE"
+        },
+        {
+          "id": "11635",
+          "name": "Ladd McConkey",
+          "position": "WR",
+          "team": "LAC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13,
+          "date": "2026-11-08",
+          "opponent": "HOU"
+        },
+        {
+          "id": "11786",
+          "name": "Cam Little",
+          "position": "K",
+          "team": "JAX",
+          "status": null,
+          "injury": null,
+          "points": 15,
+          "ppr": 8.57,
+          "date": "2026-11-05",
+          "opponent": "BAL"
+        },
+        {
+          "id": "GB",
+          "name": "Green Bay Packers",
+          "position": "DEF",
+          "team": "GB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 6.24,
+          "date": "2026-11-08",
+          "opponent": "NE"
+        }
+      ],
+      "bench": [
+        {
+          "id": "11583",
+          "name": "Jonathon Brooks",
+          "position": "RB",
+          "team": "CAR",
+          "status": "IR",
+          "injury": "Abdomen",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "13294",
+          "name": "Makai Lemon",
+          "position": "WR",
+          "team": "PHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.02,
+          "date": "2026-11-08",
+          "opponent": "NYG"
+        },
+        {
+          "id": "13298",
+          "name": "KC Concepcion Jr.",
+          "position": "WR",
+          "team": "CLE",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.51,
+          "date": "2026-11-08",
+          "opponent": "NO"
+        },
+        {
+          "id": "4046",
+          "name": "Patrick Mahomes",
+          "position": "QB",
+          "team": "KC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 21.24,
+          "date": "2026-11-08",
+          "opponent": "NYJ"
+        },
+        {
+          "id": "5892",
+          "name": "David Montgomery",
+          "position": "RB",
+          "team": "HOU",
+          "status": "Out",
+          "injury": "Groin",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "8122",
+          "name": "Zonovan Knight",
+          "position": "RB",
+          "team": "ARI",
+          "status": "Questionable",
+          "injury": "Concussion",
+          "points": 0,
+          "ppr": 5.06,
+          "date": "2026-11-08",
+          "opponent": "SEA"
+        },
+        {
+          "id": "9501",
+          "name": "DeMario Douglas",
+          "position": "WR",
+          "team": "NE",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.5,
+          "date": "2026-11-08",
+          "opponent": "GB"
+        }
+      ],
+      "previousPoints": 117.58
+    },
+    {
+      "rosterId": 3,
+      "team": "Cooper Kupp Mah Balls",
+      "record": "5–3",
+      "matchupId": 6,
+      "points": 5.3,
+      "pprTotal": 107.81,
+      "starters": [
+        {
+          "id": "3163",
+          "name": "Jared Goff",
+          "position": "QB",
+          "team": "DET",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 19.96,
+          "date": "2026-11-08",
+          "opponent": "MIA"
+        },
+        {
+          "id": "5850",
+          "name": "Josh Jacobs",
+          "position": "RB",
+          "team": "GB",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.94,
+          "date": "2026-11-08",
+          "opponent": "NE"
+        },
+        {
+          "id": "12527",
+          "name": "Ashton Jeanty",
+          "position": "RB",
+          "team": "LV",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 12.15,
+          "date": "2026-11-08",
+          "opponent": "SF"
+        },
+        {
+          "id": "9997",
+          "name": "Zay Flowers",
+          "position": "WR",
+          "team": "BAL",
+          "status": null,
+          "injury": null,
+          "points": 5.3,
+          "ppr": 13.75,
+          "date": "2026-11-05",
+          "opponent": "JAX"
+        },
+        {
+          "id": "8167",
+          "name": "Christian Watson",
+          "position": "WR",
+          "team": "GB",
+          "status": "Questionable",
+          "injury": "Undisclosed",
+          "points": 0,
+          "ppr": 15.89,
+          "date": "2026-11-08",
+          "opponent": "NE"
+        },
+        {
+          "id": "0",
+          "name": "0",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "4866",
+          "name": "Saquon Barkley",
+          "position": "RB",
+          "team": "PHI",
+          "status": "Questionable",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": 12.82,
+          "date": "2026-11-08",
+          "opponent": "NYG"
+        },
+        {
+          "id": "11533",
+          "name": "Brandon Aubrey",
+          "position": "K",
+          "team": "DAL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.01,
+          "date": "2026-11-08",
+          "opponent": "IND"
+        },
+        {
+          "id": "KC",
+          "name": "Kansas City Chiefs",
+          "position": "DEF",
+          "team": "KC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.29,
+          "date": "2026-11-08",
+          "opponent": "NYJ"
+        }
+      ],
+      "bench": [
+        {
+          "id": "11620",
+          "name": "Rome Odunze",
+          "position": "WR",
+          "team": "CHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 11.51,
+          "date": "2026-11-08",
+          "opponent": "TB"
+        },
+        {
+          "id": "11834",
+          "name": "Devaughn Vele",
+          "position": "WR",
+          "team": "NO",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.12,
+          "date": "2026-11-08",
+          "opponent": "CLE"
+        },
+        {
+          "id": "12487",
+          "name": "Terrance Ferguson",
+          "position": "TE",
+          "team": "LAR",
+          "status": "IR",
+          "injury": "Ankle",
+          "points": 0,
+          "ppr": 5.6,
+          "date": "2026-11-08",
+          "opponent": "WAS"
+        },
+        {
+          "id": "12529",
+          "name": "TreVeyon Henderson",
+          "position": "RB",
+          "team": "NE",
+          "status": "Questionable",
+          "injury": "Illness",
+          "points": 0,
+          "ppr": 5.88,
+          "date": "2026-11-08",
+          "opponent": "GB"
+        },
+        {
+          "id": "13337",
+          "name": "Emmett Johnson",
+          "position": "RB",
+          "team": "KC",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 6.44,
+          "date": "2026-11-08",
+          "opponent": "NYJ"
+        },
+        {
+          "id": "6130",
+          "name": "Devin Singletary",
+          "position": "RB",
+          "team": "NYG",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.72,
+          "date": "2026-11-08",
+          "opponent": "PHI"
+        },
+        {
+          "id": "7525",
+          "name": "DeVonta Smith",
+          "position": "WR",
+          "team": "PHI",
+          "status": "Questionable",
+          "injury": "Hamstring",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "8129",
+          "name": "Dameon Pierce",
+          "position": "RB",
+          "team": "PHI",
+          "status": "IR",
+          "injury": "Undisclosed",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "8132",
+          "name": "Tyler Allgeier",
+          "position": "RB",
+          "team": "ARI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 12.16,
+          "date": "2026-11-08",
+          "opponent": "SEA"
+        },
+        {
+          "id": "8142",
+          "name": "Alec Pierce",
+          "position": "WR",
+          "team": "IND",
+          "status": "IR",
+          "injury": "Heel",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        }
+      ],
+      "previousPoints": 87.44
+    },
+    {
+      "rosterId": 10,
+      "team": "Whos Throwing Diggs",
+      "record": "6–2",
+      "matchupId": 6,
+      "points": 0,
+      "pprTotal": 131.44,
+      "starters": [
+        {
+          "id": "9758",
+          "name": "C.J. Stroud",
+          "position": "QB",
+          "team": "HOU",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.87,
+          "date": "2026-11-08",
+          "opponent": "LAC"
+        },
+        {
+          "id": "7594",
+          "name": "Chuba Hubbard",
+          "position": "RB",
+          "team": "CAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 16.89,
+          "date": "2026-11-08",
+          "opponent": "DEN"
+        },
+        {
+          "id": "12469",
+          "name": "Dylan Sampson",
+          "position": "RB",
+          "team": "CLE",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.62,
+          "date": "2026-11-08",
+          "opponent": "NO"
+        },
+        {
+          "id": "9488",
+          "name": "Jaxon Smith-Njigba",
+          "position": "WR",
+          "team": "SEA",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 24.05,
+          "date": "2026-11-08",
+          "opponent": "ARI"
+        },
+        {
+          "id": "6786",
+          "name": "CeeDee Lamb",
+          "position": "WR",
+          "team": "DAL",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 20.19,
+          "date": "2026-11-08",
+          "opponent": "IND"
+        },
+        {
+          "id": "4217",
+          "name": "George Kittle",
+          "position": "TE",
+          "team": "SF",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 15.18,
+          "date": "2026-11-08",
+          "opponent": "LV"
+        },
+        {
+          "id": "11646",
+          "name": "Jalen Coker",
+          "position": "WR",
+          "team": "CAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 13.84,
+          "date": "2026-11-08",
+          "opponent": "DEN"
+        },
+        {
+          "id": "11539",
+          "name": "Jake Bates",
+          "position": "K",
+          "team": "DET",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 8.37,
+          "date": "2026-11-08",
+          "opponent": "MIA"
+        },
+        {
+          "id": "LAR",
+          "name": "Los Angeles Rams",
+          "position": "DEF",
+          "team": "LAR",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 7.43,
+          "date": "2026-11-08",
+          "opponent": "WAS"
+        }
+      ],
+      "bench": [
+        {
+          "id": "12533",
+          "name": "Jacory Croskey-Merritt",
+          "position": "RB",
+          "team": "WAS",
+          "status": "IR",
+          "injury": "Groin",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "13287",
+          "name": "Jeremiyah Love",
+          "position": "RB",
+          "team": "ARI",
+          "status": "IR",
+          "injury": "Ankle",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "4881",
+          "name": "Lamar Jackson",
+          "position": "QB",
+          "team": "BAL",
+          "status": "IR",
+          "injury": "Thumb",
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "4983",
+          "name": "DJ Moore",
+          "position": "WR",
+          "team": "BUF",
+          "status": "Questionable",
+          "injury": "Undisclosed",
+          "points": 0,
+          "ppr": 12.82,
+          "date": "2026-11-09",
+          "opponent": "MIN"
+        },
+        {
+          "id": "5022",
+          "name": "Dallas Goedert",
+          "position": "TE",
+          "team": "PHI",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 9.88,
+          "date": "2026-11-08",
+          "opponent": "NYG"
+        },
+        {
+          "id": "8126",
+          "name": "Wan'Dale Robinson",
+          "position": "WR",
+          "team": "TEN",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "8228",
+          "name": "Jaylen Warren",
+          "position": "RB",
+          "team": "PIT",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": null,
+          "date": null,
+          "opponent": null
+        },
+        {
+          "id": "9757",
+          "name": "Kendre Miller",
+          "position": "RB",
+          "team": "NO",
+          "status": null,
+          "injury": null,
+          "points": 0,
+          "ppr": 10.67,
+          "date": "2026-11-08",
+          "opponent": "CLE"
+        }
+      ],
+      "previousPoints": 113.6
+    }
+  ],
+  "moves": [
+    {
+      "id": "1423124805242068992",
+      "type": "free_agent",
+      "date": "2026-11-02T23:25:03.251Z",
+      "rosters": [
+        4
+      ],
+      "adds": [
+        {
+          "name": "J.J. McCarthy",
+          "id": "11565",
+          "roster": 4
+        }
+      ],
+      "drops": [
+        {
+          "name": "Justin Herbert",
+          "id": "6797",
+          "roster": 4
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423254463933583360",
+      "type": "free_agent",
+      "date": "2026-11-03T08:00:16.292Z",
+      "rosters": [
+        1
+      ],
+      "adds": [],
+      "drops": [
+        {
+          "name": "Jacoby Brissett",
+          "id": "3257",
+          "roster": 1
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423592273190400000",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        3
+      ],
+      "adds": [
+        {
+          "name": "TreVeyon Henderson",
+          "id": "12529",
+          "roster": 3
+        }
+      ],
+      "drops": [
+        {
+          "name": "Chig Okonkwo",
+          "id": "8210",
+          "roster": 3
+        }
+      ],
+      "settings": {
+        "seq": 2,
+        "waiver_bid": 6
+      }
+    },
+    {
+      "id": "1423456572360716288",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        10
+      ],
+      "adds": [
+        {
+          "name": "Kendre Miller",
+          "id": "9757",
+          "roster": 10
+        }
+      ],
+      "drops": [],
+      "settings": {
+        "seq": 0,
+        "waiver_bid": 8
+      }
+    },
+    {
+      "id": "1423443137715593216",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        4
+      ],
+      "adds": [
+        {
+          "name": "Ka'imi Fairbairn",
+          "id": "3451",
+          "roster": 4
+        }
+      ],
+      "drops": [
+        {
+          "name": "Cincinnati Bengals",
+          "id": "CIN",
+          "roster": 4
+        }
+      ],
+      "settings": {
+        "seq": 12,
+        "waiver_bid": 0
+      }
+    },
+    {
+      "id": "1423323434795950080",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        10
+      ],
+      "adds": [
+        {
+          "name": "Jake Bates",
+          "id": "11539",
+          "roster": 10
+        }
+      ],
+      "drops": [
+        {
+          "name": "Tyler Loop",
+          "id": "12711",
+          "roster": 10
+        }
+      ],
+      "settings": {
+        "seq": 5,
+        "waiver_bid": 3
+      }
+    },
+    {
+      "id": "1423269954928521216",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        1
+      ],
+      "adds": [
+        {
+          "name": "Adonai Mitchell",
+          "id": "11625",
+          "roster": 1
+        }
+      ],
+      "drops": [
+        {
+          "name": "Kendrick Bourne",
+          "id": "4454",
+          "roster": 1
+        }
+      ],
+      "settings": {
+        "seq": 4,
+        "waiver_bid": 4
+      }
+    },
+    {
+      "id": "1423257095943225344",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        1
+      ],
+      "adds": [
+        {
+          "name": "Chicago Bears",
+          "id": "CHI",
+          "roster": 1
+        }
+      ],
+      "drops": [
+        {
+          "name": "New England Patriots",
+          "id": "NE",
+          "roster": 1
+        }
+      ],
+      "settings": {
+        "seq": 8,
+        "waiver_bid": 2
+      }
+    },
+    {
+      "id": "1423248009407238144",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        9
+      ],
+      "adds": [
+        {
+          "name": "San Francisco 49ers",
+          "id": "SF",
+          "roster": 9
+        }
+      ],
+      "drops": [
+        {
+          "name": "Tyjae Spears",
+          "id": "9508",
+          "roster": 9
+        }
+      ],
+      "settings": {
+        "seq": 7,
+        "waiver_bid": 2
+      }
+    },
+    {
+      "id": "1423239790257541120",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        6
+      ],
+      "adds": [
+        {
+          "name": "New York Giants",
+          "id": "NYG",
+          "roster": 6
+        }
+      ],
+      "drops": [
+        {
+          "name": "Las Vegas Raiders",
+          "id": "LV",
+          "roster": 6
+        }
+      ],
+      "settings": {
+        "seq": 3,
+        "waiver_bid": 5
+      }
+    },
+    {
+      "id": "1423239660187963392",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        6
+      ],
+      "adds": [
+        {
+          "name": "J.K. Dobbins",
+          "id": "6806",
+          "roster": 6
+        }
+      ],
+      "drops": [],
+      "settings": {
+        "seq": 1,
+        "waiver_bid": 8
+      }
+    },
+    {
+      "id": "1423218665309872128",
+      "type": "waiver",
+      "date": "2026-11-04T08:15:51.941Z",
+      "rosters": [
+        7
+      ],
+      "adds": [
+        {
+          "name": "Anthony Richardson Sr.",
+          "id": "9229",
+          "roster": 7
+        }
+      ],
+      "drops": [
+        {
+          "name": "Elic Ayomanor",
+          "id": "12499",
+          "roster": 7
+        }
+      ],
+      "settings": {
+        "seq": 11,
+        "waiver_bid": 0
+      }
+    },
+    {
+      "id": "1423623544100712448",
+      "type": "free_agent",
+      "date": "2026-11-04T08:26:51.862Z",
+      "rosters": [
+        2
+      ],
+      "adds": [
+        {
+          "name": "Juwan Johnson",
+          "id": "7002",
+          "roster": 2
+        }
+      ],
+      "drops": [
+        {
+          "name": "Pat Freiermuth",
+          "id": "7600",
+          "roster": 2
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423624649413017600",
+      "type": "free_agent",
+      "date": "2026-11-04T08:31:15.388Z",
+      "rosters": [
+        9
+      ],
+      "adds": [
+        {
+          "name": "New Orleans Saints",
+          "id": "NO",
+          "roster": 9
+        }
+      ],
+      "drops": [
+        {
+          "name": "San Francisco 49ers",
+          "id": "SF",
+          "roster": 9
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423628409514295297",
+      "type": "free_agent",
+      "date": "2026-11-04T08:46:11.866Z",
+      "rosters": [
+        7
+      ],
+      "adds": [
+        {
+          "name": "Detroit Lions",
+          "id": "DET",
+          "roster": 7
+        }
+      ],
+      "drops": [
+        {
+          "name": "Washington Commanders",
+          "id": "WAS",
+          "roster": 7
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423628639756353536",
+      "type": "free_agent",
+      "date": "2026-11-04T08:47:06.760Z",
+      "rosters": [
+        7
+      ],
+      "adds": [
+        {
+          "name": "Ryan Flournoy",
+          "id": "11783",
+          "roster": 7
+        }
+      ],
+      "drops": [
+        {
+          "name": "Geno Smith",
+          "id": "1373",
+          "roster": 7
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423648346433728512",
+      "type": "free_agent",
+      "date": "2026-11-04T10:05:25.198Z",
+      "rosters": [
+        6
+      ],
+      "adds": [
+        {
+          "name": "Andy Borregales",
+          "id": "12713",
+          "roster": 6
+        }
+      ],
+      "drops": [
+        {
+          "name": "Chase McLaughlin",
+          "id": "6650",
+          "roster": 6
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423793184776953856",
+      "type": "free_agent",
+      "date": "2026-11-04T19:40:57.350Z",
+      "rosters": [
+        1
+      ],
+      "adds": [
+        {
+          "name": "Malik Willis",
+          "id": "8161",
+          "roster": 1
+        }
+      ],
+      "drops": [
+        {
+          "name": "Sam Darnold",
+          "id": "4943",
+          "roster": 1
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423824722348548096",
+      "type": "free_agent",
+      "date": "2026-11-04T21:46:16.493Z",
+      "rosters": [
+        11
+      ],
+      "adds": [
+        {
+          "name": "Kimani Vidal",
+          "id": "11647",
+          "roster": 11
+        }
+      ],
+      "drops": [
+        {
+          "name": "Roschon Johnson",
+          "id": "10235",
+          "roster": 11
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423838815474176000",
+      "type": "free_agent",
+      "date": "2026-11-04T22:42:16.556Z",
+      "rosters": [
+        7
+      ],
+      "adds": [
+        {
+          "name": "Baltimore Ravens",
+          "id": "BAL",
+          "roster": 7
+        }
+      ],
+      "drops": [
+        {
+          "name": "Anthony Richardson Sr.",
+          "id": "9229",
+          "roster": 7
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1423801596956909568",
+      "type": "waiver",
+      "date": "2026-11-05T07:04:53.500Z",
+      "rosters": [
+        2
+      ],
+      "adds": [
+        {
+          "name": "Jacoby Brissett",
+          "id": "3257",
+          "roster": 2
+        }
+      ],
+      "drops": [
+        {
+          "name": "Juwan Johnson",
+          "id": "7002",
+          "roster": 2
+        }
+      ],
+      "settings": {
+        "seq": 0,
+        "waiver_bid": 0
+      }
+    },
+    {
+      "id": "1424141131641282560",
+      "type": "free_agent",
+      "date": "2026-11-05T18:43:34.348Z",
+      "rosters": [
+        6
+      ],
+      "adds": [
+        {
+          "name": "Baker Mayfield",
+          "id": "4892",
+          "roster": 6
+        }
+      ],
+      "drops": [
+        {
+          "name": "Kyler Murray",
+          "id": "5849",
+          "roster": 6
+        }
+      ],
+      "settings": null
+    },
+    {
+      "id": "1424176874094862336",
+      "type": "free_agent",
+      "date": "2026-11-05T21:05:36.012Z",
+      "rosters": [
+        2
+      ],
+      "adds": [
+        {
+          "name": "Demarcus Robinson",
+          "id": "3286",
+          "roster": 2
+        }
+      ],
+      "drops": [
+        {
+          "name": "Jacoby Brissett",
+          "id": "3257",
+          "roster": 2
+        }
+      ],
+      "settings": null
+    }
+  ]
+}

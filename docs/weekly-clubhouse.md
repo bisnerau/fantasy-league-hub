@@ -363,3 +363,14 @@ Friday pickups, Thursday scoring and the latest practice reports. Picks lock at
 best-lineup snapshot; archived reports and rankings remain unchanged. The
 Halftime Show remains held for the commissioner's announcement. See
 `research/2026-week-8-previews.md`.
+
+## Friday Week 9 update — 6 November
+
+All six previews and calls follow Jacksonville–Baltimore. Alan–Jack is Match
+of the Week, pairing the top two in Tuesday’s rankings. The homepage covers
+that fixture, Keenan’s tight-end vacancy and Thursday scoring with the latest
+available practice reports. Week 9 prices and practice picks use a fresh
+best-lineup snapshot; Keenan has only eight eligible starters. Picks lock at
+18:00 Irish time on 8 November, after the early Madrid game begins. Tuesday’s
+rankings, Week 8 reviews and earlier archives remain unchanged. See
+`research/2026-week-9-previews.md` for the research and publication checks.

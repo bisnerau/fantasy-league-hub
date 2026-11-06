@@ -4,6 +4,7 @@ import { weekFivePublishedAt } from './newsletters/2026-week-5';
 import { weekSixPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenFeatureUpdatedAt } from './newsletters/2026-week-7';
 import { weekEightPublishedAt } from './newsletters/2026-week-8';
+import { weekNinePublishedAt } from './newsletters/2026-week-9';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -105,6 +106,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Friday selection, after Thursday’s game: last year’s finalists meet again. Karl is 5–2, Alan is 4–3, and only 1.06 separates their adjusted best-lineup totals. Neither has starter points banked. Alan brings Bowers, Brown and Waddle into the rematch.',
     buildUp:
       'Karl can reach 6–2; Alan can pull them level at 5–3, barring a tie. Moroney’s five-game winning streak ended against Jack, while the champion has rebuilt through two Tuesday trades. Karl is 10/11 to Alan’s 11/10, but our Friday call goes to Alan. Last year’s runner-up has had ten months to prepare for this fixture. We expect both the team and the explanation to be ready.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 9,
+    sleeperMatchupId: 2,
+    homeRosterId: 6,
+    awayRosterId: 9,
+    selectedAt: weekNinePublishedAt,
+    reason:
+      'Friday selection, after Thursday’s game: the top two in our rankings meet. Alan is 5–3 after scoring 173.88; Jack is 6–2 with four straight wins. Henry has already banked 5.58 for Ringrose. The champion can pull them level, while Jack can move two wins clear.',
+    buildUp:
+      'Alan has just beaten last year’s runner-up and now gets the inaugural champion. Jack brings Allen and Jefferson, with McCaffrey’s final status still pending after a limited Thursday practice. Alan brings Burrow, Gibbs and Bowers. Our Friday call is Alan at 4/9 against Jack’s 9/4, with Thursday’s points known. Ringrose spent sixteen minutes owning San Francisco’s defence this week; Horgan would like his stay near the top to be similarly brief.',
   },
 ];
 
