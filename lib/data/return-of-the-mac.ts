@@ -100,6 +100,20 @@ export const macEpisodes: readonly MacEpisode[] = [
     // Halftime Show is announced.
     held: !halftimePublication.isPublic,
   },
+  {
+    slug: '2026-week-9-jack',
+    title: 'Jack: the sixteen-minute rebuild.',
+    publishedAt: '2026-11-06T10:26:00Z',
+    recordedOn: '2026-11-06',
+    season: '2026',
+    week: 9,
+    manager: 'Jack Ringrose',
+    team: 'The Finest Wagyu',
+    context: 'Week 9 Friday preview · After Thursday’s game',
+    audio: '/audio/return-of-the-mac/2026-week-9-jack.mp3',
+    durationSeconds: 221,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+  },
 ];
 
 export function getMacEpisodes(

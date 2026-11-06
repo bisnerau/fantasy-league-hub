@@ -1,0 +1,74 @@
+RETURN OF THE MAC: FRIDAY MACKDOWN — Week 9 preview
+RECORDED VERSION — 6 November 2026 — Jack: the sixteen-minute rebuild.
+Commissioner-supplied ElevenLabs export 10_22_42, voice label Mac 12 1st. Published audio preserves the original bytes; measured duration 221.570563 seconds (3:41). Local Whisper comparison confirms the spoken draft, with ordinary name-transcription variations.
+
+PRODUCTION NOTES — not spoken
+Approximately 3½–4 minutes, depending on delivery and bell pauses. Use the established Mackorcle Senior the First delivery: absolute confidence in plainly absurd reasoning, occasional film-room commands, no explanation after punchlines. One short desk-bell ring at each [bell], five in total. The cues are production directions, not a guarantee that a particular ElevenLabs model generates a sound effect.
+Voice tool used for earlier recordings: ElevenLabs. The supplied Week 7 export is named ElevenLabs_2026-10-23T11_32_50_MAC_gen_sp100_s50_sb75_v4.mp3. This establishes the export's MAC label; the repository does not record a voice ID or confirm a model/settings configuration.
+Latest public Sleeper check: 6 November 2026, 09:44:00 UTC (Irish time). No new completed moves or selected-lineup changes since the morning site update. This is a Friday preview after Jacksonville–Baltimore, with Thursday points known and final Friday injury designations pending. Mackorcle's Jack call deliberately differs from the website's Alan call. Invented deductions and causal claims are character comedy; no real standings or odds are altered.
+
+SCRIPT
+
+Mackorcle Senior the First here. Welcome to Return of the Mac: Friday Mackdown, Mackticians. Less reaction. More Macktion.
+
+Last week I put Tommy first in the Mackjusted table. He won. I put Shane twelfth. He lost. The official table has yet to apologise. [bell]
+
+Week Nine. I've been through the tape. Several managers appear to be using the waiver wire as a dating app. Add somebody. Lose interest. Move on before they've played.
+
+Jack Ringrose. The Finest Wagyu. Six and two. Four straight wins. This week, Alan Horgan in our Match of the Week.
+
+Roll the recruitment footage.
+
+Wednesday morning. Jack pays two dollars for San Francisco's defence. Sixteen minutes later, he drops them for New Orleans.
+
+Pause it there.
+
+Most managers give a player a week. Jack gave an entire NFL defence less time than it takes to cook the steak his team is named after.
+
+The Macksperts will call that wasted money. I call it a sixteen-minute rebuild. He's already finished the process Tommy started in September. [bell]
+
+Alan, meanwhile, scored a hundred and seventy-three point eight eight last week. Burrow accounted for six touchdowns. Karl lost by nearly seventy and, for once, the scheduling complaint came with supporting documents.
+
+Alan has since added Dobbins, the Giants defence and Baker Mayfield. He's five and three, defending champion and first in the power rankings. There was a time this man took the Titanic tour twice as a punishment. Now he's collecting quarterbacks in case one needs a lifeboat.
+
+Back to Jack. Thursday is finished. Derrick Henry gave him five point five eight. McCaffrey returned to limited practice, but we're still waiting on the final Friday injury report. Allen and Jefferson play Monday.
+
+That's where the Macksperts stop watching. I keep the tape running until it agrees with me.
+
+Jack won his title in an eight-team league. Alan needed twelve. Fifty per cent more managers involved to produce the same number of champions. I've deducted Alan for inefficiency.
+
+On a Mackjusted basis, Jack is the more economical champion. I'm taking Ringrose at nine to four. The website says Alan. The website doesn't even have a bell. [bell]
+
+Around the league.
+
+Keenan paid six dollars for Henderson and dropped Okonkwo. As of Friday morning, his tight-end slot is empty and Ferguson is on injured reserve. He's facing Shane with eight eligible starters. Andrew won his title in a ten-team league. He keeps trying to make everything smaller.
+
+Niall has thirty-eight point six eight banked from Thursday against Joe. He also signed Brissett and dropped him the same day. Between Niall and Jack, I'd advise new signings to leave the engine running.
+
+Joe is four and four, fourth in the power rankings, and starting Purdy after selling Jefferson. We've moved half the league around and somehow Joe has arrived back at fourth. [bell]
+
+Tommy faces Dave after scoring over a hundred and twenty-five in consecutive weeks. Dave is four and four and last in the rankings. Tommy is two and six and sixth. They're playing for the right to explain which table matters.
+
+Karl gets Murphy, who followed a hundred and forty with seventy-one. I've watched both games. I would like to know which one Aidan intends to submit this week.
+
+And Hugo has fifteen from his kicker against Burns. The commissioner has released Brissett and Darnold, added Willis, and still has Shough selected. At this stage, his quarterbacks should be issued visitor badges. [bell]
+
+Picks close Sunday at six, Irish time. The early Madrid game starts before that. Check the injury reports. Check your lineups. Keenan, count yours.
+
+That's Return of the Mac: Friday Mackdown. Like, comment, subscribe. Macksperts, the comment section is for questions.
+
+If your results don't reflect my analysis, please allow another week.
+
+SOURCE NOTES — not spoken
+Current fixtures and Thursday scores: https://api.sleeper.app/v1/league/1389706813993160704/matchups/9
+Current rosters: https://api.sleeper.app/v1/league/1389706813993160704/rosters
+Completed moves: https://api.sleeper.app/v1/league/1389706813993160704/transactions/9 and /transactions/8
+Week 8 scores: https://api.sleeper.app/v1/league/1389706813993160704/matchups/8
+McCaffrey limited Thursday, final Friday designation pending: https://www.49ers.com/team/injury-report/
+Schedule: https://www.nfl.com/schedules/2026/by-week/week-9
+Burrow's six total touchdowns: https://www.bengals.com/news/bengals-titans-recap-postgame-notes-quotes-stats-week-8-2026
+Frozen prices and deadline: docs/research/2026-week-9-prices.json and docs/research/2026-week-9-friday-audit.json.
+Rankings, manager history and continuity: lib/data/power-rankings/2026-week-9.ts; lib/data/managers.ts; output/return-of-the-mac/2026-halftime-special-script.txt.
+
+COPY CHECK — not spoken
+Humanizer checker applied using the previously read 3.1.0 skill. Checked repeated closers, forced contrasts, generic management language and unsupported certainty. Kept deliberate character arithmetic, film-room commands, five bell cues and the established sign-off. Removed explanations after punchlines. Historical forfeits use the existing manager bios; no private quotes or events are invented. Approximate spoken scores are clearly rounded; the underlying evidence retains the exact totals.

@@ -38,6 +38,56 @@ test.beforeEach(async ({ page, request, context }) => {
 
 test.afterEach(({ page }) => expect(errors.get(page)).toEqual([]));
 
+test('Week 9 recording leads the homepage and archive and plays at its permanent URL', async ({
+  page,
+  request,
+}) => {
+  await request.post(`${fixture}/__fixture`, {
+    data: { editorialNow: '2026-11-06T12:00:00Z' },
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const title = 'Jack: the sixteen-minute rebuild.';
+  const feature = page.getByRole('region', {
+    name: 'Return of the Mac: Friday Mackdown',
+  });
+  await expect(feature.getByRole('link', { name: title })).toBeVisible();
+  await expect(feature).toContainText('Recorded 6 November 2026');
+  await feature.getByRole('link', { name: 'Previous episodes' }).click();
+  await expect(page.locator('ol > li').first()).toContainText(title);
+  await expect(page.locator('ol > li')).toHaveCount(6);
+  await page.getByRole('link', { name: title }).click();
+  await expect(page).toHaveURL('/return-of-the-mac/2026-week-9-jack');
+  const audio = page.locator('audio');
+  await expect(audio).toHaveAttribute(
+    'src',
+    '/audio/return-of-the-mac/2026-week-9-jack.mp3',
+  );
+  await expect(audio).toHaveJSProperty('paused', true);
+  await expect(
+    page.getByRole('button', { name: 'Play episode' }),
+  ).toContainText('3:41');
+  await page.getByRole('button', { name: 'Play episode' }).click();
+  await expect(page.locator('.mac-on-air')).toHaveAttribute(
+    'data-active',
+    'true',
+  );
+  await expect
+    .poll(() => audio.evaluate((node: HTMLAudioElement) => node.currentTime))
+    .toBeGreaterThan(0);
+  await page.getByRole('button', { name: 'Pause episode' }).click();
+  const seek = page.getByRole('slider', { name: 'Seek episode' });
+  await seek.press('Home');
+  await seek.press('ArrowRight');
+  await expect
+    .poll(() => audio.evaluate((node: HTMLAudioElement) => node.currentTime))
+    .toBe(1);
+  await expect(page.locator('.mac-on-air')).toHaveAttribute(
+    'data-active',
+    'false',
+  );
+});
+
 test('homepage leads to archive and permanent episode, with no transcript or autoplay', async ({
   page,
 }) => {

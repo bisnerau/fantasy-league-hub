@@ -374,3 +374,28 @@ best-lineup snapshot; Keenan has only eight eligible starters. Picks lock at
 18:00 Irish time on 8 November, after the early Madrid game begins. Tuesday’s
 rankings, Week 8 reviews and earlier archives remain unchanged. See
 `research/2026-week-9-previews.md` for the research and publication checks.
+
+## Friday Mackdown — Week 9 recording
+
+Published 6 November 2026: **Jack: the sixteen-minute rebuild.** The commissioner
+supplied `ElevenLabs_2026-11-06T10_22_42_Mac 12 1st_gen_s50_sim75_v4.mp3` after
+the script. Its original bytes are preserved as `2026-week-9-jack.mp3`, with
+SHA-256 `d9350712354e58ce454395eeb06ecd8fd5f21b5f4ed2619db142c3cd7fabda2b`.
+Measured duration is 221.570563 seconds (display 3:41), mono MP3 at 44.1 kHz.
+FFmpeg decoded the entire file; a local Whisper comparison confirms the script,
+Week 9 introduction, league news, comic Jack call, Sunday deadline and sign-off.
+Automatic transcription spelling variations are not published as captions.
+
+The episode leads the homepage and archive and has permanent URL
+`/return-of-the-mac/2026-week-9-jack`. It explicitly labels the recording a Friday
+preview after Thursday’s game, reuses the approved v9 portrait and retains the
+five older recordings. Mackorcle’s Jack pick is character comedy; the published
+editorial Alan pick remains unchanged. The supplied export’s voice label is
+**Mac 12 1st**; the repository does not assert a voice ID or infer model settings
+from the filename.
+
+The five episode unit tests, lint, production build and all fifteen audio
+Playwright tests pass. The new test checks the current homepage feature,
+six-entry archive, permanent episode, 3:41 label and real MP3 play/pause/seeking
+on a 390px viewport. Existing tests cover both themes and other widths. A
+physical iPhone Safari playback check was not available in this environment.
