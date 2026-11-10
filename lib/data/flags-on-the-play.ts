@@ -5,7 +5,6 @@ import { weekSixReviewPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenReviewPublishedAt } from './newsletters/2026-week-7';
 
 import { weekEightReviewPublishedAt } from './newsletters/2026-week-8';
-import { weekNineReviewPublishedAt } from './newsletters/2026-week-9';
 
 export type FlagOnThePlay = {
   leagueId: string;
@@ -25,17 +24,6 @@ export type FlagOnThePlay = {
 // Authored with Tuesday's reviews from verified Sleeper stats; never generated.
 // One flag per league/week at most, shown only once that week has settled.
 export const flagsOnThePlay: readonly FlagOnThePlay[] = [
-  {
-    leagueId: '1389706813993160704',
-    season: '2026',
-    week: 9,
-    rosterId: 1,
-    manager: 'Emmet Burns',
-    call: 'Illegal formation',
-    text: 'Burns left his kicker slot empty while Tyler Bass scored 13 on the bench, then beat Hugo by 2.06. The commissioner has built an entire website around picking teams and would now like an exemption from counting to nine.',
-    penalty: '13 yards and a compulsory headcount',
-    publishedAt: weekNineReviewPublishedAt,
-  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

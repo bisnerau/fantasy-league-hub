@@ -416,13 +416,13 @@ export const weekNineReports: MatchupNewsletter[] = [
       version: 1,
       editorial: true,
       publishedAt: weekNineReviewPublishedAt,
-      headline: 'Burns wins without a kicker. Hugo would like a recount.',
+      headline: 'Burns takes a knee. Hugo loses another close one.',
       summary:
-        'The commissioner escaped 99.82–97.76 with an empty kicker slot and 13 points from Tyler Bass on the bench. Hugo lost the closest game for the second week running. The website will publish the result and the evidence against its owner.',
+        'Burns protected a 2.06-point lead by deliberately benching Monday-night kicker Tyler Bass, avoiding the risk of a negative score. The 99.82–97.76 win left Hugo on the wrong side of the closest game for the second week running.',
       sections: [
         {
           title: 'Chase keeps the office open',
-          text: 'Chase’s 31.50 and Kelce’s 17.30 rescued Burns from 3.82 at quarterback and 12.20 across his starting backs. Chicago supplied 14 more. Shough, Friday’s selected quarterback, scored 19.70 on the bench after Willis got the start. Miami’s coach deferred a fresh medical assessment of Willis’s groin until later in the week. Burns has two consecutive wins and very little basis for offering lineup advice.',
+          text: 'Chase’s 31.50 and Kelce’s 17.30 rescued Burns from 3.82 at quarterback and 12.20 across his starting backs. Chicago supplied 14 more. Shough, Friday’s selected quarterback, scored 19.70 on the bench after Willis got the start. Miami’s coach deferred a fresh medical assessment of Willis’s groin until later in the week. Burns has two consecutive wins, though the quarterback auditions look set to continue.',
         },
         {
           title: 'Hugo loses another one at quarterback',
@@ -430,7 +430,7 @@ export const weekNineReports: MatchupNewsletter[] = [
         },
         {
           title: 'The Friday call: Hugo Walsh — wrong',
-          text: 'We backed Little’s fifteen banked points and Hugo’s depth. Burns won with eight starters anyway. Walsh is now alone at 2–7 after losses by 5.02 and 2.06; the commissioner reaches 4–5. The weekly flag goes to Burns for the vacant kicker slot. Winning does not make that box less empty.',
+          text: 'We backed Little’s fifteen banked points and Hugo’s depth. Burns had the lead before Monday and confirms that he sat Bass to protect it. Bass’s eventual 13 bench points were unnecessary; the empty slot was deliberate risk management. Walsh is alone at 2–7 after losses by 5.02 and 2.06, while the commissioner reaches 4–5.',
         },
       ],
       sources: [

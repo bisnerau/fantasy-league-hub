@@ -72,7 +72,7 @@ export const weekTenPowerRankings: PowerRankingEdition = {
       record: '4–5',
       recentPoints: 99.82,
       verdict:
-        'Two wins keep Burns involved at 4–5, but 99.82 against Hugo provides little reason to promote him. Chase, Collins and Kelce remain a strong receiving core. Willis returned 3.82, the kicker slot was empty and Bass scored 13 on the bench. Shough offers another quarterback option; Miami has yet to settle the latest Willis fitness question. The commissioner’s winning streak is surviving a surprising amount of commissioner involvement.',
+        'Two wins keep Burns involved at 4–5, but 99.82 against Hugo provides little reason to promote him. Chase, Collins and Kelce remain a strong receiving core. Willis returned 3.82, with Shough offering another quarterback option while Miami assesses Willis’s fitness. Burns deliberately sat Monday-night kicker Bass to protect an existing 2.06-point lead from a possible negative score. The empty slot was a decision to bank the win.',
     },
     {
       rosterId: 8,
@@ -119,8 +119,8 @@ export const weekTenPowerRankings: PowerRankingEdition = {
       href: '/matchups?week=9#matchup-1',
     },
     {
-      title: 'Burns leaves the kicker slot empty and wins by 2.06.',
-      text: 'Bass scored 13 on the bench while Hugo lost another close one. The commissioner gets the win and the weekly flag; Walsh is alone at 2–7.',
+      title: 'Burns benches Bass to protect a 2.06-point lead.',
+      text: 'Already ahead before Monday night, Burns removed the risk of a negative kicker score. Hugo lost another close one and is alone at 2–7.',
       href: '/matchups?week=9#matchup-5',
     },
   ],

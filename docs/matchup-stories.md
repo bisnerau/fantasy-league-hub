@@ -255,5 +255,6 @@ held for Friday.
 All six stored finals match Sleeper. Tommy, Alan, Karl and Shane won as called;
 Niall beat Joe and Burns beat Hugo. Alan–Jack remains the archived feature and
 all Friday previews are unchanged. Reviews acknowledge Keenan's Sunday TE fix,
-McConkey's pregame spasms and Monday's Nacua/Jacobs news. Burns receives the flag
-for his empty kicker slot despite the 2.06 win. See `research/2026-week-10.md`.
+McConkey's pregame spasms and Monday's Nacua/Jacobs news. Burns clarified that sitting Bass
+was deliberate protection of a 2.06-point lead before Monday night. The initial
+flag was withdrawn and the review corrected. See `research/2026-week-10.md`.

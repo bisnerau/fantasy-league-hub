@@ -405,7 +405,8 @@ physical iPhone Safari playback check was not available in this environment.
 Six settled Week 9 reviews and Week 10 rankings refresh the homepage. Alan keeps
 first, Shane rises to second and Niall climbs five to sixth. Tommy's weekly high
 leads the reviews, with Monday's likely Nacua IR move reflected in his ranking.
-Burns gets the flag after winning by 2.06 with an empty kicker slot. The Week 10
+Burns clarified that he deliberately sat Bass to protect a 2.06-point lead
+before Monday night; the initial flag was removed and the copy corrected. The Week 10
 ballot is ready for the 15 November, 18:00 Irish lock. Standings movement, weekly
 awards and the My Season data path were checked; previews and the new feature
 remain later-week work. See `research/2026-week-10.md` for evidence and checks.
