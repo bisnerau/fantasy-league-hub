@@ -399,3 +399,13 @@ Playwright tests pass. The new test checks the current homepage feature,
 six-entry archive, permanent episode, 3:41 label and real MP3 play/pause/seeking
 on a 390px viewport. Existing tests cover both themes and other widths. A
 physical iPhone Safari playback check was not available in this environment.
+
+## Tuesday Week 10 update — 10 November
+
+Six settled Week 9 reviews and Week 10 rankings refresh the homepage. Alan keeps
+first, Shane rises to second and Niall climbs five to sixth. Tommy's weekly high
+leads the reviews, with Monday's likely Nacua IR move reflected in his ranking.
+Burns gets the flag after winning by 2.06 with an empty kicker slot. The Week 10
+ballot is ready for the 15 November, 18:00 Irish lock. Standings movement, weekly
+awards and the My Season data path were checked; previews and the new feature
+remain later-week work. See `research/2026-week-10.md` for evidence and checks.

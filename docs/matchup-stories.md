@@ -249,3 +249,11 @@ Shane at 6–2. The reports link the team news used in the verdicts, including
 Baltimore’s thumb surgery update, Arizona’s quarterback change and Chicago’s
 Monday finish. Week 9 previews, winner calls, feature selection and prices are
 held for Friday.
+
+## Week 9 settlement — 10 November
+
+All six stored finals match Sleeper. Tommy, Alan, Karl and Shane won as called;
+Niall beat Joe and Burns beat Hugo. Alan–Jack remains the archived feature and
+all Friday previews are unchanged. Reviews acknowledge Keenan's Sunday TE fix,
+McConkey's pregame spasms and Monday's Nacua/Jacobs news. Burns receives the flag
+for his empty kicker slot despite the 2.06 win. See `research/2026-week-10.md`.

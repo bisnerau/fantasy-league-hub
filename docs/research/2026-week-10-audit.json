@@ -1,0 +1,446 @@
+{
+  "checkedAt": "2026-11-10T11:55:38.755Z",
+  "state": {
+    "week": 10,
+    "leg": 10,
+    "season": "2026",
+    "season_type": "regular",
+    "league_season": "2026",
+    "previous_season": "2025",
+    "season_start_date": "2026-09-09",
+    "display_week": 9,
+    "league_create_season": "2026",
+    "season_has_scores": true
+  },
+  "weeks": [
+    {
+      "id": 149,
+      "week": 9,
+      "locks_at": "2026-11-08T18:00:00+00:00"
+    },
+    {
+      "id": 164,
+      "week": 10,
+      "locks_at": "2026-11-15T18:00:00+00:00"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": 794,
+      "prediction_week_id": 164,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 4,
+      "away_roster_id": 7,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 704,
+      "prediction_week_id": 149,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 6,
+      "away_roster_id": 9,
+      "status": "final",
+      "home_final": 123.74,
+      "away_final": 89.94,
+      "winner_roster_id": 6
+    },
+    {
+      "id": 705,
+      "prediction_week_id": 149,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 2,
+      "away_roster_id": 7,
+      "status": "final",
+      "home_final": 140.18,
+      "away_final": 121.08,
+      "winner_roster_id": 2
+    },
+    {
+      "id": 706,
+      "prediction_week_id": 149,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 5,
+      "away_roster_id": 12,
+      "status": "final",
+      "home_final": 116.86,
+      "away_final": 97,
+      "winner_roster_id": 5
+    },
+    {
+      "id": 707,
+      "prediction_week_id": 149,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 1,
+      "away_roster_id": 8,
+      "status": "final",
+      "home_final": 99.82,
+      "away_final": 97.76,
+      "winner_roster_id": 1
+    },
+    {
+      "id": 796,
+      "prediction_week_id": 164,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 1,
+      "away_roster_id": 2,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 797,
+      "prediction_week_id": 164,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 5,
+      "away_roster_id": 10,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 708,
+      "prediction_week_id": 149,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 3,
+      "away_roster_id": 10,
+      "status": "final",
+      "home_final": 79.8,
+      "away_final": 143.76,
+      "winner_roster_id": 10
+    },
+    {
+      "id": 798,
+      "prediction_week_id": 164,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 3,
+      "away_roster_id": 8,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 795,
+      "prediction_week_id": 164,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 9,
+      "away_roster_id": 12,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    },
+    {
+      "id": 703,
+      "prediction_week_id": 149,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 4,
+      "away_roster_id": 11,
+      "status": "final",
+      "home_final": 151.62,
+      "away_final": 91.36,
+      "winner_roster_id": 4
+    },
+    {
+      "id": 793,
+      "prediction_week_id": 164,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 6,
+      "away_roster_id": 11,
+      "status": "scheduled",
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null
+    }
+  ],
+  "editorial": {
+    "reviews": 6,
+    "callsCorrect": 4,
+    "frozenPreviewsVerified": true,
+    "rankingOrder": [
+      6,
+      10,
+      9,
+      7,
+      5,
+      2,
+      4,
+      1,
+      8,
+      12,
+      3,
+      11
+    ],
+    "leadFixture": 1,
+    "flagRosterId": 1
+  },
+  "standings": [
+    {
+      "rosterId": 10,
+      "rank": 1,
+      "wins": 7,
+      "losses": 2,
+      "pointsFor": 1231.24,
+      "previousRank": 1,
+      "allPlay": {
+        "wins": 74,
+        "losses": 25,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 6,
+      "rank": 2,
+      "wins": 6,
+      "losses": 3,
+      "pointsFor": 1234.3,
+      "previousRank": 3,
+      "allPlay": {
+        "wins": 76,
+        "losses": 23,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 9,
+      "rank": 3,
+      "wins": 6,
+      "losses": 3,
+      "pointsFor": 1089.38,
+      "previousRank": 2,
+      "allPlay": {
+        "wins": 50,
+        "losses": 49,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 5,
+      "rank": 4,
+      "wins": 6,
+      "losses": 3,
+      "pointsFor": 1088.22,
+      "previousRank": 4,
+      "allPlay": {
+        "wins": 54,
+        "losses": 45,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 3,
+      "rank": 5,
+      "wins": 5,
+      "losses": 4,
+      "pointsFor": 959.88,
+      "previousRank": 5,
+      "allPlay": {
+        "wins": 35,
+        "losses": 64,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 7,
+      "rank": 6,
+      "wins": 4,
+      "losses": 5,
+      "pointsFor": 1058.28,
+      "previousRank": 6,
+      "allPlay": {
+        "wins": 53,
+        "losses": 46,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 2,
+      "rank": 7,
+      "wins": 4,
+      "losses": 5,
+      "pointsFor": 1036.36,
+      "previousRank": 10,
+      "allPlay": {
+        "wins": 43,
+        "losses": 56,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 1,
+      "rank": 8,
+      "wins": 4,
+      "losses": 5,
+      "pointsFor": 1028.32,
+      "previousRank": 8,
+      "allPlay": {
+        "wins": 46,
+        "losses": 53,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 11,
+      "rank": 9,
+      "wins": 4,
+      "losses": 5,
+      "pointsFor": 881.58,
+      "previousRank": 7,
+      "allPlay": {
+        "wins": 27,
+        "losses": 71,
+        "ties": 1
+      }
+    },
+    {
+      "rosterId": 4,
+      "rank": 10,
+      "wins": 3,
+      "losses": 6,
+      "pointsFor": 1021.72,
+      "previousRank": 12,
+      "allPlay": {
+        "wins": 45,
+        "losses": 54,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 12,
+      "rank": 11,
+      "wins": 3,
+      "losses": 6,
+      "pointsFor": 998.84,
+      "previousRank": 9,
+      "allPlay": {
+        "wins": 50,
+        "losses": 49,
+        "ties": 0
+      }
+    },
+    {
+      "rosterId": 8,
+      "rank": 12,
+      "wins": 2,
+      "losses": 7,
+      "pointsFor": 993.1,
+      "previousRank": 11,
+      "allPlay": {
+        "wins": 40,
+        "losses": 58,
+        "ties": 1
+      }
+    }
+  ],
+  "cutLine": {
+    "lastIn": {
+      "rosterId": 7,
+      "wins": 4,
+      "losses": 5,
+      "ties": 0,
+      "pointsFor": 1058.28,
+      "rank": 6,
+      "medianWins": 5,
+      "medianLosses": 4,
+      "streak": "L1",
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "W",
+        "W",
+        "L",
+        "W",
+        "L"
+      ],
+      "allPlay": {
+        "wins": 53,
+        "losses": 46,
+        "ties": 0
+      },
+      "previousRank": 6
+    },
+    "firstOut": {
+      "rosterId": 2,
+      "wins": 4,
+      "losses": 5,
+      "ties": 0,
+      "pointsFor": 1036.36,
+      "rank": 7,
+      "medianWins": 3,
+      "medianLosses": 6,
+      "streak": "W1",
+      "form": [
+        "W",
+        "L",
+        "L",
+        "L",
+        "W",
+        "W",
+        "L",
+        "L",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 43,
+        "losses": 56,
+        "ties": 0
+      },
+      "previousRank": 10
+    },
+    "gap": "Level on wins · 21.9 PF apart"
+  },
+  "awards": {
+    "awards": [
+      {
+        "kind": "solicitor",
+        "rosterId": 7,
+        "detail": "Lost with 121.08 points, but would have beaten 7 of 11 other teams. The complaints department has evidence."
+      },
+      {
+        "kind": "escape",
+        "rosterId": 1,
+        "detail": "Won with 99.82 points; 6 of 11 other teams would have beaten them. Collect the win and leave quietly."
+      },
+      {
+        "kind": "waiver",
+        "rosterId": 7,
+        "playerId": "DET",
+        "detail": "Added this scoring week and delivered 9.00 starting-lineup points. A waiver claim with something to show for itself."
+      }
+    ],
+    "waiverReady": true
+  },
+  "wire": [
+    {
+      "label": "Week 9 high",
+      "text": "Tommy O’Brien 151.62"
+    },
+    {
+      "label": "Week 9 low",
+      "text": "Andrew Keenan 79.80"
+    },
+    {
+      "label": "Closest call",
+      "text": "Emmet Burns by 2.06 over Hugo Walsh"
+    },
+    {
+      "label": "Biggest win",
+      "text": "Shane Marmion by 63.96 over Andrew Keenan"
+    },
+    {
+      "label": "Top starter",
+      "text": "Kenneth Walker III 36.30 for Niall Murray"
+    }
+  ],
+  "mySeason": {
+    "completedWeeks": 9,
+    "acquisitionsAvailable": true
+  }
+}
