@@ -82,3 +82,9 @@ weekly and season leaderboard views with two-decimal `points`. Apply it with the
 linked Supabase CLI before deploying the code; the site shows no prices (and
 keeps 1-point wording) until a week is published. `tests/prices-db.sql` runs
 with the isolated Banker checks via `tests/bankers-db.mjs`.
+
+Week 10 of 2026 is an early-publication exception requested by the commissioner:
+prices were prepared on Thursday 12 November before Washington–New York because
+he was unavailable Friday. The same model and freeze rules apply, with no banked
+points. The homepage and previews disclose the cutoff and pending final injury
+designations. This does not change the usual Friday workflow or Sunday lock.

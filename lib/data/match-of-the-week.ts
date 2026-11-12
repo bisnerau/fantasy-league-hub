@@ -5,6 +5,7 @@ import { weekSixPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenFeatureUpdatedAt } from './newsletters/2026-week-7';
 import { weekEightPublishedAt } from './newsletters/2026-week-8';
 import { weekNinePublishedAt } from './newsletters/2026-week-9';
+import { weekTenPublishedAt } from './newsletters/2026-week-10';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -119,6 +120,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Friday selection, after Thursday’s game: the top two in our rankings meet. Alan is 5–3 after scoring 173.88; Jack is 6–2 with four straight wins. Henry has already banked 5.58 for Ringrose. The champion can pull them level, while Jack can move two wins clear.',
     buildUp:
       'Alan has just beaten last year’s runner-up and now gets the inaugural champion. Jack brings Allen and Jefferson, with McCaffrey’s final status still pending after a limited Thursday practice. Alan brings Burrow, Gibbs and Bowers. Our Friday call is Alan at 4/9 against Jack’s 9/4, with Thursday’s points known. Ringrose spent sixteen minutes owning San Francisco’s defence this week; Horgan would like his stay near the top to be similarly brief.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 10,
+    sleeperMatchupId: 4,
+    homeRosterId: 1,
+    awayRosterId: 2,
+    selectedAt: weekTenPublishedAt,
+    reason:
+      'Thursday selection before kickoff: Burns and Niall are both 4–5, chasing the final playoff places. Niall has just beaten Joe with 140.18; Burns protected a 2.06-point win over Hugo. Barring a tie, one reaches 5–5 and the other falls to 4–6.',
+    buildUp:
+      'Niall brings Walker, Hall and Dowdle; Burns has Chase, Collins and Kyren Williams but loses Swift to the bye. Our Thursday call is Niall at 2/5 against Burns at 5/2. Bass is back in the commissioner’s selected lineup after last week’s deliberate benching. This week may require all nine players. Prices are frozen before Washington–New York; final weekend injury designations remain pending.',
   },
 ];
 

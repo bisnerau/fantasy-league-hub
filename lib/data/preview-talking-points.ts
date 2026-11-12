@@ -5,9 +5,33 @@ import { weekSixPublishedAt } from './newsletters/2026-week-6';
 import { weekSevenPublishedAt } from './newsletters/2026-week-7';
 import { weekEightPublishedAt } from './newsletters/2026-week-8';
 import { weekNinePublishedAt } from './newsletters/2026-week-9';
+import { weekTenPublishedAt } from './newsletters/2026-week-10';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 10,
+    publishedAt: weekTenPublishedAt,
+    points: [
+      {
+        title: 'Burns–Niall: the playoff chase gets personal.',
+        text: 'Both are 4–5. Niall has just scored 140.18; Burns deliberately sat Bass to protect a 2.06-point lead. Our Thursday Match of the Week call is Murray at 2/5. The commissioner has put his kicker back in.',
+        href: '/matchups?week=10#matchup-4',
+      },
+      {
+        title: 'Tommy’s good week costs him $49.',
+        text: 'The weekly high is followed by $26 on Dell and $23 on Estime, with Nacua tagged Out and Irving on bye. Joe is our call. Elsewhere, Keenan has paid $2 to bring Okonkwo back after dropping him last week.',
+        href: '/matchups?week=10#matchup-2',
+      },
+      {
+        title: 'Thursday edition. Prices frozen before kickoff.',
+        text: 'All six previews and prices use Thursday 12 November checks before Washington–New York. Final weekend injury designations are pending. Picks lock at 18:00 Irish time on 15 November, after the early Patriots–Lions game. Later lineup changes will not alter the prices.',
+        href: '/matchups?week=10',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

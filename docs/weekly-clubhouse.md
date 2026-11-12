@@ -410,3 +410,14 @@ before Monday night; the initial flag was removed and the copy corrected. The We
 ballot is ready for the 15 November, 18:00 Irish lock. Standings movement, weekly
 awards and the My Season data path were checked; previews and the new feature
 remain later-week work. See `research/2026-week-10.md` for evidence and checks.
+
+## Thursday Week 10 update — 12 November
+
+Six pre-kickoff previews and Burns–Niall as Match of the Week refresh the homepage
+for the 15 November weekend. Three talking points cover the playoff meeting,
+Tommy's $49 waiver spend and the early Thursday publication. The commissioner
+requested prices today because he is unavailable Friday; all twelve are frozen
+from the pre-kickoff snapshot, with pending final injury designations disclosed.
+The Sunday lock stays 18:00 Irish time. The practice page now uses Week 10.
+Tuesday's rankings, older reports and recordings remain unchanged. See
+`research/2026-week-10-previews.md` for evidence and verification.

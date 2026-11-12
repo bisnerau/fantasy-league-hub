@@ -258,3 +258,12 @@ all Friday previews are unchanged. Reviews acknowledge Keenan's Sunday TE fix,
 McConkey's pregame spasms and Monday's Nacua/Jacobs news. Burns clarified that sitting Bass
 was deliberate protection of a 2.06-point lead before Monday night. The initial
 flag was withdrawn and the review corrected. See `research/2026-week-10.md`.
+
+## Week 10 Thursday edition — 12 November
+
+Published early at the commissioner's request because he is unavailable Friday.
+Six pre-kickoff previews, Burns–Niall as Match of the Week, homepage points and
+Week 10 prices use Thursday morning evidence. Prices are explicitly frozen before
+Washington–New York; final weekend injury designations are pending. The Sunday
+15 November lock remains 18:00 Irish time. Tuesday's rankings and all historical
+calls remain unchanged. See `research/2026-week-10-previews.md`.
