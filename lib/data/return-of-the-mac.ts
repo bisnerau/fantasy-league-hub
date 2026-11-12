@@ -114,6 +114,20 @@ export const macEpisodes: readonly MacEpisode[] = [
     durationSeconds: 221,
     portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
   },
+  {
+    slug: '2026-week-10-niall',
+    title: 'Niall: no Mahomes, no money.',
+    publishedAt: '2026-11-12T15:51:51Z',
+    recordedOn: '2026-11-12',
+    season: '2026',
+    week: 10,
+    manager: 'Niall Murray',
+    team: 'Mahomes-lander and the Boys',
+    context: 'Week 10 preview',
+    audio: '/audio/return-of-the-mac/2026-week-10-niall.mp3',
+    durationSeconds: 113,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+  },
 ];
 
 export function getMacEpisodes(

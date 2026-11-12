@@ -421,3 +421,29 @@ from the pre-kickoff snapshot, with pending final injury designations disclosed.
 The Sunday lock stays 18:00 Irish time. The practice page now uses Week 10.
 Tuesday's rankings, older reports and recordings remain unchanged. See
 `research/2026-week-10-previews.md` for evidence and verification.
+
+## Week 10 Mackdown recording — 12 November
+
+Published **Niall: no Mahomes, no money.** The commissioner supplied
+`ElevenLabs_2026-11-12T15_49_24_Mac 12 1st_gen_s50_sim75_v4.mp3` after approving
+the revised single-manager script. The original bytes are preserved as
+`public/audio/return-of-the-mac/2026-week-10-niall.mp3`; SHA-256 is
+`1e57bada7873f5c6133483319c9f0d3d0c757834c38eed87752588ed6ddbd125`.
+FFprobe measured 113.475875 seconds (display **1:53**), mono MP3 at 44.1 kHz.
+FFmpeg decoded the full recording without errors. A local Whisper comparison
+confirms the final script, Niall's identity, team-name joke, 2/5 call and Sunday
+six o'clock deadline. Automatic transcription spelling variations are not
+published as captions. The recording does not explain the publication day,
+as requested; the page labels it **Week 10 preview · Recorded 12 November 2026**.
+
+The episode leads the homepage and archive, with permanent URL
+`/return-of-the-mac/2026-week-10-niall`. The approved v9 portrait and six older
+episodes are preserved. No voice ID or generation settings are inferred from
+the export filename. Script and recording copy are retained under
+`output/return-of-the-mac/2026-week-10-script.txt` and `2026-week-10-voice.txt`.
+
+All 171 unit/integration tests, lint and production build passed. All sixteen
+isolated audio Playwright checks passed, including the new episode on a 390px
+viewport, its seven-entry archive, 1:53 duration, play/pause/seeking and ON AIR
+state. Existing coverage checks both themes and widths from 320px to 1440px.
+A physical iPhone Safari check was unavailable; browser tests use Chromium.

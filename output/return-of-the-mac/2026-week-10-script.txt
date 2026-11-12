@@ -1,0 +1,61 @@
+RETURN OF THE MAC: FRIDAY MACKDOWN — Week 10 preview
+RECORDED VERSION — 12 November 2026 — Niall: no Mahomes, no money.
+Commissioner-supplied ElevenLabs export 15_49_24, voice label Mac 12 1st. Original bytes preserved as 2026-week-10-niall.mp3. Measured duration: 113.475875 seconds (display 1:53). Local Whisper comparison confirms the final script, with ordinary automatic-transcription spelling variations.
+
+PRODUCTION NOTES — not spoken
+Single-manager episode: Niall Murray. The final 306-word script was recorded in 1:53, below the requested three-minute limit. The production directions below describe the intended delivery; the supplied recording is preserved unchanged.
+Use the established Mackorcle Senior the First voice, labelled “Mac 12 1st” in the last supplied ElevenLabs export. Dry, certain delivery. A small beat between the team name and quarterback reveal. Deliver the Mahomes assessment as normal analysis, without a wink or an explanation after the bell. Let the final “And the team name” land briefly before the familiar sign-off.
+One short desk-bell ring at each [bell], three in total. The cues are production directions; omit them from narration if the generator reads them aloud. No spoken explanation of the publication day.
+Facts use the 12 November 10:50 UTC Sleeper snapshot, published Week 10 prices and settled Week 9 results. Mackorcle takes Niall, matching the website call. Counting Mahomes in his assessment, the medical-department investigation and the empty-wallet protection are invented character comedy. No real standings, roster, prices or scoring rules change.
+
+SCRIPT
+
+Mackorcle Senior the First here. Welcome to Return of the Mac: Friday Mackdown, Mackticians. Less reaction. More Macktion.
+
+Niall Murray. Champion in twenty twenty-four. Last place in twenty twenty-five.
+
+Some title defences end in a semi-final. Niall's ended with a doughnut strategy.
+
+The Fifty Challenge. Miles, pints and doughnuts adding up to fifty in twenty-four hours. The Macksperts call it a championship hangover. We've prescribed pints. I'd like the medical department investigated. [bell]
+
+Roll this season's tape.
+
+Mahomes-lander and the Boys. That's the team name.
+
+Trevor Lawrence. That's the quarterback.
+
+Mahomes plays for somebody else. Niall has rebuilt so aggressively that the team name is now a missing-person appeal.
+
+Pause it there.
+
+I've kept Mahomes in my assessment. His name is still on the building. You can't expect me to check the roster as well. [bell]
+
+Niall has also spent his entire waiver budget. Every dollar. Four wins.
+
+I like this development. He has finally assembled a team he cannot afford to improve. Give the players a chance before you buy another one.
+
+And last week, they delivered. Over a hundred and forty points. Walker supplied thirty-six. After last year's punishment, it's good to see somebody else doing the running.
+
+Up five places in the power rankings. Four and five in the actual table. Burns this weekend, with a chance to get level on wins and losses.
+
+I'm taking Niall at two to five.
+
+Walker, Hall and Olave give him enough to win. The empty wallet protects him from another expensive brainwave. On a Mackjusted basis, running out of money has saved his season. [bell]
+
+Picks close Sunday at six, Irish time. Check the injury reports, Niall. And the team name.
+
+That's Return of the Mac: Friday Mackdown. Like, comment, subscribe. Macksperts, the comment section is for questions.
+
+If your results don't reflect my analysis, please allow another week.
+
+SOURCE NOTES — not spoken
+Current roster and team name: docs/research/2026-week-10-sleeper.json. Niall (roster 2) is “Mahomes-lander n The Boys”, with Trevor Lawrence his only rostered quarterback. Patrick Mahomes is on roster 8. “Mahomes-lander and the Boys” is the established spoken expansion of the team name.
+Niall's actual 4–5 record, five-place ranking rise and exhausted waiver budget: lib/data/power-rankings/2026-week-10.ts.
+Niall's 140.18 score and Walker's 36.30: docs/research/2026-week-9-results.json; lib/data/newsletters/2026-week-9.ts. Spoken totals are rounded to “over a hundred and forty” and “thirty-six”.
+Current Walker, Hall and Olave selections: docs/research/2026-week-10-sleeper.json.
+Niall–Burns fixture, Niall's 2/5 price and Sunday 18:00 Irish lock: docs/research/2026-week-10-prices.json; docs/research/2026-week-10-thursday-audit.json. A win takes Niall to 5–5.
+2024 championship, 2025 last place and Fifty Challenge: lib/data/managers.ts. The challenge combines miles run, pints consumed and doughnuts eaten to total fifty inside twenty-four hours.
+
+COPY CHECK — not spoken
+Reviewed the previous draft against the established recorded Hugo episode. Replaced the arbitrary addition of ranking movement to wins with Mackorcle deliberately counting the departed quarterback, then treating the exhausted waiver budget as protection from tinkering. Both jokes have specific league evidence and reveal the host's reasoning. The running line recalls the opening punishment; the closing team-name instruction recalls the central reveal.
+Humanizer check performed manually: cut the generic spreadsheet character reference, task-counting payoff and repeated explanations. Kept the established host introduction, film-room command, three bells and sign-off. The short reveal fragments are deliberate spoken timing. Opponent named only for Niall's fixture; no other manager gets a subplot. No private events or attributed manager quotes invented. The episode has no spoken publication-day explanation.
