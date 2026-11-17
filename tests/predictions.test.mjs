@@ -311,6 +311,55 @@ void test('authored reviews stay hidden until settlement and reads preserve the 
   assert.equal(after.matchups[0].preview.pickRosterId, 2);
   assert.equal(writes.length, writesBeforeRead);
 });
+void test('approved early reports are read-only and require completed games and full scores', async (t) => {
+  seedWeek(1);
+  mock.method(Date, 'now', () => Date.parse('2026-09-15T09:00:00Z'));
+  const review = {
+    version: 1,
+    editorial: true,
+    publishBeforeSettlement: true,
+    headline: 'The commissioner has published the report',
+    summary: 'The games have finished; picks are awaiting settlement.',
+    sections: [],
+    publishedAt: '2026-09-15T08:59:00Z',
+  };
+  const edition = {
+    leagueId: league.league_id,
+    season: '2026',
+    week: 1,
+    sleeperMatchupId: 1,
+    homeRosterId: 1,
+    awayRosterId: 2,
+    review,
+  };
+  matchupNewsletters.push(edition);
+  t.after(() =>
+    matchupNewsletters.splice(matchupNewsletters.indexOf(edition), 1),
+  );
+  const published = await getPredictionWeekData(1);
+  assert.deepEqual(published.matchups[0].review, review);
+  assert.equal(published.finalized, false);
+  assert.equal(published.gradingEligible, false);
+  assert.equal(matchups[0].status, 'locked');
+  assert.equal(matchups[0].home_final, null);
+  assert.deepEqual(writes, []);
+
+  review.publishedAt = '2026-09-15T09:01:00Z';
+  assert.equal((await getPredictionWeekData(1)).matchups[0].review, null);
+  review.publishedAt = '2026-09-15T08:59:00Z';
+  state.week = 1;
+  assert.equal((await getPredictionWeekData(1)).matchups[0].review, null);
+  state.week = 2;
+  delete entries[0].points;
+  assert.equal((await getPredictionWeekData(1)).matchups[0].review, null);
+  entries[0].points = 110;
+  entries.push({ ...entries[0] });
+  const incomplete = await getPredictionWeekData(1);
+  assert.equal(incomplete.sourceComplete, false);
+  assert.ok(incomplete.matchups.every((matchup) => matchup.review == null));
+  assert.deepEqual(writes, []);
+});
+
 void test('sync holds completed scores until the Tuesday 11am Irish cutoff', async () => {
   seedWeek(1);
   mock.method(Date, 'now', () => Date.parse('2026-09-15T09:59:59.999Z'));

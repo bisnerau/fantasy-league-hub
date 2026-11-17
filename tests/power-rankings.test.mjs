@@ -135,6 +135,24 @@ void test('the homepage features the selected preview and only advertises settle
   }
 });
 
+void test('the homepage can lead with an approved report before picks settlement', () => {
+  const approved = { ...review, publishBeforeSettlement: true };
+  const early = {
+    ...reviewData,
+    finalized: false,
+    matchups: [
+      { ...reviewData.matchups[0], review: approved },
+      reviewData.matchups[0],
+    ],
+  };
+  const home = getClubhouseEditorial({ ...data, matchups: [] }, early, now);
+  assert.equal(home.reviews.length, 1);
+  assert.equal(home.lead.story, approved);
+  assert.equal(home.lead.kind, 'review');
+  assert.equal(home.lead.week, 1);
+  assert.equal(early.finalized, false);
+});
+
 void test('a later week uses the actual archived report week and does not recycle old talking points', () => {
   const home = getClubhouseEditorial(
     { ...data, week: 3, matchups: [] },

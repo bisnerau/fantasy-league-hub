@@ -102,11 +102,16 @@ export function MatchupEditorial({
   locked: boolean;
   featured?: boolean;
 }) {
+  const reviewPublished = Boolean(
+    matchup.review &&
+    (finalized || matchup.review.publishBeforeSettlement === true),
+  );
+  const showReview = finalized || reviewPublished;
   return (
     <div className="border-t border-border px-3.5 py-3 sm:px-4">
       <Tabs
-        key={finalized ? 'final' : 'pregame'}
-        defaultValue={finalized ? 'review' : 'preview'}
+        key={showReview ? 'review' : 'pregame'}
+        defaultValue={showReview ? 'review' : 'preview'}
       >
         <TabsList
           aria-label={`Preview and review: ${matchup.home.ownerName} versus ${matchup.away.ownerName}`}
@@ -137,8 +142,13 @@ export function MatchupEditorial({
           )}
         </TabsContent>
         <TabsContent value="review">
-          {finalized && matchup.review ? (
+          {reviewPublished && matchup.review ? (
             <>
+              {!finalized && (
+                <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                  Match report published. Picks results are awaiting settlement.
+                </p>
+              )}
               {featured && matchup.preview && (
                 <p className="mt-3 text-sm font-medium text-primary">
                   Our preview call:{' '}

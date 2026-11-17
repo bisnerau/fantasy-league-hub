@@ -98,8 +98,12 @@ Weeks without a published selection keep their normal order and have no badge.
    schedule, including unusual Wednesday games, rather than relying on the
    Sunday pick deadline. If the request arrives too late, say so; never backdate
    a prediction. Keep published previews unchanged when adding the review.
-5. Reviews must wait for finalized prediction results. The page enforces this
-   even if a review file exists. Future-dated editions remain hidden.
+5. Reviews wait for finalized prediction results by default. The commissioner
+   can explicitly approve a completed-game report before picks settlement:
+   set `publishBeforeSettlement: true` on that review and use its actual
+   publication time. The read path still requires a past NFL week, a locked
+   ballot, a complete source and both scores. This never grades picks or
+   changes saved finals. Future-dated editions remain hidden.
 6. Run the relevant tests, lint and production build. Deploy through the existing
    Vercel Git workflow, then verify all six live stories and the active week.
 
@@ -277,3 +281,11 @@ Karl and Keenan beat the selected opponents. All Thursday previews, projections
 and picks remain unchanged. Burns–Niall stays the archived feature. The reports
 include Monday's Moore/$15 FAAB-for-Nacua trade and dated injury news, with
 hindsight bench comparisons labelled explicitly. See `research/2026-week-11.md`.
+
+### Immediate publication approved — 17 November, 09:33 UTC
+
+The commissioner requested that the six Week 10 reports appear immediately.
+Each now opts into post-game publication before picks settlement, with a
+09:33:48 UTC timestamp. Programme sheets open the Review tab and disclose that
+picks results await settlement. The homepage can feature these approved reports.
+Unapproved reviews retain the existing settlement requirement.

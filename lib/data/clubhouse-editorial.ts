@@ -14,12 +14,16 @@ export function getClubhouseEditorial(
   );
   const previews = data.matchups.filter((m) => m.preview);
   const validReviews =
-    reviewData?.finalized &&
+    reviewData &&
     reviewData.leagueId === data.leagueId &&
     reviewData.season === data.season &&
     reviewData.week <= data.week;
   const reviews = validReviews
-    ? reviewData.matchups.filter((m) => m.review)
+    ? reviewData.matchups.filter(
+        (m) =>
+          m.review &&
+          (reviewData.finalized || m.review.publishBeforeSettlement === true),
+      )
     : [];
   const currentMatchup = data.finalized
     ? featuredMatchup?.review

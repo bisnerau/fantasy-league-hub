@@ -533,10 +533,17 @@ export async function getPredictionWeekData(
         homeRosterId: matchup.home.rosterId,
         awayRosterId: matchup.away.rosterId,
       });
+      const approvedEarlyReview =
+        edition.review?.publishBeforeSettlement === true &&
+        result.locked &&
+        result.sourceComplete &&
+        result.week < result.currentWeek &&
+        matchup.home.actualScore != null &&
+        matchup.away.actualScore != null;
       return {
         ...matchup,
         preview: edition.preview ?? matchup.preview,
-        review: result.finalized ? edition.review : null,
+        review: result.finalized || approvedEarlyReview ? edition.review : null,
       };
     });
     return result;

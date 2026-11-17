@@ -3,8 +3,8 @@ import type { MatchupNewsletter } from '../matchup-newsletters';
 // Thursday edition before WAS–NYG. Weekend final injury designations are pending.
 // Prices use the pre-kickoff best-lineup snapshot; selected PPR estimates stay frozen.
 export const weekTenPublishedAt = '2026-11-12T10:52:41.940812Z';
-// Prepared Tuesday morning; reviews also require finalized stored results.
-export const weekTenReviewPublishedAt = '2026-11-17T11:00:00Z';
+// Commissioner approved immediate publication after the completed games.
+export const weekTenReviewPublishedAt = '2026-11-17T09:33:48Z';
 
 export const weekTenReports: MatchupNewsletter[] = [
   {
@@ -67,6 +67,7 @@ export const weekTenReports: MatchupNewsletter[] = [
     },
     review: {
       version: 1,
+      publishBeforeSettlement: true,
       editorial: true,
       publishedAt: weekTenReviewPublishedAt,
       headline: 'Alan puts 85.84 between himself and Dave’s appeal.',
@@ -167,6 +168,7 @@ export const weekTenReports: MatchupNewsletter[] = [
     },
     review: {
       version: 1,
+      publishBeforeSettlement: true,
       editorial: true,
       publishedAt: weekTenReviewPublishedAt,
       headline: 'Joe wins. Tommy trades the recovery plan.',
@@ -259,6 +261,7 @@ export const weekTenReports: MatchupNewsletter[] = [
     },
     review: {
       version: 1,
+      publishBeforeSettlement: true,
       editorial: true,
       publishedAt: weekTenReviewPublishedAt,
       headline: 'Murphy brings 152.92. Jack orders the bigger steak.',
@@ -346,6 +349,7 @@ export const weekTenReports: MatchupNewsletter[] = [
     },
     review: {
       version: 1,
+      publishBeforeSettlement: true,
       editorial: true,
       publishedAt: weekTenReviewPublishedAt,
       headline: 'Niall beats the commissioner without borrowing Walker.',
@@ -450,6 +454,7 @@ export const weekTenReports: MatchupNewsletter[] = [
     },
     review: {
       version: 1,
+      publishBeforeSettlement: true,
       editorial: true,
       publishedAt: weekTenReviewPublishedAt,
       headline: 'Karl wins the scheduling argument by 6.62.',
@@ -546,6 +551,7 @@ export const weekTenReports: MatchupNewsletter[] = [
     },
     review: {
       version: 1,
+      publishBeforeSettlement: true,
       editorial: true,
       publishedAt: weekTenReviewPublishedAt,
       headline: 'Keenan finds 35.10 points where Walker should have been.',
