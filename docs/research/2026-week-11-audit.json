@@ -1,0 +1,235 @@
+{
+  "checkedAt": "2026-11-17T09:24:05.417Z",
+  "settlement": "Pending Tuesday 11:00 Europe/Dublin; no final scores written by this audit",
+  "fixtures": [
+    {
+      "matchup": 1,
+      "home": 147.36,
+      "away": 61.52,
+      "callCorrect": true,
+      "words": 221
+    },
+    {
+      "matchup": 2,
+      "home": 82.72,
+      "away": 128.16,
+      "callCorrect": true,
+      "words": 234
+    },
+    {
+      "matchup": 3,
+      "home": 172.04,
+      "away": 152.92,
+      "callCorrect": true,
+      "words": 223
+    },
+    {
+      "matchup": 4,
+      "home": 102.08,
+      "away": 129.98,
+      "callCorrect": true,
+      "words": 240
+    },
+    {
+      "matchup": 5,
+      "home": 156.36,
+      "away": 149.74,
+      "callCorrect": false,
+      "words": 231
+    },
+    {
+      "matchup": 6,
+      "home": 114.82,
+      "away": 103.02,
+      "callCorrect": false,
+      "words": 237
+    }
+  ],
+  "previewPreserved": true,
+  "reviewPublication": "2026-11-17T11:00:00Z",
+  "rankings": [
+    6,
+    9,
+    10,
+    5,
+    7,
+    2,
+    3,
+    12,
+    1,
+    4,
+    8,
+    11
+  ],
+  "standings": [
+    {
+      "rosterId": 6,
+      "rank": 1,
+      "previousRank": 2,
+      "record": "7–3",
+      "pointsFor": 1381.66
+    },
+    {
+      "rosterId": 10,
+      "rank": 2,
+      "previousRank": 1,
+      "record": "7–3",
+      "pointsFor": 1380.98
+    },
+    {
+      "rosterId": 9,
+      "rank": 3,
+      "previousRank": 3,
+      "record": "7–3",
+      "pointsFor": 1261.42
+    },
+    {
+      "rosterId": 5,
+      "rank": 4,
+      "previousRank": 4,
+      "record": "7–3",
+      "pointsFor": 1244.58
+    },
+    {
+      "rosterId": 3,
+      "rank": 5,
+      "previousRank": 5,
+      "record": "6–4",
+      "pointsFor": 1074.7
+    },
+    {
+      "rosterId": 7,
+      "rank": 6,
+      "previousRank": 6,
+      "record": "5–5",
+      "pointsFor": 1186.44
+    },
+    {
+      "rosterId": 2,
+      "rank": 7,
+      "previousRank": 7,
+      "record": "5–5",
+      "pointsFor": 1166.34
+    },
+    {
+      "rosterId": 1,
+      "rank": 8,
+      "previousRank": 8,
+      "record": "4–6",
+      "pointsFor": 1130.4
+    },
+    {
+      "rosterId": 11,
+      "rank": 9,
+      "previousRank": 9,
+      "record": "4–6",
+      "pointsFor": 943.1
+    },
+    {
+      "rosterId": 12,
+      "rank": 10,
+      "previousRank": 11,
+      "record": "3–7",
+      "pointsFor": 1151.76
+    },
+    {
+      "rosterId": 4,
+      "rank": 11,
+      "previousRank": 10,
+      "record": "3–7",
+      "pointsFor": 1104.44
+    },
+    {
+      "rosterId": 8,
+      "rank": 12,
+      "previousRank": 12,
+      "record": "2–8",
+      "pointsFor": 1096.12
+    }
+  ],
+  "cutLine": {
+    "lastIn": {
+      "rosterId": 7,
+      "wins": 5,
+      "losses": 5,
+      "ties": 0,
+      "pointsFor": 1186.44,
+      "rank": 6,
+      "medianWins": 5,
+      "medianLosses": 5,
+      "streak": "W1",
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "W",
+        "W",
+        "L",
+        "W",
+        "L",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 58,
+        "losses": 52,
+        "ties": 0
+      },
+      "previousRank": 6
+    },
+    "firstOut": {
+      "rosterId": 2,
+      "wins": 5,
+      "losses": 5,
+      "ties": 0,
+      "pointsFor": 1166.34,
+      "rank": 7,
+      "medianWins": 4,
+      "medianLosses": 6,
+      "streak": "W2",
+      "form": [
+        "W",
+        "L",
+        "L",
+        "L",
+        "W",
+        "W",
+        "L",
+        "L",
+        "W",
+        "W"
+      ],
+      "allPlay": {
+        "wins": 49,
+        "losses": 61,
+        "ties": 0
+      },
+      "previousRank": 7
+    },
+    "gap": "Level on wins · 20.1 PF apart"
+  },
+  "awards": {
+    "awards": [
+      {
+        "kind": "solicitor",
+        "rosterId": 12,
+        "detail": "Lost with 152.92 points, but would have beaten 9 of 11 other teams. The complaints department has evidence."
+      },
+      {
+        "kind": "escape",
+        "rosterId": 3,
+        "detail": "Won with 114.82 points; 7 of 11 other teams would have beaten them. Collect the win and leave quietly."
+      },
+      {
+        "kind": "waiver",
+        "rosterId": 4,
+        "playerId": "96",
+        "detail": "Added this scoring week and delivered 15.62 starting-lineup points. A waiver claim with something to show for itself."
+      }
+    ],
+    "waiverReady": true
+  },
+  "acquisitions": 250,
+  "week11Lock": "2026-11-22T18:00:00.000Z",
+  "week11BallotPresent": false
+}

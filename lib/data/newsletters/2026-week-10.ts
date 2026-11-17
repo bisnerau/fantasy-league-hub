@@ -3,6 +3,8 @@ import type { MatchupNewsletter } from '../matchup-newsletters';
 // Thursday edition before WAS–NYG. Weekend final injury designations are pending.
 // Prices use the pre-kickoff best-lineup snapshot; selected PPR estimates stay frozen.
 export const weekTenPublishedAt = '2026-11-12T10:52:41.940812Z';
+// Prepared Tuesday morning; reviews also require finalized stored results.
+export const weekTenReviewPublishedAt = '2026-11-17T11:00:00Z';
 
 export const weekTenReports: MatchupNewsletter[] = [
   {
@@ -60,6 +62,43 @@ export const weekTenReports: MatchupNewsletter[] = [
         {
           label: 'Patriots–Lions · Wednesday practice report, 11 November',
           url: 'https://www.patriots.com/news/week-10-injury-report-patriots-at-lions',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekTenReviewPublishedAt,
+      headline: 'Alan puts 85.84 between himself and Dave’s appeal.',
+      summary:
+        'Alan beat Sharpe 147.36–61.52 for a fourth straight win and the top seed on points. Gibbs did most of the damage; the champion’s Monday injury news makes the next team sheet considerably less comfortable.',
+      sections: [
+        {
+          title: 'Gibbs makes the Evens price look generous',
+          text: 'Thursday’s best-lineup prices had these two level. Jahmyr Gibbs supplied 44.20, Joe Burrow added 33.16 and Chase Brown brought 28.30. Those three alone outscored Dave’s entire team by 44.14. Alan reached 7–3 despite getting just 6.40 combined from Coleman, Bowers and Rodriguez. Four straight wins have put the defending champion back on top of the table, 0.68 season points ahead of Shane. Horgan can now write his own round-up with the league table open beside him.',
+        },
+        {
+          title: 'Dave loses the game and his quarterback',
+          text: 'Maye’s ankle injury cut his contribution to 3.02. On Monday, Vrabel said he did not expect him back immediately after New England’s bye; he withheld a full prognosis pending further assessment. Hampton’s 17.50 led Sharpe, whose 61.52 was the week’s low. Love’s bench score would have added only 7.78. There is no sensible lineup lecture that turns this into an 85-point rescue.',
+        },
+        {
+          title: 'The Thursday call: Alan Horgan — correct',
+          text: 'The pick lands, but Bowers’ ankle now needs monitoring. Kubiak called him day to day on Monday, while Addison needs thumb surgery and could go to IR. Alan has earned first place with his scoring; he may need the trade deadline to find enough available receivers to enjoy it.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 10 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/10',
+        },
+        {
+          label:
+            'NFL, 16 November · Bowers day to day; Addison needs thumb surgery',
+          url: 'https://amp.nfl.com/news/nfl-news-roundup-latest-league-updates-from-monday-nov-16',
+        },
+        {
+          label: 'Patriots, 16 November · Vrabel’s update on Maye',
+          url: 'https://www.patriots.com/news/transcript-head-coach-mike-vrabel-press-conference-11-16',
         },
       ],
     },
@@ -126,6 +165,43 @@ export const weekTenReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekTenReviewPublishedAt,
+      headline: 'Joe wins. Tommy trades the recovery plan.',
+      summary:
+        'Joe beat Tommy 128.16–82.72 to reach 5–5 and keep the sixth playoff place. By Monday night, Shark Boy had sent Puka Nacua to Shane for DJ Moore and $15 FAAB. Waiting for the ceiling has become expensive.',
+      sections: [
+        {
+          title: 'The backfield finally joins Purdy',
+          text: 'Joe’s starting backs managed 14.30 between them last week. Gordon and Skattebo supplied 42.70 this time, with Purdy adding 31.66 and St. Brown another 25.80. Joe has now scored between 117 and 129 for five successive weeks. The results have been less obliging, but this one gives him a 45.44-point win and keeps him ahead of Niall on season scoring at the playoff cut. Ennis is fifth in our new rankings, one place away from his preferred residential address.',
+        },
+        {
+          title: 'The replacements have a rough introduction',
+          text: 'Tuten and Tyson provided 39.30 of Tommy’s 82.72. Stevenson, Boston and A.J. Brown combined for 8.80; Brown left the Detroit game with a hamstring injury. Rodgers’ Friday arrival supplied 15.62 at quarterback, while Stafford’s bench return would have improved the total by just 4.14. After three straight weeks above 125, Tommy has returned to the part of the syllabus where he explains why next week will be better.',
+        },
+        {
+          title: 'The Thursday call: Joe Ennis — correct',
+          text: 'The available depth won it. Tommy’s Monday deal sends injured Nacua to Shane for Moore and $15 of waiver budget, a verified completed trade. Moore brings an immediate receiver option to a 3–7 team. Burns is next, which gives both managers a chance to describe their own season as salvageable.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 10 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/10',
+        },
+        {
+          label:
+            'Sleeper · completed moves, including Monday’s Moore–Nacua trade',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/10',
+        },
+        {
+          label: 'NFL · Week 10 injuries, including Brown and Marks',
+          url: 'https://amp.nfl.com/news/notable-injuries-news-sunday-week-10-games-2026',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -181,6 +257,38 @@ export const weekTenReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekTenReviewPublishedAt,
+      headline: 'Murphy brings 152.92. Jack orders the bigger steak.',
+      summary:
+        'Jack’s 172.04 was the highest score of Week 10 and enough to beat Murphy by 19.12. Aidan would have beaten nine of the other eleven teams. His playoff attendance record has acquired a scheduling complaint.',
+      sections: [
+        {
+          title: 'McCaffrey makes the expensive team expensive again',
+          text: 'After last week’s 89.94, Jack more than doubled his score. McCaffrey led every MAC 12 starter with 46.30, and Pollard and Henry took the three starting backs to 89.20 between them. Fannin added 16.10, while the newly selected Colts defence brought 12. Jack even left Deebo’s 25.90 on the bench. The Wagyu kitchen had enough for a second sitting, though Murphy would probably have preferred the restaurant closed.',
+        },
+        {
+          title: 'Aidan gets the wrong opponent for his recovery',
+          text: 'Prescott supplied 34.42 and Cook 21.70 as Murphy jumped from 97.00 to 152.92. Only Jack and Karl outscored him. Kamara instead of Marks would have gained 8.90 in hindsight, still leaving a 10.22-point defeat. This was a strong losing team, and the Schedule Solicitor has an unusually convincing applicant. At 3–7, Murphy is two wins behind the final playoff place with four regular-season games left.',
+        },
+        {
+          title: 'The Thursday call: Jack Ringrose — correct',
+          text: 'The backfield call holds up, although Murphy made Jack earn it. Ringrose returns to 7–3 and rises to second in the rankings before meeting Shane. Aidan faces Alan next. Marks also left Sunday with a concussion, so the improved scoring comes with another availability check before Murphy can attempt to preserve that five-for-five playoff record.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 10 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/10',
+        },
+        {
+          label: 'NFL · Week 10 injuries, including Brown and Marks',
+          url: 'https://amp.nfl.com/news/notable-injuries-news-sunday-week-10-games-2026',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -233,6 +341,47 @@ export const weekTenReports: MatchupNewsletter[] = [
         {
           label: 'Sleeper · Week 10 free-agent moves',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/10',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekTenReviewPublishedAt,
+      headline: 'Niall beats the commissioner without borrowing Walker.',
+      summary:
+        'Our Match of the Week went to Murray, 129.98–102.08. Niall reached 5–5 despite Walker’s absence; Burns slipped to 4–6 with Chase and Collins doing most of the work. The calculator has been put away.',
+      sections: [
+        {
+          title: 'The preview named the wrong leading man',
+          text: 'Thursday’s headline promised Walker. His groin injury kept him out, so Niall won through a different part of the rebuild: Lawrence and Parker Washington combined for 54.98, and Likely supplied 27.70. Caleb Douglas added 10.10 at flex. Hall was the only starting back to reach double figures, yet Murray still cleared 129 for a second straight week. The new pass catchers have made the team more resilient than the remaining waiver budget.',
+        },
+        {
+          title: 'Burns needs more than two receivers',
+          text: 'Chase and Collins contributed 58.50, more than half the commissioner’s total. Shough and Kyren Williams managed 15.18 together, and Bernard’s one point left the flex slot short of help. Bass returned to the lineup for seven after last week’s deliberate benching; no kicker calculation was rescuing a 27.90-point loss. Antonio Williams’ 12.20 on the bench would have narrowed it, but still left Burns 16.70 behind. This result requires more work than changing one name.',
+        },
+        {
+          title: 'The Thursday call: Niall Murray — correct',
+          text: 'The 2/5 favourite justified the call even without the back we led with. Niall is seventh in the standings, 20.10 season points behind Joe at the same 5–5 record, and meets 6–4 Keenan next. Burns faces Tommy. With trades closing after Week 11’s final game, the commissioner has one more week to explain why his unsolicited offer helps both parties.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 10 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/10',
+        },
+        {
+          label:
+            'Chiefs, 16 November · Johnson’s first start in place of Walker',
+          url: 'https://www.chiefs.com/news/chiefs-defeat-falcons-35-13-as-patrick-mahomes-throws-five-touchdowns',
+        },
+        {
+          label: 'Sleeper · Tuesday standings and records',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/rosters',
+        },
+        {
+          label: 'Sleeper · trade deadline rules',
+          url: 'https://support.sleeper.com/en/articles/2435411-when-is-my-trade-deadline',
         },
       ],
     },
@@ -299,6 +448,39 @@ export const weekTenReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekTenReviewPublishedAt,
+      headline: 'Karl wins the scheduling argument by 6.62.',
+      summary:
+        'Moroney beat Marmion 156.36–149.74 in the week’s closest game. Pickens supplied 43.50, the 4/1 underdog won, and four teams now share 7–3. Shane then bought Puka Nacua from Tommy.',
+      sections: [
+        {
+          title: 'The questionable receivers supplied the answer',
+          text: 'Thursday’s preview worried about Wilson and Pickens. They played and returned 59.10 between them, with Corum adding 20.90. Karl’s 156.36 was second only to Jack this week and enough to pull him level with Shane on wins. The manager most associated with schedule complaints has now beaten a 149.74. It will be awkward if the league remembers that the next time he submits a formal objection.',
+        },
+        {
+          title: 'Shane has a particularly irritating bench score',
+          text: 'Hubbard and Smith-Njigba totalled 65.30, while Lamb and Kittle kept the score moving. Coker’s 0.30 was the gap in the starting lineup. Moore’s 19.40 on the bench would have gained 19.10 and overturned the result in hindsight; that calculation says nothing about what was obvious before kickoff. Monday’s completed trade then sent Moore and $15 FAAB to Tommy for injured Nacua. Shane has exchanged the receiver from this week’s what-if for a player whose return still needs waiting on.',
+        },
+        {
+          title: 'The Thursday call: Shane Marmion — wrong',
+          text: 'We backed the deeper receiving group at 1/4. Karl’s returning receivers and Corum beat that argument, with the smallest winning margin of the week. Shane remains second in the standings, just 0.68 season points behind Alan, and faces Jack next. Moroney gets Hugo. The four-way tie has made the bye race much less comfortable for everybody involved.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 10 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/10',
+        },
+        {
+          label:
+            'Sleeper · completed moves, including Monday’s Moore–Nacua trade',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/10',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -359,6 +541,39 @@ export const weekTenReports: MatchupNewsletter[] = [
         {
           label: 'Packers · Jacobs surgery update, 9 November',
           url: 'https://www.packers.com/news/packers-rb-josh-jacobs-to-miss-time-due-to-surgery-on-broken-finger-nov-9-2026',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekTenReviewPublishedAt,
+      headline: 'Keenan finds 35.10 points where Walker should have been.',
+      summary:
+        'Andrew beat Hugo 114.82–103.02 behind Emmett Johnson’s breakout first start. Keenan is 6–4 and still fifth in the table; Hugo is 2–8, with another winnable week gone and Karl coming next.',
+      sections: [
+        {
+          title: 'Johnson makes the missing backs survivable',
+          text: 'With Barkley on bye and Jacobs unavailable, Keenan started Emmett Johnson and received 35.10. The Chiefs confirmed Johnson’s first start came in place of the injured Walker: 171 scrimmage yards and two touchdowns explain the fantasy return. Goff supplied 20.42, with Aubrey and Kansas City’s defence adding 23. Andrew has now won twice in six games since his 4–0 start. This win gives the old record something more recent to lean on.',
+        },
+        {
+          title: 'Mahomes cannot fill every position',
+          text: 'Hugo got 35.42 from Mahomes and 16 from Cam Little, but Taylor and Javonte Williams combined for 20.00. Kraft and Douglas supplied only 4.30. Malik Washington’s 13.36 sat on the bench; replacing Douglas would have gained 11.96 against an 11.80 losing margin. That is a 0.16-point hindsight win, not evidence that the change was an obvious pregame choice. Walsh has become very good at producing the arithmetic for a result he did not get.',
+        },
+        {
+          title: 'The Thursday call: Hugo Walsh — wrong',
+          text: 'We backed Hugo’s available running backs. Johnson outscored the pair on his own and Keenan won despite Allgeier’s 1.40. Andrew meets Niall next, making Walker’s health relevant to both sides of that fixture. Hugo is one win behind Tommy and Murphy at the bottom. With four regular-season games left, every missed opportunity gives the guitar jokes another week of material.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 10 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/10',
+        },
+        {
+          label:
+            'Chiefs, 16 November · Johnson’s first start in place of Walker',
+          url: 'https://www.chiefs.com/news/chiefs-defeat-falcons-35-13-as-patrick-mahomes-throws-five-touchdowns',
         },
       ],
     },

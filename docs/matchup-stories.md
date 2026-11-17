@@ -267,3 +267,13 @@ Week 10 prices use Thursday morning evidence. Prices are explicitly frozen befor
 Washington–New York; final weekend injury designations are pending. The Sunday
 15 November lock remains 18:00 Irish time. Tuesday's rankings and all historical
 calls remain unchanged. See `research/2026-week-10-previews.md`.
+
+## Week 10 reviews prepared — 17 November
+
+Six reviews are prepared for publication after the Tuesday 11:00 Irish boundary
+and finalized stored results. Completed Sleeper totals and historical starter
+sums agree for all twelve teams. Alan, Joe, Jack and Niall won as called;
+Karl and Keenan beat the selected opponents. All Thursday previews, projections
+and picks remain unchanged. Burns–Niall stays the archived feature. The reports
+include Monday's Moore/$15 FAAB-for-Nacua trade and dated injury news, with
+hindsight bench comparisons labelled explicitly. See `research/2026-week-11.md`.

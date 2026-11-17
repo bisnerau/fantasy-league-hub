@@ -8,6 +8,7 @@ import { weekEightPowerRankings } from './power-rankings/2026-week-8';
 
 import { weekNinePowerRankings } from './power-rankings/2026-week-9';
 import { weekTenPowerRankings } from './power-rankings/2026-week-10';
+import { weekElevenPowerRankings } from './power-rankings/2026-week-11';
 
 export type PowerRankingEntry = {
   rosterId: number;
@@ -42,6 +43,7 @@ export const powerRankingEditions: readonly PowerRankingEdition[] = [
   weekEightPowerRankings,
   weekNinePowerRankings,
   weekTenPowerRankings,
+  weekElevenPowerRankings,
 ];
 
 export function getPowerRankingEditions(

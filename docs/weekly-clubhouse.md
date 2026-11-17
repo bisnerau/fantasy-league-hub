@@ -447,3 +447,15 @@ isolated audio Playwright checks passed, including the new episode on a 390px
 viewport, its seven-entry archive, 1:53 duration, play/pause/seeking and ON AIR
 state. Existing coverage checks both themes and widths from 320px to 1440px.
 A physical iPhone Safari check was unavailable; browser tests use Chromium.
+
+## Tuesday Week 11 update — 17 November
+
+Week 11 rankings and homepage points cover the four-way 7–3 tie, Monday's
+Moore/$15 FAAB-for-Nacua trade, and the Week 11 trade deadline. Alan retains
+first; Jack rises to second and Keenan climbs four. Six Week 10 reviews preserve
+all Thursday previews and calls, including Burns–Niall as the archived feature.
+Prepared before the Tuesday settlement, the reviews have an earliest publication
+of 11:00 Irish time and also require finalized stored results. Current NFL news
+covers Bowers, Addison, Maye, Walker/Johnson, Brown and Marks. Week 11 previews,
+feature selection and prices remain later-week work. See
+`research/2026-week-11.md` for evidence and the pre-settlement audit.
