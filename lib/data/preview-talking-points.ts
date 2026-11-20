@@ -6,9 +6,33 @@ import { weekSevenPublishedAt } from './newsletters/2026-week-7';
 import { weekEightPublishedAt } from './newsletters/2026-week-8';
 import { weekNinePublishedAt } from './newsletters/2026-week-9';
 import { weekTenPublishedAt } from './newsletters/2026-week-10';
+import { weekElevenPublishedAt } from './newsletters/2026-week-11';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 11,
+    publishedAt: weekElevenPublishedAt,
+    points: [
+      {
+        title: 'Jack–Shane: the calendar rivalry gets top billing.',
+        text: 'Both are 7–3. Stroud has banked 20.46 for Shane; Jack brings last week’s 172.04 and our Friday call at 4/6. Kincaid and Matt Gay missed Thursday practice, so Ringrose still has work to do before posing for the winner’s photograph.',
+        href: '/matchups?week=11#matchup-4',
+      },
+      {
+        title: 'Murphy’s $26 buys 3.30. Dave changes quarterback.',
+        text: 'Hutchinson’s Thursday return leaves Murphy chasing Alan. Sharpe dropped Maye for Cam Ward overnight; Burns paid $6 for Bo Nix. Bowers returned to limited practice, Walker remained absent and McConkey stayed limited. Final weekend designations are pending in these Friday previews.',
+        href: '/matchups?week=11',
+      },
+      {
+        title: 'Sunday picks at six. Trading ends after Monday night.',
+        text: 'All six previews and prices include Thursday’s Indianapolis–Houston game. Picks lock at 18:00 Irish time on Sunday 22 November. The Week 11 trade deadline falls when Monday night’s final game ends, early Tuesday 24 November in Ireland. Later lineup or injury changes cannot alter frozen prices.',
+        href: '/matchups?week=11',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

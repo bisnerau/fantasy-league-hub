@@ -6,6 +6,7 @@ import { weekSevenFeatureUpdatedAt } from './newsletters/2026-week-7';
 import { weekEightPublishedAt } from './newsletters/2026-week-8';
 import { weekNinePublishedAt } from './newsletters/2026-week-9';
 import { weekTenPublishedAt } from './newsletters/2026-week-10';
+import { weekElevenPublishedAt } from './newsletters/2026-week-11';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -133,6 +134,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Thursday selection before kickoff: Burns and Niall are both 4–5, chasing the final playoff places. Niall has just beaten Joe with 140.18; Burns protected a 2.06-point win over Hugo. Barring a tie, one reaches 5–5 and the other falls to 4–6.',
     buildUp:
       'Niall brings Walker, Hall and Dowdle; Burns has Chase, Collins and Kyren Williams but loses Swift to the bye. Our Thursday call is Niall at 2/5 against Burns at 5/2. Bass is back in the commissioner’s selected lineup after last week’s deliberate benching. This week may require all nine players. Prices are frozen before Washington–New York; final weekend injury designations remain pending.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 11,
+    sleeperMatchupId: 4,
+    homeRosterId: 9,
+    awayRosterId: 10,
+    selectedAt: weekElevenPublishedAt,
+    reason:
+      'Friday selection, after Indianapolis–Houston: Jack and Shane are both 7–3, with a playoff bye in reach. Stroud has banked 20.46 for Shane; Jack brings last week’s league-high 172.04 and a long memory about the 2024 punishment calendar.',
+    buildUp:
+      'The calendar rivalry gets a game worthy of the grievance. Jack is 4/6 to Shane’s 6/4, with Thursday’s points already included. We take Ringrose on Allen, McCaffrey and Jefferson, but Kincaid and Matt Gay both missed Thursday practice and their final status needs checking. Shane has Lamb and Kittle, while Nacua remains on IR and Smith-Njigba has his bye. This is a Friday call with the opening game known. Jack has previously settled this argument through photography; a win would be easier to display on the standings page.',
   },
 ];
 

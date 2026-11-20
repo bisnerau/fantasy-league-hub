@@ -289,3 +289,13 @@ Each now opts into post-game publication before picks settlement, with a
 09:33:48 UTC timestamp. Programme sheets open the Review tab and disclose that
 picks results await settlement. The homepage can feature these approved reports.
 Unapproved reviews retain the existing settlement requirement.
+
+## Week 11 Friday edition — 20 November
+
+Six previews include Indianapolis–Houston's recorded points and the latest
+Thursday practice reports. Jack–Shane is Match of the Week at 7–3 each. Calls:
+Joe, Alan, Burns, Jack, Keenan and Hugo. Keenan is the editorial underdog pick
+with Walker's final status pending. Source details, price assumptions and
+verification live in `docs/research/2026-week-11-previews.md`. Tuesday rankings
+and archived calls remain unchanged; final weekend injury designations were
+not yet published when the Friday edition was prepared.
