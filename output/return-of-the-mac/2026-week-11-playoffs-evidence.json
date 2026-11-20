@@ -1,0 +1,479 @@
+{
+  "asOf": "2026-11-20T10:26:08.997Z",
+  "teams": [
+    {
+      "rank": 1,
+      "name": "Tampa B'AH",
+      "manager": "Alan Horgan",
+      "record": "7-3",
+      "odds": {
+        "rosterId": 6,
+        "playoff": 0.99866,
+        "last": 0,
+        "bye": 0.80063,
+        "finishes": [
+          0.50303,
+          0.2976,
+          0.12389,
+          0.05252,
+          0.01742,
+          0.0042,
+          0.00132,
+          2e-05,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "rank": 2,
+      "name": "Whos Throwing Diggs",
+      "manager": "Shane Marmion",
+      "record": "7-3",
+      "odds": {
+        "rosterId": 10,
+        "playoff": 0.99818,
+        "last": 0,
+        "bye": 0.68245,
+        "finishes": [
+          0.35776,
+          0.32469,
+          0.18631,
+          0.08949,
+          0.03193,
+          0.008,
+          0.00181,
+          1e-05,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "rank": 3,
+      "name": "The Finest Wagyu",
+      "manager": "Jack Ringrose",
+      "record": "7-3",
+      "odds": {
+        "rosterId": 9,
+        "playoff": 0.98788,
+        "last": 0,
+        "bye": 0.36204,
+        "finishes": [
+          0.11128,
+          0.25076,
+          0.30514,
+          0.18957,
+          0.09231,
+          0.03882,
+          0.01124,
+          0.00088,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "rank": 4,
+      "name": "Pronouns Who Dey",
+      "manager": "Karl Moroney",
+      "record": "7-3",
+      "odds": {
+        "rosterId": 5,
+        "playoff": 0.93378,
+        "last": 0,
+        "bye": 0.11864,
+        "finishes": [
+          0.0258,
+          0.09284,
+          0.20103,
+          0.26882,
+          0.21119,
+          0.1341,
+          0.05861,
+          0.00755,
+          6e-05,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "rank": 5,
+      "name": "Cooper Kupp Mah Balls",
+      "manager": "Andrew Keenan",
+      "record": "6-4",
+      "odds": {
+        "rosterId": 3,
+        "playoff": 0.48787,
+        "last": 0,
+        "bye": 0.01363,
+        "finishes": [
+          0.00182,
+          0.01181,
+          0.04013,
+          0.0793,
+          0.13506,
+          0.21975,
+          0.23571,
+          0.22368,
+          0.04614,
+          0.00645,
+          0.00015,
+          0
+        ]
+      }
+    },
+    {
+      "rank": 6,
+      "name": "D'onta FourMore!",
+      "manager": "Joe Ennis",
+      "record": "5-5",
+      "odds": {
+        "rosterId": 7,
+        "playoff": 0.77519,
+        "last": 1e-05,
+        "bye": 0.01127,
+        "finishes": [
+          0.00015,
+          0.01112,
+          0.08853,
+          0.19703,
+          0.2703,
+          0.20806,
+          0.14066,
+          0.06922,
+          0.01201,
+          0.00245,
+          0.00046,
+          1e-05
+        ]
+      }
+    },
+    {
+      "rank": 7,
+      "name": "Mahomes-lander n The Boys",
+      "manager": "Niall Murray",
+      "record": "5-5",
+      "odds": {
+        "rosterId": 2,
+        "playoff": 0.59109,
+        "last": 3e-05,
+        "bye": 0.01134,
+        "finishes": [
+          0.00016,
+          0.01118,
+          0.05366,
+          0.10616,
+          0.17423,
+          0.2457,
+          0.24271,
+          0.13333,
+          0.02665,
+          0.00553,
+          0.00066,
+          3e-05
+        ]
+      }
+    },
+    {
+      "rank": 8,
+      "name": "Burns XI",
+      "manager": "Emmet Burns",
+      "record": "4-6",
+      "odds": {
+        "rosterId": 1,
+        "playoff": 0.21508,
+        "last": 0.00585,
+        "bye": 0,
+        "finishes": [
+          0,
+          0,
+          0.00131,
+          0.01698,
+          0.06603,
+          0.13076,
+          0.25598,
+          0.33211,
+          0.11755,
+          0.05288,
+          0.02055,
+          0.00585
+        ]
+      }
+    },
+    {
+      "rank": 9,
+      "name": "Burkeys Teur",
+      "manager": "David Sharpe",
+      "record": "4-6",
+      "odds": {
+        "rosterId": 11,
+        "playoff": 0.00428,
+        "last": 0.1866,
+        "bye": 0,
+        "finishes": [
+          0,
+          0,
+          0,
+          0.00011,
+          0.00086,
+          0.00331,
+          0.01521,
+          0.06676,
+          0.22093,
+          0.25105,
+          0.25517,
+          0.1866
+        ]
+      }
+    },
+    {
+      "rank": 10,
+      "name": "BurrowMeDickinYoAss",
+      "manager": "Aidan Murphy",
+      "record": "3-7",
+      "odds": {
+        "rosterId": 12,
+        "playoff": 0.00179,
+        "last": 0.20678,
+        "bye": 0,
+        "finishes": [
+          0,
+          0,
+          0,
+          0,
+          0.00018,
+          0.00161,
+          0.01015,
+          0.05956,
+          0.25394,
+          0.23324,
+          0.23454,
+          0.20678
+        ]
+      }
+    },
+    {
+      "rank": 11,
+      "name": "Prime Time",
+      "manager": "Tommy O\u2019Brien",
+      "record": "3-7",
+      "odds": {
+        "rosterId": 4,
+        "playoff": 0.00615,
+        "last": 0.18551,
+        "bye": 0,
+        "finishes": [
+          0,
+          0,
+          0,
+          2e-05,
+          0.00049,
+          0.00564,
+          0.02407,
+          0.08219,
+          0.1935,
+          0.26283,
+          0.24575,
+          0.18551
+        ]
+      }
+    },
+    {
+      "rank": 12,
+      "name": "Hawk Tuas Binatsos ",
+      "manager": "Hugo Walsh",
+      "record": "2-8",
+      "odds": {
+        "rosterId": 8,
+        "playoff": 5e-05,
+        "last": 0.41522,
+        "bye": 0,
+        "finishes": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          5e-05,
+          0.00253,
+          0.02469,
+          0.12922,
+          0.18557,
+          0.24272,
+          0.41522
+        ]
+      }
+    }
+  ],
+  "week11": [
+    {
+      "fixtureKey": "11:3",
+      "rosterId": 1,
+      "objective": "playoffs",
+      "label": "Must win",
+      "reason": "to boost the playoff push",
+      "win": 0.29650951877730636,
+      "loss": 0.07393942707194402,
+      "swing": 0.22257009170536235,
+      "name": "Burns XI"
+    },
+    {
+      "fixtureKey": "11:3",
+      "rosterId": 4,
+      "objective": "avoid last",
+      "label": "Can\u2019t lose",
+      "reason": "to avoid being dragged into last place",
+      "win": 0.048873824622785916,
+      "loss": 0.26439646062364947,
+      "swing": 0.21552263600086355,
+      "name": "Prime Time"
+    },
+    {
+      "fixtureKey": "11:5",
+      "rosterId": 2,
+      "objective": "playoffs",
+      "label": "Must win",
+      "reason": "to boost the playoff push",
+      "win": 0.7787518573551263,
+      "loss": 0.30261588815872936,
+      "swing": 0.47613596919639695,
+      "name": "Mahomes-lander n The Boys"
+    },
+    {
+      "fixtureKey": "11:5",
+      "rosterId": 3,
+      "objective": "playoffs",
+      "label": "Can\u2019t lose",
+      "reason": "to protect a playoff spot",
+      "win": 0.7665744805013575,
+      "loss": 0.30652138022123165,
+      "swing": 0.4600531002801258,
+      "name": "Cooper Kupp Mah Balls"
+    },
+    {
+      "fixtureKey": "11:6",
+      "rosterId": 8,
+      "objective": "avoid last",
+      "label": "Must win",
+      "reason": "to climb away from last place",
+      "win": 0.2764421404216826,
+      "loss": 0.6028654104029925,
+      "swing": 0.3264232699813099,
+      "name": "Hawk Tuas Binatsos"
+    },
+    {
+      "fixtureKey": "11:2",
+      "rosterId": 6,
+      "objective": "bye",
+      "label": "Can\u2019t lose",
+      "reason": "to protect a top-two place",
+      "win": 0.8329112789368711,
+      "loss": 0.5327876476606828,
+      "swing": 0.30012363127618835,
+      "name": "Tampa B'AH"
+    },
+    {
+      "fixtureKey": "11:1",
+      "rosterId": 7,
+      "objective": "playoffs",
+      "label": "Can\u2019t lose",
+      "reason": "to protect a playoff spot",
+      "win": 0.8368156266844632,
+      "loss": 0.5578055631059164,
+      "swing": 0.27901006357854674,
+      "name": "D'onta FourMore!"
+    },
+    {
+      "fixtureKey": "11:1",
+      "rosterId": 11,
+      "objective": "avoid last",
+      "label": "Can\u2019t lose",
+      "reason": "to avoid being dragged into last place",
+      "win": 0.0226510827217541,
+      "loss": 0.2330655304294258,
+      "swing": 0.2104144477076717,
+      "name": "Burkeys Teur"
+    },
+    {
+      "fixtureKey": "11:4",
+      "rosterId": 9,
+      "objective": "bye",
+      "label": "Must win",
+      "reason": "to chase a top-two bye",
+      "win": 0.5620759897263307,
+      "loss": 0.10264185619113256,
+      "swing": 0.45943413353519813,
+      "name": "The Finest Wagyu"
+    },
+    {
+      "fixtureKey": "11:4",
+      "rosterId": 10,
+      "objective": "bye",
+      "label": "Can\u2019t lose",
+      "reason": "to protect a top-two place",
+      "win": 0.9174592235240064,
+      "loss": 0.5012133557700824,
+      "swing": 0.416245867753924,
+      "name": "Whos Throwing Diggs"
+    }
+  ],
+  "hugo": {
+    "id": 8,
+    "games": [
+      {
+        "week": 11,
+        "opponent": "Pronouns Who Dey",
+        "lossRoute": "impossible",
+        "tieRoute": "possible"
+      },
+      {
+        "week": 12,
+        "opponent": "The Finest Wagyu",
+        "lossRoute": "impossible",
+        "tieRoute": "possible"
+      },
+      {
+        "week": 13,
+        "opponent": "Tampa B'AH",
+        "lossRoute": "impossible",
+        "tieRoute": "possible"
+      },
+      {
+        "week": 14,
+        "opponent": "BurrowMeDickinYoAss",
+        "lossRoute": "impossible",
+        "tieRoute": "possible"
+      }
+    ],
+    "winAllRoute": "possible",
+    "winAllOdds": {
+      "rosterId": 8,
+      "playoff": 0.0012,
+      "last": 0,
+      "bye": 0,
+      "finishes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.0012,
+        0.05133,
+        0.3729,
+        0.52027,
+        0.05303,
+        0.00127,
+        0
+      ]
+    }
+  }
+}

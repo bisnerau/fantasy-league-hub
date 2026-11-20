@@ -460,3 +460,29 @@ Irish-time boundary. Current NFL news
 covers Bowers, Addison, Maye, Walker/Johnson, Brown and Marks. Week 11 previews,
 feature selection and prices remain later-week work. See
 `research/2026-week-11.md` for evidence and the pre-settlement audit.
+
+## Week 11 playoff Mackdown — 20 November
+
+Published **Everybody suddenly has a plan.** The commissioner supplied
+`ElevenLabs_2026-11-20T12_39_09_Mac 12 1st_gen_s50_sim75_v4.mp3` after approving
+the revised run-in script. Original bytes are preserved as
+`public/audio/return-of-the-mac/2026-week-11-playoffs.mp3`; SHA-256
+`18b4ae6e4a2bd5f79e388f5849557091f57fa9cf23751630b97c7a11d4fddd41`.
+FFprobe measured **188.760813 seconds (3:08)**, mono MP3 at 44.1 kHz. FFmpeg
+fully decoded it without errors. Local Whisper comparison confirms the top-two
+race, bubble teams, the requested must-win/can’t-lose definitions, last-place
+battle and Hugo’s mathematical route. The export says Burns XI as initials;
+automatic name spelling variations are not published as captions.
+
+The episode context is **Week 11 playoff run-in special · Four weeks left**,
+recorded 20 November. It covers the remaining regular season, rather than a
+single-week preview. It leads the homepage and eight-entry archive, with a
+permanent URL `/return-of-the-mac/2026-week-11-playoffs`. All previous audio and
+the approved v9 portrait remain unchanged. Script and forecast evidence are in
+`output/return-of-the-mac/2026-week-11-playoffs-*`.
+
+All 204 unit/integration tests, lint and the production build passed. All 17
+audio Playwright checks passed, including the new episode’s homepage/archive
+placement, real MP3 playback, pause, keyboard seeking, duration and ON AIR state.
+Existing checks cover both themes and 320–1440px layouts. Physical iPhone Safari
+was unavailable; automated playback checks use Chromium.

@@ -1,0 +1,74 @@
+RETURN OF THE MAC: FRIDAY MACKDOWN — Playoff run-in special
+RECORDED VERSION — 20 November 2026 — Everybody suddenly has a plan.
+
+PRODUCTION NOTES — not spoken
+Approved draft: 493 spoken words, three desk-bell cues. The commissioner supplied ElevenLabs export 12_39_09 after approval. Its original bytes are preserved as 2026-week-11-playoffs.mp3. FFprobe duration: 188.760813 seconds, displayed 3:08. Local Whisper comparison confirms all requested sections and the Hugo ending, with ordinary automatic name-transcription differences; it renders Burns XI as spoken initials rather than the draft’s Eleven. Dry, certain delivery; give the Keenan computer line and the must-win/can't-lose definitions room to land. [bell] is a production cue, not narration.
+Run-in overview rather than a Week 11 fixture-by-fixture preview. User requested fewer percentages, stronger comedy, and the Hugo ending unchanged. The entire passage from 'Now, Hugo.' through the sign-off is preserved word for word from the preceding draft.
+Must-win means a team simply must win; can’t-lose means a team cannot lose that game, in the requested football sense. Imagined reactions, commissioner observations and presenter claims are comedy, not attributed real quotes or a change to the forecast method. Burns's joke describes dependence on rival results, not an exact mathematical requirement for two specific results.
+
+SCRIPT
+
+Mackorcle Senior the First here. Welcome to Return of the Mac: Friday Mackdown, Mackticians. Less reaction. More Macktion.
+
+Four weeks left. Six playoff places. Two byes.
+
+Everybody suddenly has a plan. Interesting timing. Ten weeks of evidence that they didn't.
+
+Roll the tape.
+
+At the top: Tampa B'AH, Whos Throwing Diggs, The Finest Wagyu and Pronouns Who Dey. All seven and three. Four teams, two byes.
+
+After three months telling us how good they are at fantasy football, their main ambition is now a week where they don't have to play it.
+
+I respect that. The safest lineup decision some of these men will make all season is not having one.
+
+There's still plenty to sort out between Alan, Shane, Jack and Karl. Head-to-heads. Points tiebreaks. The gradual discovery that "joint first" is not a booking confirmation.
+
+Below them, looking over their shoulder: Cooper Kupp Mah Balls and D'onta FourMore.
+
+Joe has a decent cushion. Keenan has six wins and a computer that doesn't believe in him.
+
+Niall's Mahomes-lander and the Boys are outside the playoff places, but the model prefers their chances to Keenan's. I've advised Keenan to stop refreshing. The computer has already considered his six wins. That's what's upsetting him.
+
+He needs to look over his shoulder. Not turn all the way round. That's how you finish seventh. [bell]
+
+Sniffing around: Niall and Burns Eleven.
+
+Burns has reached the stage where he needs his own result, two other results, and somebody else's questionable receiver to remain questionable.
+
+Very engaged commissioner. Suddenly knows everyone's Sunday plans.
+
+Now, the must-win and can't-lose games.
+
+A must-win is when a team simply must win. A can't-lose is when a team cannot lose that game.
+
+I've explained that slowly because some of you have been treating both as optional.
+
+Lose anyway and it becomes a weird week. Everyone had a weird week. Nobody has ever been beaten normally in this league. [bell]
+
+And at the other end: the fight to avoid last.
+
+Prime Time, BurrowMeDickinYoAss and Burkeys Teur are all still sweating above Hugo. They need him to stay exactly where he is. Tremendous support for consistency from three teams who haven't demonstrated much themselves.
+
+Eleventh is going to get celebrated like a title. A lap of honour for being second-worst.
+
+Now, Hugo.
+
+Hawk Tuas Binatsos. Two and eight. Still technically alive.
+
+Four wins gets him to six and eight. He still needs other results and favourable points tiebreaks. One more defeat ends it. A draw can leave a route, which I expect him to describe as an unbeaten run.
+
+He has Karl, Jack, Alan, then Murphy. Three seven-win teams before he even gets to the final week.
+
+Hugo qualified in five of the hundred thousand simulations. I've requested the footage. All five are going in the highlights package. [bell]
+
+That's Return of the Mac: Friday Mackdown. Like, comment, subscribe. Macksperts, the comment section is for questions.
+
+If your results don't reflect my analysis, please allow another week.
+
+SOURCE AND ACCURACY NOTES — not spoken
+Added the last-place fight: Hugo is currently 12th, Prime Time 11th, BurrowMeDickinYoAss 10th and Burkeys Teur 9th. Published last-place estimates are approximately 42%, 19%, 21% and 19% respectively. The segment names the main contenders without claiming other teams are mathematically safe.
+Current forecast evidence: output/return-of-the-mac/2026-week-11-playoffs-evidence.json; source https://fantasy-league-hub-plum.vercel.app/api/playoff-chances, snapshot 8f16acfa-8273-4551-9422-9d42777cb484, input timestamp 20 November 2026 10:26:08 UTC/Irish time.
+Verified leading four all 7–3. Six qualify; top two earn byes. Keenan is inside the six at 6–4, with a lower simulated qualification chance than Niall outside it. Joe/Keenan satisfy the inside-bubble criteria, Niall/Burns the outside-bubble criteria.
+Hugo ending retained: 2–8; winning all four produces 6–8, with a mathematically possible route requiring other results and favourable scoring tiebreaks. Another loss eliminates him; a tie can still leave a route. Remaining opponents Karl, Jack, Alan, Murphy, with the first three currently on seven wins. Five of the 100,000 published trials qualify Hugo; that simulation count is not a precise established real-world likelihood.
+Recording measured with FFprobe and fully decoded with FFmpeg without errors. SHA-256: 18b4ae6e4a2bd5f79e388f5849557091f57fa9cf23751630b97c7a11d4fddd41. Publication uses the supplied audio unchanged; no new voice generation or edits. Existing episodes unchanged.

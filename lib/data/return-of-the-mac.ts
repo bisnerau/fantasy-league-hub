@@ -128,6 +128,20 @@ export const macEpisodes: readonly MacEpisode[] = [
     durationSeconds: 113,
     portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
   },
+  {
+    slug: '2026-week-11-playoffs',
+    title: 'Everybody suddenly has a plan.',
+    publishedAt: '2026-11-20T12:40:00Z',
+    recordedOn: '2026-11-20',
+    season: '2026',
+    week: 11,
+    manager: 'The whole league',
+    team: 'All twelve teams',
+    context: 'Week 11 playoff run-in special · Four weeks left',
+    audio: '/audio/return-of-the-mac/2026-week-11-playoffs.mp3',
+    durationSeconds: 188,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+  },
 ];
 
 export function getMacEpisodes(

@@ -145,6 +145,65 @@ test('Week 10 recording leads the homepage and archive and plays at its permanen
   );
 });
 
+test('Week 11 recording leads the homepage and archive and plays at its permanent URL', async ({
+  page,
+  request,
+}) => {
+  await request.post(`${fixture}/__fixture`, {
+    data: { editorialNow: '2026-11-20T13:00:00Z' },
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const title = 'Everybody suddenly has a plan.';
+  const feature = page.getByRole('region', {
+    name: 'Return of the Mac: Friday Mackdown',
+  });
+  await expect(feature.getByRole('link', { name: title })).toBeVisible();
+  await expect(feature).toContainText('Recorded 20 November 2026');
+  await expect(feature).toContainText(
+    'Week 11 playoff run-in special · Four weeks left',
+  );
+  await feature.getByRole('link', { name: 'Previous episodes' }).click();
+  await expect(page.locator('ol > li').first()).toContainText(title);
+  await expect(page.locator('ol > li')).toHaveCount(8);
+  await page.getByRole('link', { name: title }).click();
+  await expect(page).toHaveURL('/return-of-the-mac/2026-week-11-playoffs');
+  const audio = page.locator('audio');
+  await expect(audio).toHaveAttribute(
+    'src',
+    '/audio/return-of-the-mac/2026-week-11-playoffs.mp3',
+  );
+  await expect(audio).toHaveJSProperty('paused', true);
+  await expect
+    .poll(() => audio.evaluate((node: HTMLAudioElement) => node.duration))
+    .toBeGreaterThan(188);
+  expect(
+    await audio.evaluate((node: HTMLAudioElement) => node.duration),
+  ).toBeLessThan(190);
+  await expect(
+    page.getByRole('button', { name: 'Play episode' }),
+  ).toContainText('3:08');
+  await page.getByRole('button', { name: 'Play episode' }).click();
+  await expect(page.locator('.mac-on-air')).toHaveAttribute(
+    'data-active',
+    'true',
+  );
+  await expect
+    .poll(() => audio.evaluate((node: HTMLAudioElement) => node.currentTime))
+    .toBeGreaterThan(0);
+  await page.getByRole('button', { name: 'Pause episode' }).click();
+  const seek = page.getByRole('slider', { name: 'Seek episode' });
+  await seek.press('Home');
+  await seek.press('ArrowRight');
+  await expect
+    .poll(() => audio.evaluate((node: HTMLAudioElement) => node.currentTime))
+    .toBe(1);
+  await expect(page.locator('.mac-on-air')).toHaveAttribute(
+    'data-active',
+    'false',
+  );
+});
+
 test('homepage leads to archive and permanent episode, with no transcript or autoplay', async ({
   page,
 }) => {
