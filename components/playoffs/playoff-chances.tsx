@@ -378,50 +378,6 @@ export function PlayoffChances({
           eliminated.
         </p>
       </section>
-      {!result.final && (
-        <section aria-labelledby="pc-stakes-title">
-          <p className="ui-kicker">
-            {isScenario ? 'In this scenario' : 'NO ROOM FOR ERROR'}
-          </p>
-          <h2 id="pc-stakes-title">Must win &amp; can’t lose</h2>
-          <p className="pc-footnote">
-            Must win: a tie or defeat ends the route. Can’t lose: defeat ends
-            it, but a tie keeps a route open. Only mathematically verified
-            consequences appear here.
-          </p>
-          <div className="pc-bubble-grid">
-            {absoluteStakes?.map((stake) => {
-              const fixture = input.fixtures.find(
-                (f) => f.key === stake.fixtureKey,
-              )!;
-              return (
-                <article
-                  className="pc-bubble"
-                  key={`${stake.fixtureKey}:${stake.rosterId}:${stake.objective}`}
-                >
-                  <h3>{manager(stake.rosterId)}</h3>
-                  <p>
-                    Week {fixture.week} · vs{' '}
-                    {manager(
-                      fixture.home === stake.rosterId
-                        ? fixture.away
-                        : fixture.home,
-                    )}
-                  </p>
-                  <StakeText stake={stake} scenario={isScenario} />
-                </article>
-              );
-            })}
-          </div>
-          {absoluteStakes && !absoluteStakes.length && (
-            <p>
-              No mathematically proven must-win or can’t-lose games{' '}
-              {isScenario ? 'in this scenario' : 'in the current forecast'}. Big
-              swing games are shown with each manager’s remaining fixtures.
-            </p>
-          )}
-        </section>
-      )}
       <section aria-labelledby="pc-finishes-title">
         <p className="ui-kicker">
           {isScenario ? 'Hypothetical finishes' : 'EVERY PLACE COUNTS'}
@@ -560,6 +516,50 @@ export function PlayoffChances({
           </div>
           {insights && !insights.bubble.length && (
             <p>No teams meet the bubble thresholds.</p>
+          )}
+        </section>
+      )}
+      {!result.final && (
+        <section aria-labelledby="pc-stakes-title">
+          <p className="ui-kicker">
+            {isScenario ? 'In this scenario' : 'NO ROOM FOR ERROR'}
+          </p>
+          <h2 id="pc-stakes-title">Must win &amp; can’t lose</h2>
+          <p className="pc-footnote">
+            Must win: a tie or defeat ends the route. Can’t lose: defeat ends
+            it, but a tie keeps a route open. Only mathematically verified
+            consequences appear here.
+          </p>
+          <div className="pc-bubble-grid">
+            {absoluteStakes?.map((stake) => {
+              const fixture = input.fixtures.find(
+                (f) => f.key === stake.fixtureKey,
+              )!;
+              return (
+                <article
+                  className="pc-bubble"
+                  key={`${stake.fixtureKey}:${stake.rosterId}:${stake.objective}`}
+                >
+                  <h3>{manager(stake.rosterId)}</h3>
+                  <p>
+                    Week {fixture.week} · vs{' '}
+                    {manager(
+                      fixture.home === stake.rosterId
+                        ? fixture.away
+                        : fixture.home,
+                    )}
+                  </p>
+                  <StakeText stake={stake} scenario={isScenario} />
+                </article>
+              );
+            })}
+          </div>
+          {absoluteStakes && !absoluteStakes.length && (
+            <p>
+              No mathematically proven must-win or can’t-lose games{' '}
+              {isScenario ? 'in this scenario' : 'in the current forecast'}. Big
+              swing games are shown with each manager’s remaining fixtures.
+            </p>
           )}
         </section>
       )}
