@@ -8,6 +8,64 @@ import type {
   ConditionalChances,
 } from './types';
 export type Route = 'possible' | 'impossible' | 'unknown';
+// Conservative record bounds: tied records remain undecided because future
+// scoring tiebreaks can favour either team. Simulation samples are not a proof.
+export function finishingBounds(input: ForecastInput, scenario: Scenario = {}) {
+  const records = new Map(
+    input.teams.map((t) => [
+      t.id,
+      { min: 2 * t.wins + t.ties, max: 2 * t.wins + t.ties },
+    ]),
+  );
+  for (const fixture of input.fixtures) {
+    const home = projectLineup(
+        input,
+        input.lineups.find(
+          (l) => l.week === fixture.week && l.rosterId === fixture.home,
+        )!,
+      ),
+      away = projectLineup(
+        input,
+        input.lineups.find(
+          (l) => l.week === fixture.week && l.rosterId === fixture.away,
+        )!,
+      );
+    const h = records.get(fixture.home)!,
+      a = records.get(fixture.away)!;
+    if (home.complete && away.complete) {
+      const hp = Math.round(home.mean * 100),
+        ap = Math.round(away.mean * 100);
+      const homeUnits = hp > ap ? 2 : hp === ap ? 1 : 0;
+      h.min += homeUnits;
+      h.max += homeUnits;
+      a.min += 2 - homeUnits;
+      a.max += 2 - homeUnits;
+    } else if (scenario[fixture.key] !== undefined) {
+      const winner = records.get(scenario[fixture.key])!;
+      winner.min += 2;
+      winner.max += 2;
+    } else {
+      h.max += 2;
+      a.max += 2;
+    }
+  }
+  return new Map(
+    input.teams.map((team) => {
+      const own = records.get(team.id)!;
+      const others = [...records]
+        .filter(([id]) => id !== team.id)
+        .map(([, record]) => record);
+      return [
+        team.id,
+        {
+          best: 1 + others.filter((r) => r.min > own.max).length,
+          worst:
+            input.teams.length - others.filter((r) => r.max < own.min).length,
+        },
+      ];
+    }),
+  );
+}
 export type Stake = {
   fixtureKey: string;
   rosterId: number;
@@ -326,8 +384,8 @@ export function getInsights(
   return { bubble, stakes };
 }
 export type Insights = ReturnType<typeof getInsights>;
-export function percentage(p: number, actual = false) {
-  return actual
+export function percentage(p: number, actual = false, ruledOut = false) {
+  return actual || (p === 0 && ruledOut)
     ? `${Math.round(p * 100)}%`
     : p < 0.01
       ? '<1%'

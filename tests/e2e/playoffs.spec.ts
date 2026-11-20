@@ -133,7 +133,8 @@ for (const width of [320, 390, 1440])
     ).toBeVisible();
     await expect(first.locator('.pc-playoff b')).toHaveText('>99%');
     await expect(first.locator('.pc-fixture')).toContainText('>99%');
-    await expect(finishes.locator('dd').nth(11)).toHaveText('<1%');
+    await expect(finishes.locator('dd').nth(11)).toHaveText('0%');
+    await expect(first.locator('.pc-last b')).toHaveText('0%');
     expect(await finishes.locator('dd').allTextContents()).not.toEqual(
       baselinePositions,
     );

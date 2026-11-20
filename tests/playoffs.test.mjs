@@ -13,6 +13,7 @@ import {
   percentage,
   percentagePoints,
   fixtureSwing,
+  finishingBounds,
 } from '../lib/playoffs/insights.ts';
 import { validateInput, validateResult } from '../lib/playoffs/validation.ts';
 const player = (id, mean = 10, variance = 25) => ({
@@ -273,7 +274,58 @@ void test('zero simulated successes are not displayed as mathematical eliminatio
   assert.equal(percentage(0), '<1%');
   assert.equal(percentage(1), '>99%');
   assert.equal(percentage(0, true), '0%');
+  assert.equal(percentage(0, false, true), '0%');
+  assert.equal(percentage(0.001, false, true), '<1%');
   assert.equal(percentagePoints(0.231), ' +23.1 pp'.trim());
+});
+void test('record bounds rule out last place without treating unresolved scoring ties as decided', () => {
+  const i = input(4);
+  i.teams.forEach((t, j) => {
+    t.wins = [7, 7, 6, 2][j];
+  });
+  const bounds = finishingBounds(i);
+  assert.equal(bounds.get(1).worst, 3);
+  assert.equal(bounds.get(2).worst, 3);
+  assert.equal(bounds.get(4).best, 4);
+  const result = simulate(i);
+  assert.equal(result.teams[0].last, 0);
+  assert.equal(
+    percentage(result.teams[0].last, false, bounds.get(1).worst < 4),
+    '0%',
+  );
+  i.teams[3].wins = 6;
+  assert.equal(finishingBounds(i).get(1).worst, 4);
+  // Two current ties count as one win when bounding the final record.
+  i.teams[3].wins = 5;
+  i.teams[3].ties = 2;
+  assert.equal(finishingBounds(i).get(1).worst, 4);
+});
+void test('record bounds honour scenario winners, reset, and confirmed final games', () => {
+  const i = input();
+  assert.deepEqual(finishingBounds(i).get(1), { best: 1, worst: 2 });
+  assert.deepEqual(finishingBounds(i, { '1:1': 1 }).get(1), {
+    best: 1,
+    worst: 1,
+  });
+  assert.deepEqual(finishingBounds(i, { '1:1': 1 }).get(2), {
+    best: 2,
+    worst: 2,
+  });
+  assert.deepEqual(finishingBounds(i).get(1), { best: 1, worst: 2 });
+  for (const l of i.lineups) {
+    l.locked = [{ slot: 0, playerId: String(l.rosterId) }];
+    l.players[0].state = l.rosterId === 1 ? 'post' : 'in';
+    l.players[0].actual = l.rosterId === 1 ? 20 : 99;
+  }
+  assert.deepEqual(finishingBounds(i).get(1), { best: 1, worst: 2 });
+  i.lineups[1].players[0].state = 'post';
+  // Actual final scores override a prior hypothetical winner.
+  assert.deepEqual(finishingBounds(i, { '1:1': 1 }).get(1), {
+    best: 2,
+    worst: 2,
+  });
+  i.lineups[1].players[0].actual = 20;
+  assert.deepEqual(finishingBounds(i).get(1), { best: 1, worst: 2 });
 });
 void test('bubble thresholds and sorting are editorial; helpful winner follows conditional effect', () => {
   const i = input(12),

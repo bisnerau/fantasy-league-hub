@@ -11,6 +11,7 @@ import type {
 import {
   percentage,
   percentagePoints,
+  finishingBounds,
   type Insights,
   type Stake,
 } from '@/lib/playoffs/insights';
@@ -140,6 +141,13 @@ export function PlayoffChances({
   const result = current?.result ?? snapshot?.result,
     insights = current?.insights ?? (!hypothetical ? initialInsights : null);
   const pending = !!input && !current;
+  const bounds = useMemo(
+    () =>
+      input
+        ? finishingBounds(input, hypothetical && current ? scenario : {})
+        : null,
+    [input, hypothetical, current, scenario],
+  );
   const teams = useMemo(
     () =>
       input
@@ -293,7 +301,15 @@ export function PlayoffChances({
                   </span>
                   {(['playoff', 'last'] as const).map((field) => (
                     <span className={`pc-probability pc-${field}`} key={field}>
-                      <b>{percentage(chance[field], result.final)}</b>
+                      <b>
+                        {percentage(
+                          chance[field],
+                          result.final,
+                          field === 'last'
+                            ? bounds!.get(team.id)!.worst < input.teams.length
+                            : bounds!.get(team.id)!.best > input.playoffTeams,
+                        )}
+                      </b>
                       {comparison && (
                         <small>
                           {percentagePoints(chance[field] - comparison[field])}
@@ -375,7 +391,7 @@ export function PlayoffChances({
             </>
           )}
           Tap a manager for fixtures and assumptions. &lt;1% does not mean
-          eliminated.
+          eliminated. 0% means the outcome is mathematically ruled out.
         </p>
       </section>
       <section aria-labelledby="pc-finishes-title">
@@ -414,7 +430,14 @@ export function PlayoffChances({
                       }
                     >
                       <dt>{positionLabel(position + 1)}</dt>
-                      <dd>{percentage(probability, result.final)}</dd>
+                      <dd>
+                        {percentage(
+                          probability,
+                          result.final,
+                          position + 1 < bounds!.get(team.id)!.best ||
+                            position + 1 > bounds!.get(team.id)!.worst,
+                        )}
+                      </dd>
                     </div>
                   ))}
                 </dl>
@@ -433,7 +456,13 @@ export function PlayoffChances({
                 <p className="ui-kicker">{team.label}</p>
                 <h3>
                   {team.manager}
-                  <span>{percentage(team.playoff)}</span>
+                  <span>
+                    {percentage(
+                      team.playoff,
+                      false,
+                      bounds!.get(team.id)!.best > input.playoffTeams,
+                    )}
+                  </span>
                 </h3>
                 {isScenario && <p className="pc-footnote">In this scenario</p>}
                 {team.keyGame ? (
@@ -655,6 +684,13 @@ export function PlayoffChances({
               Sleeper’s standings rules
             </a>
             .
+          </p>
+          <p>
+            A 0% forecast requires a mathematical record bound that rules out
+            the outcome, accounting for remaining fixtures, confirmed results
+            and your scenario choices. Tied records keep the benefit of
+            unresolved points tiebreakers. Zero successes in the simulations
+            alone still display as &lt;1%.
           </p>
           <p>
             Scenario scores are sampled conditional on your chosen winners.
