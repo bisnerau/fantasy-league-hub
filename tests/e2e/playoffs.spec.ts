@@ -184,82 +184,120 @@ for (const width of [320, 390, 1440])
     }
     expect(errors).toEqual([]);
   });
-test('stakes group fixtures and future scenario weeks remain usable on mobile', async ({
-  page,
-}) => {
-  const twoWeeks = structuredClone(input);
-  twoWeeks.regularSeasonWeeks = 2;
-  twoWeeks.playoffTeams = 2;
-  twoWeeks.teams = twoWeeks.teams.slice(0, 4);
-  twoWeeks.teams.forEach((team, i) => {
-    team.wins = [0, 1, 0, 4][i];
-  });
-  const fixtures = twoWeeks.fixtures.slice(0, 2);
-  const lineups = twoWeeks.lineups.slice(0, 4);
-  twoWeeks.fixtures = [1, 2].flatMap((week) =>
-    fixtures.map((f) => ({ ...f, week, key: `${week}:${f.matchupId}` })),
-  );
-  twoWeeks.lineups = [1, 2].flatMap((week) =>
-    lineups.map((lineup) => ({ ...lineup, week })),
-  );
-  await page.route('**/api/playoff-chances', (route) =>
-    route.fulfill({
-      json: {
-        snapshot: {
-          id: 'two-weeks',
-          input: twoWeeks,
-          result: simulate(twoWeeks),
+for (const width of [320, 390, 1440])
+  test(`game stakes and future scenario weeks work at ${width}px`, async ({
+    page,
+  }) => {
+    const twoWeeks = structuredClone(input);
+    twoWeeks.regularSeasonWeeks = 2;
+    twoWeeks.playoffTeams = 2;
+    twoWeeks.teams = twoWeeks.teams.slice(0, 4);
+    twoWeeks.teams.forEach((team, i) => {
+      team.wins = [0, 1, 0, 4][i];
+    });
+    const fixtures = twoWeeks.fixtures.slice(0, 2);
+    const lineups = twoWeeks.lineups.slice(0, 4);
+    twoWeeks.fixtures = [1, 2].flatMap((week) =>
+      fixtures.map((f) => ({ ...f, week, key: `${week}:${f.matchupId}` })),
+    );
+    twoWeeks.lineups = [1, 2].flatMap((week) =>
+      lineups.map((lineup) => ({ ...lineup, week })),
+    );
+    await page.route('**/api/playoff-chances', (route) =>
+      route.fulfill({
+        json: {
+          snapshot: {
+            id: 'two-weeks',
+            input: twoWeeks,
+            result: simulate(twoWeeks),
+          },
+          previous: null,
+          stale: false,
+          notice: null,
         },
-        previous: null,
-        stale: false,
-        notice: null,
-      },
-    }),
-  );
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/playoff-chances');
-  const stakes = page.getByRole('region', { name: 'Must win & can’t lose' });
-  const manager = stakes.locator('article').filter({
-    has: page.getByRole('heading', { name: 'Manager 1', exact: true }),
+      }),
+    );
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/playoff-chances');
+    const stakes = page.getByRole('region', { name: 'Must win & can’t lose' });
+    const manager = stakes.locator('article').filter({
+      has: page.getByRole('heading', { name: 'Manager 1', exact: true }),
+    });
+    await expect(manager.locator('li')).toHaveCount(2);
+    await expect(manager.locator('.pc-stake')).toHaveCount(1);
+    const bigWeeks = page.locator('.pc-stakes-week');
+    await expect(bigWeeks).toHaveCount(2);
+    const firstBigWeek = bigWeeks.first();
+    await expect(firstBigWeek.locator('.pc-swing-game')).toHaveCount(2);
+    const playoffOdds = firstBigWeek.getByRole('table', {
+      name: 'Playoff chance · higher is better',
+    });
+    await expect(playoffOdds.locator('thead th')).toHaveText([
+      'Manager',
+      'If win',
+      'If lose',
+    ]);
+    await expect(playoffOdds.locator('tbody th')).toContainText('Manager 2');
+    await expect(playoffOdds.locator('tbody td')).toHaveText(['90%', '41%']);
+    const lastOdds = firstBigWeek
+      .getByRole('table', { name: 'Last-place risk · lower is better' })
+      .first();
+    await expect(
+      lastOdds
+        .locator('tbody tr')
+        .filter({ hasText: 'Manager 2' })
+        .locator('td'),
+    ).toHaveText(['0%', '31%']);
+    if (width === 320)
+      await firstBigWeek.screenshot({
+        path: '/private/tmp/mac12-expanded-stakes-320.png',
+      });
+    const laterGame = bigWeeks
+      .nth(1)
+      .locator('.pc-game-title')
+      .filter({ hasText: 'Manager 1 vs Manager 2' });
+    await expect(laterGame).toHaveCount(1);
+    await expect(laterGame).toBeHidden();
+    await bigWeeks.nth(1).locator('summary').click();
+    await expect(laterGame).toBeVisible();
+    const weekTwo = page
+      .locator('.pc-scenario-week')
+      .filter({ has: page.locator('summary').filter({ hasText: 'Week 2' }) });
+    const choice = page.getByLabel('Week 2: Manager 1 vs Manager 2', {
+      exact: true,
+    });
+    await expect(choice).toBeHidden();
+    await weekTwo.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    await choice.selectOption('1');
+    await expect(
+      page.getByText('IN THIS SCENARIO', { exact: true }),
+    ).toBeVisible();
+    await expect(page.locator('.pc-scenario-feedback')).toContainText(
+      '1 result picked. Your scenario is ready.',
+    );
+    await expect(laterGame).toHaveCount(0);
+    await weekTwo.getByRole('link', { name: 'See updated odds' }).click();
+    await expect(page).toHaveURL(/#pc-odds$/);
+    await expect(
+      page.getByRole('button', { name: 'Playoffs & last', exact: true }),
+    ).toHaveAttribute('aria-pressed', 'true');
+    await choice.selectOption('');
+    await expect(
+      page.getByText('PUBLISHED FORECAST', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'Reset everything' }),
+    ).toBeDisabled();
+    await expect(laterGame).toHaveCount(1);
+    expect(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth <=
+          document.documentElement.clientWidth,
+      ),
+    ).toBe(true);
   });
-  await expect(manager.locator('li')).toHaveCount(2);
-  await expect(manager.locator('.pc-stake')).toHaveCount(1);
-  const weekTwo = page
-    .locator('.pc-scenario-week')
-    .filter({ has: page.locator('summary').filter({ hasText: 'Week 2' }) });
-  const choice = page.getByLabel('Week 2: Manager 1 vs Manager 2', {
-    exact: true,
-  });
-  await expect(choice).toBeHidden();
-  await weekTwo.locator('summary').focus();
-  await page.keyboard.press('Enter');
-  await choice.selectOption('1');
-  await expect(
-    page.getByText('IN THIS SCENARIO', { exact: true }),
-  ).toBeVisible();
-  await expect(page.locator('.pc-scenario-feedback')).toContainText(
-    '1 result picked. Your scenario is ready.',
-  );
-  await weekTwo.getByRole('link', { name: 'See updated odds' }).click();
-  await expect(page).toHaveURL(/#pc-odds$/);
-  await expect(
-    page.getByRole('button', { name: 'Playoffs & last', exact: true }),
-  ).toHaveAttribute('aria-pressed', 'true');
-  await choice.selectOption('');
-  await expect(
-    page.getByText('PUBLISHED FORECAST', { exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole('button', { name: 'Reset everything' }),
-  ).toBeDisabled();
-  expect(
-    await page.evaluate(
-      () =>
-        document.documentElement.scrollWidth <=
-        document.documentElement.clientWidth,
-    ),
-  ).toBe(true);
-});
 test('no valid snapshot shows unavailable and no made-up probabilities', async ({
   page,
 }) => {

@@ -452,6 +452,75 @@ body:has(.playoff-page) {
   flex-shrink: 0;
   color: var(--muted-foreground);
 }
+.pc-stakes-week {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.pc-stakes-week > summary {
+  padding: 1rem 0;
+  min-height: 44px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pc-stakes-week > summary > span {
+  float: right;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+.pc-stakes-week > .pc-bubble-grid {
+  margin-top: 0;
+}
+.pc-bubble .pc-game-title {
+  display: block;
+  font-size: 1.1rem;
+}
+.pc-stakes-odds {
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+.pc-stakes-odds caption {
+  text-align: left;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+}
+.pc-stakes-odds :is(th, td) {
+  padding: 0.65rem 0.25rem;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+  text-align: right;
+}
+.pc-stakes-odds th:first-child {
+  width: 50%;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.pc-stakes-odds thead {
+  color: var(--muted-foreground);
+}
+.pc-stakes-odds td {
+  font-weight: 800;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+}
+.pc-stakes-odds small {
+  display: block;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+.pc-elimination-stakes {
+  border-top: 1px solid var(--border);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+.pc-elimination-stakes > h3 {
+  font-weight: 800;
+  font-size: 1.25rem;
+}
 .pc-scenario-feedback {
   display: block;
   margin-top: 1rem;

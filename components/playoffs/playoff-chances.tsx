@@ -203,6 +203,35 @@ export function PlayoffChances({
     const key = `${stake.rosterId}:${stake.objective}:${stake.label}`;
     stakeGroups.set(key, [...(stakeGroups.get(key) ?? []), stake]);
   }
+  const swingGames = input.fixtures
+    .map((fixture) => ({
+      ...fixture,
+      stakes:
+        insights?.stakes.filter(
+          (stake) =>
+            stake.fixtureKey === fixture.key &&
+            stake.label === 'Big swing game',
+        ) ?? [],
+    }))
+    .filter((fixture) => fixture.stakes.length > 0)
+    .sort(
+      (a, b) =>
+        a.week - b.week ||
+        Math.max(...b.stakes.map((s) => s.swing ?? 0)) -
+          Math.max(...a.stakes.map((s) => s.swing ?? 0)),
+    )
+    .map((game) => ({
+      ...game,
+      homeBounds: finishingBounds(input, {
+        ...(isScenario ? scenario : {}),
+        [game.key]: game.home,
+      }),
+      awayBounds: finishingBounds(input, {
+        ...(isScenario ? scenario : {}),
+        [game.key]: game.away,
+      }),
+    }));
+  const swingWeeks = [...new Set(swingGames.map((game) => game.week))];
   const scenarioWeeks = [
     ...new Set(
       snapshot.result.fixtures.filter((f) => !f.resolved).map((f) => f.week),
@@ -650,50 +679,160 @@ export function PlayoffChances({
           <p className="ui-kicker">
             {isScenario ? 'In this scenario' : 'NO ROOM FOR ERROR'}
           </p>
-          <h2 id="pc-stakes-title">Must win &amp; can’t lose</h2>
-          <p className="pc-footnote">
-            Must win: a tie or defeat ends the route. Can’t lose: defeat ends
-            it, but a tie keeps a route open. Only mathematically verified
-            consequences appear here.
+          <h2 id="pc-stakes-title">Games that matter</h2>
+          <p className="pc-section-intro">
+            Playoff dreams and wooden-spoon worries. These games swing a
+            manager’s playoff chance or last-place risk by at least 20
+            percentage points. Big stakes, even when a defeat doesn’t end the
+            race.
           </p>
-          <div className="pc-bubble-grid">
-            {[...stakeGroups].map(([key, group]) => {
-              const stake = group[0];
-              return (
-                <article className="pc-bubble pc-stakes-card" key={key}>
-                  <h3>{manager(stake.rosterId)}</h3>
-                  <StakeText stake={stake} scenario={isScenario} />
-                  <ul className="pc-stakes-fixtures">
-                    {group.map((game) => {
-                      const fixture = input.fixtures.find(
-                        (f) => f.key === game.fixtureKey,
-                      )!;
-                      return (
-                        <li key={game.fixtureKey}>
-                          <span>Week {fixture.week}</span>
-                          <strong>
-                            vs{' '}
-                            {manager(
-                              fixture.home === game.rosterId
-                                ? fixture.away
-                                : fixture.home,
-                            )}
-                          </strong>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </article>
-              );
-            })}
-          </div>
-          {absoluteStakes && !absoluteStakes.length && (
-            <p>
-              No mathematically proven must-win or can’t-lose games{' '}
-              {isScenario ? 'in this scenario' : 'in the current forecast'}. Big
-              swing games are shown with each manager’s remaining fixtures.
+          {swingWeeks.map((week, index) => (
+            <details className="pc-stakes-week" key={week} open={index === 0}>
+              <summary>
+                Week {week}
+                <span>
+                  {swingGames.filter((game) => game.week === week).length} big
+                  games
+                </span>
+              </summary>
+              <div className="pc-bubble-grid">
+                {swingGames
+                  .filter((game) => game.week === week)
+                  .map((game) => (
+                    <article className="pc-bubble pc-swing-game" key={game.key}>
+                      <p className="ui-kicker">Big swing game</p>
+                      <h3 className="pc-game-title">
+                        {manager(game.home)} vs {manager(game.away)}
+                      </h3>
+                      {(['playoffs', 'avoid last'] as const).map(
+                        (objective) => {
+                          const stakes = game.stakes.filter(
+                            (stake) => stake.objective === objective,
+                          );
+                          return (
+                            stakes.length > 0 && (
+                              <table className="pc-stakes-odds" key={objective}>
+                                <caption>
+                                  {objective === 'playoffs'
+                                    ? 'Playoff chance · higher is better'
+                                    : 'Last-place risk · lower is better'}
+                                </caption>
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Manager</th>
+                                    <th scope="col">If win</th>
+                                    <th scope="col">If lose</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {stakes.map((stake) => (
+                                    <tr key={stake.rosterId}>
+                                      <th scope="row">
+                                        {manager(stake.rosterId)}
+                                        <small>
+                                          {(stake.swing! * 100).toFixed(1)} pp
+                                          swing
+                                        </small>
+                                      </th>
+                                      {(['win', 'loss'] as const).map(
+                                        (outcome) => {
+                                          const winner =
+                                            outcome === 'win'
+                                              ? stake.rosterId
+                                              : game.home === stake.rosterId
+                                                ? game.away
+                                                : game.home;
+                                          const range = (
+                                            winner === game.home
+                                              ? game.homeBounds
+                                              : game.awayBounds
+                                          ).get(stake.rosterId)!;
+                                          return (
+                                            <td key={outcome}>
+                                              {percentage(
+                                                stake[outcome]!,
+                                                false,
+                                                objective === 'playoffs'
+                                                  ? range.best >
+                                                      input.playoffTeams
+                                                  : range.worst <
+                                                      input.teams.length,
+                                              )}
+                                            </td>
+                                          );
+                                        },
+                                      )}
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            )
+                          );
+                        },
+                      )}
+                      <p className="pc-footnote">
+                        Win / lose refers to each manager’s own result. pp =
+                        percentage points.
+                      </p>
+                    </article>
+                  ))}
+              </div>
+            </details>
+          ))}
+          {insights && !swingGames.length && (
+            <p className="pc-footnote">
+              No remaining games meet the big-swing threshold{' '}
+              {isScenario ? 'in this scenario' : 'in the current forecast'}.
             </p>
           )}
+          <section
+            className="pc-elimination-stakes"
+            aria-labelledby="pc-elimination-title"
+          >
+            <h3 id="pc-elimination-title">Must win &amp; can’t lose</h3>
+            <p className="pc-footnote">
+              Must win: a tie or defeat ends the route. Can’t lose: defeat ends
+              it, but a tie keeps a route open. Only mathematically verified
+              consequences appear here.
+            </p>
+            <div className="pc-bubble-grid">
+              {[...stakeGroups].map(([key, group]) => {
+                const stake = group[0];
+                return (
+                  <article className="pc-bubble pc-stakes-card" key={key}>
+                    <h3>{manager(stake.rosterId)}</h3>
+                    <StakeText stake={stake} scenario={isScenario} />
+                    <ul className="pc-stakes-fixtures">
+                      {group.map((game) => {
+                        const fixture = input.fixtures.find(
+                          (f) => f.key === game.fixtureKey,
+                        )!;
+                        return (
+                          <li key={game.fixtureKey}>
+                            <span>Week {fixture.week}</span>
+                            <strong>
+                              vs{' '}
+                              {manager(
+                                fixture.home === game.rosterId
+                                  ? fixture.away
+                                  : fixture.home,
+                              )}
+                            </strong>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
+            {absoluteStakes && !absoluteStakes.length && (
+              <p>
+                No mathematically proven must-win or can’t-lose games{' '}
+                {isScenario ? 'in this scenario' : 'in the current forecast'}.
+              </p>
+            )}
+          </section>
         </section>
       )}
       {!result.final && (
