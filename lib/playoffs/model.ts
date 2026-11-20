@@ -148,6 +148,7 @@ export function simulate(
   };
   const playoffs = new Uint16Array(iterations),
     lasts = new Uint8Array(iterations);
+  const finishes = new Uint8Array(iterations * n);
   const outcomes = new Uint8Array(iterations * m),
     logWeights = new Float64Array(iterations);
   let maxLogWeight = -Infinity;
@@ -231,6 +232,8 @@ export function simulate(
     for (let i = 0; i < input.playoffTeams; i++)
       playoffs[trial] |= 1 << table[i].index;
     lasts[trial] = table[n - 1].index;
+    for (let position = 0; position < n; position++)
+      finishes[trial * n + table[position].index] = position;
     logWeights[trial] = logWeight;
     maxLogWeight = Math.max(maxLogWeight, logWeight);
     if (trial % 10_000 === 0) progress?.(trial / iterations);
@@ -243,6 +246,7 @@ export function simulate(
     weights = new Float64Array(m * 3),
     squares = new Float64Array(m * 3);
   const effects = new Float64Array(m * 3 * n * 2);
+  const finishCounts = new Float64Array(n * n);
   let sum = 0,
     sumSquared = 0;
   for (let trial = 0; trial < iterations; trial++) {
@@ -253,6 +257,7 @@ export function simulate(
     for (let t = 0; t < n; t++) {
       if (playoffs[trial] & (1 << t)) counts[t * 2] += w;
       if (lasts[trial] === t) counts[t * 2 + 1] += w;
+      finishCounts[t * n + finishes[trial * n + t]] += w;
     }
     for (let j = 0; j < m; j++) {
       const cell = j * 3 + outcomes[trial * m + j];
@@ -284,6 +289,10 @@ export function simulate(
       rosterId: t.id,
       playoff: counts[i * 2] / sum,
       last: counts[i * 2 + 1] / sum,
+      finishes: Array.from(
+        { length: n },
+        (_, position) => finishCounts[i * n + position] / sum,
+      ),
     })),
     fixtures: input.fixtures.map((f, j) => ({
       ...f,

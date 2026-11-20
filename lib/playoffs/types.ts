@@ -99,7 +99,7 @@ export type ForecastResult = {
   effectiveSamples: number;
   reliable: boolean;
   final: boolean;
-  teams: (Chances & { rosterId: number })[];
+  teams: (Chances & { rosterId: number; finishes: number[] })[];
   fixtures: FixtureForecast[];
 };
 export type ForecastSnapshot = {

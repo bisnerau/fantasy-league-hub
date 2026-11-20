@@ -30,6 +30,10 @@ async function readForecast(): Promise<ForecastResponse> {
       throw Error('No published forecast is available yet');
     const candidate = data[0] as ForecastSnapshot;
     validateInput(candidate.input);
+    // Older immutable snapshots predate the position histogram. Recompute the
+    // derived result with the same inputs and seed; public reads never write it.
+    if (candidate.result.teams.some((t) => !Array.isArray(t.finishes)))
+      candidate.result = simulate(candidate.input);
     validateResult(candidate.input, candidate.result);
     snapshot =
       snapshot?.id === candidate.id &&

@@ -111,4 +111,25 @@ export function validateResult(input: ForecastInput, result: ForecastResult) {
     Math.abs(last - 1) > 1e-8
   )
     throw Error('Forecast probability totals failed');
+  const n = input.teams.length;
+  for (const team of result.teams) {
+    if (
+      !Array.isArray(team.finishes) ||
+      team.finishes.length !== n ||
+      team.finishes.some((p) => !Number.isFinite(p) || p < 0 || p > 1) ||
+      Math.abs(team.finishes.reduce((s, p) => s + p, 0) - 1) > 1e-8 ||
+      Math.abs(
+        team.finishes.slice(0, input.playoffTeams).reduce((s, p) => s + p, 0) -
+          team.playoff,
+      ) > 1e-8 ||
+      Math.abs(team.finishes[n - 1] - team.last) > 1e-8
+    )
+      throw Error('Invalid finishing-position probabilities');
+  }
+  for (let position = 0; position < n; position++)
+    if (
+      Math.abs(result.teams.reduce((s, t) => s + t.finishes[position], 0) - 1) >
+      1e-8
+    )
+      throw Error('Finishing-position totals failed');
 }

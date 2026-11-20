@@ -111,6 +111,9 @@ void test('public forecast reads cannot publish and retain valid snapshot when N
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = 'fixture-key';
   const snapshot = { id: 'fixture', input: saved, result: simulate(saved) },
     calls = [];
+  // Existing daily snapshots remain immutable; their inputs can supply the new histogram.
+  const expected = structuredClone(snapshot.result);
+  snapshot.result.teams.forEach((t) => delete t.finishes);
   globalThis.fetch = async (url, options) => {
     calls.push(options?.method ?? 'GET');
     return (url instanceof Request ? url.url : url.toString()).includes(
@@ -126,6 +129,8 @@ void test('public forecast reads cannot publish and retain valid snapshot when N
     assert.equal(response.snapshot.id, 'fixture');
     assert.equal(response.stale, true);
     assert.match(response.notice, /last valid forecast/);
+    assert.deepEqual(response.snapshot.result, expected);
+    assert.ok(snapshot.result.teams.every((t) => !('finishes' in t)));
     assert.ok(calls.every((m) => m === 'GET'));
   } finally {
     globalThis.fetch = original;

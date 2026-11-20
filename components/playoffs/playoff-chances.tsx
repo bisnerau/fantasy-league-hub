@@ -16,6 +16,9 @@ import {
 } from '@/lib/playoffs/insights';
 
 type Calculation = { result: ForecastResult; insights: Insights; key: string };
+function positionLabel(position: number) {
+  return `${position}${position === 1 ? 'st' : position === 2 ? 'nd' : position === 3 ? 'rd' : 'th'}`;
+}
 function StakeText({ stake, scenario }: { stake: Stake; scenario: boolean }) {
   return (
     <p className="pc-stake">
@@ -28,13 +31,17 @@ function StakeText({ stake, scenario }: { stake: Stake; scenario: boolean }) {
         : stake.objective === 'playoffs'
           ? 'to stay in the playoff race'
           : 'to avoid last place'}
-      {stake.win !== null && stake.loss !== null && (
-        <>
-          . {stake.objective === 'playoffs' ? 'Playoff' : 'Last-place'} chance:
-          win {percentage(stake.win)}, lose {percentage(stake.loss)} (
-          {percentagePoints(stake.win - stake.loss)}).
-        </>
-      )}
+      {stake.label === 'Can’t lose' && '. A tie still leaves a route.'}
+      {stake.label === 'Must win' && '. A tie or defeat ends that route.'}
+      {stake.label === 'Big swing game' &&
+        stake.win !== null &&
+        stake.loss !== null && (
+          <>
+            . {stake.objective === 'playoffs' ? 'Playoff' : 'Last-place'}{' '}
+            chance: win {percentage(stake.win)}, lose {percentage(stake.loss)} (
+            {percentagePoints(stake.win - stake.loss)}).
+          </>
+        )}
     </p>
   );
 }
@@ -174,6 +181,9 @@ export function PlayoffChances({
       </div>
     );
   const isScenario = hypothetical && !!current;
+  const absoluteStakes = insights?.stakes.filter(
+    (s) => s.label !== 'Big swing game',
+  );
   return (
     <div className="playoff-page space-y-7">
       <header className="pc-hero">
@@ -284,11 +294,11 @@ export function PlayoffChances({
                   {(['playoff', 'last'] as const).map((field) => (
                     <span className={`pc-probability pc-${field}`} key={field}>
                       <b>{percentage(chance[field], result.final)}</b>
-                      <small>
-                        {comparison
-                          ? percentagePoints(chance[field] - comparison[field])
-                          : 'First forecast'}
-                      </small>
+                      {comparison && (
+                        <small>
+                          {percentagePoints(chance[field] - comparison[field])}
+                        </small>
+                      )}
                     </span>
                   ))}
                 </summary>
@@ -355,13 +365,107 @@ export function PlayoffChances({
           })}
         </div>
         <p className="pc-footnote">
-          Changes are percentage points{' '}
-          {isScenario
-            ? 'from the published forecast'
-            : 'since the previous daily forecast'}
-          . Tap a manager for fixtures and assumptions. &lt;1% does not mean
+          {(isScenario || data.previous) && (
+            <>
+              Changes are percentage points{' '}
+              {isScenario
+                ? 'from the published forecast'
+                : 'since the previous daily forecast'}
+              .{' '}
+            </>
+          )}
+          Tap a manager for fixtures and assumptions. &lt;1% does not mean
           eliminated.
         </p>
+      </section>
+      {!result.final && (
+        <section aria-labelledby="pc-stakes-title">
+          <p className="ui-kicker">
+            {isScenario ? 'In this scenario' : 'NO ROOM FOR ERROR'}
+          </p>
+          <h2 id="pc-stakes-title">Must win &amp; can’t lose</h2>
+          <p className="pc-footnote">
+            Must win: a tie or defeat ends the route. Can’t lose: defeat ends
+            it, but a tie keeps a route open. Only mathematically verified
+            consequences appear here.
+          </p>
+          <div className="pc-bubble-grid">
+            {absoluteStakes?.map((stake) => {
+              const fixture = input.fixtures.find(
+                (f) => f.key === stake.fixtureKey,
+              )!;
+              return (
+                <article
+                  className="pc-bubble"
+                  key={`${stake.fixtureKey}:${stake.rosterId}:${stake.objective}`}
+                >
+                  <h3>{manager(stake.rosterId)}</h3>
+                  <p>
+                    Week {fixture.week} · vs{' '}
+                    {manager(
+                      fixture.home === stake.rosterId
+                        ? fixture.away
+                        : fixture.home,
+                    )}
+                  </p>
+                  <StakeText stake={stake} scenario={isScenario} />
+                </article>
+              );
+            })}
+          </div>
+          {absoluteStakes && !absoluteStakes.length && (
+            <p>
+              No mathematically proven must-win or can’t-lose games{' '}
+              {isScenario ? 'in this scenario' : 'in the current forecast'}. Big
+              swing games are shown with each manager’s remaining fixtures.
+            </p>
+          )}
+        </section>
+      )}
+      <section aria-labelledby="pc-finishes-title">
+        <p className="ui-kicker">
+          {isScenario ? 'Hypothetical finishes' : 'EVERY PLACE COUNTS'}
+        </p>
+        <h2 id="pc-finishes-title">Finishing positions</h2>
+        <p className="pc-footnote">
+          Chance of each position after Week 14, before the playoffs. Tap a
+          manager to see all twelve places. Rounded percentages may not add to
+          100%.
+        </p>
+        <div className="pc-finishes">
+          {teams.map((team) => {
+            const chance = result.teams.find((t) => t.rosterId === team.id)!;
+            const mostLikely = chance.finishes.indexOf(
+              Math.max(...chance.finishes),
+            );
+            return (
+              <details className="pc-finish-team" key={team.id}>
+                <summary>
+                  <strong>{team.manager}</strong>
+                  <span>
+                    Most likely: {positionLabel(mostLikely + 1)} ·{' '}
+                    {percentage(chance.finishes[mostLikely], result.final)}
+                  </span>
+                </summary>
+                <dl className="pc-position-grid">
+                  {chance.finishes.map((probability, position) => (
+                    <div
+                      key={position}
+                      className={
+                        position < input.playoffTeams
+                          ? 'pc-qualifying-position'
+                          : undefined
+                      }
+                    >
+                      <dt>{positionLabel(position + 1)}</dt>
+                      <dd>{percentage(probability, result.final)}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </details>
+            );
+          })}
+        </div>
       </section>
       {!result.final && (
         <section aria-labelledby="pc-bubble-title">
@@ -572,9 +676,11 @@ export function PlayoffChances({
             either a tie or defeat. “Can’t lose” requires elimination with
             defeat and a surviving route with a tie. The schedule proof includes
             tied games and gives the team the benefit of unresolved scoring
-            tiebreakers. Inconclusive proofs receive no absolute label. A “Big
-            swing game” changes playoff or last-place chance by at least 20
-            percentage points.
+            tiebreakers when checking elimination. A surviving route needs a
+            consistent set of scores that reaches the required position,
+            respecting already fixed points. Inconclusive proofs receive no
+            absolute label. A “Big swing game” changes playoff or last-place
+            chance by at least 20 percentage points.
           </p>
           <p>
             The limited archive supports scoring-error checks, not a claim of

@@ -76,6 +76,12 @@ void test('whole-league probabilities total the available positions, reproducibl
   validateResult(i, a);
   assert.ok(Math.abs(a.teams.reduce((s, t) => s + t.playoff, 0) - 6) < 1e-8);
   assert.equal(a.iterations, 100000);
+  assert.ok(a.teams.every((t) => t.finishes.length === 12));
+  for (let position = 0; position < 12; position++)
+    assert.ok(
+      Math.abs(a.teams.reduce((s, t) => s + t.finishes[position], 0) - 1) <
+        1e-8,
+    );
 });
 void test('exact symmetric two-team league is 50/50; chosen winner qualifies', () => {
   const i = input();
@@ -85,6 +91,9 @@ void test('exact symmetric two-team league is 50/50; chosen winner qualifies', (
   assert.equal(conditional.teams[0].playoff, 1);
   assert.equal(conditional.teams[1].last, 1);
   assert.equal(conditional.fixtures[0].homeWin, 1);
+  assert.deepEqual(conditional.teams[0].finishes, [1, 0]);
+  assert.deepEqual(conditional.teams[1].finishes, [0, 1]);
+  validateResult(i, conditional);
 });
 void test('all identical scores respect higher PA then random identical standings', () => {
   assert.ok(
@@ -149,6 +158,7 @@ void test('conditional return-week importance weights agree with rejection condi
     ) < 0.015,
   );
   assert.ok(conditioned.effectiveSamples < 100000);
+  validateResult(i, conditioned);
 });
 void test('conditional score draws preserve the winner and raise winning score expectations', () => {
   let score = 0;
@@ -208,8 +218,40 @@ void test('cannot-lose proof permits a surviving tied game', () => {
 });
 void test('unresolved scoring tiebreakers and exhausted proof budgets cannot prove elimination', () => {
   const i = proof([2, 2, 3, 5]);
+  // The opponent retains its PF lead when both receive the same tied score.
+  i.teams[1].pointsFor = 100;
   assert.equal(route(i, {}, 1, 2, '1:1', 'tie'), 'unknown');
   assert.equal(route(i, {}, 1, 2, '1:1', 'win', 0), 'unknown');
+});
+void test('a favourable PF witness proves a surviving tie without inventing independent tied scores', () => {
+  const i = proof([2, 2, 3, 5]);
+  assert.equal(route(i, {}, 1, 2, '1:1', 'tie'), 'possible');
+  assert.ok(
+    getInsights(i, simulate(i)).stakes.some(
+      (s) =>
+        s.rosterId === 1 &&
+        s.objective === 'playoffs' &&
+        s.label === 'Can’t lose',
+    ),
+  );
+  i.teams[1].pointsFor = 100;
+  assert.equal(route(i, {}, 1, 2, '1:1', 'tie'), 'unknown');
+  assert.ok(
+    !getInsights(i, simulate(i)).stakes.some(
+      (s) =>
+        s.rosterId === 1 &&
+        s.objective === 'playoffs' &&
+        s.label === 'Can’t lose',
+    ),
+  );
+});
+void test('a scoring witness cannot alter fixed scores to manufacture survival', () => {
+  const i = proof([2, 2, 3, 5]);
+  i.lineups[0].players[0].variance = 0;
+  i.lineups[1].players[0].variance = 0;
+  i.lineups[1].players[0].mean = 20;
+  assert.equal(route(i, {}, 1, 2, '1:1', 'tie'), 'unknown');
+  assert.equal(route(i, {}, 1, 2, '1:1', 'win'), 'unknown');
 });
 void test('already eliminated teams receive no must-win playoff label', () => {
   const i = proof([0, 8, 8, 8]);
@@ -272,6 +314,8 @@ void test('finished games are fixed during mathematical proofs and final scenari
   assert.equal(r.final, true);
   assert.equal(r.teams[0].playoff, 1);
   assert.equal(r.fixtures[0].resolved, true);
+  assert.deepEqual(r.teams[0].finishes, [1, 0]);
+  validateResult(i, r);
   assert.throws(() => simulate(i, { '1:1': 2 }), /no supported/);
 });
 void test('unavailable locked starter cannot be replaced by a healthy bench player', () => {
@@ -308,14 +352,13 @@ void test('bounded schedule proof agrees with exhaustive small-league outcomes',
         u[3] += 2 - a;
         return {
           optimistic: 1 + u.slice(1).filter((x) => x > u[0]).length,
-          guaranteed: 1 + u.slice(1).filter((x) => x >= u[0]).length,
         };
       });
       const result = route(i, {}, 1, 2, '1:1', outcome);
       if (result === 'impossible')
         assert.ok(ranks.every((r) => r.optimistic > 2));
       if (result === 'possible')
-        assert.ok(ranks.some((r) => r.guaranteed <= 2));
+        assert.ok(ranks.some((r) => r.optimistic <= 2));
       if (ranks.every((r) => r.optimistic > 2))
         assert.equal(result, 'impossible');
     }

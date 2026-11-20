@@ -155,10 +155,55 @@
   line-height: 1.6;
   margin-top: 0.7rem;
 }
+.pc-finishes {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+.pc-finish-team + .pc-finish-team {
+  border-top: 1px solid var(--border);
+}
+.pc-finish-team > summary {
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+.pc-finish-team > summary span {
+  display: block;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+.pc-position-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0 1rem 1rem;
+  text-align: center;
+}
+.pc-position-grid > div {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.6rem 0.25rem;
+}
+.pc-position-grid dt {
+  color: var(--muted-foreground);
+  font-size: 0.7rem;
+}
+.pc-position-grid dd {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.pc-position-grid .pc-qualifying-position dd {
+  color: var(--primary);
+}
 .pc-bubble-grid,
 .pc-scenario-grid {
   display: grid;
   gap: 1rem;
+  margin-top: 1rem;
 }
 .pc-bubble {
   border: 1px solid var(--border);
@@ -206,6 +251,9 @@
   padding: 0.5rem 0 1rem;
 }
 @media (min-width: 640px) {
+  .pc-position-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
   .pc-bubble-grid,
   .pc-scenario-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

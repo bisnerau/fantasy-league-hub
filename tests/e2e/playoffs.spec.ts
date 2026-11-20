@@ -93,6 +93,34 @@ for (const width of [320, 390, 1440])
     await expect(
       page.getByText('Calculating your scenario…', { exact: false }),
     ).toHaveCount(0);
+    await expect(page.getByText('First forecast', { exact: true })).toHaveCount(
+      0,
+    );
+    await expect(page.locator('.pc-finish-team')).toHaveCount(12);
+    const finishes = page.locator('.pc-finish-team').first();
+    await finishes.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    await expect(finishes.locator('dt')).toHaveText([
+      '1st',
+      '2nd',
+      '3rd',
+      '4th',
+      '5th',
+      '6th',
+      '7th',
+      '8th',
+      '9th',
+      '10th',
+      '11th',
+      '12th',
+    ]);
+    const baselinePositions = await finishes.locator('dd').allTextContents();
+    const stakes = page.getByRole('region', { name: 'Must win & can’t lose' });
+    await expect(stakes.locator('article')).toHaveCount(12);
+    await expect(stakes.locator('article').first()).toContainText('Can’t lose');
+    await expect(stakes.locator('article').first()).toContainText(
+      'A tie still leaves a route.',
+    );
     const first = page.locator('.pc-team').first();
     await first.locator('summary').first().focus();
     await page.keyboard.press('Enter');
@@ -105,11 +133,21 @@ for (const width of [320, 390, 1440])
     ).toBeVisible();
     await expect(first.locator('.pc-playoff b')).toHaveText('>99%');
     await expect(first.locator('.pc-fixture')).toContainText('>99%');
+    await expect(finishes.locator('dd').nth(11)).toHaveText('<1%');
+    expect(await finishes.locator('dd').allTextContents()).not.toEqual(
+      baselinePositions,
+    );
+    await expect(stakes.locator('article')).toHaveCount(10);
+    await expect(stakes.locator('article').first()).toContainText(
+      'In this scenario',
+    );
     await page.getByRole('button', { name: 'Reset everything' }).click();
     await expect(
       page.getByText('PUBLISHED FORECAST', { exact: true }),
     ).toBeVisible();
     await expect(first.locator('.pc-playoff b')).toHaveText(/(49|50|51)%/);
+    await expect(finishes.locator('dd')).toHaveText(baselinePositions);
+    await expect(stakes.locator('article')).toHaveCount(12);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,

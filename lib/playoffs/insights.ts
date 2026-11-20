@@ -1,3 +1,4 @@
+import { rankTeams } from './model';
 import { projectLineup } from './lineups';
 import type {
   ForecastInput,
@@ -16,9 +17,88 @@ export type Stake = {
   loss: number | null;
   swing: number | null;
 };
-// A bounded exhaustive schedule proof. Tied records receive the most favourable
-// unresolved scoring tiebreak. Such a leaf cannot prove a route exists, but it
-// prevents an elimination claim. A guaranteed rank proves existence.
+type ProofGame = {
+  a: number;
+  b: number;
+  home: { mean: number; variance: number; complete: boolean };
+  away: { mean: number; variance: number; complete: boolean };
+  outcome: 0 | 1 | 2;
+};
+// Construct, then independently rank, a scoring witness for this schedule.
+// Unresolved scores can vary; banked/fixed scores cannot. Increasing the focal
+// team's scores tests favourable PF tiebreaks without pretending every tied
+// record can be ordered independently. Failure is inconclusive, never elimination.
+function scoringWitness(
+  input: ForecastInput,
+  units: number[],
+  games: ProofGame[],
+  target: number,
+  qualifying: number,
+) {
+  const scale =
+    1 +
+    Math.max(...input.teams.map((t) => Math.abs(t.pointsFor))) +
+    games.reduce(
+      (s, g) => s + Math.abs(g.home.mean) + Math.abs(g.away.mean),
+      0,
+    );
+  for (const multiplier of [0, 1, 4, 16]) {
+    const table = input.teams.map((t, i) => ({
+      units: units[i],
+      pf: Math.round(t.pointsFor * 100),
+      pa: Math.round(t.pointsAgainst * 100),
+    }));
+    let valid = true;
+    for (const g of games) {
+      const fixedH = g.home.variance === 0,
+        fixedA = g.away.variance === 0;
+      let h = Math.round(
+        (g.a === target && !fixedH && multiplier
+          ? scale * multiplier
+          : g.home.mean) * 100,
+      );
+      let a = Math.round(
+        (g.b === target && !fixedA && multiplier
+          ? scale * multiplier
+          : g.away.mean) * 100,
+      );
+      if (g.outcome === 2) {
+        if (fixedH && !fixedA) a = h;
+        else if (fixedA && !fixedH) h = a;
+        else if (!fixedH && !fixedA) {
+          const score =
+            g.a === target ? h : g.b === target ? a : Math.max(h, a);
+          h = score;
+          a = score;
+        }
+      } else if (g.outcome === 0 && h <= a) {
+        if (!fixedH && (g.b !== target || fixedA)) h = a + 1;
+        else if (!fixedA) a = h - 1;
+      } else if (g.outcome === 1 && a <= h) {
+        if (!fixedA && (g.a !== target || fixedH)) a = h + 1;
+        else if (!fixedH) h = a - 1;
+      }
+      if ((h > a ? 0 : h < a ? 1 : 2) !== g.outcome) {
+        valid = false;
+        break;
+      }
+      table[g.a].pf += h;
+      table[g.a].pa += a;
+      table[g.b].pf += a;
+      table[g.b].pa += h;
+    }
+    // Exact record/PF/PA ties can be won by Sleeper's final random tiebreak.
+    if (
+      valid &&
+      table.filter((t, i) => i !== target && rankTeams(t, table[target]) < 0)
+        .length < qualifying
+    )
+      return true;
+  }
+  return false;
+}
+// Bounded exhaustive schedule proof, including ties. A favourable scoring
+// witness proves existence; unresolved leaves and exhausted budgets stay unknown.
 export function route(
   input: ForecastInput,
   scenario: Scenario,
@@ -32,7 +112,8 @@ export function route(
     index = ids.indexOf(teamId);
   if (index < 0) throw Error('Unknown team');
   const units = input.teams.map((t) => 2 * t.wins + t.ties),
-    remaining: { a: number; b: number }[] = [];
+    remaining: { a: number; b: number; game: ProofGame }[] = [];
+  const games: ProofGame[] = [];
   for (const f of input.fixtures) {
     const a = ids.indexOf(f.home),
       b = ids.indexOf(f.away);
@@ -43,12 +124,22 @@ export function route(
       away = input.lineups.find(
         (l) => l.week === f.week && l.rosterId === f.away,
       );
-    if (home && away) {
-      const h = projectLineup(input, home),
-        v = projectLineup(input, away);
+    if (!home || !away) throw Error('Missing lineup for schedule proof');
+    const game: ProofGame = {
+      a,
+      b,
+      home: projectLineup(input, home),
+      away: projectLineup(input, away),
+      outcome: 2,
+    };
+    games.push(game);
+    {
+      const h = game.home,
+        v = game.away;
       if (h.complete && v.complete) {
         const hp = Math.round(h.mean * 100),
           ap = Math.round(v.mean * 100);
+        game.outcome = hp > ap ? 0 : hp < ap ? 1 : 2;
         units[a] += hp > ap ? 2 : hp === ap ? 1 : 0;
         units[b] += ap > hp ? 2 : hp === ap ? 1 : 0;
         continue;
@@ -56,6 +147,7 @@ export function route(
     }
     if (f.key === fixtureKey) {
       if (outcome === 'tie') {
+        game.outcome = 2;
         units[a]++;
         units[b]++;
         continue;
@@ -63,14 +155,16 @@ export function route(
       winner = outcome === 'win' ? teamId : f.home === teamId ? f.away : f.home;
     }
     if (winner !== undefined) {
+      game.outcome = winner === f.home ? 0 : 1;
       units[ids.indexOf(winner)] += 2;
       continue;
     }
     if (a === index || b === index) {
+      game.outcome = a === index ? 0 : 1;
       units[index] += 2;
       continue;
     }
-    remaining.push({ a, b });
+    remaining.push({ a, b, game });
   }
   const threshold = units[index];
   let visits = 0;
@@ -81,12 +175,11 @@ export function route(
     )
       return 'impossible';
     if (i === remaining.length) {
-      return units.filter((u, j) => j !== index && u >= threshold).length <
-        qualifying
+      return scoringWitness(input, units, games, index, qualifying)
         ? 'possible'
         : 'unknown';
     }
-    const { a, b } = remaining[i];
+    const { a, b, game } = remaining[i];
     let unknown = false;
     // Try reducing the number of teams above the cut first.
     const outcomes =
@@ -102,6 +195,7 @@ export function route(
             [1, 1],
           ];
     for (const [x, y] of outcomes) {
+      game.outcome = x === 2 ? 0 : y === 2 ? 1 : 2;
       units[a] += x;
       units[b] += y;
       const result = search(i + 1);
