@@ -394,6 +394,6 @@ export function percentage(p: number, actual = false, ruledOut = false) {
         : `${Math.round(p * 100)}%`;
 }
 export function percentagePoints(delta: number) {
-  const value = delta * 100;
+  const value = Number((delta * 100).toFixed(1));
   return `${value > 0 ? '+' : ''}${value.toFixed(1)} pp`;
 }

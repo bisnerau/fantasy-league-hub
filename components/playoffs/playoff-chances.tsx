@@ -56,7 +56,8 @@ export function PlayoffChances({
   const [viewedAt] = useState(() => Date.now());
   const [data, setData] = useState(initial),
     [scenario, setScenario] = useState<Scenario>({}),
-    [sort, setSort] = useState('standings');
+    [sort, setSort] = useState('standings'),
+    [view, setView] = useState<'race' | 'finishes'>('race');
   const [calculation, setCalculation] = useState<Calculation | null>(
     initial.snapshot && initialInsights
       ? {
@@ -176,6 +177,11 @@ export function PlayoffChances({
     setProgress(0);
     setError(null);
   }
+  function resetScenario() {
+    setScenario({});
+    setProgress(0);
+    setError(null);
+  }
   if (!snapshot || !input || !result)
     return (
       <div className="space-y-6">
@@ -192,41 +198,54 @@ export function PlayoffChances({
   const absoluteStakes = insights?.stakes.filter(
     (s) => s.label !== 'Big swing game',
   );
+  const stakeGroups = new Map<string, Stake[]>();
+  for (const stake of absoluteStakes ?? []) {
+    const key = `${stake.rosterId}:${stake.objective}:${stake.label}`;
+    stakeGroups.set(key, [...(stakeGroups.get(key) ?? []), stake]);
+  }
+  const scenarioWeeks = [
+    ...new Set(
+      snapshot.result.fixtures.filter((f) => !f.resolved).map((f) => f.week),
+    ),
+  ];
+  const choiceCount = Object.keys(scenario).length;
   return (
-    <div className="playoff-page space-y-7">
-      <header className="pc-hero">
-        <p className="ui-kicker">MAC 12 · THE RUN-IN</p>
-        <h1>
-          Playoff Chances<span>.</span>
-        </h1>
-        <p>Six spots. One last place. Every remaining matchup matters.</p>
-        <div className="pc-hero-numbers">
-          <strong>
-            {input.regularSeasonWeeks - input.completedThrough}
-            <small>WEEKS TO SETTLE</small>
-          </strong>
-          <strong>
-            100,000<small>SEASONS SIMULATED</small>
-          </strong>
-        </div>
-      </header>
-      <div className="text-sm text-muted-foreground space-y-2">
-        <p>
-          Daily inputs:{' '}
+    <div className="playoff-page">
+      <div className="pc-intro">
+        <header className="pc-hero">
+          <p className="ui-kicker">MAC 12 · THE RUN-IN</p>
+          <h1>
+            Playoff Chances<span>.</span>
+          </h1>
+          <p>Six spots. One wooden spoon.</p>
+          <p className="pc-season-note">
+            {input.regularSeasonWeeks - input.completedThrough} weeks left · Top
+            six qualify
+          </p>
+        </header>
+        <p className="pc-updated">
+          Updated{' '}
           <time dateTime={input.asOf}>
             {new Date(input.asOf).toLocaleString('en-IE', {
+              day: 'numeric',
+              month: 'short',
+              hour: '2-digit',
+              minute: '2-digit',
               timeZone: 'Europe/Dublin',
             })}
           </time>{' '}
-          · Ireland
+          · Irish time
         </p>
-        <p>
-          Source cutoff:{' '}
-          {new Date(input.sourceCutoff).toLocaleString('en-IE', {
-            timeZone: 'Europe/Dublin',
-          })}
-          . Standings through Week {input.completedThrough}.
-        </p>
+        <nav className="pc-jump-links" aria-label="Playoff page sections">
+          <a href="#pc-odds">Odds</a>
+          {!result.final && (
+            <>
+              <a href="#pc-bubble">Bubble</a>
+              <a href="#pc-stakes">Stakes</a>
+              <a href="#pc-scenarios">What if?</a>
+            </>
+          )}
+        </nav>
       </div>
       {data.notice && (
         <output className="notice">
@@ -246,16 +265,18 @@ export function PlayoffChances({
           Sleeper’s official resolution; future scenarios are closed.
         </p>
       )}
-      <section aria-labelledby="pc-table-title">
+      <div id="pc-odds" className="pc-odds-controls">
         <div className="pc-section-heading">
           <div>
             <p className="ui-kicker">
               {isScenario ? 'IN THIS SCENARIO' : 'PUBLISHED FORECAST'}
             </p>
-            <h2 id="pc-table-title">The race for six</h2>
+            <h2>
+              {view === 'race' ? 'The race for six' : 'Finishing positions'}
+            </h2>
           </div>
           <label>
-            Sort{' '}
+            <span className="sr-only">Sort teams</span>
             <select value={sort} onChange={(e) => setSort(e.target.value)}>
               <option value="standings">Standings</option>
               <option value="playoff">Playoff %</option>
@@ -263,23 +284,70 @@ export function PlayoffChances({
             </select>
           </label>
         </div>
+        <fieldset className="pc-view-switch">
+          <legend className="sr-only">Odds view</legend>
+          <button
+            type="button"
+            aria-pressed={view === 'race'}
+            aria-controls="pc-race"
+            onClick={() => setView('race')}
+          >
+            Playoffs &amp; last
+          </button>
+          <button
+            type="button"
+            aria-pressed={view === 'finishes'}
+            aria-controls="pc-finishes"
+            onClick={() => setView('finishes')}
+          >
+            All 12 places
+          </button>
+        </fieldset>
+        {hypothetical && (
+          <div className="pc-scenario-notice">
+            <p>
+              <strong>Your scenario</strong> · {choiceCount}{' '}
+              {choiceCount === 1 ? 'result' : 'results'} picked.{' '}
+              {isScenario
+                ? 'Changes are percentage points (pp) from the published odds.'
+                : 'Published odds shown while your picks are checked.'}
+            </p>
+            <div>
+              <a href="#pc-scenarios">Edit picks</a>
+              <button type="button" onClick={resetScenario}>
+                Back to forecast
+              </button>
+            </div>
+          </div>
+        )}
         {pending && !error && (
-          <output>
-            Calculating your scenario… {Math.round(progress * 100)}%. Published
-            probabilities shown until it finishes.
+          <output className="pc-calculating">
+            {hypothetical
+              ? 'Calculating your scenario…'
+              : 'Updating the forecast…'}{' '}
+            {Math.round(progress * 100)}%. Published odds shown for now.
           </output>
         )}
         {current && !result.reliable && (
           <p className="notice">
-            These combined outcomes have low effective sample support. Treat the
-            scenario as unstable and clear a selection.
+            Too few simulations support this combination of results. Clear a
+            pick to get a more stable estimate.
           </p>
         )}
+      </div>
+      <section
+        id="pc-race"
+        aria-label="The race for six"
+        hidden={view !== 'race'}
+      >
+        <p className="pc-section-intro">
+          Top six qualify. Last means 12th. Tap a manager for fixtures.
+        </p>
         <div className="pc-table">
           <div className="pc-table-head">
-            <span>Manager / record</span>
-            <span>Playoff %</span>
-            <span>Last %</span>
+            <span>Manager</span>
+            <span>Playoffs</span>
+            <span>Last</span>
           </div>
           {teams.map((team) => {
             const chance = result.teams.find((t) => t.rosterId === team.id)!,
@@ -295,8 +363,11 @@ export function PlayoffChances({
                     </span>
                     <strong>{team.manager}</strong>
                     <small>
-                      {team.name} · {team.wins}–{team.losses}
+                      {team.wins}–{team.losses}
                       {team.ties ? `–${team.ties}` : ''}
+                      <span className="pc-expand-hint" aria-hidden="true">
+                        ⌄
+                      </span>
                     </small>
                   </span>
                   {(['playoff', 'last'] as const).map((field) => (
@@ -319,6 +390,7 @@ export function PlayoffChances({
                   ))}
                 </summary>
                 <div className="pc-team-detail">
+                  <p className="pc-team-name">{team.name}</p>
                   <p className="ui-kicker">Remaining fixtures</p>
                   {result.fixtures
                     .filter((f) => f.home === team.id || f.away === team.id)
@@ -390,19 +462,19 @@ export function PlayoffChances({
               .{' '}
             </>
           )}
-          Tap a manager for fixtures and assumptions. &lt;1% does not mean
-          eliminated. 0% means the outcome is mathematically ruled out.
+          0% = mathematically ruled out. &lt;1% = a tiny estimate, not proof of
+          elimination.
         </p>
       </section>
-      <section aria-labelledby="pc-finishes-title">
-        <p className="ui-kicker">
-          {isScenario ? 'Hypothetical finishes' : 'EVERY PLACE COUNTS'}
-        </p>
-        <h2 id="pc-finishes-title">Finishing positions</h2>
+      <section
+        id="pc-finishes"
+        aria-label="Finishing positions"
+        hidden={view !== 'finishes'}
+      >
         <p className="pc-footnote">
-          Chance of each position after Week 14, before the playoffs. Tap a
-          manager to see all twelve places. Rounded percentages may not add to
-          100%.
+          Where could everyone land after Week 14? Tap a manager to see all
+          twelve places. Highlighted places qualify for the playoffs; rounded
+          percentages may not total 100%.
         </p>
         <div className="pc-finishes">
           {teams.map((team) => {
@@ -447,9 +519,12 @@ export function PlayoffChances({
         </div>
       </section>
       {!result.final && (
-        <section aria-labelledby="pc-bubble-title">
+        <section id="pc-bubble" aria-labelledby="pc-bubble-title">
           <p className="ui-kicker">STILL IN THE CONVERSATION</p>
           <h2 id="pc-bubble-title">On the bubble</h2>
+          <p className="pc-section-intro">
+            Who’s chasing a spot, and who’s trying to hang on?
+          </p>
           <div className="pc-bubble-grid">
             {insights?.bubble.map((team) => (
               <article className="pc-bubble" key={team.id}>
@@ -465,73 +540,95 @@ export function PlayoffChances({
                   </span>
                 </h3>
                 {isScenario && <p className="pc-footnote">In this scenario</p>}
+                <p className="pc-chance-caption">
+                  chance of making the playoffs
+                </p>
                 {team.keyGame ? (
-                  <p>
-                    Biggest fixture: Week {team.keyGame.week} vs{' '}
-                    {manager(
-                      team.keyGame.home === team.id
-                        ? team.keyGame.away
-                        : team.keyGame.home,
-                    )}
-                    . Win:{' '}
-                    <strong>
-                      {percentage(
+                  <div className="pc-key-game">
+                    <p>
+                      <strong>Biggest game</strong> · Week {team.keyGame.week}{' '}
+                      vs{' '}
+                      {manager(
                         team.keyGame.home === team.id
-                          ? team.keyGame.homeChance
-                          : team.keyGame.awayChance,
+                          ? team.keyGame.away
+                          : team.keyGame.home,
                       )}
-                    </strong>
-                    ; lose:{' '}
-                    <strong>
-                      {percentage(
-                        team.keyGame.home === team.id
-                          ? team.keyGame.awayChance
-                          : team.keyGame.homeChance,
-                      )}
-                    </strong>
-                    . {Math.round(team.keyGame.swing * 1000) / 10}{' '}
-                    percentage-point swing.
-                  </p>
+                    </p>
+                    <dl className="pc-swing-grid">
+                      <div>
+                        <dt>If they win</dt>
+                        <dd>
+                          {percentage(
+                            team.keyGame.home === team.id
+                              ? team.keyGame.homeChance
+                              : team.keyGame.awayChance,
+                          )}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>If they lose</dt>
+                        <dd>
+                          {percentage(
+                            team.keyGame.home === team.id
+                              ? team.keyGame.awayChance
+                              : team.keyGame.homeChance,
+                          )}
+                        </dd>
+                      </div>
+                    </dl>
+                    <p className="pc-swing-note">
+                      {team.keyGame.swing >= 0.2 ? 'Big swing game · ' : ''}
+                      {(team.keyGame.swing * 100).toFixed(1)} percentage points
+                      at stake.
+                    </p>
+                  </div>
                 ) : (
-                  <p>
-                    No decisive remaining fixture can be distinguished reliably.
-                  </p>
+                  <p>No single remaining game stands out reliably yet.</p>
                 )}
                 {team.helpfulGame ? (
-                  <p className="mt-3">
-                    A little help: {manager(team.helpfulGame.helpfulWinner)}{' '}
-                    beating{' '}
-                    {manager(
-                      team.helpfulGame.helpfulWinner === team.helpfulGame.home
-                        ? team.helpfulGame.away
-                        : team.helpfulGame.home,
-                    )}{' '}
-                    in Week {team.helpfulGame.week}. Playoff chance{' '}
-                    {percentage(
-                      Math.max(
-                        team.helpfulGame.homeChance,
-                        team.helpfulGame.awayChance,
-                      ),
-                    )}{' '}
-                    versus{' '}
-                    {percentage(
-                      Math.min(
-                        team.helpfulGame.homeChance,
-                        team.helpfulGame.awayChance,
-                      ),
-                    )}{' '}
-                    ({(team.helpfulGame.swing * 100).toFixed(1)} pp).
-                  </p>
+                  <details className="pc-rival-help">
+                    <summary>
+                      A little help: cheer for{' '}
+                      {manager(team.helpfulGame.helpfulWinner)}
+                    </summary>
+                    <p>
+                      Against{' '}
+                      {manager(
+                        team.helpfulGame.helpfulWinner === team.helpfulGame.home
+                          ? team.helpfulGame.away
+                          : team.helpfulGame.home,
+                      )}{' '}
+                      in Week {team.helpfulGame.week}. {team.manager}’s playoff
+                      chance is{' '}
+                      {percentage(
+                        Math.max(
+                          team.helpfulGame.homeChance,
+                          team.helpfulGame.awayChance,
+                        ),
+                      )}{' '}
+                      if they win, versus{' '}
+                      {percentage(
+                        Math.min(
+                          team.helpfulGame.homeChance,
+                          team.helpfulGame.awayChance,
+                        ),
+                      )}{' '}
+                      if they lose—a {(team.helpfulGame.swing * 100).toFixed(1)}{' '}
+                      percentage-point difference.
+                    </p>
+                  </details>
                 ) : (
-                  <p className="mt-3">
-                    No decisive rival result can be distinguished reliably.
+                  <p className="pc-footnote">
+                    No single rival result stands out reliably yet.
                   </p>
                 )}
                 {insights.stakes
                   .filter(
                     (s) =>
                       s.rosterId === team.id &&
-                      s.fixtureKey === team.keyGame?.fixtureKey,
+                      s.fixtureKey === team.keyGame?.fixtureKey &&
+                      (s.label !== 'Big swing game' ||
+                        s.objective !== 'playoffs'),
                   )
                   .map((s) => (
                     <StakeText
@@ -549,7 +646,7 @@ export function PlayoffChances({
         </section>
       )}
       {!result.final && (
-        <section aria-labelledby="pc-stakes-title">
+        <section id="pc-stakes" aria-labelledby="pc-stakes-title">
           <p className="ui-kicker">
             {isScenario ? 'In this scenario' : 'NO ROOM FOR ERROR'}
           </p>
@@ -560,25 +657,32 @@ export function PlayoffChances({
             consequences appear here.
           </p>
           <div className="pc-bubble-grid">
-            {absoluteStakes?.map((stake) => {
-              const fixture = input.fixtures.find(
-                (f) => f.key === stake.fixtureKey,
-              )!;
+            {[...stakeGroups].map(([key, group]) => {
+              const stake = group[0];
               return (
-                <article
-                  className="pc-bubble"
-                  key={`${stake.fixtureKey}:${stake.rosterId}:${stake.objective}`}
-                >
+                <article className="pc-bubble pc-stakes-card" key={key}>
                   <h3>{manager(stake.rosterId)}</h3>
-                  <p>
-                    Week {fixture.week} · vs{' '}
-                    {manager(
-                      fixture.home === stake.rosterId
-                        ? fixture.away
-                        : fixture.home,
-                    )}
-                  </p>
                   <StakeText stake={stake} scenario={isScenario} />
+                  <ul className="pc-stakes-fixtures">
+                    {group.map((game) => {
+                      const fixture = input.fixtures.find(
+                        (f) => f.key === game.fixtureKey,
+                      )!;
+                      return (
+                        <li key={game.fixtureKey}>
+                          <span>Week {fixture.week}</span>
+                          <strong>
+                            vs{' '}
+                            {manager(
+                              fixture.home === game.rosterId
+                                ? fixture.away
+                                : fixture.home,
+                            )}
+                          </strong>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </article>
               );
             })}
@@ -593,7 +697,11 @@ export function PlayoffChances({
         </section>
       )}
       {!result.final && (
-        <section className="pc-scenarios" aria-labelledby="pc-scenario-title">
+        <section
+          id="pc-scenarios"
+          className="pc-scenarios"
+          aria-labelledby="pc-scenario-title"
+        >
           <div className="pc-section-heading">
             <div>
               <p className="ui-kicker">WHAT IF?</p>
@@ -602,41 +710,86 @@ export function PlayoffChances({
             <button
               type="button"
               disabled={!hypothetical}
-              onClick={() => {
-                setScenario({});
-                setError(null);
-              }}
+              onClick={resetScenario}
             >
               Reset everything
             </button>
           </div>
           <p>
-            Your choices stay in this browser session. These hypothetical
-            results change the table and stakes above.
+            Play commissioner for a minute. Pick some winners and see who
+            climbs—or starts sweating. Your picks are hypothetical and stay on
+            this page.
           </p>
-          <div className="pc-scenario-grid">
-            {snapshot.result.fixtures
-              .filter((f) => !f.resolved)
-              .map((f) => (
-                <label key={f.key}>
-                  Week {f.week} · {manager(f.home)} vs {manager(f.away)}
-                  <select
-                    aria-label={`Week ${f.week}: ${manager(f.home)} vs ${manager(f.away)}`}
-                    value={scenario[f.key] ?? ''}
-                    onChange={(e) => choose(f.key, e.target.value)}
-                  >
-                    <option value="">No chosen winner / clear</option>
-                    <option value={f.home}>{manager(f.home)} wins</option>
-                    <option value={f.away}>{manager(f.away)} wins</option>
-                  </select>
-                </label>
-              ))}
-          </div>
+          <output className="pc-scenario-feedback">
+            {error
+              ? 'Your scenario could not be updated. Published odds are still shown.'
+              : pending
+                ? 'Updating your odds…'
+                : hypothetical
+                  ? `${choiceCount} ${choiceCount === 1 ? 'result' : 'results'} picked. Your scenario is ready.`
+                  : 'Start with one game. Leave the rest undecided.'}
+            {hypothetical && !pending && !error && (
+              <a href="#pc-odds" onClick={() => setView('race')}>
+                See updated odds
+              </a>
+            )}
+          </output>
+          {scenarioWeeks.map((week, index) => (
+            <details className="pc-scenario-week" key={week} open={index === 0}>
+              <summary>
+                Week {week}
+                <span>
+                  {
+                    snapshot.result.fixtures.filter(
+                      (f) => f.week === week && scenario[f.key] !== undefined,
+                    ).length
+                  }{' '}
+                  picked
+                </span>
+              </summary>
+              <div className="pc-scenario-grid">
+                {snapshot.result.fixtures
+                  .filter((f) => f.week === week && !f.resolved)
+                  .map((f) => (
+                    <label key={f.key}>
+                      {manager(f.home)} <span className="pc-versus">vs</span>{' '}
+                      {manager(f.away)}
+                      <select
+                        aria-label={`Week ${f.week}: ${manager(f.home)} vs ${manager(f.away)}`}
+                        value={scenario[f.key] ?? ''}
+                        onChange={(e) => choose(f.key, e.target.value)}
+                      >
+                        <option value="">Leave undecided</option>
+                        <option value={f.home}>{manager(f.home)} wins</option>
+                        <option value={f.away}>{manager(f.away)} wins</option>
+                      </select>
+                    </label>
+                  ))}
+              </div>
+              {hypothetical && (
+                <a
+                  className="pc-results-link"
+                  href="#pc-odds"
+                  onClick={() => setView('race')}
+                >
+                  See updated odds
+                </a>
+              )}
+            </details>
+          ))}
         </section>
       )}
       <details className="pc-method">
         <summary>How the forecast works</summary>
         <div className="space-y-4">
+          <p>
+            Standings through Week {input.completedThrough}. Source cutoff:{' '}
+            {new Date(input.sourceCutoff).toLocaleString('en-IE', {
+              timeZone: 'Europe/Dublin',
+            })}{' '}
+            (Irish time). Current records stay fixed when trying a scenario; the
+            percentages change.
+          </p>
           <p>
             100,000 whole-league simulations use Sleeper’s actual remaining
             schedule through Week 14, MAC 12 scoring and weekly NFL-opponent

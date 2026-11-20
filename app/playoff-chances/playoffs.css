@@ -1,38 +1,136 @@
+body:has(.playoff-page) {
+  min-width: 0;
+}
 .playoff-page {
   --pc-accent: #bef264;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 .pc-hero {
   border: 1px solid var(--border);
-  padding: clamp(1.25rem, 4vw, 2.5rem);
+  padding: clamp(1rem, 4vw, 1.75rem);
   background: linear-gradient(125deg, #132c24, #111c19 70%);
   color: #f8faf5;
   border-radius: 0.5rem;
 }
 .pc-hero h1 {
-  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-size: clamp(1.85rem, 7vw, 4rem);
   font-weight: 900;
   letter-spacing: -0.065em;
-  line-height: 0.98;
-  margin: 1rem 0;
-  max-width: 10ch;
+  line-height: 1.05;
+  margin: 0.5rem 0;
 }
 .pc-hero h1 span {
   color: var(--pc-accent);
 }
-.pc-hero-numbers {
+.pc-hero .ui-kicker {
+  color: #c3d6ca;
+}
+.pc-season-note {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: #c3d6ca;
+}
+.pc-updated {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 0.75rem 0;
+}
+.playoff-page .ui-kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+.playoff-page [id] {
+  scroll-margin-top: 5rem;
+}
+.playoff-page :is(button, a, summary, select):focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+.pc-jump-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.375rem;
+}
+.pc-jump-links a {
   display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
 }
-.pc-hero-numbers strong {
-  font-size: clamp(1.7rem, 5vw, 3rem);
-  font-variant-numeric: tabular-nums;
+.pc-jump-links a:hover {
+  background: var(--muted);
 }
-.pc-hero-numbers small {
+.pc-section-intro {
+  margin-bottom: 1rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+.pc-view-switch {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  margin-top: 1rem;
+}
+.pc-odds-controls .pc-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+}
+.playoff-page .pc-odds-controls h2 {
+  font-size: 1.25rem;
+  margin: 0.25rem 0 0;
+}
+.pc-odds-controls select {
+  width: 7.5rem;
+}
+.pc-view-switch button {
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.5rem;
+  border-radius: 0.35rem;
+}
+.pc-view-switch button[aria-pressed='true'] {
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+.pc-scenario-notice {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  background: var(--muted);
+  font-size: 0.875rem;
+}
+.pc-scenario-notice > div {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.pc-scenario-notice :is(a, button) {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pc-calculating {
   display: block;
-  font-size: 0.6rem;
-  letter-spacing: 0.13em;
-  color: #a9beb2;
+  margin-top: 1rem;
+  font-size: 0.875rem;
 }
 .playoff-page h2 {
   font-size: 1.65rem;
@@ -56,7 +154,7 @@
   padding: 0.65rem;
   min-height: 44px;
   max-width: 100%;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 .pc-scenarios button:disabled {
   opacity: 0.4;
@@ -69,15 +167,13 @@
 .pc-table-head,
 .pc-team > summary {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 4.2rem 4.2rem;
+  grid-template-columns: minmax(0, 1fr) 3.5rem 3.5rem;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 0.875rem 0.75rem;
 }
 .pc-table-head {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.875rem;
   color: var(--muted-foreground);
   background: var(--muted);
 }
@@ -98,18 +194,18 @@
   background: var(--muted);
 }
 .pc-team > summary strong {
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 .pc-team small {
   display: block;
   color: var(--muted-foreground);
-  font-size: 0.65rem;
+  font-size: 0.875rem;
   margin-top: 0.25rem;
 }
 .pc-rank {
   display: inline-block;
   color: var(--muted-foreground);
-  font-size: 0.7rem;
+  font-size: 0.875rem;
   margin-right: 0.6rem;
 }
 .pc-probability {
@@ -125,7 +221,7 @@
 .pc-team-detail {
   padding: 1rem;
   background: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .pc-fixture {
   border-bottom: 1px solid var(--border);
@@ -140,7 +236,7 @@
   border-left: 2px solid var(--primary);
   padding-left: 0.7rem;
   margin-top: 0.6rem;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 .pc-notes {
@@ -150,7 +246,7 @@
   list-style: disc;
 }
 .pc-footnote {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: var(--muted-foreground);
   line-height: 1.6;
   margin-top: 0.7rem;
@@ -167,17 +263,17 @@
 .pc-finish-team > summary {
   cursor: pointer;
   padding: 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 .pc-finish-team > summary span {
   display: block;
   color: var(--muted-foreground);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   margin-top: 0.25rem;
 }
 .pc-position-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
   padding: 0 1rem 1rem;
   text-align: center;
@@ -190,9 +286,10 @@
 }
 .pc-position-grid dt {
   color: var(--muted-foreground);
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 .pc-position-grid dd {
+  font-size: 1.25rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
@@ -210,7 +307,7 @@
   border-top: 3px solid var(--primary);
   border-radius: 0.35rem;
   padding: 1.1rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 1.65;
 }
 .pc-bubble h3 {
@@ -229,20 +326,26 @@
   border: 1px solid var(--border);
   border-radius: 0.5rem;
   padding: 1.25rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 .pc-scenario-grid {
   margin-top: 1.5rem;
 }
 .pc-scenario-grid label {
-  font-size: 0.75rem;
-  display: grid;
-  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+.pc-scenario-grid select {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.pc-versus {
+  color: var(--muted-foreground);
 }
 .pc-method {
   border-top: 1px solid var(--border);
   padding-top: 1rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 1.7;
 }
 .pc-method > summary {
@@ -267,4 +370,118 @@
 .pc-team > summary > span:first-child {
   min-width: 0;
   overflow-wrap: anywhere;
+}
+
+.pc-team-name {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.pc-expand-hint {
+  display: inline-block;
+  margin-left: 0.65rem;
+  font-size: 1rem;
+}
+.pc-team[open] .pc-expand-hint {
+  transform: rotate(180deg);
+}
+.pc-team-detail summary {
+  min-height: 44px;
+  padding-block: 0.65rem;
+  cursor: pointer;
+}
+.pc-chance-caption {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: -0.25rem 0 1rem;
+}
+.pc-key-game > p {
+  font-size: 0.875rem;
+}
+.pc-swing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.pc-swing-grid > div {
+  padding: 0.75rem;
+  background: var(--muted);
+  border-radius: 0.35rem;
+}
+.pc-swing-grid dt {
+  font-size: 0.875rem;
+}
+.pc-swing-grid dd {
+  font-weight: 800;
+  font-size: 1.65rem;
+  font-variant-numeric: tabular-nums;
+}
+.pc-swing-grid > div:first-child dd {
+  color: var(--primary);
+}
+.pc-swing-note {
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+}
+.pc-rival-help {
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+.pc-rival-help summary {
+  padding-top: 0.75rem;
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.pc-rival-help p {
+  margin-top: 0.5rem;
+}
+.pc-stakes-fixtures {
+  margin-top: 1rem;
+}
+.pc-stakes-fixtures li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+.pc-stakes-fixtures span {
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+}
+.pc-scenario-feedback {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+.pc-scenario-feedback a,
+.pc-results-link {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 700;
+}
+.pc-scenario-week {
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+.pc-scenario-week > summary {
+  padding: 1rem 0;
+  cursor: pointer;
+  font-weight: 700;
+}
+.pc-scenario-week > summary span {
+  float: right;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.pc-scenario-week .pc-scenario-grid {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }

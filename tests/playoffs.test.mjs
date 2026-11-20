@@ -277,6 +277,8 @@ void test('zero simulated successes are not displayed as mathematical eliminatio
   assert.equal(percentage(0, false, true), '0%');
   assert.equal(percentage(0.001, false, true), '<1%');
   assert.equal(percentagePoints(0.231), ' +23.1 pp'.trim());
+  assert.equal(percentagePoints(-0.00001), '0.0 pp');
+  assert.equal(percentagePoints(0.00001), '0.0 pp');
 });
 void test('record bounds rule out last place without treating unresolved scoring ties as decided', () => {
   const i = input(4);
