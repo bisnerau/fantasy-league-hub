@@ -87,6 +87,10 @@ for (const width of [320, 390, 1440])
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/playoff-chances');
     await expect(page.locator('.pc-team')).toHaveCount(12);
+    await expect(page.locator('main')).not.toContainText('Manager');
+    await expect(page.locator('.pc-team > summary').first()).toContainText(
+      'Fixture team 1',
+    );
     await expect(
       page.getByText('Showing the last valid forecast.', { exact: false }),
     ).toBeVisible();
@@ -138,7 +142,7 @@ for (const width of [320, 390, 1440])
     await page.keyboard.press('Enter');
     await expect(first.locator('.pc-team-detail')).toBeVisible();
     await page
-      .getByLabel('Week 1: Manager 1 vs Manager 2', { exact: true })
+      .getByLabel('Week 1: Fixture team 1 vs Fixture team 2', { exact: true })
       .selectOption('1');
     await expect(
       page.getByText('IN THIS SCENARIO', { exact: true }),
@@ -240,6 +244,9 @@ for (const width of [320, 390, 1440])
         exact: true,
       }),
     });
+    await expect(firstGame.locator('.ui-kicker')).toHaveText(
+      'Week 1 · Matchup stakes',
+    );
     const playoffOdds = firstGame.getByRole('table', {
       name: 'Playoff chance · higher is better',
     });
@@ -299,7 +306,7 @@ for (const width of [320, 390, 1440])
     const weekTwo = page
       .locator('.pc-scenario-week')
       .filter({ has: page.locator('summary').filter({ hasText: 'Week 2' }) });
-    const choice = page.getByLabel('Week 2: Manager 1 vs Manager 2', {
+    const choice = page.getByLabel('Week 2: Fixture team 1 vs Fixture team 2', {
       exact: true,
     });
     await expect(choice).toBeHidden();

@@ -166,8 +166,6 @@ export function PlayoffChances({
         : [],
     [input, result, sort],
   );
-  const manager = (id: number) =>
-    input?.teams.find((t) => t.id === id)?.manager ?? `Team ${id}`;
   const teamName = (id: number) =>
     input?.teams.find((t) => t.id === id)?.name ?? `Team ${id}`;
   function choose(key: string, value: string) {
@@ -371,11 +369,11 @@ export function PlayoffChances({
         hidden={view !== 'race'}
       >
         <p className="pc-section-intro">
-          Top six qualify. Last means 12th. Tap a manager for fixtures.
+          Top six qualify. Last means 12th. Tap a team for fixtures.
         </p>
         <div className="pc-table">
           <div className="pc-table-head">
-            <span>Manager</span>
+            <span>Team</span>
             <span>Playoffs</span>
             <span>Last</span>
           </div>
@@ -391,7 +389,7 @@ export function PlayoffChances({
                     <span className="pc-rank">
                       {team.rank.toString().padStart(2, '0')}
                     </span>
-                    <strong>{team.manager}</strong>
+                    <strong>{team.name}</strong>
                     <small>
                       {team.wins}–{team.losses}
                       {team.ties ? `–${team.ties}` : ''}
@@ -420,7 +418,6 @@ export function PlayoffChances({
                   ))}
                 </summary>
                 <div className="pc-team-detail">
-                  <p className="pc-team-name">{team.name}</p>
                   <p className="pc-bye-odds">
                     Top-two bye chance{' '}
                     <strong>
@@ -439,7 +436,7 @@ export function PlayoffChances({
                         <p>
                           Week {f.week} · vs{' '}
                           <strong>
-                            {manager(f.home === team.id ? f.away : f.home)}
+                            {teamName(f.home === team.id ? f.away : f.home)}
                           </strong>{' '}
                           <span>
                             {f.resolved
@@ -512,8 +509,8 @@ export function PlayoffChances({
         hidden={view !== 'finishes'}
       >
         <p className="pc-footnote">
-          Where could everyone land after Week 14? Tap a manager to see all
-          twelve places. Highlighted places qualify for the playoffs; rounded
+          Where could everyone land after Week 14? Tap a team to see all twelve
+          places. Highlighted places qualify for the playoffs; rounded
           percentages may not total 100%.
         </p>
         <div className="pc-finishes">
@@ -525,7 +522,7 @@ export function PlayoffChances({
             return (
               <details className="pc-finish-team" key={team.id}>
                 <summary>
-                  <strong>{team.manager}</strong>
+                  <strong>{team.name}</strong>
                   <span>
                     Most likely: {positionLabel(mostLikely + 1)} ·{' '}
                     {percentage(chance.finishes[mostLikely], result.final)}
@@ -570,7 +567,7 @@ export function PlayoffChances({
               <article className="pc-bubble" key={team.id}>
                 <p className="ui-kicker">{team.label}</p>
                 <h3>
-                  {team.manager}
+                  {team.name}
                   <span>
                     {percentage(
                       team.playoff,
@@ -588,7 +585,7 @@ export function PlayoffChances({
                     <p>
                       <strong>Biggest game</strong> · Week {team.keyGame.week}{' '}
                       vs{' '}
-                      {manager(
+                      {teamName(
                         team.keyGame.home === team.id
                           ? team.keyGame.away
                           : team.keyGame.home,
@@ -629,16 +626,16 @@ export function PlayoffChances({
                   <details className="pc-rival-help">
                     <summary>
                       A little help: cheer for{' '}
-                      {manager(team.helpfulGame.helpfulWinner)}
+                      {teamName(team.helpfulGame.helpfulWinner)}
                     </summary>
                     <p>
                       Against{' '}
-                      {manager(
+                      {teamName(
                         team.helpfulGame.helpfulWinner === team.helpfulGame.home
                           ? team.helpfulGame.away
                           : team.helpfulGame.home,
                       )}{' '}
-                      in Week {team.helpfulGame.week}. {team.manager}’s playoff
+                      in Week {team.helpfulGame.week}. {team.name}’s playoff
                       chance is{' '}
                       {percentage(
                         Math.max(
@@ -714,7 +711,9 @@ export function PlayoffChances({
                   .filter((game) => game.week === week)
                   .map((game) => (
                     <article className="pc-bubble pc-swing-game" key={game.key}>
-                      <p className="ui-kicker">Matchup stakes</p>
+                      <p className="ui-kicker">
+                        Week {game.week} · Matchup stakes
+                      </p>
                       <h3 className="pc-game-title">
                         {teamName(game.home)} vs {teamName(game.away)}
                       </h3>
@@ -917,16 +916,16 @@ export function PlayoffChances({
                   .filter((f) => f.week === week && !f.resolved)
                   .map((f) => (
                     <label key={f.key}>
-                      {manager(f.home)} <span className="pc-versus">vs</span>{' '}
-                      {manager(f.away)}
+                      {teamName(f.home)} <span className="pc-versus">vs</span>{' '}
+                      {teamName(f.away)}
                       <select
-                        aria-label={`Week ${f.week}: ${manager(f.home)} vs ${manager(f.away)}`}
+                        aria-label={`Week ${f.week}: ${teamName(f.home)} vs ${teamName(f.away)}`}
                         value={scenario[f.key] ?? ''}
                         onChange={(e) => choose(f.key, e.target.value)}
                       >
                         <option value="">Leave undecided</option>
-                        <option value={f.home}>{manager(f.home)} wins</option>
-                        <option value={f.away}>{manager(f.away)} wins</option>
+                        <option value={f.home}>{teamName(f.home)} wins</option>
+                        <option value={f.away}>{teamName(f.away)} wins</option>
                       </select>
                     </label>
                   ))}
