@@ -3,6 +3,7 @@
 // eslint-disable-next-line import/default
 import ForecastWorker from './forecast.worker.ts?worker';
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import type {
   ForecastResponse,
   ForecastResult,
@@ -293,6 +294,28 @@ export function PlayoffChances({
           Sleeper’s official resolution; future scenarios are closed.
         </p>
       )}
+      <figure className="pc-playoff-picture">
+        <a
+          href="/playoffs/2026-week-11-playoff-picture.png"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open the Week 11 playoff picture full size in a new tab"
+        >
+          <Image
+            src="/playoffs/2026-week-11-playoff-picture.png"
+            width={1671}
+            height={941}
+            unoptimized
+            alt="MAC 12 Week 11 playoff standings with team logos: Tampa B’AH, Whos Throwing Diggs, The Finest Wagyu and Pronouns Who Dey leading the way; Cooper Kupp Mah Balls and D’onta FourMore! looking over their shoulder; Mahomes-lander n The Boys and Burns XI sniffing around."
+          />
+          <span>Tap to view full size ↗</span>
+        </a>
+        <figcaption>
+          Week 11 snapshot · 20 Nov 2026, 10:26 Irish time. The graphic stays
+          fixed; the odds below update with the forecast and your scenario
+          picks.
+        </figcaption>
+      </figure>
       <div id="pc-odds" className="pc-odds-controls">
         <div className="pc-section-heading">
           <div>

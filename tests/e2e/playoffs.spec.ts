@@ -87,6 +87,16 @@ for (const width of [320, 390, 1440])
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/playoff-chances');
     await expect(page.locator('.pc-team')).toHaveCount(12);
+    const picture = page.locator('.pc-playoff-picture');
+    await expect(picture.locator('img')).toBeVisible();
+    await expect(picture.locator('img')).toHaveJSProperty('naturalWidth', 1671);
+    await expect(picture.locator('a')).toHaveAttribute(
+      'href',
+      '/playoffs/2026-week-11-playoff-picture.png',
+    );
+    await expect(picture.locator('figcaption')).toContainText(
+      'Week 11 snapshot',
+    );
     await expect(page.locator('main')).not.toContainText('Manager');
     await expect(page.locator('.pc-team > summary').first()).toContainText(
       'Fixture team 1',
