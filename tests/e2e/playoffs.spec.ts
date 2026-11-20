@@ -223,7 +223,7 @@ for (const width of [320, 390, 1440])
     const stakes = page.locator('.pc-elimination-stakes');
     const manager = stakes.locator('article').filter({
       has: page.getByRole('heading', {
-        name: 'Manager 1',
+        name: 'Fixture team 1',
         exact: true,
         includeHidden: true,
       }),
@@ -236,7 +236,7 @@ for (const width of [320, 390, 1440])
     await expect(firstBigWeek.locator('.pc-swing-game')).toHaveCount(2);
     const firstGame = firstBigWeek.locator('.pc-swing-game').filter({
       has: page.getByRole('heading', {
-        name: 'Manager 1 vs Manager 2',
+        name: 'Fixture team 1 vs Fixture team 2',
         exact: true,
       }),
     });
@@ -244,7 +244,7 @@ for (const width of [320, 390, 1440])
       name: 'Playoff chance · higher is better',
     });
     await expect(playoffOdds.locator('thead th')).toHaveText([
-      'Manager',
+      'Team',
       'If win',
       'If lose',
     ]);
@@ -281,7 +281,7 @@ for (const width of [320, 390, 1440])
     await expect(
       lastOdds
         .locator('tbody tr')
-        .filter({ hasText: 'Manager 2' })
+        .filter({ hasText: 'Fixture team 2' })
         .locator('td'),
     ).toHaveText(['0%', '31%']);
     if (width === 320)
@@ -291,7 +291,7 @@ for (const width of [320, 390, 1440])
     const laterGame = bigWeeks
       .nth(1)
       .locator('.pc-game-title')
-      .filter({ hasText: 'Manager 1 vs Manager 2' });
+      .filter({ hasText: 'Fixture team 1 vs Fixture team 2' });
     await expect(laterGame).toHaveCount(1);
     await expect(laterGame).toBeHidden();
     await bigWeeks.nth(1).locator('summary').click();

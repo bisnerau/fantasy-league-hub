@@ -168,6 +168,8 @@ export function PlayoffChances({
   );
   const manager = (id: number) =>
     input?.teams.find((t) => t.id === id)?.manager ?? `Team ${id}`;
+  const teamName = (id: number) =>
+    input?.teams.find((t) => t.id === id)?.name ?? `Team ${id}`;
   function choose(key: string, value: string) {
     setScenario((old) => {
       const next = { ...old };
@@ -691,7 +693,7 @@ export function PlayoffChances({
           <h2 id="pc-stakes-title">Must win &amp; can’t lose</h2>
           <p className="pc-section-intro">
             Chasing a bye, hanging onto a playoff spot, or dodging the wooden
-            spoon. A must-win for one manager can be a can’t-lose for the other.
+            spoon. A must-win for one team can be a can’t-lose for the other.
             The top two earn a first-round playoff bye.
           </p>
           <p className="pc-footnote">
@@ -714,7 +716,7 @@ export function PlayoffChances({
                     <article className="pc-bubble pc-swing-game" key={game.key}>
                       <p className="ui-kicker">Matchup stakes</p>
                       <h3 className="pc-game-title">
-                        {manager(game.home)} vs {manager(game.away)}
+                        {teamName(game.home)} vs {teamName(game.away)}
                       </h3>
                       {(['bye', 'playoffs', 'avoid last'] as const).map(
                         (objective) => {
@@ -733,7 +735,7 @@ export function PlayoffChances({
                                 </caption>
                                 <thead>
                                   <tr>
-                                    <th scope="col">Manager</th>
+                                    <th scope="col">Team</th>
                                     <th scope="col">If win</th>
                                     <th scope="col">If lose</th>
                                   </tr>
@@ -743,7 +745,7 @@ export function PlayoffChances({
                                     <Fragment key={stake.rosterId}>
                                       <tr className="pc-stakes-probabilities">
                                         <th scope="row">
-                                          {manager(stake.rosterId)}
+                                          {teamName(stake.rosterId)}
                                           <span className="pc-stake-label">
                                             {stake.label}
                                           </span>
@@ -798,7 +800,7 @@ export function PlayoffChances({
                         },
                       )}
                       <p className="pc-footnote">
-                        Win / lose refers to each manager’s own result. pp =
+                        Win / lose refers to each team’s own result. pp =
                         percentage points.
                       </p>
                     </article>
@@ -824,7 +826,7 @@ export function PlayoffChances({
                 const stake = group[0];
                 return (
                   <article className="pc-bubble pc-stakes-card" key={key}>
-                    <h3>{manager(stake.rosterId)}</h3>
+                    <h3>{teamName(stake.rosterId)}</h3>
                     <StakeText stake={stake} scenario={isScenario} />
                     <ul className="pc-stakes-fixtures">
                       {group.map((game) => {
@@ -836,7 +838,7 @@ export function PlayoffChances({
                             <span>Week {fixture.week}</span>
                             <strong>
                               vs{' '}
-                              {manager(
+                              {teamName(
                                 fixture.home === game.rosterId
                                   ? fixture.away
                                   : fixture.home,
