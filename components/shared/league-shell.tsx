@@ -38,6 +38,7 @@ const icons: Record<string, LucideIcon> = {
   '/my-season': Users,
   '/records': BookOpen,
   '/standings': BarChart3,
+  '/playoff-chances': TrendingUp,
   '/power-rankings': TrendingUp,
   '/managers': Users,
   '/season-hub': BookOpen,

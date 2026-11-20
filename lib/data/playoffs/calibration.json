@@ -1,0 +1,15 @@
+{
+  "version": "2026-weeks4-10-v1",
+  "throughWeek": 10,
+  "samples": 661,
+  "positionVariance": {
+    "QB": 71.91548831199215,
+    "RB": 69.830684682504,
+    "WR": 76.99749367897272,
+    "TE": 43.05119854633955,
+    "K": 29.08503966263239,
+    "DEF": 30.841203815242068
+  },
+  "teamVarianceScale": 0.9883064649355586,
+  "summary": "Pooled squared pregame errors from frozen Weeks 4–10 base projections; 20 pooled observations shrink each position estimate. Team variance is fitted to unbanked lineup errors. Six chronological holdouts are descriptive, not proof of season-end calibration."
+}

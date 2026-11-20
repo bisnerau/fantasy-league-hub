@@ -1,0 +1,222 @@
+.playoff-page {
+  --pc-accent: #bef264;
+}
+.pc-hero {
+  border: 1px solid var(--border);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  background: linear-gradient(125deg, #132c24, #111c19 70%);
+  color: #f8faf5;
+  border-radius: 0.5rem;
+}
+.pc-hero h1 {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+  margin: 1rem 0;
+  max-width: 10ch;
+}
+.pc-hero h1 span {
+  color: var(--pc-accent);
+}
+.pc-hero-numbers {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.pc-hero-numbers strong {
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  font-variant-numeric: tabular-nums;
+}
+.pc-hero-numbers small {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  color: #a9beb2;
+}
+.playoff-page h2 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 0.25rem 0 1rem;
+}
+.pc-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.playoff-page select,
+.pc-scenarios button {
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: var(--background);
+  color: var(--foreground);
+  padding: 0.65rem;
+  min-height: 44px;
+  max-width: 100%;
+  font-size: 0.8rem;
+}
+.pc-scenarios button:disabled {
+  opacity: 0.4;
+}
+.pc-table {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.pc-table-head,
+.pc-team > summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.2rem 4.2rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+.pc-table-head {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-foreground);
+  background: var(--muted);
+}
+.pc-table-head span:not(:first-child) {
+  text-align: right;
+}
+.pc-team {
+  border-top: 1px solid var(--border);
+}
+.pc-team > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.pc-team > summary::-webkit-details-marker {
+  display: none;
+}
+.pc-team > summary:hover {
+  background: var(--muted);
+}
+.pc-team > summary strong {
+  font-size: 0.9rem;
+}
+.pc-team small {
+  display: block;
+  color: var(--muted-foreground);
+  font-size: 0.65rem;
+  margin-top: 0.25rem;
+}
+.pc-rank {
+  display: inline-block;
+  color: var(--muted-foreground);
+  font-size: 0.7rem;
+  margin-right: 0.6rem;
+}
+.pc-probability {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.pc-probability b {
+  font-size: 1.35rem;
+}
+.pc-playoff b {
+  color: var(--primary);
+}
+.pc-team-detail {
+  padding: 1rem;
+  background: var(--muted);
+  font-size: 0.8rem;
+}
+.pc-fixture {
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+}
+.pc-fixture span {
+  display: block;
+  color: var(--muted-foreground);
+  margin-top: 0.25rem;
+}
+.pc-stake {
+  border-left: 2px solid var(--primary);
+  padding-left: 0.7rem;
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.pc-notes {
+  padding: 1rem 0 1rem 1rem;
+  display: grid;
+  gap: 0.5rem;
+  list-style: disc;
+}
+.pc-footnote {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin-top: 0.7rem;
+}
+.pc-bubble-grid,
+.pc-scenario-grid {
+  display: grid;
+  gap: 1rem;
+}
+.pc-bubble {
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 0.35rem;
+  padding: 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+.pc-bubble h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0.5rem 0;
+}
+.pc-bubble h3 span {
+  color: var(--primary);
+}
+.pc-scenarios {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  font-size: 0.85rem;
+}
+.pc-scenario-grid {
+  margin-top: 1.5rem;
+}
+.pc-scenario-grid label {
+  font-size: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+}
+.pc-method {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.pc-method > summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.5rem 0 1rem;
+}
+@media (min-width: 640px) {
+  .pc-bubble-grid,
+  .pc-scenario-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pc-table-head,
+  .pc-team > summary {
+    grid-template-columns: minmax(0, 1fr) 7rem 7rem;
+  }
+}
+
+.pc-team > summary > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
