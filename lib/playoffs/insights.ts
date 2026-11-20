@@ -75,6 +75,16 @@ export type Stake = {
   loss: number | null;
   swing: number | null;
 };
+export type MatchStake = {
+  fixtureKey: string;
+  rosterId: number;
+  objective: 'bye' | 'playoffs' | 'avoid last';
+  label: 'Must win' | 'Can’t lose';
+  reason: string;
+  win: number;
+  loss: number;
+  swing: number;
+};
 type ProofGame = {
   a: number;
   b: number;
@@ -270,7 +280,7 @@ export function route(
 function distinct(
   a: ConditionalChances | null,
   b: ConditionalChances | null,
-  field: 'playoff' | 'last',
+  field: 'playoff' | 'last' | 'bye',
 ) {
   if (!a || !b) return false;
   const error = Math.sqrt(
@@ -282,7 +292,7 @@ function distinct(
 export function fixtureSwing(
   f: FixtureForecast,
   id: number,
-  field: 'playoff' | 'last' = 'playoff',
+  field: 'playoff' | 'last' | 'bye' = 'playoff',
 ) {
   const effect = f.effects.find((e) => e.rosterId === id);
   if (!effect || !distinct(effect.homeWin, effect.awayWin, field)) return null;
@@ -308,10 +318,16 @@ export function getInsights(
     (f) => !f.resolved && scenario[f.key] === undefined,
   );
   const stakes: Stake[] = [];
+  const matchStakes: MatchStake[] = [];
   for (const f of unresolved)
     for (const id of [f.home, f.away])
-      for (const objective of ['playoffs', 'avoid last'] as const) {
-        const field = objective === 'playoffs' ? 'playoff' : 'last',
+      for (const objective of ['bye', 'playoffs', 'avoid last'] as const) {
+        const field =
+            objective === 'playoffs'
+              ? 'playoff'
+              : objective === 'bye'
+                ? 'bye'
+                : 'last',
           k =
             objective === 'playoffs'
               ? input.playoffTeams
@@ -324,7 +340,10 @@ export function getInsights(
             (id === f.home ? effect?.awayWin : effect?.homeWin)?.[field] ??
             null;
         let label = '';
-        if (route(input, scenario, id, k, f.key, 'loss') === 'impossible') {
+        if (
+          objective !== 'bye' &&
+          route(input, scenario, id, k, f.key, 'loss') === 'impossible'
+        ) {
           const winRoute = route(input, scenario, id, k, f.key, 'win'),
             tieRoute = route(input, scenario, id, k, f.key, 'tie');
           if (tieRoute === 'possible') label = 'Can’t lose';
@@ -334,13 +353,43 @@ export function getInsights(
         const swing =
           win !== null && loss !== null ? Math.abs(win - loss) : null;
         if (
-          !label &&
+          win !== null &&
+          loss !== null &&
           swing !== null &&
           swing >= 0.2 &&
           fixtureSwing(f, id, field)
-        )
-          label = 'Big swing game';
-        if (label)
+        ) {
+          if (!label) label = 'Big swing game';
+          const rank = input.teams.find((t) => t.id === id)!.rank;
+          const chasing =
+            objective === 'bye'
+              ? rank > 2
+              : objective === 'playoffs'
+                ? rank > input.playoffTeams
+                : rank === input.teams.length;
+          matchStakes.push({
+            fixtureKey: f.key,
+            rosterId: id,
+            objective,
+            label: chasing ? 'Must win' : 'Can’t lose',
+            reason:
+              objective === 'bye'
+                ? chasing
+                  ? 'to chase a top-two bye'
+                  : 'to protect a top-two place'
+                : objective === 'playoffs'
+                  ? chasing
+                    ? 'to boost the playoff push'
+                    : 'to protect a playoff spot'
+                  : chasing
+                    ? 'to climb away from last place'
+                    : 'to avoid being dragged into last place',
+            win,
+            loss,
+            swing,
+          });
+        }
+        if (label && objective !== 'bye')
           stakes.push({
             fixtureKey: f.key,
             rosterId: id,
@@ -381,7 +430,7 @@ export function getInsights(
           effects.find((f) => f.home !== t.id && f.away !== t.id) ?? null,
       };
     });
-  return { bubble, stakes };
+  return { bubble, stakes, matchStakes };
 }
 export type Insights = ReturnType<typeof getInsights>;
 export function percentage(p: number, actual = false, ruledOut = false) {

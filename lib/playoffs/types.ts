@@ -81,7 +81,7 @@ export type ForecastInput = {
   calibration: Calibration;
 };
 export type Scenario = Record<string, number>;
-export type Chances = { playoff: number; last: number };
+export type Chances = { playoff: number; last: number; bye: number };
 export type ConditionalChances = Chances & { effectiveSamples: number };
 export type FixtureEffect = {
   rosterId: number;

@@ -124,7 +124,7 @@ for (const width of [320, 390, 1440])
       '12th',
     ]);
     const baselinePositions = await finishes.locator('dd').allTextContents();
-    const stakes = page.getByRole('region', { name: 'Must win & can’t lose' });
+    const stakes = page.locator('.pc-elimination-stakes');
     await expect(stakes.locator('article')).toHaveCount(12);
     await expect(stakes.locator('article').first()).toContainText('Can’t lose');
     await expect(stakes.locator('article').first()).toContainText(
@@ -194,6 +194,7 @@ for (const width of [320, 390, 1440])
     twoWeeks.teams = twoWeeks.teams.slice(0, 4);
     twoWeeks.teams.forEach((team, i) => {
       team.wins = [0, 1, 0, 4][i];
+      team.rank = [3, 2, 4, 1][i];
     });
     const fixtures = twoWeeks.fixtures.slice(0, 2);
     const lineups = twoWeeks.lineups.slice(0, 4);
@@ -219,9 +220,13 @@ for (const width of [320, 390, 1440])
     );
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/playoff-chances');
-    const stakes = page.getByRole('region', { name: 'Must win & can’t lose' });
+    const stakes = page.locator('.pc-elimination-stakes');
     const manager = stakes.locator('article').filter({
-      has: page.getByRole('heading', { name: 'Manager 1', exact: true }),
+      has: page.getByRole('heading', {
+        name: 'Manager 1',
+        exact: true,
+        includeHidden: true,
+      }),
     });
     await expect(manager.locator('li')).toHaveCount(2);
     await expect(manager.locator('.pc-stake')).toHaveCount(1);
@@ -229,7 +234,13 @@ for (const width of [320, 390, 1440])
     await expect(bigWeeks).toHaveCount(2);
     const firstBigWeek = bigWeeks.first();
     await expect(firstBigWeek.locator('.pc-swing-game')).toHaveCount(2);
-    const playoffOdds = firstBigWeek.getByRole('table', {
+    const firstGame = firstBigWeek.locator('.pc-swing-game').filter({
+      has: page.getByRole('heading', {
+        name: 'Manager 1 vs Manager 2',
+        exact: true,
+      }),
+    });
+    const playoffOdds = firstGame.getByRole('table', {
       name: 'Playoff chance · higher is better',
     });
     await expect(playoffOdds.locator('thead th')).toHaveText([
@@ -237,8 +248,33 @@ for (const width of [320, 390, 1440])
       'If win',
       'If lose',
     ]);
-    await expect(playoffOdds.locator('tbody th')).toContainText('Manager 2');
-    await expect(playoffOdds.locator('tbody td')).toHaveText(['90%', '41%']);
+    await expect(
+      page.getByRole('heading', { name: 'Must win & can’t lose', exact: true }),
+    ).toBeVisible();
+    await expect(playoffOdds.locator('.pc-stake-label')).toHaveText([
+      'Must win',
+      'Can’t lose',
+    ]);
+    const byeOdds = firstGame.getByRole('table', {
+      name: 'Top-two bye chance · higher is better',
+    });
+    await expect(byeOdds.locator('.pc-stakes-probabilities td')).toHaveText([
+      '43%',
+      '0%',
+      '90%',
+      '41%',
+    ]);
+    await expect(byeOdds.locator('.pc-stake-label')).toHaveText([
+      'Must win',
+      'Can’t lose',
+    ]);
+    await expect(stakes.locator('summary')).toHaveText(
+      'Mathematical elimination checks',
+    );
+    await expect(manager).toBeHidden();
+    await expect(playoffOdds.locator('.pc-stakes-probabilities td')).toHaveText(
+      ['43%', '0%', '90%', '41%'],
+    );
     const lastOdds = firstBigWeek
       .getByRole('table', { name: 'Last-place risk · lower is better' })
       .first();

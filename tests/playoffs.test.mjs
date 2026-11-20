@@ -77,12 +77,85 @@ void test('whole-league probabilities total the available positions, reproducibl
   validateResult(i, a);
   assert.ok(Math.abs(a.teams.reduce((s, t) => s + t.playoff, 0) - 6) < 1e-8);
   assert.equal(a.iterations, 100000);
+  assert.ok(Math.abs(a.teams.reduce((s, t) => s + t.bye, 0) - 2) < 1e-8);
   assert.ok(a.teams.every((t) => t.finishes.length === 12));
   for (let position = 0; position < 12; position++)
     assert.ok(
       Math.abs(a.teams.reduce((s, t) => s + t.finishes[position], 0) - 1) <
         1e-8,
     );
+});
+void test('top-two odds agree with an exactly calculable four-team final week', () => {
+  const i = input(4);
+  const base = simulate(i),
+    chosen = simulate(i, { '1:1': 1 });
+  validateResult(i, chosen);
+  assert.ok(base.teams.every((t) => Math.abs(t.bye - 0.5) < 0.01));
+  assert.equal(chosen.teams[0].bye, 1);
+  assert.equal(chosen.teams[1].bye, 0);
+  assert.equal(base.fixtures[0].effects[0].homeWin.bye, 1);
+  assert.equal(base.fixtures[0].effects[0].awayWin.bye, 0);
+  for (const team of chosen.teams)
+    assert.ok(Math.abs(team.bye - team.finishes[0] - team.finishes[1]) < 1e-8);
+});
+void test('availability-weighted scenarios preserve guaranteed byes and the 200% total', () => {
+  const i = input(4);
+  i.teams[0].wins = 7;
+  i.teams[1].wins = 7;
+  i.returns = [{ playerId: '3', earliestWeek: 1, latestWeek: 2 }];
+  i.lineups[2].players[0].available = false;
+  i.lineups[2].players[0].mean = 20;
+  const r = simulate(i, { '1:2': 3 });
+  validateResult(i, r);
+  assert.ok(r.effectiveSamples < 100000);
+  assert.deepEqual(
+    r.teams.map((t) => t.bye),
+    [1, 1, 0, 0],
+  );
+  assert.throws(
+    () =>
+      validateResult(i, {
+        ...r,
+        teams: r.teams.map((t, j) => (j === 0 ? { ...t, bye: 0.9 } : t)),
+      }),
+    /probability totals/,
+  );
+});
+void test('editorial bye labels distinguish a chaser from a holder in the same game', () => {
+  const i = input(12),
+    r = simulate(i);
+  i.teams[1].rank = 3;
+  i.teams[2].rank = 2;
+  const effect = r.fixtures[0].effects;
+  effect[0].homeWin.bye = 0.8;
+  effect[0].awayWin.bye = 0.4;
+  effect[1].homeWin.bye = 0.2;
+  effect[1].awayWin.bye = 0.7;
+  const takes = getInsights(i, r).matchStakes.filter(
+    (s) => s.fixtureKey === '1:1' && s.objective === 'bye',
+  );
+  assert.deepEqual(
+    takes.map((s) => [s.rosterId, s.label]),
+    [
+      [1, 'Can’t lose'],
+      [2, 'Must win'],
+    ],
+  );
+  assert.equal(takes[0].loss, 0.4);
+  assert.equal(takes[1].win, 0.7);
+  assert.match(takes[1].reason, /chase a top-two bye/);
+  assert.ok(
+    !getInsights(i, r, { '1:1': 1 }).matchStakes.some(
+      (s) => s.fixtureKey === '1:1',
+    ),
+  );
+  effect[1].awayWin.bye = 0.39;
+  assert.ok(
+    !getInsights(i, r).matchStakes.some(
+      (s) =>
+        s.fixtureKey === '1:1' && s.rosterId === 2 && s.objective === 'bye',
+    ),
+  );
 });
 void test('exact symmetric two-team league is 50/50; chosen winner qualifies', () => {
   const i = input();

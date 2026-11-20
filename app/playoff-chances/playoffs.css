@@ -512,14 +512,47 @@ body:has(.playoff-page) {
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
+.pc-stake-label {
+  display: block;
+  width: fit-content;
+  margin-top: 0.4rem;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--primary);
+  border-radius: 0.25rem;
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.pc-stakes-odds .pc-stakes-reason {
+  border-top: 0;
+  padding-top: 0;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+.pc-bye-odds {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  margin-bottom: 1rem;
+}
+.pc-bye-odds strong {
+  color: var(--primary);
+}
 .pc-elimination-stakes {
   border-top: 1px solid var(--border);
   margin-top: 1.5rem;
   padding-top: 1.5rem;
 }
-.pc-elimination-stakes > h3 {
+.pc-elimination-stakes > summary {
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  min-height: 44px;
+  cursor: pointer;
 }
 .pc-scenario-feedback {
   display: block;

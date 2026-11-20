@@ -98,17 +98,19 @@ export function validateResult(input: ForecastInput, result: ForecastResult) {
     result.teams.length !== input.teams.length ||
     result.teams.some(
       (t) =>
-        ![t.playoff, t.last].every(
+        ![t.playoff, t.last, t.bye].every(
           (p) => Number.isFinite(p) && p >= 0 && p <= 1,
         ),
     )
   )
     throw Error('Invalid forecast probabilities');
   const playoff = result.teams.reduce((s, t) => s + t.playoff, 0),
-    last = result.teams.reduce((s, t) => s + t.last, 0);
+    last = result.teams.reduce((s, t) => s + t.last, 0),
+    bye = result.teams.reduce((s, t) => s + t.bye, 0);
   if (
     Math.abs(playoff - input.playoffTeams) > 1e-8 ||
-    Math.abs(last - 1) > 1e-8
+    Math.abs(last - 1) > 1e-8 ||
+    Math.abs(bye - 2) > 1e-8
   )
     throw Error('Forecast probability totals failed');
   const n = input.teams.length;
@@ -122,7 +124,8 @@ export function validateResult(input: ForecastInput, result: ForecastResult) {
         team.finishes.slice(0, input.playoffTeams).reduce((s, p) => s + p, 0) -
           team.playoff,
       ) > 1e-8 ||
-      Math.abs(team.finishes[n - 1] - team.last) > 1e-8
+      Math.abs(team.finishes[n - 1] - team.last) > 1e-8 ||
+      Math.abs(team.finishes[0] + team.finishes[1] - team.bye) > 1e-8
     )
       throw Error('Invalid finishing-position probabilities');
   }
@@ -132,4 +135,16 @@ export function validateResult(input: ForecastInput, result: ForecastResult) {
       1e-8
     )
       throw Error('Finishing-position totals failed');
+  for (const fixture of result.fixtures)
+    for (const outcome of ['homeWin', 'awayWin'] as const) {
+      const effects = fixture.effects.map((e) => e[outcome]);
+      if (
+        effects.some(
+          (e) => e && (!Number.isFinite(e.bye) || e.bye < 0 || e.bye > 1),
+        ) ||
+        (effects.every((e) => e !== null) &&
+          Math.abs(effects.reduce((s, e) => s + e!.bye, 0) - 2) > 1e-8)
+      )
+        throw Error('Invalid conditional bye probabilities');
+    }
 }

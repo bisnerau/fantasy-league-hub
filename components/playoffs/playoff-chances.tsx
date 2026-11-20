@@ -2,7 +2,7 @@
 // Vite's worker query supplies the constructor as a generated default export.
 // eslint-disable-next-line import/default
 import ForecastWorker from './forecast.worker.ts?worker';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import type {
   ForecastResponse,
   ForecastResult,
@@ -24,7 +24,8 @@ function StakeText({ stake, scenario }: { stake: Stake; scenario: boolean }) {
   return (
     <p className="pc-stake">
       {scenario && 'In this scenario · '}
-      <strong>{stake.label}</strong> —{' '}
+      <strong>{stake.label}</strong>
+      {stake.label !== 'Big swing game' && ' (mathematical)'} —{' '}
       {stake.label === 'Big swing game'
         ? stake.objective === 'playoffs'
           ? 'playoff chances'
@@ -207,10 +208,8 @@ export function PlayoffChances({
     .map((fixture) => ({
       ...fixture,
       stakes:
-        insights?.stakes.filter(
-          (stake) =>
-            stake.fixtureKey === fixture.key &&
-            stake.label === 'Big swing game',
+        insights?.matchStakes.filter(
+          (stake) => stake.fixtureKey === fixture.key,
         ) ?? [],
     }))
     .filter((fixture) => fixture.stakes.length > 0)
@@ -420,6 +419,16 @@ export function PlayoffChances({
                 </summary>
                 <div className="pc-team-detail">
                   <p className="pc-team-name">{team.name}</p>
+                  <p className="pc-bye-odds">
+                    Top-two bye chance{' '}
+                    <strong>
+                      {percentage(
+                        chance.bye,
+                        result.final,
+                        bounds!.get(team.id)!.best > 2,
+                      )}
+                    </strong>
+                  </p>
                   <p className="ui-kicker">Remaining fixtures</p>
                   {result.fixtures
                     .filter((f) => f.home === team.id || f.away === team.id)
@@ -677,22 +686,25 @@ export function PlayoffChances({
       {!result.final && (
         <section id="pc-stakes" aria-labelledby="pc-stakes-title">
           <p className="ui-kicker">
-            {isScenario ? 'In this scenario' : 'NO ROOM FOR ERROR'}
+            {isScenario ? 'In this scenario' : 'THE PRESSURE IS ON'}
           </p>
-          <h2 id="pc-stakes-title">Games that matter</h2>
+          <h2 id="pc-stakes-title">Must win &amp; can’t lose</h2>
           <p className="pc-section-intro">
-            Playoff dreams and wooden-spoon worries. These games swing a
-            manager’s playoff chance or last-place risk by at least 20
-            percentage points. Big stakes, even when a defeat doesn’t end the
-            race.
+            Chasing a bye, hanging onto a playoff spot, or dodging the wooden
+            spoon. A must-win for one manager can be a can’t-lose for the other.
+            The top two earn a first-round playoff bye.
+          </p>
+          <p className="pc-footnote">
+            These labels describe the pressure of the game. A defeat can still
+            leave a route.
           </p>
           {swingWeeks.map((week, index) => (
             <details className="pc-stakes-week" key={week} open={index === 0}>
               <summary>
                 Week {week}
                 <span>
-                  {swingGames.filter((game) => game.week === week).length} big
-                  games
+                  {swingGames.filter((game) => game.week === week).length} to
+                  watch
                 </span>
               </summary>
               <div className="pc-bubble-grid">
@@ -700,11 +712,11 @@ export function PlayoffChances({
                   .filter((game) => game.week === week)
                   .map((game) => (
                     <article className="pc-bubble pc-swing-game" key={game.key}>
-                      <p className="ui-kicker">Big swing game</p>
+                      <p className="ui-kicker">Matchup stakes</p>
                       <h3 className="pc-game-title">
                         {manager(game.home)} vs {manager(game.away)}
                       </h3>
-                      {(['playoffs', 'avoid last'] as const).map(
+                      {(['bye', 'playoffs', 'avoid last'] as const).map(
                         (objective) => {
                           const stakes = game.stakes.filter(
                             (stake) => stake.objective === objective,
@@ -713,9 +725,11 @@ export function PlayoffChances({
                             stakes.length > 0 && (
                               <table className="pc-stakes-odds" key={objective}>
                                 <caption>
-                                  {objective === 'playoffs'
-                                    ? 'Playoff chance · higher is better'
-                                    : 'Last-place risk · lower is better'}
+                                  {objective === 'bye'
+                                    ? 'Top-two bye chance · higher is better'
+                                    : objective === 'playoffs'
+                                      ? 'Playoff chance · higher is better'
+                                      : 'Last-place risk · lower is better'}
                                 </caption>
                                 <thead>
                                   <tr>
@@ -726,43 +740,56 @@ export function PlayoffChances({
                                 </thead>
                                 <tbody>
                                   {stakes.map((stake) => (
-                                    <tr key={stake.rosterId}>
-                                      <th scope="row">
-                                        {manager(stake.rosterId)}
-                                        <small>
-                                          {(stake.swing! * 100).toFixed(1)} pp
+                                    <Fragment key={stake.rosterId}>
+                                      <tr className="pc-stakes-probabilities">
+                                        <th scope="row">
+                                          {manager(stake.rosterId)}
+                                          <span className="pc-stake-label">
+                                            {stake.label}
+                                          </span>
+                                        </th>
+                                        {(['win', 'loss'] as const).map(
+                                          (outcome) => {
+                                            const winner =
+                                              outcome === 'win'
+                                                ? stake.rosterId
+                                                : game.home === stake.rosterId
+                                                  ? game.away
+                                                  : game.home;
+                                            const range = (
+                                              winner === game.home
+                                                ? game.homeBounds
+                                                : game.awayBounds
+                                            ).get(stake.rosterId)!;
+                                            return (
+                                              <td key={outcome}>
+                                                {percentage(
+                                                  stake[outcome]!,
+                                                  false,
+                                                  objective === 'bye'
+                                                    ? range.best > 2
+                                                    : objective === 'playoffs'
+                                                      ? range.best >
+                                                        input.playoffTeams
+                                                      : range.worst <
+                                                        input.teams.length,
+                                                )}
+                                              </td>
+                                            );
+                                          },
+                                        )}
+                                      </tr>
+                                      <tr>
+                                        <td
+                                          colSpan={3}
+                                          className="pc-stakes-reason"
+                                        >
+                                          {stake.reason} ·{' '}
+                                          {(stake.swing * 100).toFixed(1)} pp
                                           swing
-                                        </small>
-                                      </th>
-                                      {(['win', 'loss'] as const).map(
-                                        (outcome) => {
-                                          const winner =
-                                            outcome === 'win'
-                                              ? stake.rosterId
-                                              : game.home === stake.rosterId
-                                                ? game.away
-                                                : game.home;
-                                          const range = (
-                                            winner === game.home
-                                              ? game.homeBounds
-                                              : game.awayBounds
-                                          ).get(stake.rosterId)!;
-                                          return (
-                                            <td key={outcome}>
-                                              {percentage(
-                                                stake[outcome]!,
-                                                false,
-                                                objective === 'playoffs'
-                                                  ? range.best >
-                                                      input.playoffTeams
-                                                  : range.worst <
-                                                      input.teams.length,
-                                              )}
-                                            </td>
-                                          );
-                                        },
-                                      )}
-                                    </tr>
+                                        </td>
+                                      </tr>
+                                    </Fragment>
                                   ))}
                                 </tbody>
                               </table>
@@ -781,19 +808,16 @@ export function PlayoffChances({
           ))}
           {insights && !swingGames.length && (
             <p className="pc-footnote">
-              No remaining games meet the big-swing threshold{' '}
+              No remaining games meet the pressure-game threshold{' '}
               {isScenario ? 'in this scenario' : 'in the current forecast'}.
             </p>
           )}
-          <section
-            className="pc-elimination-stakes"
-            aria-labelledby="pc-elimination-title"
-          >
-            <h3 id="pc-elimination-title">Must win &amp; can’t lose</h3>
+          <details className="pc-elimination-stakes">
+            <summary>Mathematical elimination checks</summary>
             <p className="pc-footnote">
               Must win: a tie or defeat ends the route. Can’t lose: defeat ends
-              it, but a tie keeps a route open. Only mathematically verified
-              consequences appear here.
+              it, but a tie keeps a route open. These checks use the literal
+              meanings, separately from the editorial labels above.
             </p>
             <div className="pc-bubble-grid">
               {[...stakeGroups].map(([key, group]) => {
@@ -832,7 +856,7 @@ export function PlayoffChances({
                 {isScenario ? 'in this scenario' : 'in the current forecast'}.
               </p>
             )}
-          </section>
+          </details>
         </section>
       )}
       {!result.final && (
@@ -1000,15 +1024,22 @@ export function PlayoffChances({
             model inputs.
           </p>
           <p>
-            “Must win” requires a proven route with a win and elimination with
-            either a tie or defeat. “Can’t lose” requires elimination with
-            defeat and a surviving route with a tie. The schedule proof includes
-            tied games and gives the team the benefit of unresolved scoring
-            tiebreakers when checking elimination. A surviving route needs a
-            consistent set of scores that reaches the required position,
-            respecting already fixed points. Inconclusive proofs receive no
-            absolute label. A “Big swing game” changes playoff or last-place
-            chance by at least 20 percentage points.
+            Matchup labels are editorial: “Must win” means chasing a top-two bye
+            or a playoff place, or trying to climb out of last; “Can’t lose”
+            means protecting a current top-two/top-six position or keeping away
+            from last. They use current standings and require a reliable
+            win-versus-loss swing of at least 20 percentage points for that
+            objective. Scenario picks update the odds; the current standings
+            remain the reference for the labels. Bye odds count finishes in
+            first or second in the same whole-league simulations, including the
+            points tiebreaks.
+          </p>
+          <p>
+            The separate mathematical checks include ties and favourable
+            unresolved scoring tiebreaks. A literal must-win requires a
+            surviving route with a win and elimination with a tie or defeat; a
+            literal can’t-lose still permits a route with a tie. Inconclusive
+            proofs receive no mathematical label.
           </p>
           <p>
             The limited archive supports scoring-error checks, not a claim of

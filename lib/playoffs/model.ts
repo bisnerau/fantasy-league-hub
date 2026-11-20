@@ -245,8 +245,9 @@ export function simulate(
   const counts = new Float64Array(n * 2),
     weights = new Float64Array(m * 3),
     squares = new Float64Array(m * 3);
-  const effects = new Float64Array(m * 3 * n * 2);
+  const effects = new Float64Array(m * 3 * n * 3);
   const finishCounts = new Float64Array(n * n);
+  const byeCounts = new Float64Array(n);
   let sum = 0,
     sumSquared = 0;
   for (let trial = 0; trial < iterations; trial++) {
@@ -257,6 +258,7 @@ export function simulate(
     for (let t = 0; t < n; t++) {
       if (playoffs[trial] & (1 << t)) counts[t * 2] += w;
       if (lasts[trial] === t) counts[t * 2 + 1] += w;
+      if (finishes[trial * n + t] < 2) byeCounts[t] += w;
       finishCounts[t * n + finishes[trial * n + t]] += w;
     }
     for (let j = 0; j < m; j++) {
@@ -264,8 +266,9 @@ export function simulate(
       weights[cell] += w;
       squares[cell] += w * w;
       for (let t = 0; t < n; t++) {
-        if (playoffs[trial] & (1 << t)) effects[cell * n * 2 + t * 2] += w;
-        if (lasts[trial] === t) effects[cell * n * 2 + t * 2 + 1] += w;
+        if (playoffs[trial] & (1 << t)) effects[cell * n * 3 + t * 3] += w;
+        if (lasts[trial] === t) effects[cell * n * 3 + t * 3 + 1] += w;
+        if (finishes[trial * n + t] < 2) effects[cell * n * 3 + t * 3 + 2] += w;
       }
     }
   }
@@ -274,8 +277,9 @@ export function simulate(
     const ess = squares[cell] ? weights[cell] ** 2 / squares[cell] : 0;
     return ess >= 1000
       ? {
-          playoff: effects[cell * n * 2 + t * 2] / weights[cell],
-          last: effects[cell * n * 2 + t * 2 + 1] / weights[cell],
+          playoff: effects[cell * n * 3 + t * 3] / weights[cell],
+          last: effects[cell * n * 3 + t * 3 + 1] / weights[cell],
+          bye: effects[cell * n * 3 + t * 3 + 2] / weights[cell],
           effectiveSamples: ess,
         }
       : null;
@@ -289,6 +293,7 @@ export function simulate(
       rosterId: t.id,
       playoff: counts[i * 2] / sum,
       last: counts[i * 2 + 1] / sum,
+      bye: byeCounts[i] / sum,
       finishes: Array.from(
         { length: n },
         (_, position) => finishCounts[i * n + position] / sum,
