@@ -486,3 +486,12 @@ audio Playwright checks passed, including the new episode’s homepage/archive
 placement, real MP3 playback, pause, keyboard seeking, duration and ON AIR state.
 Existing checks cover both themes and 320–1440px layouts. Physical iPhone Safari
 was unavailable; automated playback checks use Chromium.
+
+## Wednesday Week 12 update — 25 November
+
+Six settled Week 11 reviews and Week 12 rankings refresh the homepage. Shane
+takes first, Karl rises to second and Alan drops to third despite a fifth
+straight win. Talking points cover the four-team 5–6 playoff queue, Wednesday
+waivers and the early Thanksgiving kickoff. All Friday previews and calls stay
+unchanged, with Jack–Shane retained as the archived feature. See
+`research/2026-week-12.md` for sources and verification.

@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-11-25T11:51:21.464Z",
+  "fixtures": [
+    {
+      "matchup": 1,
+      "home": 100.2,
+      "away": 100.82,
+      "correct": false,
+      "words": 229
+    },
+    {
+      "matchup": 2,
+      "home": 98.4,
+      "away": 95.5,
+      "correct": true,
+      "words": 235
+    },
+    {
+      "matchup": 3,
+      "home": 135.1,
+      "away": 101.08,
+      "correct": true,
+      "words": 242
+    },
+    {
+      "matchup": 4,
+      "home": 102.86,
+      "away": 145.96,
+      "correct": false,
+      "words": 237
+    },
+    {
+      "matchup": 5,
+      "home": 97.04,
+      "away": 138.16,
+      "correct": true,
+      "words": 227
+    },
+    {
+      "matchup": 6,
+      "home": 133.56,
+      "away": 121.86,
+      "correct": false,
+      "words": 233
+    }
+  ],
+  "previewPreserved": true,
+  "rankings": [
+    10,
+    5,
+    6,
+    9,
+    3,
+    1,
+    2,
+    7,
+    8,
+    12,
+    11,
+    4
+  ],
+  "homepage": {
+    "rankingWeek": 12,
+    "reviewWeek": 11,
+    "reviews": 6,
+    "talkingPoints": 3
+  }
+}

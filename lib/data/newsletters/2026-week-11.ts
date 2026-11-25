@@ -4,6 +4,8 @@ import type { MatchupNewsletter } from '../matchup-newsletters';
 // Selected-lineup PPR estimates are frozen separately from best-lineup prices.
 export const weekElevenPublishedAt = '2026-11-20T09:11:40.650Z';
 
+export const weekElevenReviewPublishedAt = '2026-11-25T11:49:49.211Z';
+
 export const weekElevenReports: MatchupNewsletter[] = [
   {
     leagueId: '1389706813993160704',
@@ -60,6 +62,43 @@ export const weekElevenReports: MatchupNewsletter[] = [
         {
           label: 'Chiefs · Thursday practice report, 19 November',
           url: 'https://www.chiefs.com/news/week-11-injury-report-cardinals-vs-chiefs-2026',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekElevenReviewPublishedAt,
+      headline: 'Dave finds 0.62. Joe starts checking every seat.',
+      summary:
+        'Sharpe beat Ennis 100.82–100.20, turning the playoff cut into a four-man queue at 5–6. Joe still holds sixth on points, which is a remarkably small consolation for losing to the man ranked twelfth.',
+      sections: [
+        {
+          title: 'The new arrivals earn their keep',
+          text: 'Cam Ward supplied 22.22 and Drew Stevens added 16. Those two pickups gave Dave 38.22 in a week when his starting backs managed only 15.00 together. McMillan’s 19.10 did the remaining heavy lifting. Sharpe had scored 61.52 against Alan; crossing a hundred and winning by less than a point counts as a substantial improvement in customer service. The waiver-wire documentary has been renewed.',
+        },
+        {
+          title: 'Joe has several ways to annoy himself',
+          text: 'Purdy and Nabers combined for 40.70, but Skattebo’s 5.80 and Flournoy’s 2.10 left the door open. On the recorded bench, Braelon Allen outscored Gordon by 0.70: a position-compatible hindsight swap that would have made Joe the winner by 0.08. That does not establish an obvious pregame decision. It does provide enough arithmetic to ruin lunch.',
+        },
+        {
+          title: 'The Friday call: Joe Ennis — wrong',
+          text: 'We backed Joe’s consistency and got a 0.62-point answer from Dave. Ennis now leads Burns by 21.14 season points, with their direct meeting next. Wednesday brought Freiermuth and a $5 Cincinnati defence claim; LaPorta was full on Tuesday’s practice estimate. Joe has started renovating sixth before someone else moves in.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 11 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
+        },
+        {
+          label: 'Sleeper · completed moves, including 25 November waivers',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/11',
+        },
+        {
+          label:
+            'NFL, 24 November · Walker, Kincaid, LaPorta and Barkley practice updates',
+          url: 'https://fantasy-www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-tuesday-nov-24',
         },
       ],
     },
@@ -126,6 +165,48 @@ export const weekElevenReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekElevenReviewPublishedAt,
+      headline: 'Alan wins ugly. Murphy cannot afford the taste.',
+      summary:
+        'Horgan escaped 98.40–95.50 for a fifth straight win. Murphy had the week’s highest-scoring starter in Prescott and still finished last for team points. The defending champion is accepting all forms of payment.',
+      sections: [
+        {
+          title: 'Gibbs keeps the lights on',
+          text: 'Gibbs’ 27.80 and Burrow’s 19.90 accounted for nearly half of Alan’s score. Nobody else reached double figures. With Bowers on the bench, Waller contributed 7.20, while Burden returned 3.30. Alan would have lost to nine of the other eleven teams. Instead he reaches 8–3, although Shane’s much larger win takes the top seed on season points. The trophy apparently comes with breakdown cover.',
+        },
+        {
+          title: 'Dak needed one more volunteer',
+          text: 'Prescott’s 35.90 led every MAC 12 starter, and Cook added 17.20. The rest of Murphy’s lineup produced just 42.40. Metcalf’s 1.20 came in a game that ended with his ejection; Monday’s NFL report says a suspension is not expected. Hutchinson’s 3.30 and Minnesota’s zero left Aidan 2.90 short. Four straight defeats put a five-season playoff attendance record under serious threat.',
+        },
+        {
+          title: 'The Friday call: Alan Horgan — correct',
+          text: 'The winner was right; our comfortable-looking favourite needed almost every point. Murphy faces Dave next at 3–8, two wins behind the cut with three games remaining. Alan meets Shane for the lead and has replaced Dobbins with a $3 Perine claim after Denver announced a one-game suspension. Horgan’s next opponent is unlikely to accept 98.40.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 11 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
+        },
+        {
+          label:
+            'NFL, 23 November · Metcalf not expected to be suspended after ejection',
+          url: 'https://fantasy-www.nfl.com/news/steelers-dk-metcalf-not-expected-to-be-suspended-after-ejection-wr-subject-to-fines',
+        },
+        {
+          label: 'Sleeper · completed moves, including 25 November waivers',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/11',
+        },
+        {
+          label:
+            'NFL, 24 November · Walker, Kincaid, LaPorta and Barkley practice updates',
+          url: 'https://fantasy-www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-tuesday-nov-24',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -186,6 +267,42 @@ export const weekElevenReports: MatchupNewsletter[] = [
         {
           label: 'Titans · Thursday practice: Tate limited; Pollard rested',
           url: 'https://www.tennesseetitans.com/news/week-11-injury-report-titans-at-cowboys',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekElevenReviewPublishedAt,
+      headline: 'Burns gets help from the departments he normally blames.',
+      summary:
+        'The commissioner beat Tommy 135.10–101.08 and joined the 5–6 playoff queue. Kelce, Bass and Chicago supplied 57.40 between them. Shark Boy got a good first week from Moore and very little benefit from it.',
+      sections: [
+        {
+          title: 'The supporting cast submits an invoice',
+          text: 'Kelce led Burns with 25.40; Bass and Chicago’s defence contributed 16 apiece. Justice Hill added 17.60 with Kyren on bye. That covered Nix’s 11.50 and Chase’s 8.10, allowing Burns to win without needing his biggest names to rescue him. The six-season playoff streak survives another week. His $2 defence purchase has done considerably more for the campaign than several expensive conversations about quarterbacks.',
+        },
+        {
+          title: 'Moore did his part',
+          text: 'DJ Moore scored 23.10 on his first start for Tommy after the Nacua trade, and Irving added 19.00. Tyson and Monangai returned only 3.80 together, leaving too many places for Burns to build a lead. Herbert’s 22.44 on the bench would have improved the quarterback total by 6.46; it would still have left Tommy well beaten. This defeat needs more than a screenshot of the substitutes.',
+        },
+        {
+          title: 'The Friday call: Emmet Burns — correct',
+          text: 'Burns now trails Joe by 21.14 season points and plays him next. Tommy falls to 3–8 and gets Keenan. Pittsburgh has named Rudolph its Friday starter, and Tommy’s Wednesday $5 Watson claim drops Rodgers. Stafford remains another rostered option. The quarterback research continues; the number of weekends available to use it is shrinking.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 11 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
+        },
+        {
+          label: 'Sleeper · completed moves, including 25 November waivers',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/11',
+        },
+        {
+          label: 'NFL, 25 November · Rudolph replaces Rodgers for Friday',
+          url: 'https://fantasy-www.nfl.com/news/aaron-rodgers-will-be-inactive-for-steelers-friday-vs-broncos-mason-rudolph-to-start',
         },
       ],
     },
@@ -256,6 +373,43 @@ export const weekElevenReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekElevenReviewPublishedAt,
+      headline: 'Shane gives Jack another date to remember.',
+      summary:
+        'Marmion won Match of the Week 145.96–102.86, led the league’s scoring and took first in the standings. Jack’s calendar grievance remains intact. His share of the 8–3 club does not.',
+      sections: [
+        {
+          title: 'Lamb answers the preview',
+          text: 'We said Shane needed Lamb to make the argument. He supplied 30.20, Hubbard added 26.00 and Kittle scored 18.40. Stroud’s banked 20.46 gave that group a solid starting point. The Friday additions helped too: Dike and San Francisco returned 28.30 together. Shane did all this with Smith-Njigba on bye and Nacua still on IR. Ringrose has previously put Marmion in a calendar; this edition belongs in the results archive.',
+        },
+        {
+          title: 'Last week’s fireworks do not carry over',
+          text: 'McCaffrey dropped from 46.30 to 14.20, Allen managed 12.16, and Jack finished 69.18 below his Week 10 total. The late Mayer pickup filled the tight-end slot but returned only 1.40. Henry and Jameson Williams supplied 38.40 together, enough to keep the score respectable without seriously troubling Shane. The final margin was 43.10. There is no disputed eight-team trophy argument that reduces it.',
+        },
+        {
+          title: 'The Friday call: Jack Ringrose — wrong',
+          text: 'We favoured Jack’s remaining core and underestimated Shane’s replacements. Marmion leads Alan by 46.88 season points before their Week 12 meeting; Jack is 7–4 and faces Hugo. Kincaid was limited in Tuesday’s walkthrough, encouraging without confirming a Thanksgiving return. The feature pick was wrong, and this week’s No.1 belongs to Shane.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 11 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
+        },
+        {
+          label: 'Sleeper · completed moves, including 25 November waivers',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/11',
+        },
+        {
+          label:
+            'NFL, 24 November · Walker, Kincaid, LaPorta and Barkley practice updates',
+          url: 'https://fantasy-www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-tuesday-nov-24',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -315,6 +469,44 @@ export const weekElevenReports: MatchupNewsletter[] = [
         },
       ],
     },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekElevenReviewPublishedAt,
+      headline: 'Keenan borrows Niall’s missing running back points.',
+      summary:
+        'Andrew beat Murray 138.16–97.04 for a second straight win. Johnson delivered again while Walker was absent, and Keenan now has a two-win cushion over the four managers arguing about sixth.',
+      sections: [
+        {
+          title: 'Johnson makes himself useful again',
+          text: 'Emmett Johnson followed 35.10 with another 24.30, while Jeanty led Andrew with 27.90. Add Barkley’s 13.50 and the three starting backs supplied 65.70. Goff’s 20.36 and Flowers’ 16.40 gave the rest of the team enough support. Keenan has gone from relying on the memory of a 4–0 start to winning two games in November. The old championship CV finally has a recent attachment.',
+        },
+        {
+          title: 'Niall runs out of contributions',
+          text: 'Hall, Olave and Washington combined for 56.50, but Lawrence returned 12.74 and Likely 4.50. Evans scored 22.90 on the bench; even replacing Downs’ 9.90 would have left a 28.12-point defeat. The 41.12 margin was too large for one hindsight correction. Murray falls to 5–6, just 2.12 season points behind Burns and 23.26 behind Joe.',
+        },
+        {
+          title: 'The Friday call: Andrew Keenan — correct',
+          text: 'Our underdog pick lands. Walker returned to limited practice Tuesday, so the same Chiefs news now offers Niall hope and creates uncertainty over Johnson’s next workload. Barkley was full Tuesday; Jacobs is questionable for the Wednesday US game. Andrew faces Tommy, while Niall gets Karl. Murray’s next recovery attempt has acquired a substantially less charitable opponent.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 11 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
+        },
+        {
+          label:
+            'NFL, 24 November · Walker, Kincaid, LaPorta and Barkley practice updates',
+          url: 'https://fantasy-www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-tuesday-nov-24',
+        },
+        {
+          label:
+            'Packers, 24 November · Jacobs questionable for Wednesday’s Rams game',
+          url: 'https://www.packers.com/news/packers-list-eight-questionable-vs-rams-week-12-injury-report',
+        },
+      ],
+    },
   },
   {
     leagueId: '1389706813993160704',
@@ -371,6 +563,38 @@ export const weekElevenReports: MatchupNewsletter[] = [
         {
           label: 'Chargers–Jets · Thursday practice report, 19 November',
           url: 'https://www.chargers.com/news/chargers-vs-jets-injury-report-ladd-mcconkey-daiyan-henley-week-10-2026',
+        },
+      ],
+    },
+    review: {
+      version: 1,
+      editorial: true,
+      publishedAt: weekElevenReviewPublishedAt,
+      headline: 'Karl’s emergency back scores 34.90. Complaint withdrawn.',
+      summary:
+        'Moroney beat Hugo 133.56–121.86 with Bijan and Corum on bye. Jonah Coleman made the replacements argument disappear, and Walsh’s fourth straight defeat leaves him one win adrift at the bottom.',
+      sections: [
+        {
+          title: 'The cover becomes the headline',
+          text: 'Coleman’s 34.90 was the highest running-back score in any MAC 12 starting lineup. Pickens supplied another 23.80 and McBride added 14.80. Karl had enough to reach 8–3 despite Wilson’s 6.90 and the missing regular backs. Our Friday preview treated the bye week as a reason to lean Hugo. Moroney is entitled to retain that paragraph for use in every future disagreement.',
+        },
+        {
+          title: 'Hugo improves and still loses',
+          text: 'Mahomes and Javonte combined for 49.06, Montgomery added 15.40 and the defence scored 13. Walsh’s 121.86 was better than his previous two efforts, but Taylor’s 6.70 and Andrews’ 3.40 left him chasing. McConkey scored 20.70 on the bench after the back-injury concern. Swapping him for Bernard’s 10.00 in hindsight still leaves Hugo 1.00 short. Even the imaginary escape route requires another turn.',
+        },
+        {
+          title: 'The Friday call: Hugo Walsh — wrong',
+          text: 'We narrowly backed Hugo’s available backfield; Coleman settled that debate. Karl gets Niall next with Bijan’s bye finished. Hugo faces Jack at 2–9, one win behind Tommy and Murphy with three regular-season games left. Wednesday’s $4 Strange claim replaces Andrews after one start. The tight-end position has received a shorter probation period than most summer jobs.',
+        },
+      ],
+      sources: [
+        {
+          label: 'Sleeper · Week 11 results and recorded player points',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
+        },
+        {
+          label: 'Sleeper · completed moves, including 25 November waivers',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/11',
         },
       ],
     },
