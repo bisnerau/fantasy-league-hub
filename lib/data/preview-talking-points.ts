@@ -7,9 +7,33 @@ import { weekEightPublishedAt } from './newsletters/2026-week-8';
 import { weekNinePublishedAt } from './newsletters/2026-week-9';
 import { weekTenPublishedAt } from './newsletters/2026-week-10';
 import { weekElevenPublishedAt } from './newsletters/2026-week-11';
+import { weekTwelvePublishedAt } from './newsletters/2026-week-12';
 
 // Preview-day homepage copy is separate from the frozen Tuesday ranking archive.
 const editions = [
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 12,
+    publishedAt: weekTwelvePublishedAt,
+    points: [
+      {
+        title: 'Burns and Joe fight for the last seat.',
+        text: 'Both are 5–6, with Joe holding sixth by 21.14 season points. Kyren has Burns 16.50–4.90 ahead after the opener. Our Thanksgiving call narrowly backs the commissioner; Purdy’s ankle leaves Joe with a quarterback check before Sunday.',
+        href: '/matchups?week=12#matchup-2',
+      },
+      {
+        title: 'Corum has eaten. Alan and Shane want the head of the table.',
+        text: 'Karl has 28.50 from Corum against Niall, who is without Walker again. Alan and Shane meet at 8–3, with eleven Rams defence points already banked for Shane. Keenan’s Thanksgiving-heavy lineup gives Tommy an early examination in the forfeit fight.',
+        href: '/matchups?week=12',
+      },
+      {
+        title: 'Football starts early. Picks still close Sunday at six.',
+        text: 'Thanksgiving outlooks include the completed Packers–Rams game. Thursday’s slate begins at 18:00 Irish time; Chiefs–Bills starts at 01:20 Friday, followed by Broncos–Steelers at 20:00 Friday. Your six picks and Banker still close at 18:00 Irish time on Sunday 29 November. Check Sleeper lineups before each player’s game.',
+        href: '/matchups?week=12',
+      },
+    ],
+  },
   {
     leagueId: '1389706813993160704',
     season: '2026',

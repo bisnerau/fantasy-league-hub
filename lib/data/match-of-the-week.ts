@@ -7,6 +7,7 @@ import { weekEightPublishedAt } from './newsletters/2026-week-8';
 import { weekNinePublishedAt } from './newsletters/2026-week-9';
 import { weekTenPublishedAt } from './newsletters/2026-week-10';
 import { weekElevenPublishedAt } from './newsletters/2026-week-11';
+import { weekTwelvePublishedAt } from './newsletters/2026-week-12';
 
 export type MatchOfTheWeek = NewsletterKey & {
   selectedAt: string;
@@ -147,6 +148,19 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
       'Friday selection, after Indianapolis–Houston: Jack and Shane are both 7–3, with a playoff bye in reach. Stroud has banked 20.46 for Shane; Jack brings last week’s league-high 172.04 and a long memory about the 2024 punishment calendar.',
     buildUp:
       'The calendar rivalry gets a game worthy of the grievance. Jack is 4/6 to Shane’s 6/4, with Thursday’s points already included. We take Ringrose on Allen, McCaffrey and Jefferson, but Kincaid and Matt Gay both missed Thursday practice and their final status needs checking. Shane has Lamb and Kittle, while Nacua remains on IR and Smith-Njigba has his bye. This is a Friday call with the opening game known. Jack has previously settled this argument through photography; a win would be easier to display on the standings page.',
+  },
+  {
+    leagueId: '1389706813993160704',
+    season: '2026',
+    week: 12,
+    sleeperMatchupId: 2,
+    homeRosterId: 1,
+    awayRosterId: 7,
+    selectedAt: weekTwelvePublishedAt,
+    reason:
+      'Thanksgiving selection after Green Bay–Los Angeles: Burns and Joe are both 5–6, separated by 21.14 season points around the last playoff place. Kyren has Burns 16.50–4.90 ahead, with three regular-season games left to protect six years of perfect playoff attendance.',
+    buildUp:
+      'One seat left at the table and two managers who think they booked it. Joe holds sixth; Burns can move a win ahead of him. The prices are 10/11 Burns and 11/10 Joe, with the opening points already included. We narrowly take Burns, while Purdy’s ankle needs monitoring and Joe has Hurts on IR as his only other rostered quarterback. This is a Thanksgiving call made after the opener. Neither can clinch here, but the loser will have considerably less appetite for the league table.',
   },
 ];
 

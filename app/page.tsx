@@ -8,6 +8,7 @@ import { LeagueWire } from '@/components/clubhouse/league-wire';
 import { MatchTicket } from '@/components/clubhouse/match-ticket';
 import { RankingsDeck } from '@/components/clubhouse/rankings-deck';
 import { Scoreboard } from '@/components/clubhouse/scoreboard';
+import { ThanksgivingWeek } from '@/components/clubhouse/thanksgiving-week';
 import { ShameSticker } from '@/components/clubhouse/shame-sticker';
 import { MacHomepageFeature } from '@/components/return-of-the-mac/broadcast';
 import { getMacEpisodes, macShow } from '@/lib/data/return-of-the-mac';
@@ -274,6 +275,7 @@ export default async function DashboardPage() {
             data.
           </output>
         )}
+        <ThanksgivingWeek data={predictions} />
         <PicksHero
           feature={
             featuredMatchup
