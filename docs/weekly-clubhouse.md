@@ -270,7 +270,10 @@ team and two teams per fixture, and every diagonal record must match the
 current standings. Missing or inconsistent data shows an unavailable message;
 no partial matrix or invented zero scores are displayed. The table has sticky
 team labels and column headers inside a keyboard-focusable scroll region.
-It is read-only and updates with the standings feed.
+On phones, a full-width team picker shows that team's records on all schedules
+in a vertical list, with its actual record and better/worse comparisons. The
+full matrix appears from the tablet breakpoint (768px). Both views use the same
+verified records. It is read-only and updates with the standings feed.
 
 The e2e fixture's opt-in `standings: 'played'` flag serves two completed weeks with matching roster records.
 
