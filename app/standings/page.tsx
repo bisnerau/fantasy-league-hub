@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CutLineHero } from '@/components/standings/cut-line-hero';
 import { LeagueTable } from '@/components/standings/league-table';
 import { PointsRace } from '@/components/standings/points-race';
+import { ScheduleMatrixTable } from '@/components/standings/schedule-matrix';
 import { SuperlativesRail } from '@/components/standings/superlatives-rail';
 import { getDashboardData } from '@/lib/data/dashboard';
 import { gamesPlayed, getCutLine, getSuperlatives } from '@/lib/data/standings';
@@ -66,6 +67,12 @@ export default async function StandingsPage() {
               week={played}
             />
           </section>
+
+          <ScheduleMatrixTable
+            standings={data.standings}
+            matrix={data.scheduleMatrix}
+            played={played}
+          />
 
           {superlatives.length > 0 && <SuperlativesRail items={superlatives} />}
           {pointsKnown && <PointsRace standings={data.standings} />}

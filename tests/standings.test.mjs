@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import {
   compareStandings,
   getCutLine,
+  getScheduleMatrix,
   getSuperlatives,
   getWeeklyPerformance,
   sortStandings,
@@ -156,4 +157,119 @@ void test('superlatives hide when their inputs are missing', () => {
   assert.equal(getSuperlatives(rows).at(-1).value, '2-0 · all-play 3-3');
   const bare = ranked([team(1, 1, 0, null), team(2, 0, 1, null)]);
   assert.deepEqual(getSuperlatives(bare), []);
+});
+
+void test('schedule matrix replays weekly opponents and swaps self-matchups with the schedule owner', () => {
+  const teams = [...sleeper].sort((a, b) => a.rosterId - b.rosterId);
+  const original = structuredClone({ teams, weeks });
+  const matrix = getScheduleMatrix(teams, weeks);
+  assert.equal(matrix.throughWeek, 2);
+  // Rows supply scores; columns supply schedules. Every actual record is 1-1.
+  // Team 1 on team 2's schedule faces team 2 in their original meeting,
+  // then team 3: 120 > 100, 95 > 80. A self-tie would incorrectly give 1-0-1.
+  assert.deepEqual(
+    matrix.rows.map((row) =>
+      row.records.map((r) => [r.wins, r.losses, r.ties]),
+    ),
+    [
+      [
+        [1, 1, 0],
+        [2, 0, 0],
+        [1, 1, 0],
+        [1, 1, 0],
+      ],
+      [
+        [0, 2, 0],
+        [1, 1, 0],
+        [2, 0, 0],
+        [1, 1, 0],
+      ],
+      [
+        [1, 1, 0],
+        [0, 2, 0],
+        [1, 1, 0],
+        [1, 1, 0],
+      ],
+      [
+        [1, 1, 0],
+        [1, 1, 0],
+        [1, 1, 0],
+        [1, 1, 0],
+      ],
+    ],
+  );
+  for (const row of matrix.rows) {
+    const actual = row.records.find((r) => r.scheduleRosterId === row.rosterId);
+    assert.equal(actual.wins, 1);
+    assert.equal(actual.losses, 1);
+    assert.ok(row.records.every((r) => r.wins + r.losses + r.ties === 2));
+  }
+  assert.deepEqual({ teams, weeks }, original);
+  const reversed = getScheduleMatrix(
+    [...teams].reverse(),
+    weeks.map((w) => [...w].reverse()),
+  );
+  assert.deepEqual(
+    reversed.rows.map((r) => r.rosterId),
+    [4, 3, 2, 1],
+  );
+  assert.deepEqual(reversed.rows.at(-1).records.at(-2), {
+    scheduleRosterId: 2,
+    wins: 2,
+    losses: 0,
+    ties: 0,
+  });
+});
+
+void test('schedule matrix respects real zero scores, custom scoring and ties', () => {
+  const scored = week([1, 0], [2, 0], [3, 100], [4, 10]);
+  scored[2].custom_points = 0;
+  const teams = [
+    team(1, 0, 0, 0, { ties: 1 }),
+    team(2, 0, 0, 0, { ties: 1 }),
+    team(3, 0, 1, 0),
+    team(4, 1, 0, 10),
+  ];
+  const matrix = getScheduleMatrix(teams, [scored]);
+  assert.deepEqual(matrix.rows[0].records[0], {
+    scheduleRosterId: 1,
+    wins: 0,
+    losses: 0,
+    ties: 1,
+  });
+  assert.deepEqual(matrix.rows[2].records[0], {
+    scheduleRosterId: 1,
+    wins: 0,
+    losses: 0,
+    ties: 1,
+  });
+  assert.deepEqual(matrix.rows[2].records[2], {
+    scheduleRosterId: 3,
+    wins: 0,
+    losses: 1,
+    ties: 0,
+  });
+});
+
+void test('schedule matrix withholds incomplete, ambiguous or unverified seasons', () => {
+  assert.equal(getScheduleMatrix(sleeper, []), null);
+  assert.equal(getScheduleMatrix([], weeks), null);
+  assert.equal(getScheduleMatrix(sleeper, weeks.slice(0, 1)), null);
+  const incomplete = structuredClone(weeks);
+  incomplete[0][1].points = null;
+  assert.equal(getScheduleMatrix(sleeper, incomplete), null);
+  for (const invalid of [
+    weeks[0].slice(0, -1),
+    [weeks[0][0], weeks[0][0], ...weeks[0].slice(2)],
+    weeks[0].map((entry) => ({ ...entry, matchup_id: 1 })),
+    weeks[0].map((entry) => ({ ...entry, matchup_id: null })),
+  ])
+    assert.equal(getScheduleMatrix(sleeper, [invalid, weeks[1]]), null);
+  assert.equal(
+    getScheduleMatrix(
+      sleeper.map((t) => ({ ...t, wins: 2 })),
+      weeks,
+    ),
+    null,
+  );
 });

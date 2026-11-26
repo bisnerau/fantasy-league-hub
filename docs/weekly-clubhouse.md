@@ -256,6 +256,22 @@ money; the betting look is styling only.
 - **Movement and replay.** Movement is recalculated from the weekly matchups. It shows only when replaying every week reproduces Sleeper's current order and records exactly, and it's hidden before two completed weeks. The first time the table scrolls into view, the rows jump to last week's order and glide to this week's order (a FLIP reorder in `components/effects/reorder-list.tsx`). "Replay Week N" repeats it. Reduced motion skips the replay, and sort changes reorder instantly.
 - **Below the table.** A superlatives rail (top scorer, toughest schedule, luckiest against all-play) and a points race whose bars grow once into view. A missing score is shown as "—", never zero, and each card hides without its inputs.
 
+The schedule-swap matrix sits immediately below the league table. Rows supply
+each team's actual weekly scores; columns supply another team's weekly opponents.
+When that opponent would be the row team itself, the schedule owner takes its
+place, preserving their original head-to-head meeting. This rule was approved
+by the commissioner on 26 November 2026. Tied scores remain ties. The outlined
+diagonal shows actual records; green and amber compare wins, counting a tie as
+half a win, against that team's real record.
+
+It reuses the dashboard's completed regular-season matchup reads, excluding
+the current week and playoffs. Every week must contain one scored entry per
+team and two teams per fixture, and every diagonal record must match the
+current standings. Missing or inconsistent data shows an unavailable message;
+no partial matrix or invented zero scores are displayed. The table has sticky
+team labels and column headers inside a keyboard-focusable scroll region.
+It is read-only and updates with the standings feed.
+
 The e2e fixture's opt-in `standings: 'played'` flag serves two completed weeks with matching roster records.
 
 ## Week 3 edition

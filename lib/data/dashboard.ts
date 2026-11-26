@@ -10,7 +10,9 @@ import {
 } from '@/lib/sleeper/client';
 import {
   compareStandings,
+  getScheduleMatrix,
   getWeeklyPerformance,
+  type ScheduleMatrix,
   type TeamStanding,
 } from '@/lib/data/standings';
 import { rosterScore } from '@/lib/sleeper/scores';
@@ -39,6 +41,7 @@ export type DashboardData = {
   leagueStatus: SleeperLeague['status'] | null;
   standings: TeamStanding[];
   weeklyHistoryAvailable: boolean;
+  scheduleMatrix: ScheduleMatrix | null;
   /** Playoff places; Sleeper's setting, else the league's six-team bracket. */
   playoffTeams: number;
   draft: {
@@ -193,6 +196,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     leagueStatus: null,
     standings: [],
     weeklyHistoryAvailable: false,
+    scheduleMatrix: null,
     playoffTeams: 6,
     draft: null,
     reigningChampion: null,
@@ -233,17 +237,19 @@ export async function getDashboardData(): Promise<DashboardData> {
       ).catch(() => null),
     ]);
     const draft = drafts.find((entry) => entry.season === league.season);
+    const standings = getWeeklyPerformance(
+      createStandings(rosters, users),
+      completedWeeks ?? [],
+    );
     return {
       mode: 'live',
       leagueName: league.name,
       season: league.season,
       week,
       leagueStatus: league.status,
-      standings: getWeeklyPerformance(
-        createStandings(rosters, users),
-        completedWeeks ?? [],
-      ),
+      standings,
       weeklyHistoryAvailable: completedWeeks != null,
+      scheduleMatrix: getScheduleMatrix(standings, completedWeeks ?? []),
       playoffTeams:
         Number(league.settings.playoff_teams) > 0
           ? Number(league.settings.playoff_teams)

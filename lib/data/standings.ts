@@ -201,6 +201,96 @@ export const gamesPlayed = (team: Record3) =>
 export const formatRecord = (team: Record3) =>
   `${team.wins}-${team.losses}${team.ties ? `-${team.ties}` : ''}`;
 
+export type ScheduleMatrix = {
+  throughWeek: number;
+  rows: {
+    rosterId: number;
+    records: (Record3 & { scheduleRosterId: number })[];
+  }[];
+};
+
+/** Replays each team's weekly scores against every completed schedule. */
+export function getScheduleMatrix(
+  standings: Pick<TeamStanding, 'rosterId' | 'wins' | 'losses' | 'ties'>[],
+  weeks: SleeperMatchup[][],
+): ScheduleMatrix | null {
+  if (!weeks.length || standings.length < 2) return null;
+  const ids = new Set(standings.map((team) => team.rosterId));
+  if (ids.size !== standings.length) return null;
+  const history: {
+    scores: Map<number, number>;
+    opponents: Map<number, number>;
+  }[] = [];
+
+  for (const week of weeks) {
+    if (week.length !== ids.size) return null;
+    const scores = new Map<number, number>();
+    const fixtures = new Map<number, number[]>();
+    for (const entry of week) {
+      const points = matchupScore(entry);
+      if (
+        !ids.has(entry.roster_id) ||
+        scores.has(entry.roster_id) ||
+        entry.matchup_id == null ||
+        points == null
+      )
+        return null;
+      scores.set(entry.roster_id, points);
+      const pair = fixtures.get(entry.matchup_id) ?? [];
+      pair.push(entry.roster_id);
+      fixtures.set(entry.matchup_id, pair);
+    }
+    const opponents = new Map<number, number>();
+    for (const pair of fixtures.values()) {
+      if (pair.length !== 2) return null;
+      opponents.set(pair[0], pair[1]);
+      opponents.set(pair[1], pair[0]);
+    }
+    history.push({ scores, opponents });
+  }
+
+  const rows = standings.map((team) => ({
+    rosterId: team.rosterId,
+    records: standings.map((schedule) => {
+      const record = {
+        scheduleRosterId: schedule.rosterId,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+      };
+      for (const { scores, opponents } of history) {
+        const scheduledOpponent = opponents.get(schedule.rosterId)!;
+        // Swapping schedules preserves the original head-to-head meeting.
+        const opponent =
+          scheduledOpponent === team.rosterId
+            ? schedule.rosterId
+            : scheduledOpponent;
+        const points = scores.get(team.rosterId)!;
+        const against = scores.get(opponent)!;
+        if (points > against) record.wins += 1;
+        else if (points < against) record.losses += 1;
+        else record.ties += 1;
+      }
+      return record;
+    }),
+  }));
+
+  // Do not display a partial season or results that disagree with the table.
+  if (
+    rows.some((row, index) => {
+      const actual = row.records[index];
+      const team = standings[index];
+      return (
+        actual.wins !== team.wins ||
+        actual.losses !== team.losses ||
+        actual.ties !== team.ties
+      );
+    })
+  )
+    return null;
+  return { throughWeek: weeks.length, rows };
+}
+
 const plural = (value: number, word: string) =>
   `${value} ${word}${value === 1 ? '' : 's'}`;
 
