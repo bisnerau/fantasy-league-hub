@@ -531,3 +531,10 @@ celebrations are bounded and respect reduced motion. The existing Week 12
 league/date/settlement gate controls all holiday styling. See
 `research/2026-week-12-friday-refresh.md` for evidence, animation references and
 verification.
+
+The turkey's replayable Griddy uses alternating heel kicks, wing swings and a
+brief goggles pose. It runs for 2.88 seconds on arrival or tap/keyboard replay,
+and stays still with reduced motion. The written Thanksgiving Return of the
+Mac special and its source snapshot are in `output/return-of-the-mac/`; the
+spoken-only file is ready to record. This draft does not publish a new audio
+episode.

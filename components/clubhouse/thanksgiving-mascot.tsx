@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { spark } from '@/components/effects/click-spark';
 
-/** Original SVG artwork; a short, replayable celebration rather than a loop. */
+/** Original SVG artwork with a short, replayable Griddy. */
 export function ThanksgivingMascot() {
   const [celebration, setCelebration] = useState(0);
   return (
@@ -11,7 +11,7 @@ export function ThanksgivingMascot() {
       <button
         type="button"
         className="feast-mascot"
-        aria-label="Make the turkey celebrate"
+        aria-label="Make the turkey do the Griddy"
         onClick={(event) => {
           setCelebration((count) => count + 1);
           spark(event.currentTarget, { thanksgiving: true });
@@ -67,13 +67,27 @@ export function ThanksgivingMascot() {
                 </g>
               ))}
             </g>
-            <path
-              d="M119 203L112 227M157 203L164 227M103 230L113 225L122 229M154 230L164 225L174 230"
+            <g
               stroke="#efb158"
               strokeWidth="7"
               strokeLinecap="round"
               strokeLinejoin="round"
-            />
+            >
+              <g className="feast-leg feast-leg-left">
+                <path d="M119 199L114 215L112 227" />
+                <path
+                  className="feast-foot-left"
+                  d="M103 230L113 225L122 229"
+                />
+              </g>
+              <g className="feast-leg feast-leg-right">
+                <path d="M157 199L162 215L164 227" />
+                <path
+                  className="feast-foot-right"
+                  d="M154 230L164 225L174 230"
+                />
+              </g>
+            </g>
             <ellipse
               cx="140"
               cy="164"
@@ -96,36 +110,34 @@ export function ThanksgivingMascot() {
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <g className="feast-wing">
+            <g className="feast-wing feast-wing-left">
               <path
-                d="M181 149Q226 113 232 133Q226 157 191 178"
+                d="M97 149Q61 160 58 186Q78 190 104 169"
                 fill="#905131"
                 stroke="#2d201a"
                 strokeWidth="3"
               />
               <path
-                d="M207 143L222 133M206 151L224 141"
+                d="M69 171L65 181M77 170L73 183"
                 stroke="#e6a55c"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
             </g>
-            <ellipse
-              cx="99"
-              cy="172"
-              rx="34"
-              ry="19"
-              transform="rotate(-30 99 172)"
-              fill="#9f4d2c"
-              stroke="#f5c989"
-              strokeWidth="3"
-            />
-            <path
-              d="M84 180L112 164M91 170L98 180M100 164L107 174"
-              stroke="#fff1d7"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
+            <g className="feast-wing feast-wing-right">
+              <path
+                d="M183 149Q219 160 222 186Q202 190 176 169"
+                fill="#905131"
+                stroke="#2d201a"
+                strokeWidth="3"
+              />
+              <path
+                d="M211 171L215 181M203 170L207 183"
+                stroke="#e6a55c"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </g>
             <path
               d="M119 139V110Q118 87 141 87Q166 86 165 110L160 143"
               fill="#bf7840"
@@ -146,12 +158,40 @@ export function ThanksgivingMascot() {
               d="M159 130Q176 134 164 149Q153 153 154 139Z"
               fill="#b9473e"
             />
+            <g
+              className="feast-griddy-goggles"
+              stroke="#905131"
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M97 153L110 127L127 118M183 153L174 129L159 119" />
+              <circle cx="132" cy="113" r="9" />
+              <circle cx="153" cy="113" r="9" />
+            </g>
+          </g>
+          <g transform="translate(204 217) rotate(-20)">
+            <ellipse
+              rx="25"
+              ry="14"
+              fill="#9f4d2c"
+              stroke="#f5c989"
+              strokeWidth="2"
+            />
+            <path
+              d="M-12 0H12M-6-4V4M0-4V4M6-4V4"
+              stroke="#fff1d7"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
           </g>
         </svg>
       </button>
-      <p className="feast-mascot-hint">Tap for a touchdown dance</p>
+      <p className="feast-mascot-hint">Tap to hit the Griddy</p>
       <output className="sr-only">
-        {celebration > 0 ? 'Touchdown turkey! Happy Thanksgiving, MAC 12.' : ''}
+        {celebration > 0
+          ? 'The turkey is hitting the Griddy. Happy Thanksgiving, MAC 12!'
+          : ''}
       </output>
     </div>
   );

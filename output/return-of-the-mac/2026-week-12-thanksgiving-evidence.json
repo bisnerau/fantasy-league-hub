@@ -1,0 +1,259 @@
+{
+  "checkedAt": "2026-11-27T10:01:26.083Z",
+  "week": 12,
+  "leagueId": "1389706813993160704",
+  "source": "https://api.sleeper.app/v1/league/1389706813993160704/matchups/12",
+  "teams": [
+    {
+      "name": "Sharpe",
+      "rosterId": 11,
+      "matchupId": 1,
+      "points": 26.42,
+      "finishedStarters": 4,
+      "starters": [
+        {
+          "name": "Jordan Love",
+          "points": 8.62
+        },
+        {
+          "name": "Rashee Rice",
+          "points": 3.9
+        },
+        {
+          "name": "Konata Mumpfield",
+          "points": 10.9
+        },
+        {
+          "name": "Dallas Cowboys",
+          "points": 3
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Murphy",
+      "rosterId": 12,
+      "matchupId": 1,
+      "points": 45.04,
+      "finishedStarters": 2,
+      "starters": [
+        {
+          "name": "Dak Prescott",
+          "points": 25.54
+        },
+        {
+          "name": "James Cook III",
+          "points": 19.5
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Burns",
+      "rosterId": 1,
+      "matchupId": 2,
+      "points": 67.8,
+      "finishedStarters": 4,
+      "starters": [
+        {
+          "name": "D'Andre Swift",
+          "points": 29.2
+        },
+        {
+          "name": "Kyren Williams",
+          "points": 16.5
+        },
+        {
+          "name": "Travis Kelce",
+          "points": 11.1
+        },
+        {
+          "name": "Tyler Bass",
+          "points": 11
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Joe",
+      "rosterId": 7,
+      "matchupId": 2,
+      "points": 40.9,
+      "finishedStarters": 3,
+      "starters": [
+        {
+          "name": "Amon-Ra St. Brown",
+          "points": 21.6
+        },
+        {
+          "name": "Sam LaPorta",
+          "points": 14.4
+        },
+        {
+          "name": "Matthew Golden",
+          "points": 4.9
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Alan",
+      "rosterId": 6,
+      "matchupId": 3,
+      "points": 55.7,
+      "finishedStarters": 2,
+      "starters": [
+        {
+          "name": "Jahmyr Gibbs",
+          "points": 48.2
+        },
+        {
+          "name": "Luther Burden III",
+          "points": 7.5
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Shane",
+      "rosterId": 10,
+      "matchupId": 3,
+      "points": 40.4,
+      "finishedStarters": 3,
+      "starters": [
+        {
+          "name": "CeeDee Lamb",
+          "points": 20.4
+        },
+        {
+          "name": "Jake Bates",
+          "points": 9
+        },
+        {
+          "name": "Los Angeles Rams",
+          "points": 11
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Keenan",
+      "rosterId": 3,
+      "matchupId": 4,
+      "points": 105.62,
+      "finishedStarters": 6,
+      "starters": [
+        {
+          "name": "Jared Goff",
+          "points": 15.82
+        },
+        {
+          "name": "Saquon Barkley",
+          "points": 0.7
+        },
+        {
+          "name": "Emmett Johnson",
+          "points": 19.6
+        },
+        {
+          "name": "Christian Watson",
+          "points": 16.5
+        },
+        {
+          "name": "DeVonta Smith",
+          "points": 43
+        },
+        {
+          "name": "Brandon Aubrey",
+          "points": 10
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Tommy",
+      "rosterId": 4,
+      "matchupId": 4,
+      "points": 3,
+      "finishedStarters": 2,
+      "starters": [
+        {
+          "name": "DJ Moore",
+          "points": 3.5
+        },
+        {
+          "name": "Colston Loveland",
+          "points": -0.5
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Hugo",
+      "rosterId": 8,
+      "matchupId": 5,
+      "points": 62,
+      "finishedStarters": 3,
+      "starters": [
+        {
+          "name": "Caleb Williams",
+          "points": 25.3
+        },
+        {
+          "name": "Javonte Williams",
+          "points": 33.3
+        },
+        {
+          "name": "Tucker Kraft",
+          "points": 3.4
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Jack",
+      "rosterId": 9,
+      "matchupId": 5,
+      "points": 17.54,
+      "finishedStarters": 2,
+      "starters": [
+        {
+          "name": "Josh Allen",
+          "points": 3.54
+        },
+        {
+          "name": "Jameson Williams",
+          "points": 14
+        }
+      ],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Niall",
+      "rosterId": 2,
+      "matchupId": 6,
+      "points": 0,
+      "finishedStarters": 0,
+      "starters": [],
+      "changedSincePreview": false
+    },
+    {
+      "name": "Karl",
+      "rosterId": 5,
+      "matchupId": 6,
+      "points": 40.2,
+      "finishedStarters": 2,
+      "starters": [
+        {
+          "name": "Blake Corum",
+          "points": 28.5
+        },
+        {
+          "name": "George Pickens",
+          "points": 11.7
+        }
+      ],
+      "changedSincePreview": false
+    }
+  ]
+}

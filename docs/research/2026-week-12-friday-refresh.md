@@ -54,7 +54,7 @@ member votes, Bankers, scores or accounts are part of this update.
 - [Anime.js](https://github.com/juliangarnier/anime), MIT: timeline inspiration;
   not added alongside the existing animation stack.
 
-The original SVG turkey wears a MAC 12 jersey and carries a football. Its
+The initial SVG turkey wore a MAC 12 jersey and carried a football. Its
 entrance hop, feather fan and wing wave last under one second; a labelled
 button replays them and emits a bounded leaf burst. Keyboard activation works.
 All animation is suppressed by the existing reduced-motion preference checks
@@ -62,6 +62,13 @@ and CSS media queries. There is no perpetual background animation or sound.
 The highlights board links into the relevant matchups, and “Serve the picks”
 opens the ballot. Confirmed saves use the seasonal burst during the existing
 holiday window. The callback still runs only after persistence confirmation.
+
+The requested Griddy follow-up puts the football beside the turkey and splits
+its feet and wings into independently animated parts. Alternating heel kicks,
+wing swings, a body bounce and a brief goggles pose run for 2.88 seconds, with
+tap and keyboard replay. The reduced-motion media gate still suppresses the
+dance. [Justin Jefferson's NFL tutorial](https://www.youtube.com/watch?v=TrxR5HMtr-M)
+was found as a dance reference; the SVG and CSS choreography are original.
 
 The copper/cranberry presentation is scoped to this league's unsettled Week 12
 homepage and Weekly Picks, expiring Tuesday 1 December at 11:00 UTC. Standings,

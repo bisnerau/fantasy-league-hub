@@ -3544,21 +3544,47 @@ html:has(.bet-slip) {
     padding: 1rem 1.25rem 1.25rem;
   }
 }
+.feast-griddy-goggles {
+  opacity: 0;
+}
 @media (prefers-reduced-motion: no-preference) {
   .feast-copy {
     animation: feast-arrive 600ms ease-out both;
   }
   .feast-turkey {
     transform-origin: 140px 220px;
-    animation: feast-hop 900ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    animation: feast-griddy-bounce 480ms ease-in-out 6;
   }
   .feast-tail {
     transform-origin: 140px 159px;
-    animation: feast-fan 900ms ease-out both;
+    animation: feast-griddy-tail 960ms ease-in-out 3;
   }
-  .feast-wing {
-    transform-origin: 185px 155px;
-    animation: feast-wave 450ms ease-in-out 2;
+  .feast-leg-left {
+    transform-origin: 119px 199px;
+    animation: feast-griddy-left 480ms ease-in-out 6;
+  }
+  .feast-leg-right {
+    transform-origin: 157px 199px;
+    animation: feast-griddy-right 480ms ease-in-out 6;
+  }
+  .feast-foot-left {
+    transform-origin: 113px 225px;
+    animation: feast-griddy-heel 480ms ease-in-out 6;
+  }
+  .feast-foot-right {
+    transform-origin: 164px 225px;
+    animation: feast-griddy-heel 480ms ease-in-out 6 reverse;
+  }
+  .feast-wing-left {
+    transform-origin: 97px 153px;
+    animation: feast-griddy-swing 480ms ease-in-out 6;
+  }
+  .feast-wing-right {
+    transform-origin: 183px 153px;
+    animation: feast-griddy-swing 480ms ease-in-out 6 reverse;
+  }
+  .feast-griddy-goggles {
+    animation: feast-griddy-goggles 2880ms ease-in-out;
   }
   .feast-receipts a {
     animation: feast-arrive 450ms ease-out both;
@@ -3580,36 +3606,91 @@ html:has(.bet-slip) {
     transform: translateY(0);
   }
 }
-@keyframes feast-hop {
+@keyframes feast-griddy-bounce {
   0%,
   100% {
-    transform: translateY(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
   }
-  30% {
-    transform: translateY(-14px) rotate(-7deg);
+  25% {
+    transform: translate(-3px, -4px) rotate(-4deg);
   }
-  60% {
-    transform: translateY(-4px) rotate(7deg);
+  50% {
+    transform: translate(0, 2px) rotate(0deg);
   }
-  80% {
-    transform: translateY(-7px) rotate(-3deg);
-  }
-}
-@keyframes feast-fan {
-  from {
-    transform: scaleX(0.45) rotate(-12deg);
-  }
-  to {
-    transform: scaleX(1) rotate(0deg);
+  75% {
+    transform: translate(3px, -4px) rotate(4deg);
   }
 }
-@keyframes feast-wave {
+@keyframes feast-griddy-tail {
   0%,
   100% {
     transform: rotate(0deg);
   }
-  50% {
+  25% {
+    transform: rotate(-6deg);
+  }
+  75% {
+    transform: rotate(6deg);
+  }
+}
+@keyframes feast-griddy-left {
+  0%,
+  50%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-6px) rotate(38deg);
+  }
+  75% {
+    transform: translateY(0) rotate(-12deg);
+  }
+}
+@keyframes feast-griddy-right {
+  0%,
+  50%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(0) rotate(12deg);
+  }
+  75% {
+    transform: translateY(-6px) rotate(-38deg);
+  }
+}
+@keyframes feast-griddy-heel {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
     transform: rotate(-28deg);
+  }
+}
+@keyframes feast-griddy-swing {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-35deg);
+  }
+  75% {
+    transform: rotate(28deg);
+  }
+}
+@keyframes feast-griddy-goggles {
+  0%,
+  78%,
+  100% {
+    opacity: 0;
+  }
+  82%,
+  94% {
+    opacity: 1;
   }
 }
 @keyframes feast-leaf {

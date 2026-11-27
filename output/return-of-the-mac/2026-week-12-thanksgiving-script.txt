@@ -1,0 +1,81 @@
+RETURN OF THE MAC: FRIDAY MACKDOWN — Thanksgiving special
+DRAFT SCRIPT — 27 November 2026 — Hugo, yours folds.
+
+PRODUCTION NOTES — not spoken
+513 spoken words; approximately 3.5–4 minutes depending on pauses. Written script only, not a recording or published audio episode. Three desk-bell cues; [bell] is not narration. Use the established dry, certain Mackorcle delivery. Leave a beat after “Tommy has three points and a lid”, “delivery charge” and “Hugo, you may unfold the chair”. Table seating and presenter claims are comedy, not reported conversations or manager quotations.
+
+SCRIPT
+
+Mackorcle Senior the First here. Welcome to Return of the Mac: Friday Mackdown, Mackticians. Less reaction. More Macktion.
+
+Happy Thanksgiving. Twelve managers around one table. I've done the seating plan by league position. Hugo, yours folds.
+
+Three weeks left in the regular season. Six playoff places. Two byes. And twelve men about to explain why somebody else's schedule is easier.
+
+There's a matrix on the website for that now. You can lose the argument on every possible fixture list.
+
+Roll the Thanksgiving tape.
+
+Alan and Shane. Both eight and three. Big occasion. Jahmyr Gibbs puts up forty-eight point two for Alan.
+
+Shane brought a respectable contribution. Alan brought one man who ate the centrepiece.
+
+I originally backed Shane. The updated preview backs Alan. My analysis has responded magnificently to the discovery of what happened. [bell]
+
+Keenan and Tommy. A hundred and five to three on Friday morning.
+
+Pause it there. Keenan has had six starters play. Tommy has had two. Plenty of football left.
+
+I've explained that to Tommy. He'd prefer we stopped at plenty.
+
+DeVonta Smith delivered forty-three. Keenan even left Odunze's twenty-six on the bench. He's reached the stage of Thanksgiving where good food goes straight into a container.
+
+Tommy has three points and a lid.
+
+I'm taking Keenan.
+
+Burns and Joe. Both five and six. This is the playoff table arguing over the last chair.
+
+Burns leads after Thursday. Swift brought twenty-nine. Joe got useful work from St. Brown and LaPorta, but Purdy's ankle still needs watching.
+
+Burns Eleven gets my pick. At last, the commissioner can spend Sunday watching his own team rather than researching which of his friends needs to suffer.
+
+Murphy leads Sharpe. Dak and Cook have already done their jobs. Sharpe has used four starters for less than Murphy got from two.
+
+That's an awkward grace before dinner. Thank you for the food, the company, and whatever Jordan Love was attempting.
+
+Murphy for me.
+
+Karl has forty points banked against Niall. Niall has zero because none of his starters have played.
+
+A completely legitimate zero. I'm pleased we've found one.
+
+Corum brought Karl twenty-eight and a half. I'm backing Karl. Niall, leave the oven on. Your entire dinner is still in it. [bell]
+
+Now, Hugo.
+
+Sixty-two to Jack's seventeen and a half. Josh Allen gave Jack three point five four.
+
+Jack drafted a quarterback and received a delivery charge.
+
+Hugo is two and nine, but Caleb and Javonte have given him a proper start. I've changed this pick to Hugo as well.
+
+Two revised calls. Both available before Sunday. Tremendous transparency from a man who considered deleting Thursday.
+
+Hugo, you may unfold the chair.
+
+The website turkey now does the Griddy. Excellent footwork. Available on mobile. I've asked it to take over Tommy's warm-up. [bell]
+
+Get your six picks and your Banker in by Sunday at six, Irish time. Give thanks. Check your lineups. Pass the gravy away from Shane's laptop.
+
+That's Return of the Mac: Friday Mackdown. Like, comment, subscribe. Macksperts, the comment section is for questions.
+
+If your results don't reflect my analysis, please allow another week.
+
+SOURCE AND ACCURACY NOTES — not spoken
+Public Sleeper matchup scores rechecked 27 November 2026 at 10:01 UTC/Irish time: https://api.sleeper.app/v1/league/1389706813993160704/matchups/12
+Snapshot: output/return-of-the-mac/2026-week-12-thanksgiving-evidence.json. Scores unchanged from Friday's preview refresh. Player completion, bench points and injury tags: docs/research/2026-week-12-friday-sleeper.json. Purdy's questionable ankle is a Friday snapshot; check again before recording if delayed.
+Current records and playoff format: docs/research/2026-week-12-friday-refresh.md and the Friday evidence set. Regular season ends Week 14, so Week 12 begins the final three regular-season weeks. Six playoff places; top two byes. Alan/Shane 8–3, Burns/Joe 5–6, Hugo 2–9.
+Exact Friday team totals: Alan 55.70/Shane 40.40; Keenan 105.62/Tommy 3.00; Burns 67.80/Joe 40.90; Murphy 45.04/Sharpe 26.42; Karl 40.20/Niall 0.00; Hugo 62.00/Jack 17.54. Script rounds some totals for delivery. These are incomplete Week 12 scores, not final results. Keenan has six completed starters, Tommy two, Sharpe four, Murphy two, Niall zero. Niall's zero does not describe poor performance.
+Gibbs 48.20; DeVonta Smith 43.00; Keenan's bench Odunze 26.70; Swift 29.20; Corum 28.50; Allen 3.54. The script's house picks match lib/data/newsletters/2026-week-12.ts: Alan, Keenan, Burns, Murphy, Karl, Hugo. Thursday called Shane and Jack, preserved in the prior-call display and Thursday research archive.
+Picks and Banker close Sunday 29 November 2026 at 18:00 Europe/Dublin. The schedule matrix and tap-to-replay turkey Griddy are website features; no new show audio is implied.
