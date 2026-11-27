@@ -142,6 +142,20 @@ export const macEpisodes: readonly MacEpisode[] = [
     durationSeconds: 188,
     portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
   },
+  {
+    slug: '2026-week-12-thanksgiving',
+    title: 'Twelve teams. Several apologies. Thanksgiving special.',
+    publishedAt: '2026-11-27T11:06:00Z',
+    recordedOn: '2026-11-27',
+    season: '2026',
+    week: 12,
+    manager: 'The whole league',
+    team: 'All twelve teams',
+    context: 'Week 12 Thanksgiving special · The MAC 12 dinner table',
+    audio: '/audio/return-of-the-mac/2026-week-12-thanksgiving.mp3',
+    durationSeconds: 150,
+    portrait: '/images/return-of-the-mac/mackorcle-senior-v9.webp',
+  },
 ];
 
 export function getMacEpisodes(

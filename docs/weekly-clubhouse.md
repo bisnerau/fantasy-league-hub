@@ -534,7 +534,10 @@ verification.
 
 The turkey's replayable Griddy uses alternating heel kicks, wing swings and a
 brief goggles pose. It runs for 2.88 seconds on arrival or tap/keyboard replay,
-and stays still with reduced motion. The written Thanksgiving Return of the
-Mac special and its source snapshot are in `output/return-of-the-mac/`; the
-spoken-only file is ready to record. This draft does not publish a new audio
-episode.
+and stays still with reduced motion. The Thanksgiving Return of the Mac
+special uses the commissioner's 27 November ElevenLabs export unchanged,
+measured at 2:30. It covers all twelve teams as Thanksgiving dishes and
+traditions, with a permanent Week 12 episode URL and the existing portrait.
+The approved reference script and source snapshot are in
+`output/return-of-the-mac/`; the recording is authoritative and no verbatim
+transcript is published. Previous episodes remain archived.

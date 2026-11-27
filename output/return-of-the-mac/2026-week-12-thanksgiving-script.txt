@@ -1,81 +1,62 @@
 RETURN OF THE MAC: FRIDAY MACKDOWN — Thanksgiving special
-DRAFT SCRIPT — 27 November 2026 — Hugo, yours folds.
+RECORDED VERSION — 27 November 2026 — Several of you owe everyone an apology.
 
 PRODUCTION NOTES — not spoken
-513 spoken words; approximately 3.5–4 minutes depending on pauses. Written script only, not a recording or published audio episode. Three desk-bell cues; [bell] is not narration. Use the established dry, certain Mackorcle delivery. Leave a beat after “Tommy has three points and a lid”, “delivery charge” and “Hugo, you may unfold the chair”. Table seating and presenter claims are comedy, not reported conversations or manager quotations.
+Approved reference script: 375 words as written. The commissioner supplied ElevenLabs_2026-11-27T11_04_14_MAC_gen_s50_sim75_v4.mp3 and explicitly approved website publication. The original bytes are preserved as public/audio/return-of-the-mac/2026-week-12-thanksgiving.mp3. FFprobe duration: 150.125688 seconds, displayed 2:30; the supplied delivery is shorter than the three-minute script target. No audio edits or regeneration.
+Local Whisper comparison confirms all twelve Thanksgiving segments, including the revised Ramsay, burnt-pie and kids' table material. It also detects the earlier “He's reheated it twice” line in the supplied performance. Automatic names and occasional words differ from the reference, so the script below remains the approved written reference rather than a verbatim published transcript. The supplied recording is authoritative.
+All twelve segments lead with team names. Burns XI is written as Burns Eleven for narration; Mahomes-lander n The Boys uses the established spoken expansion Mahomes-lander and the Boys. Keep Mackorcle's dry, certain delivery. Give the Ramsay comparison, “It's still seventh”, the burnt-pie explanation and “The adults are talking” room to land. [bell] is a production cue, not narration. Contains strong language.
+Shane's oven now has an explicit Gordon Ramsay punchline. Prime Time's burnt pie makes the poor outcome unambiguous. Hawk Tuas Binatsos closes at the kids' table with an imaginary playoff drawing. Dinner behaviour, the Bisto tub, appeals and crayons are fictional roast material, not reported incidents or manager quotations.
 
 SCRIPT
 
 Mackorcle Senior the First here. Welcome to Return of the Mac: Friday Mackdown, Mackticians. Less reaction. More Macktion.
 
-Happy Thanksgiving. Twelve managers around one table. I've done the seating plan by league position. Hugo, yours folds.
+Happy Thanksgiving. I've turned the MAC Twelve season into a dinner. Several of you owe everyone an apology.
 
-Three weeks left in the regular season. Six playoff places. Two byes. And twelve men about to explain why somebody else's schedule is easier.
+Tampa B'AH is the turkey. Reigning champion. Eight wins. Demands the centre of the table. Even the carving knife is sick of hearing about last year.
 
-There's a matrix on the website for that now. You can lose the argument on every possible fixture list.
+Whos Throwing Diggs is the oven. Most points in the league. Shane's discovered the on switch and now thinks he's Gordon fucking Ramsay.
 
-Roll the Thanksgiving tape.
+Pronouns Who Dey is the roast potatoes. Eight wins. Still a potato. Calm down, Karl. Nobody's booking a restaurant for the sides.
 
-Alan and Shane. Both eight and three. Big occasion. Jahmyr Gibbs puts up forty-eight point two for Alan.
+The Finest Wagyu is the gravy. Luxury branding. Underneath it all, Bisto. Jack, we saw you hide the tub. [bell]
 
-Shane brought a respectable contribution. Alan brought one man who ate the centrepiece.
+Cooper Kupp Mah Balls is the stuffing. Seven wins from fewer points than Murphy. The recipe? One cup of football. Two cups of someone else having a shite week.
 
-I originally backed Shane. The updated preview backs Alan. My analysis has responded magnificently to the discovery of what happened. [bell]
+Burkeys Teur is the bread rolls. Lowest points total. Five wins. Contributed fuck all, somehow leaving with leftovers. Dave's the reason restaurants charge per head.
 
-Keenan and Tommy. A hundred and five to three on Friday morning.
+D'onta FourMore is the last dining chair. Sixth place. Currently supporting a playoff team. I've seen sturdier furniture outside a student house.
 
-Pause it there. Keenan has had six starters play. Tommy has had two. Plenty of football left.
+Burns Eleven is the host's apron. Five wins, six losses. Built an entire website to explain why he's seventh. Emmet, you can change the font. It's still seventh. [bell]
 
-I've explained that to Tommy. He'd prefer we stopped at plenty.
+Mahomes-lander and the Boys is the leftovers. There's a championship in that container from twenty twenty-four. That's a memory, Niall. Put it in the bin.
 
-DeVonta Smith delivered forty-three. Keenan even left Odunze's twenty-six on the bench. He's reached the stage of Thanksgiving where good food goes straight into a container.
+BurrowMeDickinYoAss is the wishbone. Three wins. Keeps pulling the short end and demanding we inspect the bone. Aidan, the chicken's dead. It can't answer your appeal.
 
-Tommy has three points and a lid.
+Prime Time is the burnt pie. Three wins. Tommy can explain every ingredient. Unfortunately, you can't eat a fucking explanation.
 
-I'm taking Keenan.
+And Hawk Tuas Binatsos gets the kids' table.
 
-Burns and Joe. Both five and six. This is the playoff table arguing over the last chair.
+Two wins. Nine losses. We've given him a paper plate and crayons.
 
-Burns leads after Thursday. Swift brought twenty-nine. Joe got useful work from St. Brown and LaPorta, but Purdy's ankle still needs watching.
+He's drawn a playoff bracket with himself in it.
 
-Burns Eleven gets my pick. At last, the commissioner can spend Sunday watching his own team rather than researching which of his friends needs to suffer.
+That's lovely, Hugo. The adults are talking. [bell]
 
-Murphy leads Sharpe. Dak and Cook have already done their jobs. Sharpe has used four starters for less than Murphy got from two.
-
-That's an awkward grace before dinner. Thank you for the food, the company, and whatever Jordan Love was attempting.
-
-Murphy for me.
-
-Karl has forty points banked against Niall. Niall has zero because none of his starters have played.
-
-A completely legitimate zero. I'm pleased we've found one.
-
-Corum brought Karl twenty-eight and a half. I'm backing Karl. Niall, leave the oven on. Your entire dinner is still in it. [bell]
-
-Now, Hugo.
-
-Sixty-two to Jack's seventeen and a half. Josh Allen gave Jack three point five four.
-
-Jack drafted a quarterback and received a delivery charge.
-
-Hugo is two and nine, but Caleb and Javonte have given him a proper start. I've changed this pick to Hugo as well.
-
-Two revised calls. Both available before Sunday. Tremendous transparency from a man who considered deleting Thursday.
-
-Hugo, you may unfold the chair.
-
-The website turkey now does the Griddy. Excellent footwork. Available on mobile. I've asked it to take over Tommy's warm-up. [bell]
-
-Get your six picks and your Banker in by Sunday at six, Irish time. Give thanks. Check your lineups. Pass the gravy away from Shane's laptop.
+Give thanks. Check your lineups. Hugo, stop eating the crayons.
 
 That's Return of the Mac: Friday Mackdown. Like, comment, subscribe. Macksperts, the comment section is for questions.
 
 If your results don't reflect my analysis, please allow another week.
 
 SOURCE AND ACCURACY NOTES — not spoken
-Public Sleeper matchup scores rechecked 27 November 2026 at 10:01 UTC/Irish time: https://api.sleeper.app/v1/league/1389706813993160704/matchups/12
-Snapshot: output/return-of-the-mac/2026-week-12-thanksgiving-evidence.json. Scores unchanged from Friday's preview refresh. Player completion, bench points and injury tags: docs/research/2026-week-12-friday-sleeper.json. Purdy's questionable ankle is a Friday snapshot; check again before recording if delayed.
-Current records and playoff format: docs/research/2026-week-12-friday-refresh.md and the Friday evidence set. Regular season ends Week 14, so Week 12 begins the final three regular-season weeks. Six playoff places; top two byes. Alan/Shane 8–3, Burns/Joe 5–6, Hugo 2–9.
-Exact Friday team totals: Alan 55.70/Shane 40.40; Keenan 105.62/Tommy 3.00; Burns 67.80/Joe 40.90; Murphy 45.04/Sharpe 26.42; Karl 40.20/Niall 0.00; Hugo 62.00/Jack 17.54. Script rounds some totals for delivery. These are incomplete Week 12 scores, not final results. Keenan has six completed starters, Tommy two, Sharpe four, Murphy two, Niall zero. Niall's zero does not describe poor performance.
-Gibbs 48.20; DeVonta Smith 43.00; Keenan's bench Odunze 26.70; Swift 29.20; Corum 28.50; Allen 3.54. The script's house picks match lib/data/newsletters/2026-week-12.ts: Alan, Keenan, Burns, Murphy, Karl, Hugo. Thursday called Shane and Jack, preserved in the prior-call display and Thursday research archive.
-Picks and Banker close Sunday 29 November 2026 at 18:00 Europe/Dublin. The schedule matrix and tap-to-replay turkey Griddy are website features; no new show audio is implied.
+SOURCE AND ACCURACY NOTES — not spoken
+Season records and points through completed Week 11: docs/research/2026-week-12-friday-sleeper.json, retrieved 27 November 2026. Incomplete Week 12 scores are not used.
+Tampa B'AH / Alan: 8–3 and reigning champion. Whos Throwing Diggs / Shane: league-leading 1526.94 points. Pronouns Who Dey / Karl: 8–3. Cooper Kupp Mah Balls / Keenan: 7–4 with 1212.86 points, below Murphy's 1247.26. Burkeys Teur / Sharpe: 5–6 with league-low 1043.92 points. D'onta FourMore! / Joe: sixth. Burns XI: 5–6, seventh. BurrowMeDickinYoAss / Murphy: 3–8. Prime Time / Tommy: 3–8. Hawk Tuas Binatsos / Hugo: 2–9.
+Team identities and historical character references are established in lib/data/managers.ts, lib/data/historical.ts and previous Return of the Mac scripts. The Finest Wagyu is Jack's team. Niall's 2024 championship underlies the leftovers joke. Tommy's ingredient/explanation line draws on the established knowledgeable-manager portrayal. Burns is the commissioner and requested the website. Alan's reigning championship is also referenced in lib/data/newsletters/2026-week-12.ts.
+The stuffing recipe is comic commentary on the verified wins/points contrast, not an exact schedule-difficulty claim. Hugo's drawing is fictional and asserts no playoff qualification route. No game previews, winner calls or new forecasts are included.
+Accuracy check: all twelve team names included; stated records, highest/lowest points, Keenan/Murphy comparison, and Joe/Burns positions checked against the season snapshot. Three bells. Spoken-only and production-script versions match. Recording fully decoded with FFmpeg without errors. SHA-256: 0e181cad86a33834f5f84afa4e1cb4a29e1a9bf503099a1bb72049dadafd68b0. Original and publication copy hashes match.
+
+PUBLICATION VALIDATION — not spoken
+214 unit/integration tests pass; oxlint and the Vercel production build pass. Built-site browser checks confirm the new episode leads the homepage and archive; its permanent page loads the 150.125688-second MP3. Play/pause, ON AIR state and keyboard seeking work at a 390px viewport. Desktop light theme and phone dark theme layouts checked; no browser console errors observed. Previous eight episode records are unchanged.
+The required Playwright audio suite could not launch because its Chromium headless-shell executable is absent; 16 subsequent tests did not run. Real iPhone Safari playback/seeking is not verified. The existing player was not changed.
