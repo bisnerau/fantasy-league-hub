@@ -19,17 +19,17 @@ const editions = [
     points: [
       {
         title: 'Burns and Joe fight for the last seat.',
-        text: 'Both are 5–6, with Joe holding sixth by 21.14 season points. Kyren has Burns 16.50–4.90 ahead after the opener. Our Thanksgiving call narrowly backs the commissioner; Purdy’s ankle leaves Joe with a quarterback check before Sunday.',
+        text: 'Our Friday update keeps Burns as the call, now leading 67.80–40.90 after Swift’s 29.20 and Bass’ eleven. Both began 5–6 around the last playoff place. Joe still needs to follow Purdy’s ankle before Sunday.',
         href: '/matchups?week=12#matchup-2',
       },
       {
-        title: 'Corum has eaten. Alan and Shane want the head of the table.',
-        text: 'Karl has 28.50 from Corum against Niall, who is without Walker again. Alan and Shane meet at 8–3, with eleven Rams defence points already banked for Shane. Keenan’s Thanksgiving-heavy lineup gives Tommy an early examination in the forfeit fight.',
+        title: 'Gibbs gets seconds. Hugo gets a new call.',
+        text: 'Gibbs’ 48.20 moves our call from Shane to Alan. Hugo leads Jack 62.00–17.54 after Allen returned 3.54, so we switch that call to Walsh too. Keenan already has 105.62 against Tommy’s three; six of Andrew’s nine starters have played.',
         href: '/matchups?week=12',
       },
       {
-        title: 'Football starts early. Picks still close Sunday at six.',
-        text: 'Thanksgiving outlooks include the completed Packers–Rams game. Thursday’s slate begins at 18:00 Irish time; Chiefs–Bills starts at 01:20 Friday, followed by Broncos–Steelers at 20:00 Friday. Your six picks and Banker still close at 18:00 Irish time on Sunday 29 November. Check Sleeper lineups before each player’s game.',
+        title: 'Friday leftovers. Sunday picks at six.',
+        text: 'Six refreshed previews include the four completed early NFL games. Broncos–Steelers kicks off at 20:00 Friday, Irish time. Your six picks and Banker close at 18:00 Irish time on Sunday 29 November. Thursday’s published prices stay frozen; the Friday calls use the scores now known. Check Sleeper lineups before each player’s game.',
         href: '/matchups?week=12',
       },
     ],

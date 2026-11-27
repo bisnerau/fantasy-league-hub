@@ -15,6 +15,7 @@ import { getSlip } from '@/lib/predictions/slip';
 import { isPricedWeek } from '@/lib/predictions/fractional-odds';
 import { spark } from '@/components/effects/click-spark';
 import { prefersReducedMotion } from '@/lib/motion';
+import { isThanksgivingWeek } from '@/lib/data/thanksgiving-week';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -46,12 +47,13 @@ function sparkHalf(
   sleeperMatchupId: number,
   side: 'home' | 'away',
   gold: boolean,
+  thanksgiving: boolean,
 ) {
   spark(
     document.querySelector(
       `#matchup-${sleeperMatchupId} [data-side="${side}"]`,
     ),
-    { gold },
+    { gold, thanksgiving },
   );
 }
 
@@ -121,10 +123,19 @@ export function PredictionCentre({
   }, [user]);
   useEffect(() => {
     if (!celebration) return;
-    sparkHalf(celebration.sleeperMatchupId, celebration.side, celebration.gold);
+    const thanksgiving = isThanksgivingWeek(data);
+    sparkHalf(
+      celebration.sleeperMatchupId,
+      celebration.side,
+      celebration.gold,
+      thanksgiving,
+    );
     if (celebration.slip)
-      spark(document.querySelector('.bet-slip-bar'), { gold: true });
-  }, [celebration]);
+      spark(document.querySelector('.bet-slip-bar'), {
+        gold: true,
+        thanksgiving,
+      });
+  }, [celebration, data]);
   useEffect(() => {
     if (!data.lockAt) return;
     const tick = () => {
@@ -438,7 +449,10 @@ export function PredictionCentre({
   };
 
   return (
-    <div className={cn('space-y-5', showSlip && 'picks-with-slip')}>
+    <div
+      id="weekly-ballot"
+      className={cn('scroll-mt-20 space-y-5', showSlip && 'picks-with-slip')}
+    >
       <PicksHero
         data={data}
         locked={locked}

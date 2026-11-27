@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CalendarDays, Trophy } from 'lucide-react';
 import { PredictionCentre } from '@/components/predictions/prediction-centre';
 import { ThanksgivingWeek } from '@/components/clubhouse/thanksgiving-week';
+import { isThanksgivingWeek } from '@/lib/data/thanksgiving-week';
 import { getPredictionWeekData } from '@/lib/data/predictions';
 import {
   getMatchOfTheWeek,
@@ -65,7 +66,12 @@ export default async function MatchupsPage({
   );
 
   return (
-    <div className="space-y-5">
+    <div
+      className={cn(
+        'space-y-5',
+        view === 'weekly' && isThanksgivingWeek(data) && 'thanksgiving-edition',
+      )}
+    >
       {view === 'weekly' && <ThanksgivingWeek data={data} />}
       <PredictionCentre
         key={`${data.season}-${data.week}-${view}`}

@@ -22,6 +22,8 @@ export type MatchupStory = {
 export type MatchupPreview = MatchupStory & {
   publishedAt: string;
   pickRosterId: number;
+  /** A commissioner-requested refresh keeps the prior call visible. */
+  previousCall?: { publishedAt: string; pickRosterId: number };
   homeProjection: number;
   awayProjection: number;
 };

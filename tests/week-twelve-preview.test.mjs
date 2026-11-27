@@ -15,8 +15,12 @@ import {
 import { getPreviewTalkingPoints } from '../lib/data/preview-talking-points.ts';
 import { sundayKickoffForWeek } from '../lib/predictions/rules.ts';
 const read = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
-const evidence = read(
+const evidence = read('../docs/research/2026-week-12-friday-sleeper.json');
+const priceEvidence = read(
   '../docs/research/2026-week-12-thanksgiving-sleeper.json',
+);
+const previousReports = read(
+  '../docs/research/2026-week-12-thursday-previews.json',
 );
 const odds = read('../lib/data/experiments/odds-week-twelve.json');
 const now = Date.parse(weekTwelvePublishedAt);
@@ -55,10 +59,7 @@ void test('Week 12 Thanksgiving stories match fresh fixtures and only appear at 
     assert.equal(e.preview.homeProjection, pair[0].pprTotal);
     assert.equal(e.preview.awayProjection, pair[1].pprTotal);
     assert.ok(pair.some((t) => t.rosterId === e.preview.pickRosterId));
-    assert.match(
-      e.preview.summary,
-      /Thanksgiving.*after Green Bay–Los Angeles/,
-    );
+    assert.match(e.preview.summary, /Friday Thanksgiving update/);
     assert.equal(getMatchupNewsletter(e, undefined, now).preview, e.preview);
     assert.equal(getMatchupNewsletter(e, undefined, now - 1).preview, null);
     assert.equal(getMatchupNewsletter(e, undefined, now).review, null);
@@ -78,7 +79,8 @@ void test('Week 12 Thanksgiving stories match fresh fixtures and only appear at 
     editorial.talkingPoints[2].text,
     /18:00 Irish time on Sunday 29 November/,
   );
-  assert.match(editorial.talkingPoints[2].text, /01:20 Friday/);
+  assert.match(editorial.talkingPoints[2].text, /20:00 Friday/);
+  assert.match(editorial.talkingPoints[2].text, /prices stay frozen/);
   assert.equal(getPreviewTalkingPoints(data, now - 1), null);
   for (const changed of [
     { finalized: true },
@@ -100,7 +102,7 @@ void test('Week 12 prices preserve Wednesday starters and exclude locked bench p
       evidence.teams.filter((t) => t.matchupId === m.id).map((t) => t.rosterId),
     );
     for (const t of m.teams) {
-      const source = evidence.teams.find((s) => s.rosterId === t.id);
+      const source = priceEvidence.teams.find((s) => s.rosterId === t.id);
       const locked = source.starters.filter((p) => p.date === '2026-11-25');
       assert.equal(t.banked, source.points);
       assert.equal(t.banked, round(locked.reduce((s, p) => s + p.points, 0)));
@@ -169,4 +171,48 @@ void test('Thanksgiving banner expires and never decorates other weeks or league
     { leagueId: 'other' },
   ])
     assert.equal(isThanksgivingWeek({ ...data, ...changed }, now), false);
+});
+
+void test('Friday refresh retains prior calls and accounts for every completed starter', () => {
+  const expectedCalls = [12, 1, 6, 3, 8, 5];
+  assert.deepEqual(
+    weekTwelveReports.map((r) => r.preview.pickRosterId),
+    expectedCalls,
+  );
+  for (const [index, report] of weekTwelveReports.entries()) {
+    const previous = previousReports[index];
+    assert.deepEqual(report.preview.previousCall, {
+      publishedAt: previous.preview.publishedAt,
+      pickRosterId: previous.preview.pickRosterId,
+    });
+    assert.ok(
+      Date.parse(report.preview.publishedAt) >
+        Date.parse(previous.preview.publishedAt),
+    );
+    const pair = evidence.teams.filter(
+      (t) => t.matchupId === report.sleeperMatchupId,
+    );
+    for (const team of pair) {
+      assert.equal(team.starters.length, 9);
+      const banked = team.starters.filter((p) => p.finished);
+      assert.equal(
+        Math.round(banked.reduce((sum, p) => sum + p.points, 0) * 100) / 100,
+        team.points,
+      );
+      assert.ok(
+        report.preview.summary.includes(team.points.toFixed(2)) ||
+          (team.name === 'Niall' && report.preview.summary.includes('0.00')),
+      );
+    }
+  }
+  assert.deepEqual(
+    weekTwelveReports
+      .filter(
+        (r, i) =>
+          r.preview.pickRosterId !== previousReports[i].preview.pickRosterId,
+      )
+      .map((r) => r.sleeperMatchupId),
+    [3, 5],
+  );
+  assert.ok(Date.parse(odds.snapshot) < Date.parse(evidence.retrievedAt));
 });

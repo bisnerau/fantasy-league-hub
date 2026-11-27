@@ -2,13 +2,17 @@ import { prefersReducedMotion } from '@/lib/motion';
 
 // Adapted from React Bits ClickSpark (MIT + Commons Clause) as CSS only. Call
 // it after something has really happened (a verified save), never on tap.
-export function spark(target: Element | null, { gold = false } = {}) {
+export function spark(
+  target: Element | null,
+  { gold = false, thanksgiving = false } = {},
+) {
   if (!target || prefersReducedMotion()) return;
   const rect = target.getBoundingClientRect();
   const burst = document.createElement('span');
   burst.className = 'click-spark';
   burst.setAttribute('aria-hidden', 'true');
   if (gold) burst.dataset.gold = '';
+  if (thanksgiving) burst.dataset.thanksgiving = '';
   burst.style.left = `${rect.left + rect.width / 2}px`;
   burst.style.top = `${rect.top + rect.height / 2}px`;
   for (let index = 0; index < 8; index += 1) {

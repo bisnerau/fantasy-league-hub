@@ -128,8 +128,25 @@ export function MatchupEditorial({
           {matchup.preview ? (
             <>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                Published {formatLockTime(matchup.preview.publishedAt)} ·
-                Original call saved
+                {matchup.preview.previousCall ? 'Updated' : 'Published'}{' '}
+                {formatLockTime(matchup.preview.publishedAt)}
+                {matchup.preview.previousCall ? (
+                  <>
+                    {' '}
+                    · Earlier call:{' '}
+                    {matchup.preview.previousCall.pickRosterId ===
+                    matchup.home.rosterId
+                      ? matchup.home.ownerName
+                      : matchup.away.ownerName}
+                    . Updated call:{' '}
+                    {matchup.preview.pickRosterId === matchup.home.rosterId
+                      ? matchup.home.ownerName
+                      : matchup.away.ownerName}
+                    .
+                  </>
+                ) : (
+                  ' · Original call saved'
+                )}
               </p>
               <Breakdown story={matchup.preview} kind="preview" />
             </>

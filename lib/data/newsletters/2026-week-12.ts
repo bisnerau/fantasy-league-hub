@@ -1,8 +1,8 @@
 import type { MatchupNewsletter } from '../matchup-newsletters';
 
-// Thanksgiving outlooks after GB–LAR, before Thursday's three games.
-// Original selected-lineup PPR estimates are separate from best-lineup prices.
-export const weekTwelvePublishedAt = '2026-11-26T10:42:58.327Z';
+// Commissioner-requested Friday refresh after the four early NFL games.
+// Original Thursday reports are retained in docs/research/2026-week-12-thursday-previews.json.
+export const weekTwelvePublishedAt = '2026-11-27T09:34:37.343Z';
 
 export const weekTwelveReports: MatchupNewsletter[] = [
   {
@@ -15,41 +15,41 @@ export const weekTwelveReports: MatchupNewsletter[] = [
     preview: {
       version: 1,
       editorial: true,
-      publishedAt: weekTwelvePublishedAt,
+      publishedAt: '2026-11-27T09:34:37.343Z',
       pickRosterId: 12,
-      homeProjection: 99.93,
-      awayProjection: 116.4,
-      headline: 'Dave brings leftovers. Murphy needs a proper dinner.',
+      homeProjection: 99.41,
+      awayProjection: 117.31,
+      headline: 'Dave has brought leftovers to a proper dinner.',
       summary:
-        'Thanksgiving preview after Green Bay–Los Angeles: Sharpe has 19.52 from two starters and a 5–6 record that keeps annoying the rankings. Murphy is 3–8, favoured again, and running out of weeks in which that means anything.',
+        'Friday Thanksgiving update: Murphy leads 45.04–26.42 after Prescott and Cook delivered. Sharpe has already used four starters. Dave’s 5–6 record still has him in the playoff queue, but his plate is looking distinctly underfilled.',
       sections: [
         {
-          title: 'The waiver habit is catching',
-          text: 'Dave added Mumpfield on Wednesday evening and got 10.90 straight away. Love supplied only 8.62, leaving two slots used for a modest lead. After beating Joe by 0.62, Sharpe remains in the four-team queue at 5–6 despite scoring 203.34 fewer season points than Murphy. The man whose profile used to say he never touched the wire has started shopping. Unfortunately, the quarterback aisle still offers no refunds.',
+          title: 'The first helping',
+          text: 'Prescott supplied 25.54 and Cook added 19.50. Murphy has an 18.62-point lead with seven starters still to play, against Dave’s five. Rice returned 3.90 and Dallas three, leaving Sharpe dependent on the weekend after Love and Mumpfield’s Wednesday contributions. Last week he beat Joe by 0.62. This week he may need to ask whether that service comes with free refills.',
         },
         {
-          title: 'Aidan serves the expensive course',
-          text: 'Prescott and Cook play on Thanksgiving, giving Murphy two early chances to make that lead disappear. London and Judkins provide the weekend muscle. Meyers carries a Questionable tag in the morning Sleeper snapshot; Hutchinson, last week’s $26 purchase, is now on the bench. Aidan lost by 2.90 to Alan and needs wins much more than another argument about how respectable his roster looks.',
+          title: 'What is left in the kitchen',
+          text: 'London, Judkins, Etienne and Hockenson give Murphy several ways to extend the lead. Meyers remains Questionable in Friday morning’s Sleeper feed. Dave needs Hampton, Mason and Warren to beat their estimates, with McMillan’s Questionable tag complicating Monday. Godwin is on his bench as another Monday option. The lineup check matters more than another argument about how Dave keeps surviving with fewer season points than everyone around him.',
         },
         {
-          title: 'The Thanksgiving call: Aidan Murphy',
-          text: 'Murphy at 1/3. His available scoring options outweigh Dave’s banked start, with McMillan’s Questionable tag adding a Monday complication for Sharpe. Dave has already made us regret backing Joe. Doing it again would be impressive; Murphy making us regret trusting his team would be rather more familiar.',
+          title: 'Friday call: Aidan Murphy',
+          text: 'Still Murphy. The Thursday price remains frozen at 1/3; this is a fresh assessment with the holiday scores known. Aidan is 3–8 and can hardly afford to waste this start. Sharpe has made a habit of turning low totals into wins, but asking five remaining players to cover this much dinner is ambitious even by his standards.',
         },
       ],
       sources: [
         {
-          label: 'Sleeper · Thanksgiving lineups and opening-game points',
+          label: 'Sleeper · Friday scores and selected lineups',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/12',
         },
         {
-          label: 'Sleeper · Wednesday evening pickups',
-          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/12',
-        },
-        {
-          label: 'Sleeper · current records',
+          label: 'Sleeper · Friday rosters and available cover',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/rosters',
         },
       ],
+      previousCall: {
+        publishedAt: '2026-11-26T10:42:58.327Z',
+        pickRosterId: 12,
+      },
     },
   },
   {
@@ -62,41 +62,45 @@ export const weekTwelveReports: MatchupNewsletter[] = [
     preview: {
       version: 1,
       editorial: true,
-      publishedAt: weekTwelvePublishedAt,
+      publishedAt: '2026-11-27T09:34:37.343Z',
       pickRosterId: 1,
-      homeProjection: 120.69,
-      awayProjection: 131.65,
-      headline: 'One seat left. Burns and Joe brought their own chairs.',
+      homeProjection: 120.6,
+      awayProjection: 131.56,
+      headline: 'Burns gets seconds. Joe checks the kitchen.',
       summary:
-        'Thanksgiving preview after Green Bay–Los Angeles: sixth-placed Joe leads Burns by 21.14 season points, with both at 5–6. Kyren has put Burns 16.50–4.90 ahead. The commissioner’s perfect playoff attendance now faces an unusually direct inspection.',
+        'Friday Thanksgiving update: Burns leads Joe 67.80–40.90 in the fight around sixth. Swift’s 29.20 and Bass’ eleven have improved the commissioner’s position; Purdy’s ankle still leaves Ennis with an awkward Sunday question.',
       sections: [
         {
-          title: 'The last-seat argument',
-          text: 'Joe’s 0.62 defeat to Dave has invited three other 5–6 teams into the conversation. Burns arrives from 135.10 against Tommy and gets to challenge the man occupying sixth. With three regular-season games left, the winner gains a full win on the loser. Neither can clinch the place here. Ennis has spent years specialising in fourth; he now has someone trying to repossess sixth.',
+          title: 'A seat worth fighting over',
+          text: 'Both began 5–6, with Joe ahead by 21.14 season points. Burns now has a 26.90-point lead, although Joe has six starters left to his five. Swift did the heavy lifting, with Kyren, Kelce and Bass also on the board. St. Brown and LaPorta gave Joe a combined 36.00 after Golden’s 4.90. Ennis put up a respectable start and still spent the evening watching Burns go back for seconds.',
         },
         {
-          title: 'The opener favours the host',
-          text: 'Kyren’s 16.50 beats Golden’s 4.90, while Swift and Kelce give Burns Thanksgiving involvement against Joe’s St. Brown and LaPorta. Purdy missed Wednesday practice with an ankle sprain and could miss Sunday. Joe’s only other rostered quarterback is Hurts on IR. That requires attention before the leftovers, even with Skattebo and Nabers giving the rest of his lineup plenty of promise.',
+          title: 'The quarterback check',
+          text: 'Purdy missed Thursday practice as well as Wednesday and remains Questionable in the Friday Sleeper snapshot. Hurts is still on Joe’s IR, so there is no healthy quarterback alternative on that roster at this check. Skattebo, Gordon and Nabers give Joe plenty of remaining upside. Burns has Shough selected, with Chase and Collins to come; Nix is on his bench ahead of Friday’s game. Any change there needs to happen before Denver kicks off.',
         },
         {
-          title: 'The Thanksgiving call: Emmet Burns',
-          text: 'Burns narrowly, at 10/11 to Joe’s 11/10. Chase and Collins give the commissioner enough to defend the early advantage, with Shough currently selected ahead of Nix. Purdy’s availability could swing this. Six seasons of perfect playoff attendance is a lovely dinner-party fact; losing this one would make Burns considerably less keen to bring it up.',
+          title: 'Friday call: Emmet Burns',
+          text: 'Burns stays the call. The published 10/11 and 11/10 prices are Thursday’s frozen prices, not a fresh live market. Three regular-season games remain, and neither manager can clinch here. A win would move one a full game ahead of the other. Six years of perfect playoff attendance is still an excellent dinner-party fact. Burns would prefer not to spend December explaining the word “previously”.',
         },
       ],
       sources: [
         {
-          label: 'Sleeper · Week 12 starters and recorded points',
+          label: 'Sleeper · Friday scores and selected lineups',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/12',
         },
         {
-          label: 'Sleeper · records and rostered cover',
+          label: 'Sleeper · Friday rosters and available cover',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/rosters',
         },
         {
-          label: 'NFL, 25 November · Purdy ankle update',
-          url: 'https://fantasy-www.nfl.com/news/brock-purdy-sits-out-practice-ankle-sprain-49ers-seahawks',
+          label: 'Thursday update · Purdy misses a second practice',
+          url: 'https://www.sportsnet.ca/nfl/article/49ers-purdy-misses-practice-for-second-straight-day-sundays-status-in-question/',
         },
       ],
+      previousCall: {
+        publishedAt: '2026-11-26T10:42:58.327Z',
+        pickRosterId: 1,
+      },
     },
   },
   {
@@ -109,41 +113,41 @@ export const weekTwelveReports: MatchupNewsletter[] = [
     preview: {
       version: 1,
       editorial: true,
-      publishedAt: weekTwelvePublishedAt,
-      pickRosterId: 10,
-      homeProjection: 132.95,
-      awayProjection: 132.81,
-      headline: 'Alan wants the head of the table back.',
+      publishedAt: '2026-11-27T09:34:37.343Z',
+      pickRosterId: 6,
+      homeProjection: 132.81,
+      awayProjection: 132.69,
+      headline: 'Gibbs takes the whole serving dish.',
       summary:
-        'Thanksgiving preview after Green Bay–Los Angeles: Shane and Alan meet at 8–3, separated by 46.88 season points. Shane has eleven from the Rams defence. Alan has five straight wins and the increasingly inconvenient responsibility of defending an actual title.',
+        'Friday Thanksgiving update: Alan leads Shane 55.70–40.40 after Gibbs scored 48.20. Both are 8–3. Thursday’s call was Shane; the champion’s running back has supplied a fairly persuasive request for a rewrite.',
       sections: [
         {
-          title: 'First place gets personal',
-          text: 'Shane’s last three scores all exceeded 143; Alan won last week with 98.40. Both approaches count the same in the win column, but Marmion’s recent scoring earns the edge here. The Rams have already supplied eleven, and Smith-Njigba returns from his bye. Shane being this attentive in November is bad news for anyone who had pencilled in his annual disappearance.',
+          title: 'The head of the table moves',
+          text: 'Gibbs alone outscored Shane’s three completed starters. Burden added 7.50, while Lamb, Bates and the Rams defence supplied Marmion’s 40.40. Alan leads by 15.30 with seven starters remaining to Shane’s six. The champion has won five straight and now has a meaningful cushion. Horgan did not need help introducing his title into conversations, but Gibbs appears determined to provide some anyway.',
         },
         {
-          title: 'Horgan brings the main course',
-          text: 'Gibbs and Burden play in the early Thanksgiving game, with Burrow and Brown still to come Sunday. Bowers and Diggs carry Questionable tags in the morning feed; Alan has Waller and Perine among his alternatives. Shane also needs to follow Smith-Njigba’s Questionable tag. The selected-lineup PPR estimates are only 0.14 apart, before replacing the Rams projection with their recorded return. This should demand more than the champion’s usual proof of purchase.',
+          title: 'Friday still has a say',
+          text: 'Lutz goes for Alan in Denver–Pittsburgh; Warren is selected for Shane. Burrow and Brown remain Alan’s main Sunday engine, with Bowers still Questionable in the morning feed. Shane retains Stroud, Kittle and Smith-Njigba, whose Questionable tag also needs checking. His last three weekly totals exceeded 143, so writing him off would be careless. Karl is also 8–3 and will be following this fixture with all the affection of a man hoping both dinners catch fire.',
         },
         {
-          title: 'The Thanksgiving call: Shane Marmion',
-          text: 'Shane at 10/11, narrowly ahead of Alan at 11/10. Recent form and the banked defence points make the case, with Lamb playing tonight and Kittle available Sunday. Karl is also 8–3, so the winner still has company in the bye race. Horgan can explain that in next week’s round-up if he loses.',
+          title: 'Friday call: Alan Horgan',
+          text: 'Changing from Shane to Alan, with the Thanksgiving scoring explicitly known. Gibbs’ return and Alan’s extra remaining starter outweigh the recent-form argument that favoured Marmion yesterday. The frozen prices still show Alan at 11/10 and Shane at 10/11. The original Thursday call stays in the report history.',
         },
       ],
       sources: [
         {
-          label: 'Sleeper · Week 12 lineups and opening points',
+          label: 'Sleeper · Friday scores and selected lineups',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/12',
         },
         {
-          label: 'Sleeper · Week 11 results',
-          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
-        },
-        {
-          label: 'Sleeper · records and availability snapshot',
+          label: 'Sleeper · Friday rosters and available cover',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/rosters',
         },
       ],
+      previousCall: {
+        publishedAt: '2026-11-26T10:42:58.327Z',
+        pickRosterId: 10,
+      },
     },
   },
   {
@@ -156,45 +160,41 @@ export const weekTwelveReports: MatchupNewsletter[] = [
     preview: {
       version: 1,
       editorial: true,
-      publishedAt: weekTwelvePublishedAt,
+      publishedAt: '2026-11-27T09:34:37.343Z',
       pickRosterId: 3,
-      homeProjection: 128.54,
-      awayProjection: 118.53,
-      headline: 'Keenan eats early. Tommy studies the menu.',
+      homeProjection: 129.14,
+      awayProjection: 113.82,
+      headline: 'Keenan gets the feast. Tommy gets the washing-up.',
       summary:
-        'Thanksgiving preview after Green Bay–Los Angeles: Keenan has Watson’s 16.50 banked and five more selected players in Thursday’s games. Tommy is 3–8, one win above Hugo, and has bought another quarterback to explain the situation to.',
+        'Friday Thanksgiving update: Keenan leads 105.62–3.00. DeVonta Smith’s 43.00 rescued a night that also included Barkley’s 0.70; Moore and Loveland left Tommy with three points between them. O’Brien has seven starters left, and quite a lot to explain.',
       sections: [
         {
-          title: 'Andrew has a busy Thursday',
-          text: 'Goff, Barkley, Emmett Johnson, DeVonta Smith and Aubrey are all due on Thanksgiving. Jacobs was inactive for the opener and stayed on Keenan’s bench; Christian Watson’s points count despite his subsequent Out tag. Walker’s confirmed absence keeps Johnson central to Andrew’s plans. Two consecutive wins have restored a 7–4 record. The 2021 champion can finally discuss something that happened after the league reached twelve teams.',
+          title: 'Smith orders for the table',
+          text: 'Andrew has three starters left against Tommy’s seven, but his first six have already put him beyond 100. Smith’s 43.00, Johnson’s 19.60 and Watson’s banked 16.50 have covered for Barkley’s quiet return. Goff and Aubrey supplied the rest. Odunze’s 26.70 stayed on the bench, which means Keenan can even complain that he left points behind. Everyone else should prepare for that particular lecture.',
         },
         {
-          title: 'Tommy changes the person holding the clipboard',
-          text: 'O’Brien paid $5 for Deshaun Watson and dropped Rodgers on Wednesday. Watson is selected; Stafford’s 3.60 remains on the bench. Moore and Loveland give Tommy a Thanksgiving answer, while Irving waits until Monday. Tuten’s Questionable tag needs checking before Sunday. Last week’s 101.08 lost to Burns, and a third Wall of Shame appearance remains a much more pressing subject than another theoretical breakout.',
+          title: 'Tommy needs an entire second dinner',
+          text: 'Moore scored 3.50; Loveland finished on minus 0.50 and now carries an Out tag. Those points are banked. Deshaun Watson remains selected, with Irving, Stevenson, Tyson and Boston among the remaining players. Boston and bench option Tuten are Questionable in Friday’s feed. Seven starters can close a large gap, but Keenan still has Flowers, Okonkwo and Cleveland’s defence. Tommy’s rescue plan requires more than the opposition quietly leaving the restaurant.',
         },
         {
-          title: 'The Thanksgiving call: Andrew Keenan',
-          text: 'Keenan at 8/13. His early points and remaining backfield offer the stronger case, though Flowers is still Questionable in the feed. Tommy at 13/8 has enough through Irving and Stevenson to make this awkward. The football expert needs the score to support the lecture before Hugo starts tuning up underneath him.',
+          title: 'Friday call: Andrew Keenan',
+          text: 'Still Keenan, whose frozen price is 8/13. Tommy’s 13/8 was published before this damage and has not been rewritten. Andrew can reach 8–4; Tommy risks 3–9 while Hugo has made a strong start elsewhere. The 2021 champion has a very current reason to be smug. The football expert may want to postpone his tactical presentation until after dessert.',
         },
       ],
       sources: [
         {
-          label: 'Sleeper · Week 12 recorded starters',
+          label: 'Sleeper · Friday scores and selected lineups',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/12',
         },
         {
-          label: 'Sleeper · Wednesday waivers filed under Week 11',
-          url: 'https://api.sleeper.app/v1/league/1389706813993160704/transactions/11',
-        },
-        {
-          label: 'Packers · Jacobs inactive against Los Angeles',
-          url: 'https://www.packers.com/news/packers-rams-week-12-inactives-nov-25-2026',
-        },
-        {
-          label: 'NFL · Thanksgiving game designations, including Walker out',
-          url: 'https://fantasy-www.nfl.com/news/nfl-week-12-injury-report-2026-season',
+          label: 'Sleeper · Friday rosters and available cover',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/rosters',
         },
       ],
+      previousCall: {
+        publishedAt: '2026-11-26T10:42:58.327Z',
+        pickRosterId: 3,
+      },
     },
   },
   {
@@ -207,41 +207,41 @@ export const weekTwelveReports: MatchupNewsletter[] = [
     preview: {
       version: 1,
       editorial: true,
-      publishedAt: weekTwelvePublishedAt,
-      pickRosterId: 9,
-      homeProjection: 121.89,
-      awayProjection: 125.19,
-      headline: 'Two former forfeits would prefer a quiet holiday.',
+      publishedAt: '2026-11-27T09:34:37.343Z',
+      pickRosterId: 8,
+      homeProjection: 121.85,
+      awayProjection: 125.12,
+      headline: 'Hugo gets a feast. Allen sends Jack the bill.',
       summary:
-        'Thanksgiving preview after Green Bay–Los Angeles: Hugo starts with Kraft’s 3.40 and a 2–9 record. Jack is 7–4 after Shane dismantled last week’s feature. Neither needs reminding what happens when the league gets to choose your extracurricular activities.',
+        'Friday Thanksgiving update: Hugo leads Jack 62.00–17.54. Caleb and Javonte combined for 58.60, while Allen returned 3.54. Thursday’s call was Jack. The man at the bottom has since made a rather convincing entrance.',
       sections: [
         {
-          title: 'Hugo needs a result to match the recovery',
-          text: 'Walsh scored 121.86 against Karl and still lost. His recent improvement has not moved him off the bottom, with Tommy and Murphy one win ahead. Caleb Williams and Javonte Williams give him two Thanksgiving chances to repair Kraft’s modest start; Taylor and Higgins follow Sunday. The $4 Strange pickup stays on the bench. Buying a second tight end is sensible. Getting the first one to score would be more immediately helpful.',
+          title: 'The Williams service',
+          text: 'Caleb scored 25.30 and Javonte 33.30 to add to Kraft’s 3.40. Hugo has six starters left against Jack’s seven, but a 44.46-point cushion makes that a much happier calculation. Jameson Williams supplied Ringrose’s other fourteen. Buffalo won its game; Allen’s fantasy manager got a very different evening. Jack is discovering that a successful Thanksgiving for the Bills does not automatically entitle him to one.',
         },
         {
-          title: 'Jack would like the camera turned off',
-          text: 'Ringrose followed 172.04 with 102.86, making our decision to back him against Shane look rather generous. Allen and Jameson Williams play Thursday, with McCaffrey and Jefferson anchoring the weekend. Henry and selected tight end Fannin carry Questionable tags; Kincaid, his rostered alternative, is questionable for Thursday night. Jack needs to check that cover before Buffalo kicks off.',
+          title: 'There is still a weekend to play',
+          text: 'Denver’s defence goes for Hugo on Friday before Taylor, Higgins, Concepcion, McConkey and Little finish his lineup. Jack still has McCaffrey, Jefferson, Henry and Pollard, so the quality to answer is there. Henry remains Questionable in the morning feed; Fannin is selected at tight end after Kincaid’s 3.30 stayed on the bench. Hugo is 2–9 and needs a win to turn improving scores into actual relief. Tommy’s early deficit makes this a particularly good time to start.',
         },
         {
-          title: 'The Thanksgiving call: Jack Ringrose',
-          text: 'Jack at 8/11, with Hugo 11/8. Allen, McCaffrey and Jefferson favour a rebound, although Hugo’s improved scoring deserves respect. A Walsh win would tighten the forfeit fight. Ringrose has already contributed a calendar to league culture; helping another manager escape the basement would be a less revealing contribution.',
+          title: 'Friday call: Hugo Walsh',
+          text: 'Changing from Jack to Hugo with all four early NFL games completed. The cushion is large enough to favour Walsh, despite Ringrose’s remaining stars and extra starter. Hugo’s 11/8 and Jack’s 8/11 remain the original frozen prices. Both managers know what a league forfeit feels like. One of them has just found a reason to let somebody else rehearse for it.',
         },
       ],
       sources: [
         {
-          label: 'Sleeper · Week 12 lineups and Kraft’s points',
+          label: 'Sleeper · Friday scores and selected lineups',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/12',
         },
         {
-          label: 'Sleeper · Week 11 results',
-          url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/11',
-        },
-        {
-          label: 'NFL · Kincaid questionable for Thanksgiving',
-          url: 'https://fantasy-www.nfl.com/news/nfl-week-12-injury-report-2026-season',
+          label: 'Sleeper · Friday rosters and available cover',
+          url: 'https://api.sleeper.app/v1/league/1389706813993160704/rosters',
         },
       ],
+      previousCall: {
+        publishedAt: '2026-11-26T10:42:58.327Z',
+        pickRosterId: 9,
+      },
     },
   },
   {
@@ -254,45 +254,41 @@ export const weekTwelveReports: MatchupNewsletter[] = [
     preview: {
       version: 1,
       editorial: true,
-      publishedAt: weekTwelvePublishedAt,
+      publishedAt: '2026-11-27T09:34:37.343Z',
       pickRosterId: 5,
-      homeProjection: 122.25,
-      awayProjection: 130.47,
-      headline: 'Karl has already gone back for seconds.',
+      homeProjection: 121.98,
+      awayProjection: 130.91,
+      headline: 'Karl has eaten. Niall is still reading the menu.',
       summary:
-        'Thanksgiving preview after Green Bay–Los Angeles: Corum has delivered 28.50 for Karl before the turkey is served. Niall is 5–6, Walker is out again, and the 8–3 opponent has somehow found another reason to stop complaining about his schedule.',
+        'Friday Thanksgiving update: Karl leads Niall 40.20–0.00 after Corum’s 28.50 and Pickens’ 11.70. Murray has all nine starters left, so the zero is a start time rather than a performance review. The matchup is still uncomfortable.',
       sections: [
         {
-          title: 'Corum starts the feast',
-          text: 'Moroney selected Corum and has the full 28.50 safely banked. Coleman, last week’s 34.90 hero, plays Friday; Bijan is back from his bye. Add Daniels, Pickens and McBride and the best-lineup price makes Karl the week’s shortest favourite. Any forthcoming complaint about bad luck should be submitted with a copy of Wednesday’s receipt.',
+          title: 'A proper head start',
+          text: 'Karl’s two completed players have given him a useful cushion without exhausting the strongest part of his lineup. Daniels, Bijan and McBride remain, along with Coleman and Wilson. Moroney is 8–3 alongside Alan and Shane, whose meeting gives this fixture extra value. He has already been served forty points. Niall would probably have preferred the waiter to lose that order.',
         },
         {
-          title: 'Niall checks who is actually coming',
-          text: 'Walker is ruled out with the groin injury and is on Murray’s bench. Dowdle currently joins Hall in the starting backfield. Evans and Likely carry Questionable tags, with Evans absent from Wednesday practice. Niall has Gesicki available at tight end and Douglas among his receiver alternatives. He trails Joe by only 23.26 season points, but last week’s 97.04 showed how quickly the playoff pursuit can stall.',
+          title: 'Murray’s checks come on Sunday',
+          text: 'Lawrence and Olave lead Niall’s response, with Hall and Dowdle selected at running back. Parker Washington, Likely and Evans all carry Questionable tags in the Friday morning feed. Walker did not play Thursday and remains on the bench. There is no need to invent a crisis from a zero before any starter has played, but an entire Sunday lineup still needs to be available. Murray’s other problem is that Karl has seven players left too.',
         },
         {
-          title: 'The Thanksgiving call: Karl Moroney',
-          text: 'Karl at 2/7, Niall at 10/3. Lawrence, Olave and Washington give Murray a route back, but chasing Corum with this many availability checks is a difficult assignment. Alan and Shane play each other, making this a useful opportunity in Karl’s bye chase. Niall would happily accept a plain sixth-place finish without the dessert menu.',
+          title: 'Friday call: Karl Moroney',
+          text: 'Still Karl, whose published 2/7 stays frozen alongside Niall’s 10/3. Niall is 5–6, level on wins with Joe, Burns and Sharpe; the Burns–Joe meeting guarantees someone around that cut line a difficult weekend unless they tie. Murray needs to exploit it. Karl is trying to make sure his biggest Sunday problem is deciding which of Alan and Shane he would prefer to annoy next.',
         },
       ],
       sources: [
         {
-          label: 'Sleeper · Week 12 starters and Corum’s recorded score',
+          label: 'Sleeper · Friday scores and selected lineups',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/matchups/12',
         },
         {
-          label: 'Sleeper · current records and rostered alternatives',
+          label: 'Sleeper · Friday rosters and available cover',
           url: 'https://api.sleeper.app/v1/league/1389706813993160704/rosters',
         },
-        {
-          label: 'NFL · Walker ruled out against Buffalo',
-          url: 'https://fantasy-www.nfl.com/news/nfl-week-12-injury-report-2026-season',
-        },
-        {
-          label: 'NFL, 25 November · Evans absent from Wednesday practice',
-          url: 'https://fantasy-www.nfl.com/news/brock-purdy-sits-out-practice-ankle-sprain-49ers-seahawks',
-        },
       ],
+      previousCall: {
+        publishedAt: '2026-11-26T10:42:58.327Z',
+        pickRosterId: 5,
+      },
     },
   },
 ];

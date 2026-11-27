@@ -158,9 +158,9 @@ export const matchOfTheWeekSelections: readonly MatchOfTheWeek[] = [
     awayRosterId: 7,
     selectedAt: weekTwelvePublishedAt,
     reason:
-      'Thanksgiving selection after Green Bay–Los Angeles: Burns and Joe are both 5–6, separated by 21.14 season points around the last playoff place. Kyren has Burns 16.50–4.90 ahead, with three regular-season games left to protect six years of perfect playoff attendance.',
+      'Friday Thanksgiving update: Burns and Joe began 5–6, separated by 21.14 season points around the last playoff place. Burns now leads 67.80–40.90, with three regular-season games left to protect six years of perfect playoff attendance.',
     buildUp:
-      'One seat left at the table and two managers who think they booked it. Joe holds sixth; Burns can move a win ahead of him. The prices are 10/11 Burns and 11/10 Joe, with the opening points already included. We narrowly take Burns, while Purdy’s ankle needs monitoring and Joe has Hurts on IR as his only other rostered quarterback. This is a Thanksgiving call made after the opener. Neither can clinch here, but the loser will have considerably less appetite for the league table.',
+      'One seat left at the table and two managers who think they booked it. Swift’s 29.20 has improved Burns’ position, but Joe has six starters left to the commissioner’s five. Purdy’s ankle still needs attention. We retain the Burns call with Thursday’s scoring known; the published 10/11 and 11/10 prices remain frozen. Neither can clinch here, but the loser will have considerably less appetite for the league table.',
   },
 ];
 

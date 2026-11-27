@@ -9,6 +9,7 @@ import { MatchTicket } from '@/components/clubhouse/match-ticket';
 import { RankingsDeck } from '@/components/clubhouse/rankings-deck';
 import { Scoreboard } from '@/components/clubhouse/scoreboard';
 import { ThanksgivingWeek } from '@/components/clubhouse/thanksgiving-week';
+import { isThanksgivingWeek } from '@/lib/data/thanksgiving-week';
 import { ShameSticker } from '@/components/clubhouse/shame-sticker';
 import { MacHomepageFeature } from '@/components/return-of-the-mac/broadcast';
 import { getMacEpisodes, macShow } from '@/lib/data/return-of-the-mac';
@@ -267,7 +268,9 @@ export default async function DashboardPage() {
       key={`${predictions.season}-${predictions.week}`}
       data={predictions}
     >
-      <div className="clubhouse-field space-y-5 sm:space-y-7">
+      <div
+        className={`clubhouse-field space-y-5 sm:space-y-7${isThanksgivingWeek(predictions) ? ' thanksgiving-edition' : ''}`}
+      >
         {data.mode === 'unavailable' && (
           <output className="notice">
             League details are temporarily unavailable. Your picks and the

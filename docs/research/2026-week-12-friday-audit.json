@@ -1,0 +1,138 @@
+{
+  "checkedAt": "2026-11-27T09:39:16.746Z",
+  "leagueId": "1389706813993160704",
+  "season": "2026",
+  "week": 12,
+  "locked": false,
+  "lockAt": "2026-11-29T18:00:00+00:00",
+  "finalized": false,
+  "pricesMatchThursday": true,
+  "matchups": [
+    {
+      "id": 1,
+      "home": "David Sharpe",
+      "away": "Aidan Murphy",
+      "homeRosterId": 11,
+      "awayRosterId": 12,
+      "recordedScore": [
+        26.42,
+        45.04
+      ],
+      "prices": [
+        "3/1",
+        "1/3"
+      ],
+      "call": 12,
+      "previousCall": {
+        "publishedAt": "2026-11-26T10:42:58.327Z",
+        "pickRosterId": 12
+      },
+      "publishedAt": "2026-11-27T09:34:37.343Z"
+    },
+    {
+      "id": 2,
+      "home": "Emmet Burns",
+      "away": "Joe Ennis",
+      "homeRosterId": 1,
+      "awayRosterId": 7,
+      "recordedScore": [
+        67.8,
+        40.9
+      ],
+      "prices": [
+        "10/11",
+        "11/10"
+      ],
+      "call": 1,
+      "previousCall": {
+        "publishedAt": "2026-11-26T10:42:58.327Z",
+        "pickRosterId": 1
+      },
+      "publishedAt": "2026-11-27T09:34:37.343Z"
+    },
+    {
+      "id": 3,
+      "home": "Alan Horgan",
+      "away": "Shane Marmion",
+      "homeRosterId": 6,
+      "awayRosterId": 10,
+      "recordedScore": [
+        55.7,
+        40.4
+      ],
+      "prices": [
+        "11/10",
+        "10/11"
+      ],
+      "call": 6,
+      "previousCall": {
+        "publishedAt": "2026-11-26T10:42:58.327Z",
+        "pickRosterId": 10
+      },
+      "publishedAt": "2026-11-27T09:34:37.343Z"
+    },
+    {
+      "id": 4,
+      "home": "Andrew Keenan",
+      "away": "Tommy O'Brien",
+      "homeRosterId": 3,
+      "awayRosterId": 4,
+      "recordedScore": [
+        105.62,
+        3
+      ],
+      "prices": [
+        "8/13",
+        "13/8"
+      ],
+      "call": 3,
+      "previousCall": {
+        "publishedAt": "2026-11-26T10:42:58.327Z",
+        "pickRosterId": 3
+      },
+      "publishedAt": "2026-11-27T09:34:37.343Z"
+    },
+    {
+      "id": 5,
+      "home": "Hugo Walsh",
+      "away": "Jack Ringrose",
+      "homeRosterId": 8,
+      "awayRosterId": 9,
+      "recordedScore": [
+        62,
+        17.54
+      ],
+      "prices": [
+        "11/8",
+        "8/11"
+      ],
+      "call": 8,
+      "previousCall": {
+        "publishedAt": "2026-11-26T10:42:58.327Z",
+        "pickRosterId": 9
+      },
+      "publishedAt": "2026-11-27T09:34:37.343Z"
+    },
+    {
+      "id": 6,
+      "home": "Niall Murray",
+      "away": "Karl Moroney",
+      "homeRosterId": 2,
+      "awayRosterId": 5,
+      "recordedScore": [
+        0,
+        40.2
+      ],
+      "prices": [
+        "10/3",
+        "2/7"
+      ],
+      "call": 5,
+      "previousCall": {
+        "publishedAt": "2026-11-26T10:42:58.327Z",
+        "pickRosterId": 5
+      },
+      "publishedAt": "2026-11-27T09:34:37.343Z"
+    }
+  ]
+}

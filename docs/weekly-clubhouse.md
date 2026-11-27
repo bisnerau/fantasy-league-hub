@@ -514,3 +514,20 @@ straight win. Talking points cover the four-team 5–6 playoff queue, Wednesday
 waivers and the early Thanksgiving kickoff. All Friday previews and calls stay
 unchanged, with Jack–Shane retained as the archived feature. See
 `research/2026-week-12.md` for sources and verification.
+
+## Thanksgiving Friday refresh
+
+On 27 November, the commissioner requested a rewrite before sharing Week 12.
+All six reports now use Friday's banked scores and team checks; Alan and Hugo
+replace Shane and Jack as the two changed calls. Each report shows the prior
+call and refreshed publication time. Full Thursday reports remain in the
+research archive. Published prices and saved picks remain unchanged.
+
+Home and Weekly Picks share a copper/cranberry feast board, an original SVG
+football turkey with a short tap/keyboard dance, linked scoring highlights and
+a “Serve the picks” ballot link. Eight seasonal leaf particles replace the
+usual spark after a confirmed pick save, with gold for a Banker. Entrances and
+celebrations are bounded and respect reduced motion. The existing Week 12
+league/date/settlement gate controls all holiday styling. See
+`research/2026-week-12-friday-refresh.md` for evidence, animation references and
+verification.
