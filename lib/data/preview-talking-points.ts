@@ -29,7 +29,7 @@ const editions = [
       },
       {
         title: 'Friday leftovers. Sunday picks at six.',
-        text: 'Six refreshed previews include the four completed early NFL games. Broncos–Steelers kicks off at 20:00 Friday, Irish time. Your six picks and Banker close at 18:00 Irish time on Sunday 29 November. Thursday’s published prices stay frozen; the Friday calls use the scores now known. Check Sleeper lineups before each player’s game.',
+        text: 'Six refreshed previews include the four completed early NFL games. Broncos–Steelers kicks off at 20:00 Friday, Irish time. Your six picks and Banker close at 18:00 Irish time on Sunday 29 November. Odds refreshed Friday use banked scores and remaining lineups, and apply to all Week 12 picks, including saved picks and Bankers. Check Sleeper lineups before each player’s game.',
         href: '/matchups?week=12',
       },
     ],

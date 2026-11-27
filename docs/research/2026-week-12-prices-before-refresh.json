@@ -1,0 +1,208 @@
+{
+  "checkedAt": "2026-11-27T11:31:11.443Z",
+  "week": {
+    "id": 195,
+    "league_id": "1389706813993160704",
+    "season": 2026,
+    "week": 12,
+    "locks_at": "2026-11-29T18:00:00+00:00"
+  },
+  "matchups": [
+    {
+      "id": 988,
+      "prediction_week_id": 195,
+      "sleeper_matchup_id": 4,
+      "home_roster_id": 3,
+      "away_roster_id": 4,
+      "home_projected": 129.14,
+      "away_projected": 113.82,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled",
+      "created_at": "2026-11-24T10:09:30.237903+00:00",
+      "updated_at": "2026-11-27T10:09:29.803469+00:00",
+      "preview_story": null
+    },
+    {
+      "id": 987,
+      "prediction_week_id": 195,
+      "sleeper_matchup_id": 3,
+      "home_roster_id": 6,
+      "away_roster_id": 10,
+      "home_projected": 132.81,
+      "away_projected": 132.69,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled",
+      "created_at": "2026-11-24T10:09:30.237903+00:00",
+      "updated_at": "2026-11-27T10:09:29.466807+00:00",
+      "preview_story": null
+    },
+    {
+      "id": 986,
+      "prediction_week_id": 195,
+      "sleeper_matchup_id": 2,
+      "home_roster_id": 1,
+      "away_roster_id": 7,
+      "home_projected": 120.6,
+      "away_projected": 131.56,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled",
+      "created_at": "2026-11-24T10:09:30.237903+00:00",
+      "updated_at": "2026-11-27T10:09:29.330588+00:00",
+      "preview_story": null
+    },
+    {
+      "id": 985,
+      "prediction_week_id": 195,
+      "sleeper_matchup_id": 1,
+      "home_roster_id": 11,
+      "away_roster_id": 12,
+      "home_projected": 99.41,
+      "away_projected": 117.31,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled",
+      "created_at": "2026-11-24T10:09:30.237903+00:00",
+      "updated_at": "2026-11-27T10:09:28.983925+00:00",
+      "preview_story": null
+    },
+    {
+      "id": 989,
+      "prediction_week_id": 195,
+      "sleeper_matchup_id": 5,
+      "home_roster_id": 8,
+      "away_roster_id": 9,
+      "home_projected": 121.85,
+      "away_projected": 125.12,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled",
+      "created_at": "2026-11-24T10:09:30.237903+00:00",
+      "updated_at": "2026-11-27T10:09:30.137924+00:00",
+      "preview_story": null
+    },
+    {
+      "id": 990,
+      "prediction_week_id": 195,
+      "sleeper_matchup_id": 6,
+      "home_roster_id": 2,
+      "away_roster_id": 5,
+      "home_projected": 121.98,
+      "away_projected": 130.91,
+      "home_final": null,
+      "away_final": null,
+      "winner_roster_id": null,
+      "status": "scheduled",
+      "created_at": "2026-11-24T10:09:30.237903+00:00",
+      "updated_at": "2026-11-27T10:09:30.469749+00:00",
+      "preview_story": null
+    }
+  ],
+  "prices": [
+    {
+      "matchup_id": 985,
+      "roster_id": 11,
+      "numerator": 3,
+      "denominator": 1,
+      "payout": 4,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 985,
+      "roster_id": 12,
+      "numerator": 1,
+      "denominator": 3,
+      "payout": 1.33,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 986,
+      "roster_id": 1,
+      "numerator": 10,
+      "denominator": 11,
+      "payout": 1.91,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 986,
+      "roster_id": 7,
+      "numerator": 11,
+      "denominator": 10,
+      "payout": 2.1,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 987,
+      "roster_id": 6,
+      "numerator": 11,
+      "denominator": 10,
+      "payout": 2.1,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 987,
+      "roster_id": 10,
+      "numerator": 10,
+      "denominator": 11,
+      "payout": 1.91,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 988,
+      "roster_id": 3,
+      "numerator": 8,
+      "denominator": 13,
+      "payout": 1.62,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 988,
+      "roster_id": 4,
+      "numerator": 13,
+      "denominator": 8,
+      "payout": 2.63,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 989,
+      "roster_id": 8,
+      "numerator": 11,
+      "denominator": 8,
+      "payout": 2.38,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 989,
+      "roster_id": 9,
+      "numerator": 8,
+      "denominator": 11,
+      "payout": 1.73,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 990,
+      "roster_id": 2,
+      "numerator": 10,
+      "denominator": 3,
+      "payout": 4.33,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    },
+    {
+      "matchup_id": 990,
+      "roster_id": 5,
+      "numerator": 2,
+      "denominator": 7,
+      "payout": 1.29,
+      "published_at": "2026-11-26T10:45:47.327013+00:00"
+    }
+  ],
+  "votes": 16,
+  "bankers": 2
+}

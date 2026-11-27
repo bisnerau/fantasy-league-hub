@@ -88,3 +88,15 @@ prices were prepared on Thursday 12 November before Washington–New York becaus
 he was unavailable Friday. The same model and freeze rules apply, with no banked
 points. The homepage and previews disclose the cutoff and pending final injury
 designations. This does not change the usual Friday workflow or Sunday lock.
+
+Week 12 of 2026 was explicitly repriced by the commissioner on Friday
+27 November, after the early games, before Sunday lock. The refreshed best-lineup
+snapshot banks completed starters and excludes completed bench players. All
+existing and new Week 12 picks use the refreshed prices; the 16 saved votes and
+two Bankers were preserved. The guarded one-time transaction in
+`research/2026-week-12-refresh-prices.sql` verifies the old receipt, locks the
+affected tables, checks that every selection and other week's price is
+unchanged, and restores and tests the original freeze trigger before commit.
+Its temporary staging table has RLS enabled. Thursday's snapshot and prices
+remain archived; `research/2026-week-12-friday-price-receipt.json` records the
+new publication. The normal publishing script and freeze rules are unchanged.

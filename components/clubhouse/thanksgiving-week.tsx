@@ -63,9 +63,9 @@ export function ThanksgivingWeek({ data }: { data: PredictionWeekData }) {
           Irish time. Then Sunday’s slate and Monday night.
         </p>
         <p>
-          Friday previews include all four completed early NFL games. Prices
-          were frozen Thursday. Set Sleeper lineups before each player’s
-          kickoff.
+          Odds refreshed Friday using banked scores and remaining lineups.
+          Updated odds apply to all Week 12 picks, including saved picks and
+          Bankers. Set Sleeper lineups before each player’s kickoff.
         </p>
       </div>
     </aside>

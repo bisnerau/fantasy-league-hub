@@ -87,3 +87,25 @@ sums and the unchanged frozen price snapshot. Lint and the production build
 pass. Browser checks cover phone/desktop layout, the mascot, ballot links and
 updated report sheets. The automated Playwright suite is unavailable because
 its Chromium binary is not installed; no physical-device Safari claim is made.
+
+## Commissioner-requested odds refresh
+
+The subsequent request to update odds was fulfilled at 11:39 Irish time on
+27 November. `2026-week-12-friday-price-receipt.json` records all twelve new
+prices. The 11:31 best-lineup snapshot banks every completed starter and
+excludes completed bench players. The original snapshot is retained as
+`2026-week-12-thursday-odds.json`; the original database receipt is unchanged.
+The six reports before repricing are retained in
+`2026-week-12-friday-previews-before-reprice.json`.
+
+A whole-transaction rollback rehearsal passed before the authorized commit.
+The transaction compared every saved vote and Banker row, all other weeks'
+prices, each refreshed payout, and the reinstated freeze trigger. It uses a
+session-local temporary table with RLS enabled. Independent API reads verified
+all twelve persisted fractions and payouts, plus the original 16 picks and two
+Bankers. The new weekly prices apply uniformly to saved and future picks.
+
+The CLI account lacked access to this project. The commissioner directed the
+update through the active Chrome profile, which had the correct MAC 12 project
+access. No project permissions or permanent pricing safeguards were changed.
+Eight targeted pricing/Week 12 tests, lint and the production build passed.

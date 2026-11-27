@@ -521,7 +521,11 @@ On 27 November, the commissioner requested a rewrite before sharing Week 12.
 All six reports now use Friday's banked scores and team checks; Alan and Hugo
 replace Shane and Jack as the two changed calls. Each report shows the prior
 call and refreshed publication time. Full Thursday reports remain in the
-research archive. Published prices and saved picks remain unchanged.
+research archive. The initial Friday rewrite retained Thursday's prices.
+The commissioner subsequently requested a Friday reprice: all twelve prices
+now include banked early-game scores and the remaining best legal lineups.
+The banner and reports disclose the refresh, which applies to existing and
+new picks. All 16 saved selections and two Bankers were preserved.
 
 Home and Weekly Picks share a copper/cranberry feast board, an original SVG
 football turkey with a short tap/keyboard dance, linked scoring highlights and

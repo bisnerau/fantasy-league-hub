@@ -1,0 +1,236 @@
+{
+  "snapshot": "2026-11-27T11:31:17.263Z",
+  "week": 12,
+  "season": 2026,
+  "weekId": 195,
+  "prices": [
+    {
+      "matchup_id": 985,
+      "roster_id": 11,
+      "manager": "David Sharpe",
+      "team": "Burkeys Teur",
+      "numerator": 9,
+      "denominator": 1,
+      "payout": 10,
+      "previous": {
+        "matchup_id": 985,
+        "roster_id": 11,
+        "numerator": 3,
+        "denominator": 1,
+        "payout": 4,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 26.42,
+      "adjustedTotal": 80.11
+    },
+    {
+      "matchup_id": 985,
+      "roster_id": 12,
+      "manager": "Aidan Murphy",
+      "team": "BurrowMeDickinYoAss",
+      "numerator": 1,
+      "denominator": 10,
+      "payout": 1.1,
+      "previous": {
+        "matchup_id": 985,
+        "roster_id": 12,
+        "numerator": 1,
+        "denominator": 3,
+        "payout": 1.33,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 45.04,
+      "adjustedTotal": 124.15
+    },
+    {
+      "matchup_id": 986,
+      "roster_id": 1,
+      "manager": "Emmet Burns",
+      "team": "Burns XI",
+      "numerator": 4,
+      "denominator": 11,
+      "payout": 1.36,
+      "previous": {
+        "matchup_id": 986,
+        "roster_id": 1,
+        "numerator": 10,
+        "denominator": 11,
+        "payout": 1.91,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 67.8,
+      "adjustedTotal": 140.1
+    },
+    {
+      "matchup_id": 986,
+      "roster_id": 7,
+      "manager": "Joe Ennis",
+      "team": "D'onta FourMore!",
+      "numerator": 11,
+      "denominator": 4,
+      "payout": 3.75,
+      "previous": {
+        "matchup_id": 986,
+        "roster_id": 7,
+        "numerator": 11,
+        "denominator": 10,
+        "payout": 2.1,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 40.9,
+      "adjustedTotal": 120.57
+    },
+    {
+      "matchup_id": 987,
+      "roster_id": 6,
+      "manager": "Alan Horgan",
+      "team": "Tampa B'AH",
+      "numerator": 8,
+      "denominator": 15,
+      "payout": 1.53,
+      "previous": {
+        "matchup_id": 987,
+        "roster_id": 6,
+        "numerator": 11,
+        "denominator": 10,
+        "payout": 2.1,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 55.7,
+      "adjustedTotal": 148.4
+    },
+    {
+      "matchup_id": 987,
+      "roster_id": 10,
+      "manager": "Shane Marmion",
+      "team": "Whos Throwing Diggs",
+      "numerator": 15,
+      "denominator": 8,
+      "payout": 2.88,
+      "previous": {
+        "matchup_id": 987,
+        "roster_id": 10,
+        "numerator": 10,
+        "denominator": 11,
+        "payout": 1.91,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 40.4,
+      "adjustedTotal": 135.69
+    },
+    {
+      "matchup_id": 988,
+      "roster_id": 3,
+      "manager": "Andrew Keenan",
+      "team": "Cooper Kupp Mah Balls",
+      "numerator": 1,
+      "denominator": 8,
+      "payout": 1.13,
+      "previous": {
+        "matchup_id": 988,
+        "roster_id": 3,
+        "numerator": 8,
+        "denominator": 13,
+        "payout": 1.62,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 105.62,
+      "adjustedTotal": 141.88
+    },
+    {
+      "matchup_id": 988,
+      "roster_id": 4,
+      "manager": "Tommy O’Brien",
+      "team": "Prime Time",
+      "numerator": 8,
+      "denominator": 1,
+      "payout": 9,
+      "previous": {
+        "matchup_id": 988,
+        "roster_id": 4,
+        "numerator": 13,
+        "denominator": 8,
+        "payout": 2.63,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 3,
+      "adjustedTotal": 101.36
+    },
+    {
+      "matchup_id": 989,
+      "roster_id": 8,
+      "manager": "Hugo Walsh",
+      "team": "Hawk Tuas Binatsos ",
+      "numerator": 2,
+      "denominator": 7,
+      "payout": 1.29,
+      "previous": {
+        "matchup_id": 989,
+        "roster_id": 8,
+        "numerator": 11,
+        "denominator": 8,
+        "payout": 2.38,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 62,
+      "adjustedTotal": 131.69
+    },
+    {
+      "matchup_id": 989,
+      "roster_id": 9,
+      "manager": "Jack Ringrose",
+      "team": "The Finest Wagyu",
+      "numerator": 10,
+      "denominator": 3,
+      "payout": 4.33,
+      "previous": {
+        "matchup_id": 989,
+        "roster_id": 9,
+        "numerator": 8,
+        "denominator": 11,
+        "payout": 1.73,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 17.54,
+      "adjustedTotal": 108.07
+    },
+    {
+      "matchup_id": 990,
+      "roster_id": 2,
+      "manager": "Niall Murray",
+      "team": "Mahomes-lander n The Boys",
+      "numerator": 11,
+      "denominator": 4,
+      "payout": 3.75,
+      "previous": {
+        "matchup_id": 990,
+        "roster_id": 2,
+        "numerator": 10,
+        "denominator": 3,
+        "payout": 4.33,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 0,
+      "adjustedTotal": 124.36
+    },
+    {
+      "matchup_id": 990,
+      "roster_id": 5,
+      "manager": "Karl Moroney",
+      "team": "Pronouns Who Dey",
+      "numerator": 4,
+      "denominator": 11,
+      "payout": 1.36,
+      "previous": {
+        "matchup_id": 990,
+        "roster_id": 5,
+        "numerator": 2,
+        "denominator": 7,
+        "payout": 1.29,
+        "published_at": "2026-11-26T10:45:47.327013+00:00"
+      },
+      "banked": 40.2,
+      "adjustedTotal": 145
+    }
+  ]
+}

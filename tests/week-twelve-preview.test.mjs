@@ -22,7 +22,8 @@ const priceEvidence = read(
 const previousReports = read(
   '../docs/research/2026-week-12-thursday-previews.json',
 );
-const odds = read('../lib/data/experiments/odds-week-twelve.json');
+const odds = read('../docs/research/2026-week-12-thursday-odds.json');
+const refreshedOdds = read('../lib/data/experiments/odds-week-twelve.json');
 const now = Date.parse(weekTwelvePublishedAt);
 const data = {
   leagueId: evidence.leagueId,
@@ -80,7 +81,11 @@ void test('Week 12 Thanksgiving stories match fresh fixtures and only appear at 
     /18:00 Irish time on Sunday 29 November/,
   );
   assert.match(editorial.talkingPoints[2].text, /20:00 Friday/);
-  assert.match(editorial.talkingPoints[2].text, /prices stay frozen/);
+  assert.match(editorial.talkingPoints[2].text, /Odds refreshed Friday/);
+  assert.match(
+    editorial.talkingPoints[2].text,
+    /including saved picks and Bankers/,
+  );
   assert.equal(getPreviewTalkingPoints(data, now - 1), null);
   for (const changed of [
     { finalized: true },
@@ -215,4 +220,54 @@ void test('Friday refresh retains prior calls and accounts for every completed s
     [3, 5],
   );
   assert.ok(Date.parse(odds.snapshot) < Date.parse(evidence.retrievedAt));
+});
+
+void test('repriced Week 12 banks completed starters and cannot bring finished bench players in', () => {
+  assert.equal(refreshedOdds.week, 12);
+  assert.equal(refreshedOdds.season, 2026);
+  assert.equal(refreshedOdds.lineupBasis, 'best');
+  assert.ok(
+    Date.parse(refreshedOdds.snapshot) > Date.parse(evidence.retrievedAt),
+  );
+  assert.equal(refreshedOdds.matchups.length, 6);
+  for (const matchup of refreshedOdds.matchups) {
+    const sourceTeams = evidence.teams.filter(
+      (t) => t.matchupId === matchup.id,
+    );
+    assert.deepEqual(
+      matchup.teams.map((t) => t.id),
+      sourceTeams.map((t) => t.rosterId),
+    );
+    for (const team of matchup.teams) {
+      const source = sourceTeams.find((t) => t.rosterId === team.id);
+      const completed = source.starters.filter((p) => p.finished);
+      const selected = team.adjustedLineup.filter((p) => p.locked);
+      assert.equal(team.banked, source.points);
+      assert.equal(team.adjustedLineup.length, 9);
+      assert.equal(new Set(team.adjustedLineup.map((p) => p.name)).size, 9);
+      assert.deepEqual(
+        selected.map((p) => p.name).sort(),
+        completed.map((p) => p.name).sort(),
+      );
+      for (const player of selected) {
+        assert.equal(
+          player.points,
+          completed.find((p) => p.name === player.name).points,
+        );
+        assert.equal(player.fromBench, false);
+      }
+      const completedBench = source.bench
+        .filter((p) => p.finished)
+        .map((p) => p.name);
+      assert.ok(
+        team.adjustedLineup.every((p) => !completedBench.includes(p.name)),
+      );
+      assert.equal(
+        team.adjustedTotal,
+        Math.round(
+          team.adjustedLineup.reduce((s, p) => s + p.points, 0) * 100,
+        ) / 100,
+      );
+    }
+  }
 });

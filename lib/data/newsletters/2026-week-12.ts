@@ -33,7 +33,7 @@ export const weekTwelveReports: MatchupNewsletter[] = [
         },
         {
           title: 'Friday call: Aidan Murphy',
-          text: 'Still Murphy. The Thursday price remains frozen at 1/3; this is a fresh assessment with the holiday scores known. Aidan is 3–8 and can hardly afford to waste this start. Sharpe has made a habit of turning low totals into wins, but asking five remaining players to cover this much dinner is ambitious even by his standards.',
+          text: 'Still Murphy. The Friday odds refresh makes Murphy 1/10 and Sharpe 9/1, with the holiday scores banked. Aidan is 3–8 and can hardly afford to waste this start. Sharpe has made a habit of turning low totals into wins, but asking five remaining players to cover this much dinner is ambitious even by his standards.',
         },
       ],
       sources: [
@@ -80,7 +80,7 @@ export const weekTwelveReports: MatchupNewsletter[] = [
         },
         {
           title: 'Friday call: Emmet Burns',
-          text: 'Burns stays the call. The published 10/11 and 11/10 prices are Thursday’s frozen prices, not a fresh live market. Three regular-season games remain, and neither manager can clinch here. A win would move one a full game ahead of the other. Six years of perfect playoff attendance is still an excellent dinner-party fact. Burns would prefer not to spend December explaining the word “previously”.',
+          text: 'Burns stays the call. The Friday odds refresh makes Burns 4/11 and Joe 11/4. Three regular-season games remain, and neither manager can clinch here. A win would move one a full game ahead of the other. Six years of perfect playoff attendance is still an excellent dinner-party fact. Burns would prefer not to spend December explaining the word “previously”.',
         },
       ],
       sources: [
@@ -131,7 +131,7 @@ export const weekTwelveReports: MatchupNewsletter[] = [
         },
         {
           title: 'Friday call: Alan Horgan',
-          text: 'Changing from Shane to Alan, with the Thanksgiving scoring explicitly known. Gibbs’ return and Alan’s extra remaining starter outweigh the recent-form argument that favoured Marmion yesterday. The frozen prices still show Alan at 11/10 and Shane at 10/11. The original Thursday call stays in the report history.',
+          text: 'Changing from Shane to Alan, with the Thanksgiving scoring explicitly known. Gibbs’ return and Alan’s extra remaining starter outweigh the recent-form argument that favoured Marmion yesterday. The Friday odds refresh now shows Alan at 8/15 and Shane at 15/8. The original Thursday call stays in the report history.',
         },
       ],
       sources: [
@@ -178,7 +178,7 @@ export const weekTwelveReports: MatchupNewsletter[] = [
         },
         {
           title: 'Friday call: Andrew Keenan',
-          text: 'Still Keenan, whose frozen price is 8/13. Tommy’s 13/8 was published before this damage and has not been rewritten. Andrew can reach 8–4; Tommy risks 3–9 while Hugo has made a strong start elsewhere. The 2021 champion has a very current reason to be smug. The football expert may want to postpone his tactical presentation until after dessert.',
+          text: 'Still Keenan, now 1/8 in the Friday odds refresh, with Tommy out to 8/1 after the early damage. Andrew can reach 8–4; Tommy risks 3–9 while Hugo has made a strong start elsewhere. The 2021 champion has a very current reason to be smug. The football expert may want to postpone his tactical presentation until after dessert.',
         },
       ],
       sources: [
@@ -225,7 +225,7 @@ export const weekTwelveReports: MatchupNewsletter[] = [
         },
         {
           title: 'Friday call: Hugo Walsh',
-          text: 'Changing from Jack to Hugo with all four early NFL games completed. The cushion is large enough to favour Walsh, despite Ringrose’s remaining stars and extra starter. Hugo’s 11/8 and Jack’s 8/11 remain the original frozen prices. Both managers know what a league forfeit feels like. One of them has just found a reason to let somebody else rehearse for it.',
+          text: 'Changing from Jack to Hugo with all four early NFL games completed. The cushion is large enough to favour Walsh, despite Ringrose’s remaining stars and extra starter. The Friday odds refresh makes Hugo 2/7 and Jack 10/3. Both managers know what a league forfeit feels like. One of them has just found a reason to let somebody else rehearse for it.',
         },
       ],
       sources: [
@@ -272,7 +272,7 @@ export const weekTwelveReports: MatchupNewsletter[] = [
         },
         {
           title: 'Friday call: Karl Moroney',
-          text: 'Still Karl, whose published 2/7 stays frozen alongside Niall’s 10/3. Niall is 5–6, level on wins with Joe, Burns and Sharpe; the Burns–Joe meeting guarantees someone around that cut line a difficult weekend unless they tie. Murray needs to exploit it. Karl is trying to make sure his biggest Sunday problem is deciding which of Alan and Shane he would prefer to annoy next.',
+          text: 'Still Karl, now 4/11 in the Friday odds refresh alongside Niall’s 11/4. Niall is 5–6, level on wins with Joe, Burns and Sharpe; the Burns–Joe meeting guarantees someone around that cut line a difficult weekend unless they tie. Murray needs to exploit it. Karl is trying to make sure his biggest Sunday problem is deciding which of Alan and Shane he would prefer to annoy next.',
         },
       ],
       sources: [
